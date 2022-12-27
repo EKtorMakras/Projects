@@ -1,0 +1,146 @@
+// * --------------- Buttons --------------- * //
+
+.btn {
+
+    //^ Generic buttons //
+
+    &,
+    &:link,
+    &:visited {
+        @include transition(.2s, ease);
+        display: inline-block;
+        text-transform: capitalize;
+        padding: 1rem 2rem;
+
+        background-color: $clr-grey-dark-3;
+        color: #fff;
+
+        font-size: $fnt-default;
+        letter-spacing: 1.5px;
+
+        box-shadow: $shadow-light-1;
+        border: none;
+        cursor: pointer;
+    }
+
+    &:active,
+    &:focus {
+        // transform: translateY(1px);
+        // background-color: red;
+        box-shadow: $shadow-dark-1;
+        outline: none;
+    }
+
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    &-light {
+
+        &,
+        &:link,
+        &:visited {
+            background-color: $clr-grey-light-1;
+        }
+
+
+    }
+
+    &-primary {
+
+        &,
+        &:link,
+        &:visited {
+            background-color: $clr-primary;
+        }
+
+    }
+
+    &-secondary {
+
+        &,
+        &:link,
+        &:visited {
+            background-color: $clr-secondary;
+        }
+    }
+
+    &-block {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Card--------------- * //
+
+.card {
+
+
+    &__img {
+        object-fit: cover;
+    }
+
+    &__title,
+    &__text,
+    &__link {
+        color: inherit;
+    }
+
+
+    // card-about
+    &-about {
+        padding: 2rem;
+    }
+
+    // card article
+    &-article {}
+}
+
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(184, 181, 181);
+    padding: 1rem;
+
+    &__category {
+        margin-bottom: 0;
+    }
+}
+
+// * --------------- --------------- * //
+
+
+// * --------------- Form --------------- * //
+
+.form {
+
+    &__input[type='email'] {
+        width: 90%;
+        padding: .8rem;
+        margin-bottom: .8rem;
+        border: 1px solid $clr-grey-5;
+
+        &:focus {
+            outline: 2px solid $clr-grey-3;
+
+        }
+    }
+}
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Buttons --------------- * //
+
+
+
+// * --------------- --------------- * //

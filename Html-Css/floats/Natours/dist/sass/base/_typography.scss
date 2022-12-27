@@ -1,0 +1,119 @@
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+
+// & Headings
+
+.heading-primary {
+
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 6rem;
+
+    backface-visibility: hidden;
+
+
+    &--main {
+        display: block;
+        font-size: 6rem;
+        font-weight: 400;
+        letter-spacing: 3.5rem;
+
+        animation-name: moveInLeft;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+
+
+        //$ ----- Media ----- //
+
+        @include respond (phone) {
+            letter-spacing: 1.8rem;
+            font-size: 4.2rem;
+        }
+
+        //$ ----- ----- //
+    }
+
+    &--sub {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1.7rem;
+
+        animation-name: moveInRight;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+
+
+        //$ ----- Media ----- //
+
+        @include respond (phone) {
+            letter-spacing: .5rem;
+            font-size: 1.8rem;
+        }
+
+        //$ ----- ----- //
+    }
+}
+
+.heading-secondary {
+
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    @include transition(.2s, ease);
+
+    // color gradient
+    display: inline-block;
+    background: linear-gradient(to right, $clr-primary-light, $clr-primary-dark);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    &:hover {
+        transform: skewY(2deg) skewX(15deg) scale(1.1);
+        text-shadow: .1rem .4rem .8rem rgba($clr-black, .1);
+    }
+
+
+    //$ ----- Media ----- //
+
+    @include respond (tab-port) {
+        font-size: 2.6rem;
+        max-width: 80%;
+    }
+
+    @include respond (phone) {
+        font-size: 2.1rem;
+    }
+
+    //$ ----- ----- //
+}
+
+.heading-tertiary {
+    font-size: $fnt-default;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+// & Paragraphs
+
+.paragraph {
+    font-size: $fnt-default;
+
+    &:not(:last-child) {
+        margin-bottom: 4rem;
+    }
+}
+
+
+// & Links
+
+a {
+    text-decoration: none;
+}

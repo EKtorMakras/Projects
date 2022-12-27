@@ -1,0 +1,586 @@
+//` --- Buttons ---  //
+
+.btn {
+
+    //^ Generic buttons //
+
+    &,
+    &:link,
+    &:visited {
+        @include transition(.2s, ease);
+        display: inline-block;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+
+        background: linear-gradient(to right bottom, $clr-primary-light, $clr-primary-dark);
+        color: #fff;
+
+        font-size: 1.5rem;
+        font-weight: 300;
+
+        border-radius: 20rem;
+        box-shadow: $light-shadow;
+        border: none;
+        cursor: pointer;
+    }
+
+
+    &:active,
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite;
+    }
+
+
+    &__visible {
+        display: inline-block;
+        padding: 2rem 7.5rem;
+        height: 100%;
+        width: 100%;
+        transition: $transition;
+    }
+
+    &__hidden {
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        padding: 2rem 0;
+        position: absolute;
+        left: 0;
+        top: -100%;
+        transition: $transition;
+    }
+
+
+    &:hover &__visible {
+        transform: translateY(100%);
+    }
+
+    &:hover &__hidden {
+        top: 0;
+    }
+
+    &:hover {
+        background: linear-gradient(to left bottom, $clr-primary-light, $clr-primary-dark);
+    }
+}
+
+.btn-inline {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    color: $clr-primary;
+    font-size: inherit;
+    border-bottom: 1px solid currentColor;
+    cursor: pointer;
+    transition: $transition;
+
+
+    span {
+        margin-left: 3px;
+        display: inline-block;
+        transition: margin-left .3s ease;
+    }
+
+    &:hover {
+        color: $clr-grey-dark-1;
+
+        span {
+            margin-left: 6px;
+        }
+    }
+
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite;
+    }
+}
+
+//` --- --- //
+
+
+
+//` --- Form---  //
+
+.search {
+
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+
+
+
+    //$ -- Media -- //
+    @include media-max($bp-smallest) {
+        @include center-mar;
+        // margin-top: 1rem;
+        flex: 0 0 80%;
+        order: 1;
+    }
+
+
+    &__input {
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+        background-color: $clr-grey-light-2;
+        border: none;
+        padding: .7rem 2rem;
+        border-radius: 200px;
+        width: 85%;
+        margin-right: -3.5rem;
+        transition: $transition;
+
+
+        //$ -- Media -- //
+        @include media-max($bp-small) {
+            width: 100%;
+        }
+
+
+
+        &:focus {
+            outline: none;
+            width: 100%;
+            background-color: $clr-grey-light-3;
+        }
+
+        &:focus+.search__btn {
+            background-color: $clr-grey-light-3;
+        }
+
+
+        &::placeholder {
+            font-weight: 100;
+            color: $clr-grey-light-4;
+        }
+    }
+
+
+    &__btn {
+        border: none;
+        background-color: $clr-grey-light-2;
+        fill: $clr-grey-dark-3;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+
+        }
+
+        &:active {
+            transform: translateY(2px);
+        }
+    }
+
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+    }
+}
+
+//` --- --- //
+
+
+
+//` --- Gallery---  //
+
+.gallery {
+    display: flex;
+
+}
+
+//` --- --- //
+
+
+
+//` --- Overview ---  //
+
+.overview {
+
+    display: flex;
+    align-items: center;
+
+
+
+    //$ -- Media -- //
+    @include media-max(430px) {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+    &__heading {
+        font-size: 2.3rem;
+        font-weight: 300;
+        letter-spacing: 1.7px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 0;
+
+
+        //$ -- Media -- //
+        @include media-max($bp-small) {
+            font-weight: 400;
+            font-size: 1.8rem;
+            padding: 1.25rem 1.8rem;
+        }
+
+        @include media-max(430px) {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1rem;
+        }
+    }
+
+
+    &__stars {
+        display: flex;
+        margin-right: auto;
+
+
+        //$ -- Media -- //
+        @include media-max(430px) {
+            margin-right: 0;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &__icon {
+        height: 1.75rem;
+        width: 1.75rem;
+        fill: $clr-primary;
+
+        &--location {
+            margin-right: .4rem;
+        }
+    }
+
+
+    &__location {
+        font-size: $fnt-small-2;
+        display: flex;
+        align-items: center;
+    }
+
+
+    &__rating {
+
+        background-color: $clr-primary;
+        color: #fff;
+        margin-left: 2rem;
+        padding: 1rem 2rem;
+        align-self: stretch;
+
+        @include center-flex;
+        flex-direction: column;
+
+
+        //$ -- Media -- //
+        @include media-max($bp-small) {
+            padding: 0 1.5rem;
+        }
+
+
+        @include media-max(430px) {
+            align-self: center;
+            margin-top: 1.5rem;
+            padding: 0 2rem;
+            margin-left: 0;
+        }
+
+
+        &--average {
+            font-size: 2.25rem;
+            font-weight: 300;
+            text-align: center;
+
+
+            //$ -- Media -- //
+            @include media-max($bp-small) {
+                font-size: 1.8rem;
+            }
+        }
+
+
+        &--count {
+            font-size: 1rem;
+            text-transform: uppercase;
+
+
+            //$ -- Media -- //
+            @include media-max($bp-small) {
+                font-size: .5rem;
+            }
+        }
+
+    }
+
+}
+
+//` --- --- //
+
+
+
+//` --- Description ---  //
+
+.description {
+    background-color: #fff;
+    font-size: $fnt-small-2;
+    box-shadow: $shadow;
+    padding: 3rem;
+    flex: 0 0 60%;
+    margin-right: 4rem;
+
+
+    //$ -- Media -- //
+    @include media-max($bp-medium) {
+        padding: 2.2rem;
+        margin-right: 2.7rem;
+    }
+
+    @include media-max($bp-small) {
+        margin-bottom: 3rem;
+        margin-right: 0;
+    }
+
+
+
+    &__text {
+
+        &:not(:last-of-type) {
+            margin-bottom: 2rem;
+        }
+    }
+
+
+    &__list {
+        margin: 3rem 0;
+        padding: 3rem 0;
+        border-top: $border;
+        border-bottom: $border;
+
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+
+    &__item {
+        flex: 0 0 50%;
+        margin-bottom: .7rem;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            height: 1.2rem;
+            width: 1.2rem;
+            margin-right: 1.3rem;
+
+            // older browsers 
+            background-image: url(../img/chevron-thin-right.svg);
+            background-size: cover;
+
+            // new browsers
+            @supports (-webkit-mask-image: url() or (mask-image: url())) {
+                background-color: $clr-primary;
+
+                mask-image: url(../img/chevron-thin-right.svg);
+                -webkit-mask-image: url(../img/chevron-thin-right.svg);
+                mask-size: cover;
+                -webkit-mask-size: cover;
+                background-image: none;
+            }
+        }
+    }
+
+
+    &__recommend {
+
+        color: $clr-grey-dark-3;
+
+        display: flex;
+        align-items: center;
+
+        &-count {
+            margin-right: 3rem;
+            margin-bottom: 0;
+            font-size: $fnt-small-2;
+            max-width: 25rem;
+        }
+
+        &-friends {
+            display: flex;
+
+        }
+
+        &-img {
+            display: inline-block;
+            box-sizing: initial;
+            height: 4rem;
+            width: 4rem;
+            border-radius: 50%;
+            border: 3px solid #fff;
+
+            &:not(:last-child) {
+                margin-right: -2rem;
+            }
+        }
+    }
+}
+
+//` --- --- //
+
+
+
+//` --- Reviews ---  //
+
+.user-reviews {
+    flex: 1;
+    font-size: $fnt-small-2;
+
+    &-btn {
+        font-size: $fnt-big-1;
+        display: block;
+        @include center-mar;
+    }
+}
+
+.review {
+
+    background-color: #fff;
+    box-shadow: $light-shadow;
+    padding: 2.8rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+
+
+
+
+
+    &::before {
+        content: '\201C';
+        position: absolute;
+        top: 0.3rem;
+        left: .2rem;
+        font-size: 7rem;
+        font-family: sans-serif;
+        line-height: 1;
+        color: $clr-grey-light-3;
+        z-index: 1;
+    }
+
+    &__text {
+        font-size: inherit;
+        position: relative;
+        z-index: 2;
+    }
+
+    &__user {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    &__user-img {
+        height: 4.5rem;
+        width: 4.5rem;
+        border-radius: 50%;
+    }
+
+    &__user-box {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-left: 2rem;
+    }
+
+    &__user-name {
+        flex: 100%;
+        font-size: inherit;
+        font-size: 600;
+        color: $clr-grey-dark-1;
+        margin-bottom: 0;
+        text-transform: uppercase;
+    }
+
+    &__user-date {
+        font-size: $fnt-small-1;
+        margin-bottom: 0;
+    }
+
+    &__user-rating {
+        font-size: $fnt-big-1;
+        font-weight: 300;
+        color: $clr-primary;
+    }
+}
+
+//` --- --- //
+
+
+
+//` --- Reviews ---  //
+
+.cta {
+    @include center-mar;
+    max-width: 60rem;
+    flex: 1;
+    padding: 3.5rem 0;
+    margin-top: 4rem;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: $light-shadow;
+
+
+    //$ -- Media -- //
+    @include media-max($bp-medium) {
+        padding: 2.6rem 3rem;
+    }
+
+    @include media-max($bp-small) {
+        margin-right: initial;
+        margin-left: initial;
+        max-width: initial;
+    }
+
+
+    &__title {
+        font-size: $fnt-small-2;
+        letter-spacing: initial;
+        color: inherit;
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+}
+
+//` --- --- //
+
+
+
+//` --- Legal text ---  //
+
+.legal-text {
+    font-size: $fnt-small-2;
+    color: $clr-grey-light-4;
+    text-align: center;
+    padding: 2.5rem;
+
+    //$ -- Media -- //
+    @include media-max($bp-medium) {
+        display: none;
+    }
+
+
+    &-footer {
+        font-size: $fnt-small-2;
+        color: $clr-grey-light-4;
+        text-align: center;
+        padding: 2rem;
+        padding-bottom: .5rem;
+    }
+}
+
+//` --- --- //

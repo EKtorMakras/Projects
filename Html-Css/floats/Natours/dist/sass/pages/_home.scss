@@ -1,0 +1,172 @@
+// * ----------------------  Section-About ---------------------- //
+
+.section-about {
+
+    background-color: $clr-grey-light-1;
+    padding: 25rem 0;
+    margin-top: -21vh;
+
+
+
+    //$ -- Media -- //
+
+    @include respond(tab-port) {
+        padding: 20rem 0;
+    }
+
+    //$ ---- //
+}
+
+// * ----------------------  End Of Section-About ---------------------- //
+
+
+
+
+// * ----------------------  Section-Features ---------------------- //
+
+.section-features {
+
+    padding: 20rem 0;
+
+    // background
+    background-image: linear-gradient(to right, rgba($clr-primary-light, 0.8) 10%, rgba($clr-primary-dark, 0.8) 60%), url(../img/nat-4.jpg);
+    background-size: cover;
+    background-position: top;
+
+    transform: skewY(-5deg);
+
+    margin-top: -12rem;
+
+    &>* {
+        transform: skewY(5deg);
+    }
+
+
+    //$ -- Media -- //
+
+    @include respond(tab-port) {
+        padding: 10rem 0;
+    }
+
+    //$ ---- //
+}
+
+// * ----------------------  End Of Section-Features ---------------------- //
+
+
+
+
+// * ----------------------  Section-Tours ---------------------- //
+
+.section-tours {
+
+    background-color: $clr-grey-light-1;
+    padding: 25rem 0 15rem 0;
+    margin-top: -11rem;
+
+
+
+    //$ -- Media -- //
+
+    @include respond(tab-port) {
+        padding: 20rem 0 10rem 0;
+    }
+
+    //$ ---- //
+}
+
+// * ----------------------  End Of Section-Tours ---------------------- //
+
+
+
+
+// * ----------------------  Section-Stories ---------------------- //
+
+.section-stories {
+
+    padding: 10rem 0;
+    position: relative;
+
+
+
+    //$ -- Media -- //
+
+    @include respond(tab-port) {
+        padding: 8rem 0;
+    }
+
+    //$ ---- //
+}
+
+// * ----------------------  End Of Section-Stories ---------------------- //
+
+
+
+
+// * ----------------------  Section-Booking ---------------------- //
+
+.section-booking {
+    padding: 10rem 0;
+    background-image: linear-gradient(to right bottom, $clr-primary-light, $clr-primary-dark);
+
+}
+
+.book {
+
+    background-image: linear-gradient(105deg,
+            rgba($clr-white, .8) 0%,
+            rgba($clr-white, .8) 50%,
+            transparent 50%),
+
+        url(../img/nat-10.jpg);
+
+    background-size: cover;
+    border-radius: $radius;
+    box-shadow: 0 1.5rem 4rem rgba($clr-black, .2);
+
+
+
+    //$ -- Media -- //
+
+    @include respond (tab-land) {
+        background-image: linear-gradient(105deg,
+                rgba($clr-white, .8) 0%,
+                rgba($clr-white, .8) 60%,
+                transparent 60%),
+
+            url(../img/nat-10.jpg);
+    }
+
+    @include respond (tab-port) {
+        background-image: linear-gradient(105deg,
+                rgba($clr-white, .8) 0%,
+                rgba($clr-white, .8) 100%),
+
+            url(../img/nat-10.jpg);
+    }
+
+    //$ ---- //
+
+
+
+    &__form {
+
+        width: 50%;
+        padding: 6rem;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-land) {
+            width: 60%;
+        }
+
+        @include respond (tab-port) {
+            width: 100%;
+        }
+
+        //$ ---- //
+    }
+}
+
+// * ----------------------  End Of Section-Booking ---------------------- //

@@ -1,0 +1,524 @@
+// * --------------------------------- NAV --------------------------------- //
+
+.navbar {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $clr-grey-10;
+    box-shadow: $dark-shadow;
+    z-index: 100;
+
+
+    &__center {
+        width: 100%;
+        max-width: 1170px;
+        margin: 0 auto;
+    }
+
+    &__header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.6rem 3.2rem;
+    }
+
+    &__logo {
+        display: inline-block;
+        width: auto;
+    }
+
+    &__toggle {
+        background-color: transparent;
+        border: transparent;
+        font-size: 2.8rem;
+        color: $clr-primary-5;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+            transform: translateY(.3rem) scale(1.2);
+        }
+
+        &:focus {
+            outline: none;
+            transform: translateY(.1rem) scale(1.05)
+        }
+
+
+
+        //$ -- Media -- //
+
+        @include media-max(280px) {
+
+            & {
+                flex: 0 0 100%;
+                text-align: left;
+            }
+        }
+
+        //$ ---- //
+    }
+
+    &__links {
+        height: 0;
+        overflow: hidden;
+        transition: $transition;
+    }
+
+    &__link {
+        display: block;
+        padding: 1.6rem 3.1rem;
+        text-transform: capitalize;
+        transition: $transition;
+        letter-spacing: $spacing;
+        color: $clr-grey-1;
+        font-size: $fnt-default;
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+            color: $clr-primary-1;
+            background-color: $clr-primary-8;
+            padding-left: 3.5rem;
+        }
+    }
+
+    &__icons {
+        display: none;
+    }
+
+
+    //$ -- Media -- //
+
+    @include media-min(730px) {
+
+        & {
+            padding: 1.5rem 2.3rem;
+        }
+
+
+        &__toggle {
+            display: none;
+        }
+
+
+        &__center {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        &__header {
+            padding: 0;
+        }
+
+
+        &__links {
+            height: auto;
+            display: flex;
+        }
+
+
+        &__link {
+            padding: 0;
+            margin-right: 2rem;
+
+            &:hover {
+                padding: 0;
+                color: $clr-primary-5;
+                background-color: transparent;
+            }
+        }
+
+
+        &__icons {
+            display: flex;
+        }
+
+
+        &__icon {
+            margin-right: 1.7rem;
+            color: $clr-primary-5;
+            font-size: 2.2rem;
+            display: inline-block;
+            transition: $transition;
+
+            &:hover {
+                color: $clr-primary-8;
+            }
+        }
+    }
+
+    //$ ---- //
+}
+
+//*--------------------------------- //
+
+
+
+// * --------------------------------- HEADER --------------------------------- //
+
+.header {
+
+    //$ -- Media -- //
+
+    @include media-min(600px) {
+
+        & {
+            margin-bottom: 2rem;
+        }
+    }
+
+    //$ ---- //
+}
+
+
+//% --- Hero --- // 
+
+.hero {
+    min-height: 70vh;
+    background: linear-gradient(to right bottom, $clr-primary-5, $clr-primary-6);
+
+    @include center-flex;
+
+
+    &__banner {
+        text-align: center;
+        color: #fff;
+        padding: 0 4.8rem;
+    }
+
+    &__heading {
+        font-weight: 300;
+        margin-bottom: 3rem;
+    }
+
+    &__text {
+        max-width: 56rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5rem;
+        color: #fff;
+        letter-spacing: $spacing;
+        text-align: justify;
+    }
+
+    &__btn {
+
+        &,
+        &:link,
+        &:visited {
+            padding: 1.1rem 2.2rem;
+            font-size: $fnt-big-1;
+            background-color: #fff;
+            color: $clr-primary-5;
+        }
+
+        &:hover,
+        &:active {
+            background-color: transparent;
+            color: #fff;
+            border-color: #fff;
+        }
+    }
+
+
+
+    //$ -- Media -- //
+
+    @include media-min(600px) {
+
+        & {
+            min-height: 100vh;
+            background: linear-gradient(rgba($clr-primary-5, .7), rgba($clr-black, .7)), url(../images/main.jpeg) center/cover no-repeat;
+
+            &__banner {
+                padding: 0;
+            }
+
+            &__text {
+                max-width: 72rem;
+                text-align: center;
+            }
+
+            &__btn {
+
+                &,
+                &:link,
+                &:visited {
+                    padding: 1.44rem 2.56rem;
+                    font-size: $fnt-big-2;
+                }
+            }
+        }
+    }
+
+    //$ ---- //
+
+
+
+    //$ -- Media -- //
+
+    @include media-max(442px) {
+
+        & {
+
+            &__text {
+                max-width: 30rem;
+            }
+        }
+    }
+
+    //$ ---- //
+
+
+    //$ -- Media -- //
+
+    @include media-max(274px) {
+
+        & {
+
+            &__btn {
+
+                &,
+                &:link,
+                &:visited {
+                    padding: 1rem 2rem;
+                    font-size: $fnt-default;
+                }
+            }
+        }
+    }
+
+    //$ ---- //
+}
+
+
+
+
+
+
+
+//% --- --- //
+
+
+//*--------------------------------- //
+
+
+
+// * --------------------------------- FOOTER --------------------------------- //
+
+.footer {
+
+    background-color: $clr-grey-1;
+    text-align: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0;
+
+
+    &__links,
+    &__icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-wrap: wrap;
+        margin-bottom: 2.2rem;
+    }
+
+
+    &__links {
+
+        &--item {
+            margin-bottom: 2rem;
+
+            &:not(:last-child) {
+                margin-right: 3.2rem;
+
+            }
+        }
+    }
+
+
+    &__link {
+        color: #fff;
+        text-transform: capitalize;
+        font-size: $fnt-big-2;
+        letter-spacing: $spacing;
+        transition: $transition;
+        display: inline-block;
+
+        &:hover {
+            color: $clr-primary-5;
+            transform: scale(1.02);
+        }
+    }
+
+
+    &__icons {
+
+        &--item {
+
+            &:not(:last-child) {
+                margin-right: 3.4rem;
+            }
+        }
+
+        &--icon {
+            font-size: 3rem;
+            display: inline-block;
+            color: $clr-primary-8;
+            transition: all .6s ease;
+
+            &:hover {
+                color: $clr-primary-4;
+                transform: scale(1.25);
+            }
+        }
+    }
+
+    &__copyright {
+        text-transform: capitalize;
+        letter-spacing: $spacing;
+        color: #fff;
+    }
+
+
+    //$ -- Media -- //
+
+    @include media-max(297px) {
+
+        &__links {
+            flex-direction: column;
+            justify-content: center;
+            align-items: baseline;
+            align-content: center;
+            text-align: center;
+
+            &--item {
+                flex: 0 0 100%;
+                text-align: center;
+                margin-bottom: 2rem;
+
+                &:not(:last-child) {
+                    margin-right: 0;
+                }
+            }
+
+        }
+
+        &__link {}
+
+    }
+
+    //$ ---- //
+}
+
+//*--------------------------------- //
+
+
+
+// * --------------------------------- GRID --------------------------------- //
+
+.row {
+    max-width: $grid-width;
+    margin: 0 auto;
+    @include clearfix;
+
+
+    //$ -- Media -- //
+    @include respond (tab-port) {
+        max-width: $grid-width-small;
+        padding: 0 3rem;
+    }
+
+    //$ ---- //
+
+
+    &:not(:last-child) {
+        margin-bottom: $gutter-vertical;
+
+
+        //$ -- Media -- //
+        @include respond (tab-port) {
+            margin-bottom: $gutter-vertical-small;
+        }
+
+        //$ ---- //
+    }
+
+
+
+    //^ Styles for all the columns ^//
+
+    [class^="col-"] {
+        float: left;
+
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+
+
+            //$ -- Media -- //
+            @include respond (tab-port) {
+                margin-right: 0;
+                margin-bottom: $gutter-vertical-small;
+            }
+
+            //$ ---- //
+        }
+
+
+        //$ -- Media -- //
+        @include respond (tab-port) {
+            width: 100% !important;
+        }
+
+        //$ ---- //
+    }
+
+    //^ ----- ----- ^//
+
+
+
+    //^ Styles for specific columns ^//
+
+    .col-1-of-2 {
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+    }
+
+
+    .col-1-of-3 {
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+    }
+
+
+    .col-1-of-4 {
+        width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    }
+
+
+    .col-2-of-3 {
+        width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+    }
+
+
+    .col-2-of-4 {
+        width: calc(2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+    }
+
+
+    .col-3-of-4 {
+        width: calc(3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal});
+    }
+
+    //^ ----- ----- ^//
+}
+
+//*--------------------------------- //

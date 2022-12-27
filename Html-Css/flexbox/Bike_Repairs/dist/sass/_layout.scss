@@ -1,0 +1,157 @@
+// * --------------------------------- NAV --------------------------------- //
+
+.nav {
+    flex: 0 0 40%;
+    max-width: 60rem;
+
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__item {
+        margin-right: 1.7rem;
+        position: relative;
+    }
+
+    &__link {
+        padding: 1rem 2rem;
+        font-size: $fnt-default;
+        transition: $transition;
+        text-align: center;
+        white-space: nowrap;
+        border: 1px solid $clr-grey-10;
+
+        &:hover {
+            color: $clr-grey-8;
+            background-color: $clr-tertiary;
+        }
+    }
+
+
+    //^ Inner //
+
+    &__list-inner {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        border: 1px solid $clr-grey-10;
+        background-color: $clr-grey-8;
+    }
+
+    &__item-inner {
+        width: 100%;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $clr-grey-10;
+        }
+    }
+
+    &__link-inner {
+        padding: 1rem;
+        text-align: center;
+        color: $clr-primary;
+        width: 100%;
+        transition: $transition;
+
+        &:hover {
+            background-color: $clr-grey-7;
+            color: $clr-primary-dark;
+        }
+    }
+
+    // Functionality
+    &__item:hover &__list-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+//*--------------------------------- //
+
+
+
+
+// * --------------------------------- HEADER --------------------------------- //
+
+.header {
+    width: 100%;
+    // min-height: 10vh;
+    padding: 1.2rem 0 2rem 0;
+    margin-bottom: 7rem;
+    border-bottom: 1.5px solid $clr-grey-10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    &__logo-container {
+        margin-right: 5rem;
+    }
+
+    &__logo {
+        height: 100%;
+    }
+}
+
+//*--------------------------------- //
+
+
+
+
+// * --------------------------------- MAIN --------------------------------- //
+
+.main {
+    min-height: 30rem;
+    padding: 0 4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main2 {
+    max-width: 100%;
+}
+
+//*--------------------------------- //
+
+
+
+
+// * --------------------------------- FOOTER --------------------------------- //
+
+
+//*--------------------------------- //
+
+
+
+// * --------------------------------- OTHER --------------------------------- //
+
+.container {
+    @include center-mar;
+    min-height: 100vh;
+    max-width: 102.4rem;
+    padding: 0 1.5rem 8rem 1.5rem;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+}
+
+.testimonials {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 85%;
+    @include center-mar;
+}
+
+//*--------------------------------- //

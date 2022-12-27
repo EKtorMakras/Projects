@@ -1,0 +1,138 @@
+//& --- COLORS --- //
+
+$clr-black:#000;
+$clr-white:#fff;
+
+
+
+//% Shades Of Grey //
+
+/* General ones */
+$clr-grey-light-1:#f7f7f7;
+$clr-grey-light-2:#eee;
+
+$clr-grey-dark-1:#777;
+$clr-grey-dark-2:#999;
+$clr-grey-dark-3:#333;
+$clr-grey-dark-4:#858585;
+
+
+
+/* darkest grey - used for headings */
+$clr-grey-1: #102a42;
+$clr-grey-2: #243a52;
+$clr-grey-3: #324d67;
+$clr-grey-4: #48647f;
+
+
+/* grey used for paragraphs */
+$clr-grey-5: #617d98;
+$clr-grey-6: #829ab0;
+$clr-grey-7: #9eb2c7;
+$clr-grey-8: #bcccdc;
+$clr-grey-9: #dae2ec;
+$clr-grey-10: #f1f5f8;
+$clr-grey-11: #cbcbcb;
+
+//% --- //
+
+
+//% Shades Of Blue //
+
+$clr-blue-1:#11122b;
+
+//% --- //
+
+
+//%  Primary Color //
+
+$clr-primary:#cea135;
+// $clr-primary-light:;
+$clr-primary-dark:#b4861b;
+
+//% --- //
+
+
+//%  Secondary Color //
+
+// $clr-secondary:;
+// $clr-secondary-light:;
+// $clr-secondary-dark:;
+
+//% --- //
+
+
+//%  Tertiary Color //
+
+// $clr-tertiary:;
+// $clr-tertiary-light:;
+// $clr-tertiary-dark:;
+
+//% --- //
+
+//& ---- ---- //
+
+
+
+//& --- GRID --- //
+
+$grid-width:114rem;
+$grid-width-small:50rem;
+$gutter-vertical:8rem;
+$gutter-vertical-small:6rem;
+$gutter-horizontal:6rem;
+
+
+//& ---- ---- //
+
+
+
+//& --- FONTS --- //
+
+// Text
+$fnt-small-1:1.2rem;
+$fnt-small-2:1.4rem;
+$fnt-default:1.6rem;
+$fnt-big-1:1.8rem;
+$fnt-big-2:2rem;
+$fnt-big-3:2.2rem;
+
+
+// Headings
+$fnt-head-1:3.5rem;
+$fnt-head-2:2.8rem;
+$fnt-head-3:2.2rem;
+$fnt-head-4:1.8rem;
+
+
+// Font Families
+$ff-primary: 'Roboto',
+sans-serif;
+$ff-secondary:'Ubuntu Condensed',
+sans-serif;
+$ff-tertiary:'Roboto Slab',
+serif;
+
+//& ---- ---- //
+
+
+
+//& --- SHADOWS --- //
+
+$box-shadow: 0 1rem 2rem rgba($clr-black, .2);
+$text-shadow: 0 .4rem .8rem rgba($clr-black, .15);
+
+$light-shadow: 0 .7rem 1.5rem rgba($clr-black, 0.1);
+$dark-shadow: 0 .7rem 1.5rem rgba($clr-black, 0.2);
+
+//& ---- ---- //
+
+
+
+//& --- OTHER ---  //
+
+$spacing: 0.25rem;
+$radius:3px;
+$transition:all .3s ease;
+
+//& ---- ---- //

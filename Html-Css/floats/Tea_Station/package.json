@@ -1,0 +1,22 @@
+{
+  "name": "tea_station",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass dist/sass/main.scss dist/css/main.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/john-smilga/setup-files-html-css-tea-station-new-design.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/john-smilga/setup-files-html-css-tea-station-new-design/issues"
+  },
+  "homepage": "https://github.com/john-smilga/setup-files-html-css-tea-station-new-design#readme",
+  "devDependencies": {
+    "node-sass": "^4.14.1"
+  }
+}

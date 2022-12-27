@@ -1,0 +1,82 @@
+// * --------------------------------- VARIABLES --------------------------------- //
+
+// COLORS
+$clr-primary:#678e3e;
+$clr-primary-light:#beed8c;
+
+$clr-grey-1:#102a42;
+$clr-grey-5:#617d98;
+$clr-grey-9:#f1f5f8;
+
+$clr-black:#000;
+$clr-white:#fff;
+
+// FONTS
+$ff-primary:"Catamaran",
+sans-serif;
+$ff-secondary:"Grand Hotel",
+cursive;
+
+// TRANSITION
+$transition:all .3s linear;
+
+// OTHER
+$spacing:0.25rem;
+$radius:0.5rem;
+
+//*---------------------------------
+
+
+// * --------------------------------- MIXINS --------------------------------- //
+
+// center with position
+@mixin center($position) {
+    position: $position;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// clearfix
+@mixin clearfix {
+
+    &::after,
+    &::before {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+// media queries
+@mixin media-min ($width) {
+    @media screen and (min-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-max ($width) {
+    @media screen and (max-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-min-max($min-width, $max-width) {
+    @media screen and (min-width:$min-width) and (max-width:$max-width) {
+        @content
+    }
+}
+
+
+
+
+
+//*---------------------------------
+
+
+// * --------------------------------- FUNCTIONS--------------------------------- //
+
+
+//*---------------------------------

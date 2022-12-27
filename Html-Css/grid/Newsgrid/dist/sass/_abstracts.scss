@@ -1,0 +1,353 @@
+// * --------------- Variables--------------- * //
+
+//& ----- COLORS ----- //
+
+$clr-black:#000;
+$clr-white:#fff;
+
+
+
+//% Shades Of Grey //
+
+/* General ones */
+$clr-grey-light-1:#f3f3f3;
+$clr-grey-light-2:#eee;
+$clr-grey-light-3:#e5e5e5;
+
+$clr-grey-dark-1:#777;
+$clr-grey-dark-2:#999;
+$clr-grey-dark-3:#333;
+
+
+/* darkest grey - used for headings */
+$clr-grey-1: #102a42;
+$clr-grey-2: #243a52;
+$clr-grey-3: #324d67;
+$clr-grey-4: #48647f;
+
+
+/* lighter grey - used for paragraphs */
+$clr-grey-5: #617d98;
+$clr-grey-6: #829ab0;
+$clr-grey-7: #9eb2c7;
+$clr-grey-8: #bcccdc;
+$clr-grey-9: #dae2ec;
+$clr-grey-10: #f1f5f8;
+
+//% --- //
+
+
+//%  Primary Color //
+
+$clr-primary:#c72727;
+
+// Light Shades
+// $clr-primary-light-1:;
+// $clr-primary-light-2:;
+// $clr-primary-light-3:;
+
+// Dark Shades
+// $clr-primary-dark-1:;
+// $clr-primary-dark-2:;
+// $clr-primary-dark-3:;
+
+//% --- //
+
+
+//%  Secondary Color //
+
+$clr-secondary:#f99500;
+
+// Light Shades
+// $clr-secondary-light-1:;
+// $clr-secondary-light-2:;
+// $clr-secondary-light-3:;
+
+// Dark Shades
+// $clr-secondary-dark-1:;
+// $clr-secondary-dark-2:;
+// $clr-secondary-dark-3:;
+
+//% --- //
+
+
+//%  Tertiary Color //
+
+// $clr-tertiary:;
+
+// Light Shades
+// $clr-tertiary-light-1:;
+// $clr-tertiary-light-2:;
+// $clr-tertiary-light-3:;
+
+// Dark Shades
+// $clr-tertiary-dark-1:;
+// $clr-tertiary-dark-2:;
+// $clr-tertiary-dark-3:;
+
+//% --- //
+
+//& ----- ----- //
+
+
+
+//& ----- FONTS ----- //
+
+// Text
+$fnt-small-1:1.2rem;
+$fnt-small-2:1.4rem;
+$fnt-small-3:1.5rem;
+$fnt-default:1.6rem;
+$fnt-big-1:1.8rem;
+$fnt-big-2:1.9rem;
+$fnt-big-3:2rem;
+$fnt-big-4:2.2rem;
+
+
+// Headings
+$fnt-head-1:5rem;
+$fnt-head-2:4rem;
+$fnt-head-3:2.5rem;
+$fnt-head-4:1.8rem;
+
+
+// Font Families
+$ff-primary: "Lato",
+sans-serif;
+$ff-secondary : 'Staatliches',
+cursive;
+
+//& ----- ----- //
+
+
+
+//& ----- SHADOWS ----- //
+
+// Text
+$shadow-text-1: 0 3px 5px rgba($clr-black, .15);
+$shadow-text-2: 0 5px 7px rgba($clr-black, .15);
+$shadow-text-3: 0 7px 8px rgba($clr-black, .15);
+
+// Light
+$shadow-light-1: 0 .3rem .8rem rgba($clr-black, 0.1);
+$shadow-light-2: 0 .6rem 1rem rgba($clr-black, 0.1);
+$shadow-light-3: 0 1rem 1.5rem rgba($clr-black, 0.1);
+$shadow-light-4: 0 1.3rem 1.5rem rgba($clr-black, 0.1);
+$shadow-light-5: 0 1.7rem 1.7rem rgba($clr-black, 0.1);
+$shadow-light-6: 0 2rem 2rem rgba($clr-black, 0.1);
+
+// Medium
+$shadow-medium-1: 0 .3rem .8rem rgba($clr-black, 0.2);
+$shadow-medium-2: 0 .6rem 1rem rgba($clr-black, 0.2);
+$shadow-medium-3: 0 1rem 1.5rem rgba($clr-black, 0.2);
+$shadow-medium-4: 0 1.3rem 1.5rem rgba($clr-black, 0.2);
+$shadow-medium-5: 0 1.7rem 1.7rem rgba($clr-black, 0.2);
+$shadow-medium-6: 0 2rem 2rem rgba($clr-black, 0.2);
+
+// Medium
+$shadow-dark-1: 0 .3rem .8rem rgba($clr-black, 0.3);
+$shadow-dark-2: 0 .6rem 1rem rgba($clr-black, 0.3);
+$shadow-dark-3: 0 1rem 1.5rem rgba($clr-black, 0.3);
+$shadow-dark-4: 0 1.3rem 1.5rem rgba($clr-black, 0.3);
+$shadow-dark-5: 0 1.7rem 1.7rem rgba($clr-black, 0.3);
+$shadow-dark-6: 0 2rem 2rem rgba($clr-black, 0.3);
+
+//& ----- ----- //
+
+
+
+//& ----- OTHER----- //
+
+$max-width:1100px;
+$spacing: 2.5px;
+$radius:3px;
+$transition:all .3s ease;
+
+//& ----- ----- //
+
+
+//& ----- CATEGORIES----- //
+
+$sports-clr:#f99500;
+$ent-clr:#a66bee;
+$tech-clr:#009cff;
+
+//& ----- ----- //
+
+// * --------------- --------------- * //
+
+
+
+
+// * --------------- Mixins --------------- * //
+
+
+//%  General //
+
+// Clearfix
+@mixin clearfix {
+
+    &::after,
+    &::before {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+// Transition
+@mixin transition($time, $function) {
+    transition: all $time $function;
+}
+
+//% --- //
+
+
+
+//% --- Center an element --- //
+
+// Center with position //
+@mixin center-pos {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+// Center with flexbox //
+@mixin center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+// Center with margins //
+@mixin center-mar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//% --- --- //
+
+
+
+//% Shadows //
+
+@mixin shadow-box($blur, $op) {
+    box-shadow: 0 1rem $blur rgba($clr-black, $op);
+}
+
+@mixin shadow-text ($blur, $op) {
+    box-shadow: 0 .4rem $blur rgba($clr-black, $op);
+}
+
+//% --- //
+
+
+
+//% ---------- Media Queries ---------- //
+
+//@ ----- All Widths ----- //
+
+@mixin media-min ($width) {
+    @media screen and (min-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-max ($width) {
+    @media screen and (max-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-min-max($min-width, $max-width) {
+    @media screen and (min-width:$min-width) and (max-width:$max-width) {
+        @content;
+    }
+}
+
+//@ -----  ----- //
+
+
+//@ ----- Custom Widths ----- //
+
+
+//# -- Breakpoint Choices --//
+
+// -- phone (0-600px)
+// -- tab-port (600-900px)
+// -- tab-land (900-1200px)
+// -- desktop  (1200-1800px)
+// -- desktop-big (1800px +)
+
+//# -- -- //
+
+
+@mixin respond($breakpoint) {
+
+    // 600px
+
+    @if $breakpoint==phone {
+        @media screen and (max-width:37.5em) {
+            @content;
+        }
+    }
+
+
+    // 900px
+
+    @if $breakpoint==tab-port {
+        @media screen and (max-width:56.25em) {
+            @content;
+        }
+    }
+
+
+    // 1200px
+
+    @if $breakpoint==tab-land {
+        @media screen and (max-width:75em) {
+            @content;
+        }
+    }
+
+
+    @if $breakpoint==desktop {
+        @media screen and (min-width:75em) {
+            @content;
+        }
+    }
+
+
+    // 1800px
+
+    @if $breakpoint==desktop-big {
+        @media screen and (min-width:112.5em) {
+            @content;
+        }
+    }
+}
+
+//@ -----  ----- //
+
+
+//% ----------   ---------- //
+
+//# -- Media -- //
+@include respond (tab-port) {}
+
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Functions --------------- * //
+
+
+// * --------------- --------------- * //

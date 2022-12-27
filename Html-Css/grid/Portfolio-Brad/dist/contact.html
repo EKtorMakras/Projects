@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+
+  <!-- Google Fonts -->
+
+  <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet" />
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>John Doe | UI/UX Designer & Photographer</title>
+
+</head>
+
+
+<body>
+
+  <!--* --------------- Header --------------- *-->
+
+  <header class="header header--about">
+
+    <div class="container">
+
+      <!--& ----- Nav----- -->
+      <nav class="nav-main">
+
+        <img src="./img/logo.png" alt="" class="logo">
+
+        <ul class="nav-main__list">
+
+          <li class="nav-main__item">
+            <a href="index.html" class="nav-main__link">
+              Home
+            </a>
+          </li>
+
+          <li class="nav-main__item">
+            <a href="about.html" class="nav-main__link">
+              About
+            </a>
+          </li>
+
+          <li class="nav-main__item">
+            <a href="work.html" class="nav-main__link">
+              Work
+            </a>
+          </li>
+
+          <li class="nav-main__item">
+            <a href="contact.html" class="nav-main__link current">
+              Contact
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+      <!--& --- End Of Nav --- -->
+
+
+
+    </div>
+
+  </header>
+
+  <!--* --------------- End Of Header --------------- *-->
+
+
+  <!--& --- Section-Contact-Form --- -->
+
+  <section class="contact py-3 text-center">
+
+    <div class="container contact-container">
+
+      <h2 class="contact__title">
+        Contact Me
+      </h2>
+
+      <div class="bottom-line"></div>
+
+      <p class="contact__text">
+        Here is how you can reach me
+      </p>
+
+      <!--% -- Form -- -->
+      <form action="Get" class="contact-form" method="POST" data-netlify-recaptcha="true" data-netlify="true">
+
+        <div class="contact-form__text-fields">
+
+          <input type="text" class="contact-form__input contact-form__input--name" name="name" placeholder="Name"
+            required>
+
+          <input type="text" class="contact-form__input contact-form__input--subject" name="subject"
+            placeholder="Subject" required>
+
+          <input type="email" class="contact-form__input contact-form__input--email" name="email"
+            placeholder="Email Address" required>
+
+          <input type="text" class="contact-form__input contact-form__input--phone-number" name="phone-number"
+            placeholder="Phone-Number">
+
+          <textarea class="contact-form__input contact-form__input--message" name="message"
+            placeholder="Your Message"></textarea>
+
+          <div class="my-2">
+            <div data-netlify-recaptcha="true"></div>
+          </div>
+
+          <button type="submit" class="btn btn--dark contact-form__btn">Submit</button>
+
+        </div>
+
+      </form>
+      <!--% -- End Of Form -- -->
+
+
+    </div>
+
+  </section>
+
+  <!--& --- End Of Section-Contact-Form--- -->
+
+
+
+  <!--& --- Section-Contact-Info --- -->
+
+  <section class="contact-info py-3">
+
+    <div class="container">
+
+      <!--% -- Contact-Info Items -- -->
+      <div class="contact-info__items">
+
+        <!--# 1st item - Email -->
+        <div class="contact-info__item">
+
+          <span class="contact-info__item--icon">
+            <i class="fas fa-envelope fa-2x"></i>
+          </span>
+
+          <h3 class="contact-info__item--title">
+            Email
+          </h3>
+
+          <p class="contact-info__item--text">
+            John@something.com
+          </p>
+
+        </div>
+        <!--# ---- -->
+
+
+        <!--# 2nd item - Phone -->
+        <div class="contact-info__item">
+
+          <span class="contact-info__item--icon">
+            <i class="fas fa-phone fa-2x"></i>
+          </span>
+
+          <h3 class="contact-info__item--title">
+            Phone
+          </h3>
+
+          <p class="contact-info__item--text">
+            490-491-2073
+          </p>
+
+        </div>
+        <!--# ---- -->
+
+
+        <!--# 1st item - Email -->
+        <div class="contact-info__item">
+
+          <span class="contact-info__item--icon">
+            <i class="fas fa-address-card fa-2x"></i>
+          </span>
+
+          <h3 class="contact-info__item--title">
+            Address
+          </h3>
+
+          <p class="contact-info__item--text">
+            38787 Fahey Forge
+          </p>
+
+        </div>
+        <!--# ---- -->
+
+
+      </div>
+      <!--% -- End Of Contact-Info Items -- -->
+
+    </div>
+
+  </section>
+
+  <!--& --- End Of Section-Contact-Info--- -->
+
+
+
+  <!--& --- Section-Contact-Tagline --- -->
+
+  <section class="contact-tagline bg-main">
+
+    <h1 class="contact-tagline__title">
+      Let's Start Your Next Project!
+    </h1>
+
+  </section>
+  <!--& --- End Of Section-Contact-Tagline--- -->
+
+
+
+  <!--* --------------- Footer --------------- *-->
+
+  <footer class="footer footer--main">
+
+    <div class="footer__content container">
+
+      <p class="copy">Copyright &copy; 2021 All rights reserved.</p>
+
+      <div class="social-links">
+
+        <a class="social-link">
+          <i class="fab fa-facebook"></i>
+        </a>
+
+        <a class="social-link">
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a class="social-link">
+          <i class="fab fa-twitter"></i>
+        </a>
+
+        <a class="social-link">
+          <i class="fab fa-pinterest"></i>
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!--* --------------- End Of Footer --------------- *-->
+
+  <script src="js/typewriter.js"></script>
+
+</body>
+
+</html>

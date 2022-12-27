@@ -1,0 +1,235 @@
+// * ---------------  Header/Nav/Logo --------------- * //
+
+//^ Header
+.header {
+
+
+    &--home {
+        background: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), $bg-image no-repeat center right/cover;
+        height: 100vh;
+        color: #fff;
+
+
+        @include media-max(800px) {
+            height: 75vh;
+        }
+
+        @include media-max(500px) {
+            height: 20vh;
+        }
+
+        @media screen and (max-height:600px) {
+            height: 80vh;
+        }
+    }
+
+    &--about {
+        background: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), $bg-image no-repeat 20% 30%/cover;
+        height: 12rem;
+        color: #fff;
+        border-bottom: 1.2px solid $clr-primary;
+
+
+        @include media-max(800px) {
+            height: 55vh;
+        }
+
+        @include media-max(500px) {
+            height: 20vh;
+            background: linear-gradient(rgba(0, 0, 0, .25), rgba(0, 0, 0, .25)), $bg-image no-repeat center/cover;
+        }
+
+        @media screen and (max-height:600px) {
+            height: 40vh;
+        }
+    }
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+    padding-top: 15%;
+
+    @include media-max(800px) {
+        padding-top: 20%;
+    }
+
+    @include media-max(500px) {
+        display: none;
+    }
+
+
+    @media screen and (max-height:600px) {
+        padding-top: 5rem;
+    }
+
+    &__text,
+    &__title {
+        color: inherit;
+    }
+
+    &__text {
+        font-size: $fnt-big-3;
+        color: $clr-grey-10;
+    }
+
+    &__title {
+        text-transform: capitalize;
+
+
+        @include media-max(800px) {
+            font-size: 3.6rem;
+        }
+
+        @media screen and (max-height:600px) {
+            display: none;
+        }
+    }
+
+
+}
+
+//^ Nav 
+
+.nav {
+
+    // Main
+    &-main {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 2rem;
+
+
+        @include media-max(500px) {
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1rem;
+            gap: 1rem;
+        }
+
+        &__list {
+            display: flex;
+            align-items: center;
+        }
+
+        &__item {
+            padding: 1rem 1.5rem;
+        }
+
+        &__link {
+            color: inherit;
+            border-bottom: 2px solid transparent;
+            font-size: $fnt-big-3;
+            padding-bottom: .5rem;
+            transition: border-color .7s;
+
+            &:hover {
+                border-color: $clr-grey-dark-2;
+            }
+
+            &.current {
+                border-color: $clr-primary;
+            }
+        }
+    }
+}
+
+
+
+//^ Logo
+.logo {
+    width: 8rem;
+    height: 8rem;
+}
+
+
+// * --------------- --------------- * //
+
+
+
+// * ---------------  Footer --------------- * //
+
+.footer {
+    background-color: $clr-grey-dark-3;
+    color: #fff;
+    padding: 5rem 3rem;
+
+    @include media-max(500px) {
+        padding: 3rem 1.3rem;
+    }
+
+
+    &__content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+        column-gap: 3rem;
+        row-gap: 3rem;
+        align-items: center;
+
+
+        @include media-max(500px) {
+            padding: 0 1.3rem;
+        }
+    }
+}
+
+
+.copy {
+    color: inherit;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    place-items: center;
+    gap: 2rem;
+    width: 80%;
+    @include center-mar;
+
+    @include media-max(500px) {
+
+        column-gap: 2rem;
+        row-gap: 2.5rem
+    }
+}
+
+.social-link {
+
+    @include center-flex;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
+    padding: 1.3rem;
+    text-align: center;
+    transition: all .4s;
+    cursor: pointer;
+
+
+    &:hover {
+        background: $clr-primary-dark-1;
+    }
+
+    i {
+        color: inherit;
+        font-size: 2rem;
+    }
+}
+
+
+// * --------------- --------------- * //
+
+
+
+
+// * ---------------  Other --------------- * //
+
+
+// * --------------- --------------- * //

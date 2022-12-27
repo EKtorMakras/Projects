@@ -1,0 +1,42 @@
+.btn {
+
+    //^ Generic buttons //
+
+    &,
+    &:link,
+    &:visited {
+        @include transition(.2s, ease);
+        display: inline-block;
+        text-transform: uppercase;
+        padding: 2rem 2.8rem;
+        width: 50%;
+
+        background-color: $clr-primary;
+        color: $clr-blue-1;
+
+        font-size: $fnt-default;
+        letter-spacing: $spacing;
+
+        border-radius: 2px;
+        box-shadow: $light-shadow;
+        border: 1px solid $clr-primary;
+        cursor: pointer;
+    }
+
+    &:active,
+    &:focus {
+        // transform: translateY(1px);
+        box-shadow: 5px 5px 8px rgba($clr-black, .4);
+        outline: none;
+    }
+
+    &:hover {
+        background-color: $clr-primary-dark;
+    }
+}
+
+
+.btn-wrapper {
+    @include center-flex;
+    justify-content: flex-start;
+}

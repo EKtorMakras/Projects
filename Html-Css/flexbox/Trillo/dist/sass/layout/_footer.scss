@@ -1,0 +1,13 @@
+.footer {
+    background-color: $clr-grey-dark-1;
+    color: #fff;
+    padding: 2rem;
+    display: none;
+
+
+    //$ -- Media -- //
+
+    @include media-max($bp-medium) {
+        @include center-flex;
+    }
+}

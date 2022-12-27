@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+
+    font-size: 62.5%;
+
+
+    //$ ----- Media ----- //
+
+    @include respond (desktop-big) {
+        font-size: 75%; // 1rem = 12px //
+    }
+
+    @include respond (tab-land) {
+        font-size: 56.25%; // 1rem = 9px //
+    }
+
+    @include respond (tab-port) {
+        font-size: 50%; // 1rem = 8px //
+    }
+
+    @include respond (phone) {
+        font-size: 43.75%; // 1rem = 7px //
+    }
+
+
+    //$ ----- ----- //
+}
+
+
+body {
+    overflow-x: hidden;
+    background: linear-gradient(to right bottom, $clr-primary-light, $clr-primary-dark);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    min-height: 100vh;
+}

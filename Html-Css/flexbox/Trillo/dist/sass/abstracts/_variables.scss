@@ -1,0 +1,143 @@
+//& --- COLORS --- //
+
+$clr-black:#000;
+$clr-white:#fff;
+
+
+//% Shades Of Grey //
+
+/* General ones */
+$clr-grey-light-1:#faf9f9;
+$clr-grey-light-2:#f4f2f2;
+$clr-grey-light-3:#f0eeee;
+$clr-grey-light-4:#ccc;
+
+$clr-grey-dark-1:#333;
+$clr-grey-dark-2:#777;
+$clr-grey-dark-3:#999;
+
+
+/* darkest grey - used for headings */
+$clr-grey-1: #102a42;
+$clr-grey-2: #243a52;
+$clr-grey-3: #324d67;
+$clr-grey-4: #48647f;
+
+
+/* grey used for paragraphs */
+$clr-grey-5: #617d98;
+$clr-grey-6: #829ab0;
+$clr-grey-7: #9eb2c7;
+$clr-grey-8: #bcccdc;
+$clr-grey-9: #dae2ec;
+$clr-grey-10: #f1f5f8;
+
+//% --- //
+
+
+//%  Primary Color //
+
+$clr-primary:#eb2f64;
+$clr-primary-light:#FF3366;
+$clr-primary-dark:#BA265D;
+
+//% --- //
+
+
+//%  Secondary Color //
+
+// $clr-secondary:;
+// $clr-secondary-light:;
+// $clr-secondary-dark:;
+
+//% --- //
+
+
+//%  Tertiary Color //
+
+// $clr-tertiary:;
+// $clr-tertiary-light:;
+// $clr-tertiary-dark:;
+
+//% --- //
+
+//& ---- ---- //
+
+
+
+//& --- GRID --- //
+
+$grid-width:114rem;
+$grid-width-small:50rem;
+$gutter-vertical:8rem;
+$gutter-vertical-small:6rem;
+$gutter-horizontal:6rem;
+
+
+//& ---- ---- //
+
+
+
+//& --- FONTS --- //
+
+// Text
+$fnt-small-1:1.2rem;
+$fnt-small-2:1.4rem;
+$fnt-default:1.6rem;
+$fnt-big-1:1.8rem;
+$fnt-big-2:2rem;
+$fnt-big-3:2.2rem;
+
+
+// Headings
+$fnt-head-1:4rem;
+$fnt-head-2:3rem;
+$fnt-head-3:2.2rem;
+$fnt-head-4:1.8rem;
+
+
+// Font Families
+$ff-primary: "Open Sans",
+sans-serif;
+
+//& ---- ---- //
+
+
+
+//& --- SHADOWS --- //
+
+
+$text-shadow: 0 .4rem .8rem rgba($clr-black, .15);
+
+$shadow: 0 2rem 5rem rgba($clr-black, .1);
+$light-shadow: 0 .7rem 1.5rem rgba($clr-black, 0.1);
+$dark-shadow: 0 2rem 5rem rgba($clr-black, .3);
+
+//& ---- ---- //
+
+
+
+//& --- OTHER ---  //
+
+$spacing: 0.25rem;
+$radius:3px;
+$transition:all .3s ease;
+$border:1px solid $clr-grey-light-2;
+
+
+//# -- Breakpoint Choices --//
+
+$bp-largest:75em;
+$bp-large:68.75em;
+$bp-medium:56.25em;
+$bp-small:40.625em;
+$bp-smallest:31.25rem;
+
+//$ -- Media -- //
+@include media-max($bp-smallest) {}
+
+
+
+//# -- -- //
+
+//& ---- ---- //

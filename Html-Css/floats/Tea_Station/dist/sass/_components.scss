@@ -1,0 +1,25 @@
+// * ---------- BUTTONS ---------- //
+
+.btn {
+    text-transform: uppercase;
+    background: $clr-primary;
+    color: $clr-white;
+    padding: 0.55rem 0.75rem;
+    letter-spacing: $spacing;
+    display: inline-block;
+    font-weight: 700;
+    transition: $transition;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+
+    box-shadow: 0 1px 3px rgba($clr-black, .2);
+
+    &:hover {
+        background-color: $clr-primary-light;
+        color: $clr-primary;
+    }
+
+}
+
+// * ----------

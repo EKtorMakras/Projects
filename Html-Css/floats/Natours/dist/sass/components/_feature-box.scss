@@ -1,0 +1,41 @@
+.feature-box {
+
+    background-color: rgba($clr-white, .8);
+    font-size: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    border-radius: $radius;
+    box-shadow: 0 1.5rem 4rem rgba($clr-black, .15);
+
+    &:hover {
+        transform: translateY(-1.5rem) scale(1.03);
+        @include transition (.4s, ease);
+    }
+
+
+
+    &__icon {
+        font-size: 6rem;
+        margin-bottom: .5rem;
+
+        // color gradient
+        display: inline-block;
+        background: linear-gradient(to right, $clr-primary-light, $clr-primary-dark);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+
+
+        //$ -- Media -- //
+        @include respond(tab-port) {
+            margin-bottom: 0;
+        }
+
+        //$ ---- //
+    }
+
+    &__text {
+        text-align: left;
+        word-spacing: 5px;
+    }
+}

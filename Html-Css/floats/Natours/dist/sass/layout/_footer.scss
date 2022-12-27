@@ -1,0 +1,114 @@
+.footer {
+
+    background-color: $clr-grey-dark-3;
+    padding: 8rem 0 3rem 0;
+    font-size: $fnt-small-2;
+
+
+
+    //$ -- Media -- //
+
+    @include respond (tab-port) {
+        padding: 6rem 0;
+        padding-bottom: 2rem;
+    }
+
+    //$ ---- //
+
+
+    &__logo-box {
+        text-align: center;
+        margin-bottom: 8rem;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            margin-bottom: 6rem;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__logo {
+        width: 15rem;
+        height: auto;
+    }
+
+
+    &__nav {
+        display: inline-block;
+        border-top: 1px solid $clr-grey-dark-1;
+        padding-top: 2rem;
+        padding-left: 2rem;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            width: 100%;
+            text-align: center;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__list {
+        list-style: none;
+    }
+
+
+    &__item {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+
+        &:not(:last-child) {
+            margin-right: 2rem;
+        }
+    }
+
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block;
+            color: $clr-grey-light-1;
+            background-color: $clr-grey-dark-3;
+            text-transform: uppercase;
+
+            transition: $transition;
+        }
+
+        &:hover,
+        &:active {
+            color: $clr-primary;
+            box-shadow: $box-shadow;
+            transform: rotate(4deg) scale(1.1);
+        }
+    }
+
+    &__copy {
+
+        color: $clr-grey-light-1;
+        border-top: 1px solid $clr-grey-dark-1;
+        padding-top: 2rem;
+
+
+        width: 85%;
+        float: right;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            width: 100%;
+            float: none;
+            text-align: center;
+        }
+
+        //$ ---- //
+    }
+}

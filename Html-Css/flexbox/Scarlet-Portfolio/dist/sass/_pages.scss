@@ -1,0 +1,727 @@
+// * ---------------  Home --------------- * //
+
+
+// & ----- Section-Showcase ----- //
+
+.showcase {
+
+    height: 100vh;
+    background: url(../img/full-bg-07.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+
+    @include media-max(900px) {
+        align-items: flex-end;
+        background-position: 80%;
+    }
+
+    @include media-max(600px) {
+        align-items: flex-end;
+    }
+
+
+    &__content {
+        background-color: $clr-secondary-m;
+        padding: calc(1.2rem + 2vw);
+        height: calc(10rem + 15vmax);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        animation: hero 2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+
+        @include media-max(900px) {
+            margin-bottom: calc(3rem + 3vw + 2vh);
+        }
+
+        @include media-max(670px) {
+            margin-bottom: 0;
+        }
+
+
+        @keyframes hero {
+
+            0% {
+                transform: translateX(120vw) rotate(360deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    }
+
+    &__title {
+        margin-top: 0;
+        font-size: calc(2rem + 3vw);
+        color: $clr-grey-light-9;
+    }
+
+    &__para {
+        font-size: calc(1.5rem + 1.2vw);
+        color: $clr-grey-light-9;
+        font-family: $ff-secondary;
+    }
+
+    &__link {
+        padding: 1rem 1.2rem;
+        transition: $transition;
+        text-transform: uppercase;
+        font-size: $fnt-default;
+        letter-spacing: $spacing;
+        position: relative;
+        font-weight: 600;
+        max-width: 15rem;
+        z-index: 1;
+        text-align: center;
+        @include center-flex;
+
+        i {
+            color: inherit;
+            margin-right: .8rem;
+        }
+
+
+        &::after {
+            content: '';
+            @include pseudo;
+            background-color: $clr-tertiary;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            z-index: -1;
+        }
+
+
+        &:hover::after {
+            transform-origin: left;
+            transform: scaleX(1);
+        }
+    }
+}
+
+// & ----- End Of Section-Showcase ----- //
+
+
+
+// & ----- Section-Work ----- //
+
+.work {
+
+    padding: 6rem 4rem;
+    background-color: $clr-tertiary;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3.5rem;
+
+    &__card {
+        flex-basis: 35rem;
+        flex-grow: 1;
+
+        clip-path: polygon(20% 0, 80% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 80%, 0 20%);
+    }
+
+    &__img {
+        height: 100%;
+        transition: $transition;
+
+        &:hover,
+        &:active {
+            filter: sepia(80%);
+        }
+    }
+}
+
+// & ----- End Of Section-Work ----- //
+
+
+
+// & ----- Section-About-me ----- //
+
+.about-me {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background-color: $clr-secondary;
+
+
+
+    &__img-container,
+    &__content {
+        flex-basis: 40rem;
+        flex-grow: 1;
+        padding: 2rem;
+    }
+
+
+    &__img {
+
+        width: 100%;
+        object-fit: cover;
+
+        &-container {
+            // 
+        }
+    }
+
+
+    &__content {
+        // 
+    }
+
+
+    &__title,
+    &__para {
+        margin-bottom: 4rem;
+        letter-spacing: .2rem;
+    }
+
+
+    &__title {
+        font-size: 4rem;
+        padding: 1rem 0;
+        color: $clr-grey-light-9;
+        text-transform: uppercase;
+        position: relative;
+        text-align: left;
+
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: .3rem;
+            width: 15%;
+            background-color: $clr-primary;
+        }
+    }
+
+
+    &__para {
+        font-size: 2rem;
+        font-family: $ff-secondary;
+        color: $clr-primary-dark-4;
+    }
+
+
+    &__link {
+
+
+        &:link,
+        &:visited {
+            padding: 1.5rem .5rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: .2rem;
+            text-transform: uppercase;
+
+            position: relative;
+            z-index: 1;
+
+
+            &::after {
+                content: '';
+                @include pseudo;
+                background-color: $clr-primary;
+                z-index: -1;
+                transform: scaleY(0);
+                transform-origin: bottom;
+                transition: transform .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+        }
+
+
+        &:hover::after,
+        &:active::after {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+    }
+}
+
+// & ----- End Of Section-About-me ----- //
+
+
+
+// & ----- Section-Services ----- //
+
+.services {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    padding: 10rem 2rem 4rem;
+    background-color: $clr-primary;
+}
+
+
+.service {
+
+    background-color: $clr-secondary;
+    padding: 6rem 3rem;
+    flex-basis: 37rem;
+    margin: 0 2rem 4rem;
+    flex-grow: 1;
+
+    border-bottom: .2rem solid $clr-secondary;
+    border-right: .2rem solid $clr-secondary;
+    border-left: .2rem solid $clr-secondary;
+
+    position: relative;
+    z-index: 1;
+
+
+    &::after {
+        content: '';
+        @include pseudo;
+        background-color: $clr-primary;
+        z-index: -1;
+        transform: scaleX(0);
+        transition: transform .4s cubic-bezier(1, 0, 0, 1);
+    }
+
+
+
+    &:hover::after,
+    &:active::after {
+        transform: scaleX(1);
+    }
+
+
+    &__icon i,
+    &__title {
+        margin-bottom: 2.5rem;
+    }
+
+
+    &__icon {
+        font-size: 3rem;
+
+        i {
+            color: $clr-grey-light-9;
+        }
+    }
+
+    &__title {
+        font-size: 3.2rem;
+        color: $clr-grey-light-9;
+
+    }
+
+    &__para {
+        color: $clr-grey-dark-2;
+        font-size: 2rem;
+        font-family: $ff-secondary;
+        color: $clr-grey-light-9;
+    }
+
+
+}
+
+// & ----- End Of Section-Services ----- //
+
+
+
+// & ----- Section-Skills ----- //
+
+.skills {
+    @include center-flex;
+    flex-wrap: wrap;
+
+    padding: calc(1rem + 2vw);
+    background-color: $clr-tertiary;
+}
+
+
+.skill {
+
+    padding: calc(1rem + 2vw);
+    text-transform: uppercase;
+    flex-basis: 40rem;
+    flex-grow: 1;
+
+
+    &__title {
+        font-size: 4rem;
+        margin-bottom: 2.7rem;
+    }
+
+
+    &__progress-title {
+        font-size: 2rem;
+        color: $clr-grey-light-9;
+        text-align: left;
+    }
+
+
+    &__progress {
+        position: relative;
+        // padding: .5rem;
+        border-radius: 3rem;
+        background-color: $clr-primary;
+        width: 100%;
+        margin-bottom: 2rem;
+        height: 2.2rem;
+        overflow: hidden;
+        text-align: left;
+
+        span {
+            position: relative;
+            // vertical-align: middle;
+            display: inline-block;
+            border-radius: 3rem 0 0 3rem;
+            height: 100%;
+            background-color: $clr-secondary;
+            width: 0;
+        }
+
+        &--design {
+
+
+            &-1 {
+                animation: design-1 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-1 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 80%;
+                    }
+                }
+            }
+
+
+            &-2 {
+                animation: design-2 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-2 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 75%;
+                    }
+                }
+            }
+
+
+            &-3 {
+                animation: design-3 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-3 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 95%;
+                    }
+                }
+            }
+
+
+            &-4 {
+                animation: design-4 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-4 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 65%;
+                    }
+                }
+            }
+        }
+
+
+        &--coding {
+
+
+            &-1 {
+                animation: design-1 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-1 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 90%;
+                    }
+                }
+            }
+
+
+            &-2 {
+                animation: design-2 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-2 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 60%;
+                    }
+                }
+            }
+
+
+            &-3 {
+                animation: design-3 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-3 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 50%;
+                    }
+                }
+            }
+
+
+            &-4 {
+                animation: design-4 4s forwards infinite cubic-bezier(1, 0, 0, 1);
+
+                @keyframes design-4 {
+
+                    0% {
+                        width: 0;
+                    }
+
+                    100% {
+                        width: 45%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// & ----- End Of Section-Skills ----- //
+
+
+
+// & ----- Section-Testimonials ----- //
+
+.testimonials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 2.5rem;
+
+    padding: calc(1rem + 2vw);
+    background-color: $clr-secondary;
+    color: $clr-grey-light-9;
+}
+
+
+.testimonials-card {
+
+    flex-basis: 40rem;
+    flex-grow: 1;
+    padding: 2vw;
+    position: relative;
+    z-index: 2;
+
+    @include media-max(665px) {
+        padding: 0;
+    }
+
+    &__img {
+
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .35s ease-in-out;
+
+        &-container {
+            width: 100%;
+            height: 100%;
+            transition: all .3s ease-in-out;
+
+        }
+    }
+
+
+    &__content {
+        position: absolute;
+        top: 70%;
+        left: 0;
+        width: 80%;
+        background-color: $clr-tertiary-m;
+        padding: 1rem 1.2rem .2rem 1.2rem;
+        z-index: 5;
+
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform .35s ease-in-out;
+
+
+        @include media-max(665px) {
+            transform: scaleY(1);
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        &-title {
+            font-size: 2.3rem;
+            color: inherit;
+
+            @include media-max(785px) {
+                font-size: 3rem;
+                text-align: left;
+            }
+        }
+
+        &-para {
+            font-family: $ff-secondary;
+            font-size: 1.4rem;
+            color: inherit;
+            text-align: left;
+
+            @include media-max(785px) {
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+
+    &:hover &__content,
+    &:active &__content {
+        transform: scaleY(1);
+        transform-origin: center;
+    }
+
+    &:hover &__img,
+    &:active &__img {
+        transform: scale(.98);
+        filter: grayscale(50%);
+
+        @include media-max(785px) {
+            transform: none;
+            filter: none;
+        }
+    }
+}
+
+// & ----- End Of Section-Testimonials ----- //
+
+
+
+// & ----- Section-Testimonials ----- //
+
+.contact {
+    background-image: url(../img/full-bg-03.jpg);
+    height: 100vh;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+
+    @include media-max(520px) {
+        background-position: 5% 5%;
+    }
+
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 40rem;
+        background-color: $clr-tertiary-m;
+
+
+        @include media-max(560px) {
+            flex-basis: 100%;
+        }
+
+
+        &-input,
+        &-textarea {
+            color: $clr-grey-light-9;
+            font-family: $ff-secondary;
+            font-size: 1.6rem;
+            letter-spacing: .2rem;
+            padding: 2rem;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid $clr-secondary;
+
+            &:focus {
+                outline: none;
+                border-bottom: 2px solid $clr-secondary;
+            }
+        }
+
+
+        &-input::placeholder,
+        &-textarea::placeholder {
+            color: inherit;
+        }
+
+
+        &-input {
+
+
+            &[type="submit"] {
+                cursor: pointer;
+                border: none;
+                background-color: $clr-tertiary;
+                font-size: 2.3rem;
+
+                &:hover {
+                    background-color: $clr-tertiary-m;
+                }
+            }
+        }
+
+
+        &-textarea {
+            height: 25vh;
+        }
+    }
+}
+
+// & ----- End Of Section-Testimonials ----- //
+
+
+
+// * --------------- --------------- * //

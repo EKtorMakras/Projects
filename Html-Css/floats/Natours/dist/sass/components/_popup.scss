@@ -1,0 +1,223 @@
+.popup {
+
+    height: 100vh;
+    width: 100%;
+    background-color: rgba($clr-black, .8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5000;
+
+    opacity: 0;
+    visibility: hidden;
+
+
+    transition: $transition;
+
+
+
+    //$ -- Support-- //
+
+    @supports (backdrop-filter: blur(10px)) {
+        backdrop-filter: blur(10px);
+        background-color: rgba($clr-black, .4);
+
+    }
+
+    //$ ---- //
+
+
+
+    &__content {
+
+        width: 75%;
+        background-color: #fff;
+        border-radius: $radius;
+        z-index: 6000;
+        display: table;
+        overflow: hidden;
+
+        @include transition (.5s, ease);
+        transition-delay: .2s;
+        @include box-shadow (4rem, .2);
+        @include center-pos(absolute);
+
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.25);
+
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            display: block;
+            max-height: 95vh;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__left {
+        width: 33.333%;
+        display: table-cell;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 7rem;
+
+        }
+
+        //$ ---- //
+    }
+
+
+    &__right {
+
+        width: 66.6667%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+        text-align: left;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            display: block;
+            margin: 2rem auto;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        //$ ---- //
+
+    }
+
+
+    &__img-container {
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            flex-basis: 46%;
+            height: 15rem;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__img {
+        display: block;
+        width: 100%;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            display: inline-block;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__heading {
+        font-size: 3rem;
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            font-size: 2.5rem;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__text {
+        font-size: $fnt-small-2;
+        text-align: left;
+
+        // columns
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid $clr-grey-light-2;
+
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+
+
+        //$ -- Media -- //
+
+        @include respond (phone) {
+            column-count: unset;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__btn-wrapper {
+
+
+        //$ -- Media -- //
+
+        @include respond (tab-port) {
+            text-align: center;
+        }
+
+        //$ ---- //
+    }
+
+
+    &__btn {
+        font-size: $fnt-small-2 !important;
+        padding: 1.2rem 3rem !important;
+    }
+
+
+    //& --- Functionality --- //
+
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close {
+
+        &:link,
+        &:visited {
+            color: $clr-grey-dark-1;
+            position: absolute;
+            top: 2rem;
+            right: 2.5rem;
+            font-size: 3.5rem;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        &:hover,
+        &:active {
+            color: $clr-primary;
+        }
+    }
+
+    //& ---  --- //
+}

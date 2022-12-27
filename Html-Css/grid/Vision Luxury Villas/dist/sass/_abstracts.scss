@@ -1,0 +1,421 @@
+// * --------------- Variables--------------- * //
+
+//& ----- COLORS ----- //
+
+$clr-black:#000;
+$clr-white:#fff;
+$clr-red-dark: #842029;
+$clr-red-light: #f8d7da;
+$clr-grey-dark: #0f5132;
+$clr-green-light: #d1e7dd;
+
+
+//% Shades Of Grey //
+
+/* General ones */
+
+$clr-grey-generic-1:#777;
+$clr-grey-generic-2:#999;
+$clr-grey-generic-3:#333;
+
+
+
+/* darkest grey - used for headings */
+$clr-grey-dark-1: #0f172a;
+$clr-grey-dark-2: #1e293b;
+$clr-grey-dark-3: #102a42;
+$clr-grey-dark-4: #243a52;
+$clr-grey-dark-5: #334155;
+$clr-grey-dark-6: #324d67;
+$clr-grey-dark-7: #475569;
+
+
+
+/* lighter grey - used for paragraphs */
+$clr-grey-light-1: #64748B;
+$clr-grey-light-2: #617d98;
+$clr-grey-light-3: #829ab0;
+$clr-grey-light-4: #94aeb8;
+$clr-grey-light-5: #bcccdc;
+$clr-grey-light-6: #dae2ec;
+$clr-grey-light-7: #e2e8f0;
+$clr-grey-light-8: #f1f5f9;
+$clr-grey-light-9: #f1f5f8;
+
+//% --- //
+
+
+//%  Primary Color //
+
+$clr-primary:hsl(330, 100%, 23%);
+$clr-primary-1:hsl(330, 100%, 30%);
+$clr-primary-2:hsl(330, 100%, 35%);
+$clr-primary-3:hsl(330, 100%, 40%);
+
+// Light Shades
+$clr-primary-light-m: hsla(330, 100%, 23%, 0.55);
+
+
+// Dark Shades
+$clr-primary-dark-m: hsla(330, 100%, 23%, 0.85);
+
+//% --- //
+
+
+//%  Secondary Color //
+
+$clr-secondary: hsl(45, 100%, 54%);
+
+// Light Shades
+$clr-secondary-light-m: hsla(45, 100%, 54%, 0.55);
+
+
+// Dark Shades
+$clr-secondary-dark-m: hsla(45, 100%, 54%, 0.85);
+
+
+//% --- //
+
+
+//%  Tertiary Color //
+
+$clr-tertiary: hsl(13, 100%, 65%);
+
+// Light Shades
+$clr-tertiary-light-m: hsla(13, 100%, 65%, 0.55);
+
+// Dark Shades
+$clr-tertiary-dark-m: hsla(13, 100%, 65%, 0.85);
+
+//% --- //
+
+
+//%  Quaternary Color //
+
+$color-quaternary: hsl(39, 56%, 92%);
+
+
+// Light Shades
+$clr-quaternary-m-light: hsla(39, 56%, 92%, 0.55);
+
+// Dark Shades
+$clr-quaternary-dark-m: hsla(39, 56%, 92%, 0.85);
+
+//% --- //
+
+
+//& ----- ----- //
+
+
+
+//& ----- FONTS ----- //
+
+// Text
+$fnt-small-1:1.2rem;
+$fnt-small-2:1.4rem;
+$fnt-small-3:1.5rem;
+$fnt-default:1.6rem;
+$fnt-big-1:1.8rem;
+$fnt-big-2:1.9rem;
+$fnt-big-3:2rem;
+$fnt-big-4:2.2rem;
+
+
+// Headings
+$fnt-head-1:5rem;
+$fnt-head-2:4rem;
+$fnt-head-3:2.5rem;
+$fnt-head-4:1.8rem;
+$fnt-title: calc(2rem + 2vw);
+
+
+
+// Font Families
+$ff-primary: "Titillium Web",
+sans-serif;
+
+$ff-secondary : Arial,
+Helvetica,
+sans-serif;
+
+//& ----- ----- //
+
+
+
+//& ----- SHADOWS ----- //
+
+// Text
+$shadow-text-1: 0 3px 5px rgba($clr-black, .15);
+$shadow-text-2: 0 5px 7px rgba($clr-black, .15);
+$shadow-text-3: 0 7px 8px rgba($clr-black, .15);
+
+// Light
+$shadow-light-1: 0 .3rem .8rem rgba($clr-black, 0.1);
+$shadow-light-2: 0 .6rem 1rem rgba($clr-black, 0.1);
+$shadow-light-3: 0 1rem 1.5rem rgba($clr-black, 0.1);
+$shadow-light-4: 0 1.3rem 1.8rem rgba($clr-black, 0.1);
+$shadow-light-5: 0 1.7rem 2.3rem rgba($clr-black, 0.1);
+$shadow-light-6: 0 2rem 3rem rgba($clr-black, 0.1);
+
+// Medium
+$shadow-medium-1: 0 .3rem .8rem rgba($clr-black, 0.2);
+$shadow-medium-2: 0 .6rem 1rem rgba($clr-black, 0.2);
+$shadow-medium-3: 0 1rem 1.5rem rgba($clr-black, 0.2);
+$shadow-medium-4: 0 1.3rem 1.8rem rgba($clr-black, 0.2);
+$shadow-medium-5: 0 1.7rem 2.3rem rgba($clr-black, 0.2);
+$shadow-medium-6: 0 2rem 3rem rgba($clr-black, 0.2);
+
+// Dark
+$shadow-dark-1: 0 .3rem .8rem rgba($clr-black, 0.3);
+$shadow-dark-2: 0 .6rem 1rem rgba($clr-black, 0.3);
+$shadow-dark-3: 0 1rem 1.5rem rgba($clr-black, 0.3);
+$shadow-dark-4: 0 1.3rem 1.8rem rgba($clr-black, 0.3);
+$shadow-dark-5: 0 1.7rem 2.3rem rgba($clr-black, 0.3);
+$shadow-dark-6: 0 2rem 3rem rgba($clr-black, 0.3);
+
+//& ----- ----- //
+
+
+
+//& ----- OTHER----- //
+
+$spacing: 2px;
+$radius:3px;
+$transition-duration: .3s;
+$transition:all $transition-duration ease;
+$max-width: 1170px;
+$padding-section: 8vh 3vw;
+
+$gradient: 135deg,
+$clr-primary-3,
+$clr-primary-2,
+$clr-primary-1,
+$clr-primary,
+$clr-primary-dark-m,
+$clr-primary-light-m,
+;
+
+//& ----- ----- //
+
+// * --------------- --------------- * //
+
+
+
+
+// * --------------- Mixins --------------- * //
+
+
+//%  General //
+
+// Clearfix
+@mixin clearfix {
+
+    &::after,
+    &::before {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+// Transition
+@mixin transition($time, $function) {
+    transition: all $time $function;
+}
+
+
+// Pseudo element
+@mixin pseudo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: $transition;
+}
+
+//% --- //
+
+
+
+//% --- Center an element --- //
+
+// Center with position //
+@mixin center-pos {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+// Center with flexbox //
+@mixin center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+// Center with margins //
+@mixin center-mar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//% --- --- //
+
+
+//% --- Pseudo-Styles --- //
+
+@mixin pseudo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+//% --- --- //
+
+
+//% Shadows //
+
+@mixin shadow-box($blur, $op) {
+    box-shadow: 0 1rem $blur rgba($clr-black, $op);
+}
+
+@mixin shadow-text ($blur, $op) {
+    box-shadow: 0 .4rem $blur rgba($clr-black, $op);
+}
+
+//% --- //
+
+
+
+//% ---------- Media Queries ---------- //
+
+//@ ----- All Widths ----- //
+
+@mixin media-min ($width) {
+    @media screen and (min-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-max ($width) {
+    @media screen and (max-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-min-max($min-width, $max-width) {
+    @media screen and (min-width:$min-width) and (max-width:$max-width) {
+        @content;
+    }
+}
+
+//@ -----  ----- //
+
+
+//@ ----- Custom Widths ----- //
+
+
+//# -- Breakpoint Choices --//
+
+// -- phone (0-600px)
+// -- tab-port (600-900px)
+// -- tab-land (900-1200px)
+// -- desktop  (1200-1800px)
+// -- desktop-big (1800px +)
+
+//# -- -- //
+
+
+@mixin respond($breakpoint) {
+
+    // 600px
+
+    @if $breakpoint==phone {
+        @media screen and (max-width:37.5em) {
+            @content;
+        }
+    }
+
+
+    // 900px
+
+    @if $breakpoint==tab-port {
+        @media screen and (max-width:56.25em) {
+            @content;
+        }
+    }
+
+
+    // 1200px
+
+    @if $breakpoint==tab-land {
+        @media screen and (max-width:75em) {
+            @content;
+        }
+    }
+
+
+    @if $breakpoint==desktop {
+        @media screen and (min-width:75em) {
+            @content;
+        }
+    }
+
+
+    // 1800px
+
+    @if $breakpoint==desktop-big {
+        @media screen and (min-width:112.5em) {
+            @content;
+        }
+    }
+}
+
+//@ -----  ----- //
+
+
+//% ----------   ---------- //
+
+//# -- Media -- //
+@include respond (tab-port) {}
+
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Functions --------------- * //
+
+
+// * --------------- --------------- * //
+
+
+
+// ----------------------------------- Comments ----------------------------------- //
+
+//* ------------------------------ Header ------------------------------ *//
+//* ------------------------------ End Of Header ------------------------------ *//
+
+//$ ---------------- Showcase/Hero Section ---------------- $//
+//$ ---------------- End Of Showcase/Hero Section ---------------- $//
+
+//& ---------- Hero ---------- //
+//& ---------- End Of Hero ---------- //
+
+//% ------ Hero ------ //
+//% ------ End Of Hero ------ //
+
+//# ---- Hero ---- //
+//# ---- End Of Hero ---- //
+
+//^ -- Hero -- //
+//^ -- End Of Hero -- //

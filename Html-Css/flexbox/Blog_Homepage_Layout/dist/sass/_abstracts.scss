@@ -1,0 +1,395 @@
+// * --------------- Variables--------------- * //
+
+//& ----- COLORS ----- //
+
+$clr-black:#000;
+$clr-white:#fff;
+
+
+//% Shades Of Grey //
+
+/* General ones */
+$clr-grey-light-1:#f7f7f7;
+$clr-grey-light-2:#eee;
+
+$clr-grey-dark-1:#777;
+$clr-grey-dark-2:#999;
+$clr-grey-dark-3:#333;
+
+
+/* darkest grey - used for headings */
+$clr-grey-1: #102a42;
+$clr-grey-2: #243a52;
+$clr-grey-3: #324d67;
+$clr-grey-4: #48647f;
+
+
+/* lighter grey - used for paragraphs */
+$clr-grey-5: #617d98;
+$clr-grey-6: #829ab0;
+$clr-grey-7: #9eb2c7;
+$clr-grey-8: #bcccdc;
+$clr-grey-9: #dae2ec;
+$clr-grey-10: #f1f5f8;
+
+//% --- //
+
+
+//%  Primary Color //
+
+$clr-primary:#008fd1;
+
+// $clr-primary-light:;
+
+$clr-primary-dark:#065f88;
+
+//% --- //
+
+
+//%  Secondary Color //
+
+$clr-secondary:#eca300;
+
+// $clr-secondary-light:;
+
+$clr-secondary-dark:#956703;
+
+//% --- //
+
+
+//%  tertiary Color //
+
+$clr-tertiary:#d20690;
+
+// $clr-tertiary-light:;
+
+// $clr-tertiary-dark:;
+
+//% --- //
+
+
+//& ----- ----- //
+
+
+
+//& ----- FONTS ----- //
+
+// Text
+$fnt-small-1:1.2rem;
+$fnt-small-2:1.4rem;
+$fnt-small-3:1.5rem;
+$fnt-default:1.6rem;
+$fnt-big-1:1.8rem;
+$fnt-big-2:1.9rem;
+$fnt-big-3:2rem;
+$fnt-big-4:2.2rem;
+
+
+// Headings
+$fnt-head-1:3rem;
+$fnt-head-2:3.2rem;
+$fnt-head-3:2.5rem;
+$fnt-head-4:1.8rem;
+
+
+// Font Families
+$ff-primary: 'Libre Baskerville',
+serif;
+$ff-secondary : Arial,
+Helvetica,
+sans-serif;
+
+//& ----- ----- //
+
+
+//& ----- OTHER----- //
+
+$spacing: 2.5px;
+$radius:3px;
+$transition:all .3s ease;
+
+//& ----- ----- //
+
+// * --------------- --------------- * //
+
+
+
+
+// * --------------- Mixins --------------- * //
+
+//% --- Center an element --- //
+
+// Center with position //
+@mixin center-pos {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+// Center with flexbox //
+@mixin center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+// Center with margins //
+@mixin center-mar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//% --- --- //
+
+
+
+
+//% ---------- Media Queries ---------- //
+
+//@ ----- All Widths ----- //
+
+@mixin media-min ($width) {
+    @media screen and (min-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-max ($width) {
+    @media screen and (max-width:$width) {
+        @content;
+    }
+}
+
+@mixin media-min-max($min-width, $max-width) {
+    @media screen and (min-width:$min-width) and (max-width:$max-width) {
+        @content;
+    }
+}
+
+//@ -----  ----- //
+
+
+//@ ----- Custom Widths ----- //
+
+
+//# -- Breakpoint Choices --//
+
+// -- phone (0-600px)
+// -- tab-port (600-900px)
+// -- tab-land (900-1200px)
+// -- desktop  (1200-1800px)
+// -- desktop-big (1800px +)
+
+//# -- -- //
+
+
+@mixin respond($breakpoint) {
+
+    // 600px
+
+    @if $breakpoint==phone {
+        @media screen and (max-width:37.5em) {
+            @content;
+        }
+    }
+
+
+    // 900px
+
+    @if $breakpoint==tab-port {
+        @media screen and (max-width:56.25em) {
+            @content;
+        }
+    }
+
+
+    // 1200px
+
+    @if $breakpoint==tab-land {
+        @media screen and (max-width:75em) {
+            @content;
+        }
+    }
+
+
+    @if $breakpoint==desktop {
+        @media screen and (min-width:75em) {
+            @content;
+        }
+    }
+
+
+    // 1800px
+
+    @if $breakpoint==desktop-big {
+        @media screen and (min-width:112.5em) {
+            @content;
+        }
+    }
+}
+
+//@ -----  ----- //
+
+
+//% ----------   ---------- //
+
+//# -- Media -- //
+@include respond (tab-port) {}
+
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Functions --------------- * //
+
+
+// * --------------- --------------- * //
+
+
+//* ---------------  Resets - Typography ---------------  * //
+
+//^ ---- Resets ---- //
+
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+
+    font-size: 62.5%;
+
+
+    //# ---- Media ---- //
+
+    @include respond (desktop-big) {
+        font-size: 75%; // 1rem = 12px //
+    }
+
+    @include respond (tab-land) {
+        font-size: 56.25%; // 1rem = 9px //
+    }
+
+    @include respond (tab-port) {
+        font-size: 50%; // 1rem = 8px //
+    }
+
+    @include respond (phone) {
+        font-size: 43.75%; // 1rem = 7px //
+    }
+
+    //# ---- ---- //
+}
+
+//^ ---- ---- //
+
+
+
+//^ ---- Generic Styles ---- //
+
+body {
+    overflow-x: hidden;
+    background-color: #f2f2f2;
+}
+
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+
+a {
+    text-decoration: none;
+    transition: $transition;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+p {
+    line-height: 1.8;
+}
+
+//% ------- Typography ------- //
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+// 
+
+body {
+    font-family: $ff-primary;
+    font-size: $fnt-default;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+
+//^ --- Headings --- //
+
+h1,
+h2,
+h3,
+h4 {
+    letter-spacing: $spacing;
+    text-transform: capitalize;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+}
+
+
+h1 {
+    font-size: $fnt-head-1;
+    font-weight: 100;
+    color: $clr-grey-2;
+}
+
+
+h2 {
+    flex: 0 1 100%;
+    text-align: center;
+    font-size: $fnt-head-2
+}
+
+
+h3 {
+    font-family: 'Libre Baskerville', serif;
+    margin: 0;
+    font-weight: 700;
+}
+
+h4 {
+    font-size: $fnt-head-4;
+    font-weight: 300;
+    color: $clr-grey-2;
+}
+
+//^ --- --- // 
+
+
+
+//^ --- Other --- //
+
+p {
+    font-size: $fnt-default;
+    color: $clr-grey-5;
+    margin-bottom: 1.25rem;
+}
+
+//^ --- --- //
+
+//% ------- ------- //
+
+//* ---------------   ---------------  * //

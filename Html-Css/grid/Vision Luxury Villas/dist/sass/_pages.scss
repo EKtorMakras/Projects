@@ -1,0 +1,1012 @@
+// * ------------------------------  Home ------------------------------ * //
+
+
+//$ ---------------- Booking-content Section ---------------- $//
+
+.booking-content {
+    grid-column: center-start / col-end 6;
+    padding: $padding-section;
+    padding-bottom: 1.5rem;
+
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    gap: calc(2.5rem + 1.5vh);
+
+
+    @include media-max(876px) {
+        grid-column: center-start/center-end;
+        padding: 4vh 3vw;
+        place-items: center;
+    }
+
+
+
+    &__title {
+        margin-top: 5rem;
+        font-size: $fnt-title;
+        padding: 0 2rem 1rem;
+        text-align: left;
+        font-weight: 300;
+        position: relative;
+
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            height: .2rem;
+            width: 40%;
+            background-color: $clr-secondary;
+
+
+            @include media-max(876px) {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+
+
+    &__para {
+        color: $clr-primary;
+        padding: 1rem 2rem;
+        font-size: 2rem;
+    }
+
+
+    &__icons {
+        margin-left: 2rem;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 10vh;
+        gap: 3.2rem;
+        align-items: center;
+
+
+        @include media-max(876px) {
+            column-gap: 12rem;
+            width: 100%;
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-rows: auto;
+            margin-left: 0;
+        }
+
+
+        @include media-max(600px) {
+            column-gap: 4rem;
+        }
+
+
+        &-group {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+
+            @include media-max(876px) {
+
+                gap: 4rem;
+
+                &:nth-child(1) {
+                    justify-self: end;
+
+                    @include media-max(600px) {
+                        justify-self: center;
+                    }
+                }
+
+                &:nth-child(2) {
+                    justify-self: start;
+                }
+            }
+
+
+            @include media-max(600px) {
+                gap: 2rem;
+            }
+        }
+
+
+
+        &-para {
+            color: $clr-primary;
+            white-space: nowrap;
+
+            @include media-max(600px) {
+                font-size: 2.2rem;
+            }
+        }
+
+
+        i {
+            font-size: 4rem;
+            color: $clr-secondary;
+        }
+    }
+}
+
+
+//$ ---------------- End Of Booking-content Section ---------------- $//
+
+
+
+//$ ---------------- Booking-date Section ---------------- $//
+
+.booking-date {
+    grid-column: col-start 7 / center-end;
+    padding: $padding-section;
+    padding-left: 5rem;
+    padding-bottom: 1.5rem;
+
+
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: calc(5rem + 3vh);
+
+
+    @include media-max(876px) {
+        grid-column: center-start/center-end;
+        padding: 3vh 3vw;
+        padding-top: 5vh;
+        gap: calc(2rem + 2vh);
+    }
+
+
+    @include media-max(600px) {
+        padding: 3vh calc(1.5rem + 3vw);
+    }
+
+
+    @include media-max(440px) {
+        grid-template-rows: repeat(2, max-content);
+        gap: calc(6rem + 3vh);
+        padding-bottom: 5rem;
+    }
+
+
+    // Schedule
+    &__schedule-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc(1rem + 2vw);
+        margin-top: 5rem;
+        place-items: center;
+
+
+        @include media-max(600px) {
+            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            gap: calc(2.5rem + 2vw);
+            row-gap: 5rem;
+        }
+    }
+
+
+    &__schedule {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+
+
+        @include media-max(600px) {
+            width: 100%;
+        }
+
+
+        &-title {
+            font-size: calc(2rem + 1vw);
+            font-weight: 300;
+        }
+
+
+        &-content {
+            background: linear-gradient(to right bottom, $clr-secondary-light-m 10%, $clr-secondary-dark-m 30%, $clr-secondary 70%);
+            padding: 4rem 6rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+
+
+            @include media-max(876px) {
+                padding: 4rem 8rem;
+            }
+
+
+            @include media-max(600px) {
+                padding: 2rem 4rem;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 100%;
+                left: 50%;
+                border-width: 1.8rem;
+                border-style: solid;
+                border-color: transparent transparent rgba($clr-secondary, .8) transparent;
+                transform: translateX(-50%);
+            }
+        }
+
+
+        &-para {
+            color: $clr-grey-light-9;
+
+
+            &--month {
+
+                @include media-max(600px) {
+                    font-size: 2rem;
+                }
+            }
+
+            &--number {
+                font-size: 3.3rem;
+                font-weight: 400;
+            }
+
+            &--symbol {
+                font-size: 2.2rem;
+
+                @include media-max(600px) {
+                    font-size: 2.6rem;
+                }
+            }
+
+        }
+    }
+
+
+
+    // Contact
+    &__contact {
+        display: flex;
+        flex-direction: column;
+        gap: calc(5rem + 3vh);
+
+
+
+        @include media-max(876px) {
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+        &-link:link,
+        &-link:visited {
+            background: linear-gradient(to right bottom, $clr-grey-light-8, $clr-grey-light-7);
+            color: $clr-secondary;
+            padding: 1.3rem 2.2rem;
+            min-width: 40%;
+            max-width: 30rem;
+            text-align: center;
+            white-space: nowrap;
+            font-size: calc(1rem + .8vw);
+            border-radius: $radius;
+            border: 1px solid $clr-secondary;
+            transition: all .45s cubic-bezier(1, 0, 0, 1);
+
+
+
+            @include media-max(876px) {
+                font-size: calc(1.3rem + .8vw);
+            }
+
+
+
+            &::before {
+                content: '';
+                @include pseudo;
+                background: linear-gradient(to right bottom, $clr-secondary-dark-m, $clr-secondary);
+                transform: scaleX(0);
+                transition: all .45s cubic-bezier(1, 0, 0, 1);
+                z-index: -1;
+            }
+
+
+            &:hover {
+                color: $clr-grey-light-9;
+            }
+
+            &:hover::before {
+                transform: scaleX(1);
+            }
+
+        }
+
+
+        &-para {
+            color: $clr-primary;
+            font-weight: 300;
+
+            @include media-max(876px) {
+                text-align: center;
+
+                &:not(:last-child) {
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    }
+}
+
+
+//$ ---------------- End Of Booking-date Section ---------------- $//
+
+
+
+//$ ---------------- Villas Section ---------------- $//
+
+.villas {
+    grid-column: container-start / container-end;
+    padding: $padding-section;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(45rem, 1fr));
+    gap: 3.5rem;
+
+
+    @include media-max (768px) {
+        gap: 0;
+        margin-bottom: 0;
+    }
+
+    @include media-max (400px) {
+        grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    }
+}
+
+
+.villa {
+    padding: 3.5rem;
+    background-color: $clr-primary;
+    background-size: cover;
+    background-position: center;
+    transition: $transition;
+
+
+    &:hover,
+    &:active {
+        transform: scale(1.05);
+
+
+        @include media-max (768px) {
+            transform: scale(1);
+        }
+    }
+
+
+    &--1 {
+        background-image: linear-gradient($clr-primary-light-m, $clr-tertiary-light-m), url(../img/Villas/villa-1.jpg);
+    }
+
+
+    &--2 {
+        background-image: linear-gradient($clr-primary-light-m, $clr-tertiary-light-m), url(../img/Villas/villa-2.jpg);
+    }
+
+
+    &--3 {
+        background-image: linear-gradient($clr-primary-light-m, $clr-tertiary-light-m), url(../img/Villas/villa-3.jpg);
+    }
+
+
+    &--4 {
+        background-image: linear-gradient($clr-primary-light-m, $clr-tertiary-light-m), url(../img/Villas/villa-4.jpg);
+    }
+
+    &--5 {
+        background-image: linear-gradient($clr-primary-light-m, $clr-tertiary-light-m), url(../img/Villas/villa-5.jpg);
+    }
+
+
+    &--6 {
+        background-image: linear-gradient($clr-primary-light-m, $clr-tertiary-light-m), url(../img/Villas/villa-6.jpg);
+    }
+
+
+
+    &__title {
+        font-size: $fnt-title;
+        text-align: left;
+        padding: 0 2rem 1rem 0;
+        font-weight: 400;
+        color: $clr-grey-light-9;
+    }
+
+
+    &__para {
+        font-size: 1.8rem;
+        margin: 1.5rem 0 4rem 0;
+        color: $clr-grey-light-9;
+    }
+
+
+    &__link:link,
+    &__link:visited {
+        display: inline-block;
+        background-color: $clr-grey-light-8;
+        font-size: 1.8rem;
+        color: $clr-primary;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+
+
+        &::before {
+            content: '';
+            position: absolute;
+            @include center-pos;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 100%;
+            height: 0;
+            z-index: -1;
+            background: linear-gradient(to right bottom, $clr-secondary-dark-m, $clr-secondary 10%);
+            transition: height $transition-duration ease-in-out;
+        }
+
+
+        &:hover,
+        &:active {
+            color: $clr-grey-light-9;
+        }
+
+
+        &:hover::before,
+        &:active::before {
+            height: 500%;
+        }
+    }
+
+
+    &:nth-child(2n) &__link:link::before,
+    &__link:visited::before {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+}
+
+//$ ---------------- End Of Villas Section ---------------- $//
+
+
+
+//$ ---------------- Motto Section ---------------- $//
+
+.motto {
+    grid-column: col-start 3 / col-end 9;
+    padding: $padding-section;
+    place-content: center;
+    margin-bottom: 8vh;
+
+    background-image: linear-gradient($gradient);
+    background-size: 400%;
+    animation: bg-animation 6s infinite alternate;
+
+
+    @keyframes bg-animation {
+
+        0% {
+            background-position: left;
+        }
+
+        100% {
+            background-position: right;
+        }
+    }
+
+
+    &__content {
+        width: 80%;
+        @include center-mar;
+    }
+
+    &__title {
+        color: $clr-grey-light-9;
+        position: relative;
+        margin-bottom: 5rem;
+        padding-bottom: 2rem;
+        word-spacing: 10px;
+
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 20%;
+            height: .2rem;
+            background-color: $clr-grey-light-9;
+            transform: translateX(-50%);
+        }
+    }
+
+    &__para {
+        @include center-mar;
+    }
+
+}
+
+//$ ---------------- End Of Motto Section ---------------- $//
+
+
+
+//$ ---------------- Events-Content Section ---------------- $//
+
+.events-content {
+    background-color: $clr-tertiary-light-m;
+    grid-column: container-start / col-end 9;
+    margin-bottom: 12vh;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+
+
+    @include media-max (876px) {
+        grid-column: container-start / container-end;
+    }
+
+    @include media-max (600px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+
+.event {
+    padding: $padding-section;
+
+    display: grid;
+    row-gap: 2.5rem;
+    align-items: center;
+    justify-items: start;
+
+
+    @include media-max (600px) {
+        border: none !important;
+        justify-items: center;
+    }
+
+
+
+    &--1 {
+        background: linear-gradient($clr-tertiary-light-m, $clr-tertiary-light-m), url(../img/Events/beach-party.jpg) center / cover;
+        border-right: 1px solid $clr-tertiary;
+    }
+
+    &--2 {
+        background: linear-gradient($clr-tertiary-light-m, $clr-tertiary-light-m), url(../img/Events/culture-discovery.jpg) center / cover;
+        border-left: 1px solid $clr-tertiary;
+    }
+
+
+    &__title {
+        color: $clr-grey-light-9;
+        margin-bottom: 0;
+    }
+
+
+    &__para {
+        font-size: 1.8rem;
+
+
+        @include media-max (500px) {
+            padding: 0 4rem 0;
+        }
+    }
+}
+
+//$ ---------------- End Of Events-Content Section ---------------- $//
+
+
+
+//$ ---------------- Events-Text Section ---------------- $//
+
+.events-text {
+    background: linear-gradient(to bottom, $clr-tertiary-light-m, $clr-tertiary-dark-m, $clr-tertiary, );
+    grid-column: col-start 10 / container-end;
+    margin-bottom: 12vh;
+
+    display: grid;
+    place-items: center;
+
+
+    @include media-max (876px) {
+        display: none;
+    }
+
+
+
+    &__title {
+        transform: rotate(90deg);
+        color: $clr-grey-light-8;
+    }
+}
+
+//$ ---------------- End Of Events-Text Section ---------------- $//
+
+
+
+//$ ---------------- Gallery-Text Section ---------------- $//
+
+.gallery-text {
+    background: linear-gradient(to bottom, $clr-primary-light-m, $clr-primary-dark-m, $clr-primary);
+    grid-column: container-start / col-end 1;
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    margin-bottom: 12vh;
+
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    place-items: center;
+
+
+    @include media-max(1200px) {
+        grid-column: center-start / col-end 1;
+    }
+
+
+    @include media-max (876px) {
+        display: none;
+    }
+
+
+    &__title {
+        transform: rotate(270deg);
+        color: $clr-grey-light-8;
+    }
+}
+
+
+//$ ---------------- End Of Gallery-Text Section ---------------- $//
+
+
+
+//$ ---------------- Gallery-Carousel Section ---------------- $//
+
+.gallery-carousel {
+    grid-column: col-start 2 / container-end;
+    position: relative;
+    height: 90vh;
+    margin-bottom: 12vh;
+
+
+
+    @include media-max (876px) {
+        grid-column: container-start / container-end;
+    }
+
+
+    &__img-container {
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+
+
+    &__img {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    &__list {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: all 1s ease-in-out;
+    }
+
+
+    &__item {
+        @include pseudo;
+    }
+
+
+    &__btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        font-size: 6rem;
+        color: $clr-secondary;
+        border: transparent;
+        outline: none;
+        background-color: transparent;
+        cursor: pointer;
+        z-index: 1;
+
+
+        &--right {
+            right: 0;
+        }
+
+        &--left {
+            left: 0;
+        }
+    }
+
+
+    &__nav {
+        position: absolute;
+        bottom: 0;
+        height: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 3rem;
+
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 3rem;
+
+
+        @include media-max(600px) {
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            height: 15%;
+            gap: 3.8rem;
+        }
+
+
+        &-btn {
+            height: 2.3rem;
+            width: 2.3rem;
+            border-radius: 50%;
+            background-color: $clr-secondary;
+            cursor: pointer;
+            border: none;
+
+
+            @include media-max(600px) {
+                height: 2.8rem;
+                width: 2.8rem;
+            }
+        }
+
+
+        .current--img {
+            background-color: $clr-primary;
+        }
+    }
+
+
+    .hidden {
+        display: none;
+    }
+}
+
+//$ ---------------- End Of Gallery-Carousel Section ---------------- $//
+
+
+
+//$ ---------------- Features-Content Section ---------------- $//
+
+.features-content {
+    background-color: $clr-secondary-light-m;
+    grid-column: container-start / col-end 9;
+    margin-bottom: 12vh;
+
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+
+    @include media-max (876px) {
+        grid-column: container-start / container-end;
+    }
+
+    @include media-max (600px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+
+.feature {
+    padding: $padding-section;
+
+    display: grid;
+    row-gap: 2.5rem;
+    align-items: center;
+    justify-items: start;
+
+
+    @include media-max (600px) {
+        border: none !important;
+        justify-items: center;
+    }
+
+
+
+    &--1 {
+        background: linear-gradient($clr-secondary-light-m, $clr-secondary-light-m), url(../img/Features/cocktail.jpg) center / cover;
+        border-right: 1px solid $clr-secondary;
+    }
+
+
+    &--2 {
+        background: linear-gradient($clr-secondary-light-m, $clr-secondary-light-m), url(../img/Features/surfing.jpg) center / cover;
+        border-left: 1px solid $clr-secondary;
+    }
+
+
+    &__title {
+        color: $clr-grey-light-9;
+        margin-bottom: 0;
+    }
+
+
+    &__para {
+        font-size: 1.8rem;
+
+
+        @include media-max (500px) {
+            padding: 0 4rem 0;
+        }
+    }
+}
+
+//$ ---------------- End Of Features-Content Section ---------------- $//
+
+
+
+//$ ---------------- Features-Text Section ---------------- $//
+
+.features-text {
+    grid-column: col-start 10 / container-end;
+    margin-bottom: 12vh;
+
+    background: linear-gradient(to bottom, $clr-secondary-light-m, $clr-secondary-dark-m, $clr-secondary, );
+
+    display: grid;
+    place-items: center;
+
+
+    @include media-max (876px) {
+        display: none;
+    }
+
+
+
+    &__title {
+        transform: rotate(90deg);
+        color: $clr-grey-light-8;
+    }
+}
+
+//$ ---------------- End Of Features-Text Section ---------------- $//
+
+
+
+//$ ---------------- Testimonials Section ---------------- $//
+
+.testimonials {
+    grid-column: center-start / center-end;
+    padding: 8vh calc(2.8rem + 2vw);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 7rem;
+    place-content: center;
+    margin-bottom: calc(3rem + 5vh);
+}
+
+
+.testimonial {
+    min-height: 45rem;
+    position: relative;
+    perspective: 100rem;
+
+
+    @include media-max(676px) {
+        min-height: 60rem;
+
+        &--2 &__front {
+            background-position: center;
+        }
+    }
+
+
+    &--5 &__front {
+        background-position: 50% 10%;
+    }
+
+
+    &__front,
+    &__back {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        @include pseudo;
+        transition: all 1.2s ease-out;
+        backface-visibility: hidden;
+        display: grid;
+        justify-items: center;
+        align-items: start;
+        padding: 2.5rem 4rem;
+    }
+
+
+    &__front {
+
+
+        h2 {
+            background-color: $clr-secondary-light-m;
+            padding: 1.5rem 1rem;
+            border-bottom-right-radius: 50%;
+            border-bottom-left-radius: 50%;
+            font-size: 2.3rem;
+        }
+
+
+        @include media-max(676px) {
+            height: 60%;
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 99%);
+            background-position: 50% 15%;
+        }
+    }
+
+
+    // Rotating functionality
+    &:hover &__front {
+        transform: rotateY(-180deg);
+
+        @include media-max(676px) {
+            transform: rotateY(0);
+        }
+    }
+
+
+    &:hover &__back {
+        transform: rotateY(0);
+    }
+
+
+    // Apply the images
+    @for $i from 1 through 6 {
+        &--#{$i} &__front {
+            background-image: url(../img/Testimonials/testimonials-#{$i}.jpg);
+        }
+    }
+
+
+    &__back {
+        background: linear-gradient(to right bottom, $clr-secondary-light-m, $clr-secondary-dark-m 10%, $clr-secondary, );
+        transform: rotateY(180deg);
+
+
+
+        @include media-max(676px) {
+            bottom: 0;
+            top: unset;
+            transform: rotateY(0);
+            height: 45%;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            padding: 4rem 2rem 2rem 2rem;
+        }
+    }
+
+
+    &__para {
+        font-size: 2rem;
+        place-self: center;
+
+        @include media-max(676px) {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+//$ ---------------- End Of Testimonials Section ---------------- $//
+
+// * ------------------------------     ------------------------------ * //

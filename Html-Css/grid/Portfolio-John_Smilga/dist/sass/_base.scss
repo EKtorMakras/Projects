@@ -1,0 +1,305 @@
+// * --------------- Base --------------- * //
+
+//^ ---- Resets ---- //
+
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+
+    font-size: 62.5%;
+
+
+    //# ---- Media ---- //
+
+    @include respond (desktop-big) {
+        font-size: 75%; // 1rem = 12px //
+    }
+
+    @include respond (tab-land) {
+        font-size: 56.25%; // 1rem = 9px //
+    }
+
+    @include respond (tab-port) {
+        font-size: 50%; // 1rem = 8px //
+    }
+
+    @include respond (phone) {
+        font-size: 43.75%; // 1rem = 7px //
+    }
+
+    //# ---- ---- //
+}
+
+//^ ---- ---- //
+
+
+
+//^ ---- Generic Styles ---- //
+
+body {
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+
+a {
+    text-decoration: none;
+    transition: $transition;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+
+//% --- Global Classes --- //
+
+.section {
+    padding: 5rem 0;
+
+
+    &-center {
+        width: 90vw;
+        margin: 0 auto;
+        max-width: 1170px;
+
+        @include media-min(992px) {
+            width: 95vw;
+        }
+    }
+
+
+    &-title {
+        margin-bottom: 4rem;
+        text-align: center;
+    }
+}
+
+
+.single-page {
+    min-height: calc(100vh - 26.6rem);
+    @include center-flex;
+    flex-direction: column;
+    background-color: $clr-primary-light-5;
+}
+
+
+.underline {
+    width: 7rem;
+    height: 0.3rem;
+    margin-bottom: 1.5rem;
+    background-color: $clr-primary;
+    @include center-mar;
+    transition: $transition;
+}
+
+
+.bg {
+
+    &-grey {
+        background-color: $clr-grey-9;
+    }
+}
+
+
+%icon {
+
+    font-size: 4rem;
+    color: $clr-grey-1;
+    transition: $transition;
+
+    &:hover {
+        color: $clr-primary;
+    }
+}
+
+%icon-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: center;
+    gap: 3rem;
+}
+
+%img-styling {
+    display: block;
+    border-radius: $radius;
+    max-width: 30rem;
+    max-height: 35rem;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    box-shadow: $shadow-medium-3;
+}
+
+//^ ---- ---- //
+
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Typography --------------- * //
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+body {
+    font-family: $ff-primary;
+    font-size: $fnt-default;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $clr-grey-1;
+}
+
+
+//^ --- Headings --- //
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: $ff-primary;
+    letter-spacing: $spacing;
+    text-transform: capitalize;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+}
+
+
+h1 {
+    font-size: $fnt-head-1;
+    font-weight: 100;
+    color: $clr-grey-2;
+}
+
+
+h2 {
+    font-size: $fnt-head-2;
+    font-weight: 300;
+    color: $clr-grey-2;
+}
+
+
+h3 {
+    font-size: $fnt-head-3;
+    font-weight: 300;
+    color: $clr-grey-2;
+}
+
+h4 {
+    font-size: $fnt-head-4;
+    font-weight: 300;
+    color: $clr-grey-2;
+}
+
+//^ --- --- // 
+
+
+
+//^ --- Other --- //
+
+p {
+    font-size: $fnt-big-1;
+    color: $clr-grey-4;
+    line-height: 2;
+    margin-bottom: 1.25rem;
+    max-width: 60rem;
+    @include center-mar;
+}
+
+
+//^ --- --- //
+
+
+// * --------------- --------------- * //
+
+
+// * --------------- Animations --------------- * //
+
+@keyframes moveInLeft {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes moveInRight {
+
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(-1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes moveInBottom {
+
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Utilities --------------- * //
+
+
+//^ ----- General ----- //
+
+// clearfix
+.clearfix {
+    @include clearfix;
+}
+
+
+// center text
+.u-center-text {
+    text-align: center;
+}
+
+//^ ----- ----- //
+
+// * --------------- --------------- * //

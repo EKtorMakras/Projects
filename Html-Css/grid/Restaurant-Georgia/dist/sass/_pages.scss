@@ -1,0 +1,220 @@
+// * ---------------  Home --------------- * //
+
+// & ----- Section-About ----- //
+
+.section-about {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 6rem 0;
+    padding-bottom: 12rem;
+
+
+    @include media-max(600px) {
+        flex-direction: column;
+        gap: 7rem;
+        padding-bottom: 15rem;
+    }
+
+
+    &__img-wrapper {
+        flex-basis: 40%;
+
+        @include media-max(600px) {
+            flex-basis: 100%;
+            max-width: 70%;
+            order: 2;
+        }
+    }
+
+    &__img {
+        opacity: .7;
+    }
+
+
+    &__info {
+        flex-basis: 60%;
+        padding: 2rem 4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include media-max(600px) {
+            flex-basis: 100%;
+            order: 1;
+        }
+    }
+
+
+    &__title {
+
+        &--sub {
+            margin-bottom: 4rem;
+        }
+    }
+
+
+    &__paragraph {
+        font-size: $fnt-big-3;
+        font-style: italic;
+        font-family: $ff-secondary;
+        color: $clr-secondary;
+        margin-bottom: 0;
+
+
+        &::first-letter {
+            padding-left: 2rem;
+        }
+    }
+
+
+    &__stars {
+        margin: 2rem 0;
+        display: flex;
+        gap: 1rem;
+    }
+
+    &__icon {
+        color: $clr-primary;
+        font-size: 2rem;
+    }
+
+    &__btn {
+        margin-top: 5rem;
+    }
+}
+
+// & ----- End Of Section-About ----- //
+
+
+
+// & ----- Section-Gallery ----- //
+
+.section-gallery {
+
+
+    &__cards {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+
+    &__card {
+        flex: 33.333%;
+        height: calc(20rem + 15vw);
+        position: relative;
+        overflow: hidden;
+
+
+        @include media-max(850px) {
+            flex: 50%;
+        }
+
+        @include media-max(550px) {
+            flex: 100%;
+            height: calc(30rem + 15vw);
+        }
+
+
+        &-overlay {
+            @include pseudo;
+            @include center-flex;
+            flex-direction: column;
+            z-index: 5;
+            text-align: center;
+            background-color: rgba($clr-primary-dark-1, .4);
+            left: -100%;
+            transition: all .7s ease;
+        }
+
+
+        &:hover &-overlay {
+            left: 0;
+        }
+
+
+        &-title {
+            @include textStyles;
+            color: $clr-grey-10;
+            font-family: $ff-tertiary;
+            font-size: 4rem;
+            text-transform: capitalize;
+
+            @include media-max(850px) {
+                font-size: 3.4rem
+            }
+        }
+
+
+        &-price {
+            @include textStyles;
+            color: $clr-grey-10;
+            font-family: $ff-secondary;
+            font-size: 3rem;
+            text-transform: capitalize;
+
+            @include media-max(850px) {
+                font-size: 2.6rem
+            }
+        }
+
+
+        &-btn {
+
+            &,
+            &:link,
+            &:visited {
+                font-family: $ff-secondary;
+                font-weight: bold;
+                color: $clr-primary-dark-1;
+                background-color: $clr-grey-10;
+                border: 1px solid $clr-primary-dark-1;
+                border-radius: 3rem;
+                font-size: 1.4rem;
+                padding: 2rem 3rem;
+                letter-spacing: 1px;
+                line-height: 1;
+
+
+                @include media-max(850px) {
+                    font-size: 1.2rem;
+                    padding: 1.8rem 2.6rem;
+                }
+            }
+
+
+            &:hover {
+                background-color: rgba($clr-primary-dark-1, .7);
+                color: rgba($clr-grey-10, .8);
+            }
+
+        }
+
+
+        &-img-container {
+            height: 100%;
+        }
+
+
+        &-img {
+            height: 100%;
+            object-fit: cover;
+            opacity: .8;
+
+            @include media-max(550px) {
+                width: 100%;
+            }
+        }
+    }
+
+
+}
+
+// & ----- End Of Section-Gallery ----- //
+
+
+
+
+
+// * --------------- --------------- * //

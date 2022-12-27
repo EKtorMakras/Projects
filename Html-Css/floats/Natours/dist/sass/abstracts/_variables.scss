@@ -1,0 +1,51 @@
+//& COLORS
+
+$clr-black:#000;
+$clr-white:#fff;
+
+$clr-primary:#55c57a;
+$clr-primary-light:#7ed56f;
+$clr-primary-dark:#28b485;
+
+// $clr-secondary:;
+$clr-secondary-light:#ffb900;
+$clr-secondary-dark:#ff7730;
+
+// $clr-tertiary:;
+$clr-tertiary-light:#2998ff;
+$clr-tertiary-dark:#5643fa;
+
+$clr-grey-light-1:#f7f7f7;
+$clr-grey-light-2:#eee;
+
+$clr-grey-dark-1:#777;
+$clr-grey-dark-2:#999;
+$clr-grey-dark-3:#333;
+
+
+//& GRID
+
+$grid-width:114rem;
+$grid-width-small:50rem;
+$gutter-vertical:8rem;
+$gutter-vertical-small:6rem;
+$gutter-horizontal:6rem;
+
+//& FONTS
+
+$fnt-small-1:1.2rem;
+$fnt-small-2:1.4rem;
+$fnt-default:1.6rem;
+$fnt-big-1:1.8rem;
+$fnt-big-2:2rem;
+$fnt-big-3:2.2rem;
+
+//& SHADOWS
+
+$box-shadow: 0 1rem 2rem rgba($clr-black, .2);
+$text-shadow: 0 .4rem .8rem rgba($clr-black, .15);
+
+//& OTHER
+
+$radius:3px;
+$transition:all .3s ease;

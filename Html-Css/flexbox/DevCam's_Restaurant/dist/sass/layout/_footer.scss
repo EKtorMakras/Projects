@@ -1,0 +1,119 @@
+.footer {
+    background-color: $clr-blue-1;
+    padding: 2.5rem 0 .7rem 0;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $clr-grey-11;
+    font-family: $ff-secondary;
+    margin-top: -6px;
+
+    &>* {
+        margin-bottom: 2rem;
+    }
+
+
+    //` Footer Logo //
+    &__logo-container {
+        margin-bottom: .8rem;
+    }
+
+    &__logo {
+        width: 16rem;
+        height: 100%;
+        filter: brightness(60%);
+    }
+
+    //` --- //
+
+
+
+    //` Contact info //
+    &__contact-info {
+        color: inherit;
+        margin-bottom: 3.2rem;
+        font-family: inherit;
+        color: $clr-grey-dark-2;
+        font-size: $fnt-default;
+        letter-spacing: 1.8px;
+
+        &--phone {
+            display: inline-block;
+            margin-right: 1.8rem;
+        }
+
+        &--hours {
+            display: inline-block;
+            margin-left: 1.8rem;
+            text-transform: uppercase;
+            color: $clr-primary;
+            font-size: $fnt-small-2;
+        }
+    }
+
+
+    //` --- //
+
+
+    //` Links //
+    &__list {
+        display: flex;
+        justify-content: space-around;
+        width: 60%;
+        margin-bottom: 3.5rem;
+    }
+
+    &__item {
+        width: 7rem;
+        text-align: center;
+    }
+
+    &__link {
+        font-family: inherit;
+        color: $clr-grey-11;
+        transition: $transition;
+
+        &:hover {
+            color: #cea135;
+            letter-spacing: 1.2px;
+
+        }
+    }
+
+    //` --- //
+
+
+    //` Social  //
+    &__social {
+        display: flex;
+        justify-content: space-between;
+        width: 30%;
+
+        &-icon {
+            color: $clr-grey-11;
+            font-size: 2.4rem;
+            display: inline-block;
+            transition: $transition;
+
+            &:hover {
+                transform: scale(1.12);
+                color: $clr-primary;
+            }
+
+        }
+    }
+
+    //` --- //
+
+
+    //` Legal text //
+    &__legal-text {
+        color: $clr-grey-dark-4;
+        margin-bottom: 0;
+        font-size: $fnt-small-1;
+    }
+
+    //` --- //
+}

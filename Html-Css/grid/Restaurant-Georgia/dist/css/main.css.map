@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../../Project 1 - Starter Files/scss/main.scss",
+        "../../Project 1 - Starter Files/scss/_base.scss",
+        "../../Project 1 - Starter Files/scss/_layout.scss",
+        "../../Project 1 - Starter Files/scss/_components.scss"
+    ],
+    "names": [],
+    "file": "main.css"
+}

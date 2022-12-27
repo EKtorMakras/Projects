@@ -1,0 +1,83 @@
+// * --------------- Buttons --------------- * //
+
+.btn {
+
+    //^ Generic buttons //
+
+    &,
+    &:link,
+    &:visited {
+        @include transition(.2s, ease);
+        display: inline-block;
+        text-transform: uppercase;
+        padding: 1.2rem 3rem;
+
+
+        font-size: $fnt-default;
+        letter-spacing: $spacing;
+
+        box-shadow: $shadow-light-1;
+        border: none;
+        cursor: pointer;
+    }
+
+    &:active,
+    &:focus {
+
+        box-shadow: $shadow-dark-1;
+        outline: none;
+    }
+
+    &:hover {
+        background-color: coral;
+    }
+
+
+    // Specific Buttons
+
+    &--main {
+
+        &,
+        &:link,
+        &:visited {
+            background-color: $clr-primary;
+            color: $clr-grey-dark-3;
+        }
+    }
+
+    &--light {
+
+        &,
+        &:link,
+        &:visited {
+            background-color: $clr-grey-dark-1;
+            color: $clr-grey-dark-3;
+        }
+    }
+
+    &--dark {
+
+        &,
+        &:link,
+        &:visited {
+            background-color: $clr-grey-dark-3;
+            color: $clr-grey-light-1;
+        }
+    }
+
+    &[class*='btn--']:hover {
+        background-color: $clr-primary-dark-1;
+    }
+}
+
+
+
+// * --------------- --------------- * //
+
+
+
+// * --------------- Buttons --------------- * //
+
+
+
+// * --------------- --------------- * //
