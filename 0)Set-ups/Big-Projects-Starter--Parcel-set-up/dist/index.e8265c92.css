@@ -1,0 +1,407 @@
+:root {
+  --clr-black-1: #000;
+  --clr-white-1: #fff;
+  --clr-red-dark: #842029;
+  --clr-red-light: #f8d7da;
+  --clr-green-dark: #0f5132;
+  --clr-green-light: #d1e7dd;
+  --clr-greys-generic-1: #777;
+  --clr-greys-generic-2: #999;
+  --clr-greys-generic-3: #333;
+  --clr-greys-dark-1: #0f172a;
+  --clr-greys-dark-2: #1e293b;
+  --clr-greys-dark-3: #102a42;
+  --clr-greys-dark-4: #243a52;
+  --clr-greys-dark-5: #334155;
+  --clr-greys-dark-6: #324d67;
+  --clr-greys-dark-7: #475569;
+  --clr-greys-light-1: #64748b;
+  --clr-greys-light-2: #617d98;
+  --clr-greys-light-3: #829ab0;
+  --clr-greys-light-4: #94aeb8;
+  --clr-greys-light-5: #bcccdc;
+  --clr-greys-light-6: #dae2ec;
+  --clr-greys-light-7: #e2e8f0;
+  --clr-greys-light-8: #eaf1f8;
+  --clr-greys-light-9: #f1f5f8;
+  --clr-primary-base: #2a9d90;
+  --clr-primary-light-1: #96e3da;
+  --clr-primary-light-2: #72dacd;
+  --clr-primary-light-3: #4ed0c1;
+  --clr-primary-light-4: #33c1b1;
+  --clr-primary-light-5: #2ead9e;
+  --clr-primary-dark-1: #279185;
+  --clr-primary-dark-2: #24897d;
+  --clr-primary-dark-3: #1e7167;
+  --clr-primary-dark-4: #15514a;
+  --clr-primary-dark-5: #0f3834;
+  --clr-secondary-base: #9d3d2a;
+  --clr-secondary-light-1: #e3a396;
+  --clr-secondary-light-2: #da8372;
+  --clr-secondary-light-3: #d0634e;
+  --clr-secondary-light-4: #c14b33;
+  --clr-secondary-light-5: #ad432e;
+  --clr-secondary-dark-1: #913827;
+  --clr-secondary-dark-2: #893524;
+  --clr-secondary-dark-3: #712c1e;
+  --clr-secondary-dark-4: #511f15;
+  --clr-secondary-dark-5: #38160f;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+@media screen and (min-width: 112.5em) {
+  html {
+    font-size: 75%;
+  }
+}
+
+@media screen and (min-width: 62.5em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media screen and (max-width: 50em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media screen and (max-width: 37.5em) {
+  html {
+    font-size: 43.75%;
+  }
+}
+
+*, :after, :before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+input {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+button, input[type="submit"] {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all .3s ease-in-out;
+}
+
+.container {
+  max-width: 1170px;
+  margin-inline: auto;
+}
+
+.clearfix:after, .clearfix:before {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.u-center-text {
+  text-align: center;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section-center {
+  width: 90vw;
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 992px) {
+  .section-center {
+    width: 95vw;
+  }
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+body {
+  font-family: Lato, sans-serif;
+  font-size: clamp(1.7rem, 1.5rem + .4vw, 2rem);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+p {
+  color: var(--clr-greys-light-2);
+  max-width: 40em;
+  font-size: clamp(1.7rem, 1.5rem + .4vw, 2rem);
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: 2.5px;
+  text-transform: capitalize;
+  text-align: center;
+  color: var(--clr-greys-dark-3);
+  margin-bottom: .75rem;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 5.5rem;
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 4.2rem;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 3.5rem;
+  font-weight: 300;
+}
+
+h4 {
+  font-size: 2.8rem;
+  font-weight: 300;
+}
+
+.btn, .btn:link, .btn:visited {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  cursor: pointer;
+  background-color: #2a9d90;
+  border: none;
+  border-radius: 20rem;
+  padding: 1.2em 1.8em;
+  font-size: clamp(1.45rem, 1.2rem + .3vw, 1.7rem);
+  transition: all .2s;
+  display: inline-block;
+  box-shadow: 0 1rem 2.5rem #0000002d;
+}
+
+.btn:hover, .btn:active, .btn:link:hover, .btn:link:active, .btn:visited:hover, .btn:visited:active {
+  background-color: #23857a;
+}
+
+.btn:active, .btn:focus {
+  outline: none;
+  transform: translateY(1px);
+  box-shadow: 0 1rem 3rem #00000030;
+}
+
+.grid-col-2 {
+  grid-template-columns: repeat(2, 1fr);
+  display: grid;
+}
+
+.grid-col-3 {
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+
+.grid-col-4 {
+  grid-template-columns: repeat(4, 1fr);
+  display: grid;
+}
+
+.grid-col-5 {
+  grid-template-columns: repeat(5, 1fr);
+  display: grid;
+}
+
+.grid-col-6 {
+  grid-template-columns: repeat(6, 1fr);
+  display: grid;
+}
+
+.grid-col-7 {
+  grid-template-columns: repeat(7, 1fr);
+  display: grid;
+}
+
+.grid-col-8 {
+  grid-template-columns: repeat(8, 1fr);
+  display: grid;
+}
+
+.grid-col-9 {
+  grid-template-columns: repeat(9, 1fr);
+  display: grid;
+}
+
+.grid-col-10 {
+  grid-template-columns: repeat(10, 1fr);
+  display: grid;
+}
+
+.grid-col-11 {
+  grid-template-columns: repeat(11, 1fr);
+  display: grid;
+}
+
+.grid-col-12 {
+  grid-template-columns: repeat(12, 1fr);
+  display: grid;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.gap-3 {
+  gap: 3rem;
+}
+
+.gap-4 {
+  gap: 4rem;
+}
+
+.gap-5 {
+  gap: 5rem;
+}
+
+.gap-6 {
+  gap: 6rem;
+}
+
+.gap-7 {
+  gap: 7rem;
+}
+
+.gap-8 {
+  gap: 8rem;
+}
+
+.gap-9 {
+  gap: 9rem;
+}
+
+.gap-10 {
+  gap: 10rem;
+}
+
+.column-gap-1 {
+  column-gap: 1rem;
+}
+
+.column-gap-2 {
+  column-gap: 2rem;
+}
+
+.column-gap-3 {
+  column-gap: 3rem;
+}
+
+.column-gap-4 {
+  column-gap: 4rem;
+}
+
+.column-gap-5 {
+  column-gap: 5rem;
+}
+
+.column-gap-6 {
+  column-gap: 6rem;
+}
+
+.column-gap-7 {
+  column-gap: 7rem;
+}
+
+.column-gap-8 {
+  column-gap: 8rem;
+}
+
+.column-gap-9 {
+  column-gap: 9rem;
+}
+
+.column-gap-10 {
+  column-gap: 10rem;
+}
+
+.row-gap-1 {
+  row-gap: 1rem;
+}
+
+.row-gap-2 {
+  row-gap: 2rem;
+}
+
+.row-gap-3 {
+  row-gap: 3rem;
+}
+
+.row-gap-4 {
+  row-gap: 4rem;
+}
+
+.row-gap-5 {
+  row-gap: 5rem;
+}
+
+.row-gap-6 {
+  row-gap: 6rem;
+}
+
+.row-gap-7 {
+  row-gap: 7rem;
+}
+
+.row-gap-8 {
+  row-gap: 8rem;
+}
+
+.row-gap-9 {
+  row-gap: 9rem;
+}
+
+.row-gap-10 {
+  row-gap: 10rem;
+}
+
+.grid-center-v {
+  align-items: center;
+}
+
+.grid-center-h {
+  justify-items: center;
+}
+
+/*# sourceMappingURL=index.e8265c92.css.map */

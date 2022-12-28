@@ -1,0 +1,24 @@
+@use 'variables'as *;
+
+
+:root {
+
+
+    @each $color,
+    $shades in $colors {
+
+
+        @if type-of($shades)=='map' {
+
+            @each $shade,
+            $tone in $shades {
+                --clr-#{$color}-#{$shade}: #{$tone};
+            }
+        }
+
+        @else {
+            --clr-#{$color}: #{$shades};
+        }
+    }
+
+}
