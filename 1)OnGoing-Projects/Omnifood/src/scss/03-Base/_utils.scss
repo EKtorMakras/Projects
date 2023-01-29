@@ -1,0 +1,81 @@
+@use '../01-Abstracts'as *;
+
+// container
+.container {
+    max-width: $max-width;
+    @include center-mar;
+    padding: 0 4rem;
+
+}
+
+
+// clearfix
+.clearfix {
+    @include clearfix;
+}
+
+
+// center text
+.text-center {
+    text-align: center;
+}
+
+
+// section set-up
+.section {
+    padding: 5rem 0;
+
+
+    &-center {
+        width: 90vw;
+        margin: 0 auto;
+        max-width: 1170px;
+
+        @include media-min(992px) {
+            width: 95vw;
+        }
+    }
+
+
+    &-title {
+        margin-bottom: 4rem;
+        text-align: center;
+    }
+}
+
+
+%list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+%list-item {
+    font-size: 1.6rem;
+    @include flex(row, start, center);
+    gap: 2rem;
+
+    p {
+        margin-bottom: 0;
+    }
+
+
+    & *[class*='icon'] {
+        @include center-flex;
+        color: $clr-primary;
+        font-size: 2.5rem;
+    }
+}
+
+
+%cta {
+
+    &:link,
+    &:visited {
+        padding: .7rem 1.8rem;
+        color: color('greys.light-9');
+        @include darkenBgColor(color('primary.base'));
+        border-radius: 12px;
+    }
+}

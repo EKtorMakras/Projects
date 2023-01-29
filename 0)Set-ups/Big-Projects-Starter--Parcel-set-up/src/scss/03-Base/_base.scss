@@ -19,14 +19,14 @@ a {
 }
 
 
-img {
+img,picture,svg,video {
     max-width: 100%;
     display: block;
     object-fit: cover;
 }
 
 
-input {
+input,textarea,select,button {
     font: inherit;
     color: inherit;
     border: none;
@@ -36,8 +36,6 @@ input {
 
 button,
 input[type="submit"] {
-    border: none;
-    outline: none;
     cursor: pointer;
     transition: $transition;
 }
