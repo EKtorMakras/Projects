@@ -1,11 +1,11 @@
 @use 'variables'as *;
+@use 'media' as *;
 
 
 :root {
 
-
-    @each $color,
-    $shades in $colors {
+    //@ ********* Colors  *********//
+    @each $color,$shades in $colors {
 
 
         @if type-of($shades)=='map' {
@@ -20,5 +20,24 @@
             --clr-#{$color}: #{$shades};
         }
     }
+
+
+    //@ ********* Radius  *********//
+    @for $i from 1 through 5 {
+        --radius-#{$i}: calc(#{$base-radius} * #{$i});
+    }
+
+    --pilled: 20rem;
+    --circle: 50%;
+
+
+    //@ ********* Other  *********//
+    --max-width: $max-width;
+
+    @include respond(desktop-big){
+        --max-width: calc(${$max-width} * 1.2);
+    }
+
+    --shadow: #{shadow(rg-2)};
 
 }

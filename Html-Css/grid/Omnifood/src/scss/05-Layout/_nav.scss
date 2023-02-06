@@ -1,0 +1,141 @@
+@use '../01-Abstracts'as *;
+@use '../03-Base'as *;
+
+
+
+
+.main-nav {
+
+
+    
+
+    @include media-max(em(1000)){
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(255,255,255,.9);
+        z-index: 10;
+        transition: all .4s ease-in-out;
+        // backdrop-filter: blur(2px);
+
+
+        @include flex;
+
+        // Hide Nav
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transform: translateX(100%);
+
+
+        &.nav-open{
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        &.nav-open + .mobile-nav__btn .mobile-nav__icon--open {
+            display: none;
+        }
+        &.nav-open + .mobile-nav__btn .mobile-nav__icon--close {
+            display: block;
+        }
+    }
+
+
+    &__list {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+
+        @include media-max(em(1266)){
+            gap: 3.2rem;
+        }
+
+        @include  media-max(em(1000)){
+            flex-direction: column;
+            gap: 5rem;
+        }
+    }
+
+
+    &__item {}
+
+
+    &__link {
+
+        &:link,
+        &:visited {
+            color: color('greys.generic-5');
+            font-weight: fw(medium);
+            font-size: fs(sm-3);
+            @include transition(all, .3s, ease-in-out);
+
+            @include  media-max(em(1000)){
+                font-size: fs(lg-3);
+            }
+        }
+
+
+        &:hover {
+            color: color('primary.base');
+        }
+    }
+}
+
+
+.nav-cta {
+    @extend %cta;
+
+    @include  media-max(em(1000)){
+        font-size: fs(lg-3);
+    }
+}
+
+
+.mobile-nav {
+
+
+    &__btn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 100;
+        display: none;
+        transition: $transition;
+
+        @include media-max(em(1000)){
+            display: block;
+        }
+    }
+
+    &__icon {
+        height: 4.8rem;
+        width: 4.8rem;
+        color: #333;
+        display: none;
+
+        &:hover {
+            color: $clr-primary;
+        }
+
+        &--open {
+
+            @include media-max(em(1000)){
+                display: block;
+            }
+        }
+
+        &--close {
+            display: none;
+        }
+
+        
+    }
+}
+
+

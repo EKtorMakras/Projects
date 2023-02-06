@@ -39,7 +39,7 @@
 
 // Bg-Image
 @mixin bg-image($image) {
-    background-image: url(../img/#{$image});
+    background-image: url(/src/assets/images/#{$image});
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -47,15 +47,27 @@
 
 
 // Darken bg color
-@mixin darkenBgColor ($color1) {
-    background-color: $color1;
+@mixin darkenBgColor ($color,$amount: 6%) {
+    background-color: $color;
 
     &:hover,
     &:active {
-        background-color: darken($color1, 6%);
+        background-color: darken($color, $amount);
     }
 }
 
+
+// Focus State
+@mixin focus-state($color: color('primary.base')){
+
+    &:focus-visible {
+        outline: 2px solid transparent;
+        outline-offset: 4px;
+        box-shadow: 0 0 3px 2px #ffffff,
+          0 0 4px 5px $color;
+        transform: translateY(1.5px);
+    }
+}
 
 
 // Clearfix
@@ -101,3 +113,33 @@
 }
 
 //% ***************    *************** //
+
+
+
+//% ***************  Components  *************** //
+
+// Button //
+@mixin btn($color: color('primary.base')){
+
+    &,
+    &:link,
+    &:visited {
+
+        @include transition(all, .4s, ease);
+        @include darkenBgColor($color);
+        @include focus-state($color);
+
+        display: inline-block;
+        padding: 1em 1.9em;
+        color: #fff;
+
+        text-transform: uppercase;
+        font-size: fs(sm-2);
+        letter-spacing: $spacing;
+
+        border-radius: var(--radius-3);
+        box-shadow: shadow(lg-1);
+        border: none;
+        cursor: pointer;
+    }
+}

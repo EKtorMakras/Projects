@@ -3,7 +3,7 @@
 
 
 
-$colors: ( //
+$colors: ( 
 
 
     //% ***************  General  *************** //
@@ -23,32 +23,22 @@ $colors: ( //
 
     //% ***************  Shades of Grey  *************** //
 
-    greys: ( //
+    greys: ( 
 
         /* General ones */
-        "generic-1": #777,
-        "generic-2": #999,
-        "generic-3": #333,
+        "generic-1": #999,
+        "generic-2": #777,
+        "generic-3": #555,
+        "generic-4": #333,
 
-        /* darkest grey - used for headings */
-        "dark-1": #0f172a,
-        "dark-2": #1e293b,
-        "dark-3": #102a42,
-        "dark-4": #243a52,
-        "dark-5": #334155,
-        "dark-6": #324d67,
-        "dark-7": #475569,
 
-        /* lighter grey - used for paragraphs */
-        "light-1": #64748b,
-        "light-2": #617d98,
-        "light-3": #829ab0,
-        "light-4": #94aeb8,
-        "light-5": #bcccdc,
-        "light-6": #dae2ec,
-        "light-7": #e2e8f0,
-        "light-8": #eaf1f8,
-        "light-9": #f1f5f8,
+        /* Blue-Greys */
+        "blue-1": #bcccdc,
+        "blue-2": #829ab0,
+        "blue-3": #617d98,
+        "blue-4": #243a52,
+        "blue-5": #102a42,
+
 
         // Tailwind Greys
         "slate-50": #f8fafc,
@@ -60,6 +50,14 @@ $colors: ( //
         "slate-600": #475569,
         "slate-700": #334155,
         "slate-800": #1e293b,
+        "slate-900": #0f172a,
+
+        "grey-200": #e5e7eb,
+        "grey-300": #d1d5db,
+        "grey-400": #9ca3af,
+        "grey-500": #6b7280,
+        "grey-600": #4b5563,
+        "grey-700": #374151 ,
     ),
 
     //% ***************    *************** //
@@ -68,7 +66,7 @@ $colors: ( //
 
     //% ***************  Primary  *************** //
 
-    primary: ( //
+    primary: ( 
 
         "base": hsl(173, 58%, 39%),
 
@@ -93,7 +91,7 @@ $colors: ( //
 
     //% ***************  Secondary  *************** //
 
-    secondary: ( //
+    secondary: ( 
 
         "base": hsl(10, 58%, 39%),
 
@@ -121,7 +119,6 @@ $colors: ( //
 
     $keys: str-explode($key, '.');
 
-
     @return deep-map-get($map, $keys...);
 }
 
@@ -136,23 +133,26 @@ $colors: ( //
 
 //% ***************  Font-Size  *************** //
 
-$font-sizes: ( //
+$font-sizes: ( 
 
     // Text
-    "sm-1": clamp(1.3rem, 1.1rem + 0.2vw, 1.5rem),
-    "sm-2": clamp(1.45rem, 1.2rem + 0.3vw, 1.7rem),
-    "sm-3": clamp(1.6rem, 1.3rem + 0.4vw, 1.8rem),
-    "rg": clamp(1.7rem, 1.5rem + 0.4vw, 2rem),
-    "lg-1": clamp(1.9rem, 1.7rem + 0.6vw, 2.3rem),
-    "lg-2": clamp(2.1rem, 1.8rem + 0.7vw, 2.4rem),
-    "lg-3": clamp(2.25rem, 1.9rem + 0.9vw, 2.65rem),
-    "lg-4": clamp(2.4rem, 2rem + 1vw, 2.8rem),
+    "sm-1": clamp(1.2rem, 1.1rem + 0.3vw, 1.6rem),
+    "sm-2": clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem),
+    "sm-3": clamp(1.6rem, 1.3rem + 0.4vw, 2rem),
+    "rg": clamp(1.8rem, 1.5rem + 0.5vw, 2.2rem),
+    "lg-1": clamp(2rem, 1.7rem + 0.6vw, 2.5rem),
+    "lg-2": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
+    "lg-3": clamp(2.5rem, 2.2rem + 1vw, 3rem),
+    "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
 
     // Headings
-    "head-1": 5.5rem,
-    "head-2": 4.2rem,
-    "head-3": 3.5rem,
-    "head-4": 2.8rem);
+    "head-1": 6rem,
+    "head-2": 4.7rem,
+    "head-3": 4rem,
+    "head-4": 3.5rem,
+
+    "head-xl": 8rem
+    );
 
 
 @function fs($font-size-style) {
@@ -165,13 +165,15 @@ $font-sizes: ( //
 
 //% ***************  Font-Weight  *************** //
 
-$font-weights: ( //
+$font-weights: ( 
     "thin": 100,
     "light": 300,
     "regular": 400,
     "medium": 500,
+    "semibold": 600,
     "bold": 700,
-    "black": 900);
+    "black": 900
+);
 
 
 @function fw($font-weight-style) {
@@ -200,22 +202,22 @@ sans-serif;
 
 //& **********************************  Shadows  ********************************** //
 
-$shadows: ( //
+$shadows: ( 
 
     // Small
-    sm-1: 0 0.125rem 0.25rem rgba(color('black-1'), 0.075),
-    sm-2: 0 0.15rem 0.28rem rgba(color('black-1'), 0.1),
-    sm-3: 0 0.2rem 0.3rem rgba(color('black-1'), 0.12),
+    sm-1: 0 0.2rem 0.5rem rgba(color('black-1'), 0.05),
+    sm-2: 0 0.3rem 0.8rem rgba(color('black-1'), 0.05),
+    sm-3: 0 0.6rem 1.2rem rgba(color('black-1'), 0.05),
 
     // Regular 
-    rg-1: 0 0.4rem 0.8rem rgba(color('black-1'), 0.15),
-    rg-2: 0 0.5rem 1rem rgba(color('black-1'), 0.15),
-    rg-3: 0 0.7rem 1.2rem rgba(color('black-1'), 0.17),
+    rg-1: 0 0.2rem 0.5rem  rgba(color('black-1'), 0.08),
+    rg-2: 0 0.3rem 0.8rem rgba(color('black-1'), 0.08),
+    rg-3: 0 0.6rem 1.2rem rgba(color('black-1'), 0.08),
 
     // Large
-    lg-1: 0 1rem 2.5rem rgba(color('black-1'), 0.175),
-    lg-2: 0 1rem 3rem rgba(color('black-1'), 0.19),
-    lg-3: 0 1.3rem 3rem rgba(color('black-1'), 0.2));
+    lg-1: 0 0.4rem 0.8rem rgba(color('black-1'), 0.12),
+    lg-2: 0 0.8rem 1.6rem rgba(color('black-1'), 0.1),
+    lg-3: 0 1.3rem 3rem rgba(color('black-1'), 0.1));
 
 
 @function shadow($shadow) {
@@ -230,7 +232,7 @@ $shadows: ( //
 //& **********************************  Other  ********************************** //
 
 $spacing: 2.5px;
-$radius: 3px;
+$base-radius: 3px;
 $transition: all 0.3s ease-in-out;
 $max-width: 1170px;
 

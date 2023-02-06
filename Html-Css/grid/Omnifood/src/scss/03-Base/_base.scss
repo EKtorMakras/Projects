@@ -1,0 +1,31 @@
+@use '../01-Abstracts'as *;
+
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
+}
+
+
+body {
+    overflow-x: hidden;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+
+a {
+    text-decoration: none;
+    transition: $transition;
+    display: inline-block;
+}
+
+
+img {
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+}

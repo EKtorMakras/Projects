@@ -2,7 +2,7 @@
 
 // Custom Breakpoints
 
-$break-points: ( // 
+$break-points: ( 
     "phone-small": em(400),
     "phone-big": em(600),
     "tablet-port": em(800),
@@ -75,7 +75,7 @@ $break-points: ( //
 
     // 1000px
     @if $breakpoint==tablet-land {
-        @media screen and (min-width:break-points(tablet-land)) {
+        @media screen and (max-width:break-points(tablet-land)) {
             @content;
         }
     }

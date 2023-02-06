@@ -37,3 +37,14 @@ export function getColorFromCustomProps(colorName) {
     const color = getComputedStyle(document.documentElement).getPropertyValue(`--clr-${colorName}`);
     return color;
 }
+
+
+
+// ========= Create Element ========= //
+export function elementFromHTML(htmlString) {
+    const template = document.createElement('template');
+    htmlString = htmlString.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = htmlString;
+
+    return template.content.firstElementChild;
+}

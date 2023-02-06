@@ -1,0 +1,48 @@
+@use '../01-Abstracts'as *;
+
+
+.header {
+
+    padding: 3rem 0;
+    background-color: color('white-2');
+
+    // fixed height for sticky nav
+    // height: 9rem;
+
+
+    &.sticky {
+
+        @include media-min(em(1000)){
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            padding-block: 0;
+            height: 10rem;
+            background: rgb(255,255,255,.96);
+            display: flex;
+            align-items: center;;
+            box-shadow: 0 1.2rem 3.2rem rgba(0,0,0,.08);
+            z-index: 100;
+        }
+    }
+
+
+    &__center {
+        width: 85%;
+        @include center-mar;
+        @include flex(row, space-between, center);
+
+
+        @include media-max(em(1360)){
+            max-width: $max-width;
+            width: 100%;
+            padding-inline: 4rem;
+        }
+    }
+
+
+    &__logo {
+        height: 3rem;
+    }
+}
