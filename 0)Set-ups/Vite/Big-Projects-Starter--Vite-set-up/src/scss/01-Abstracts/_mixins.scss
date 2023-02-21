@@ -1,0 +1,182 @@
+@use 'sass:list';
+@use 'variables' as *;
+@use 'themes' as *;
+
+
+
+//% ***************  General  *************** //
+
+// Transition
+@mixin transition($property:all, $time:.3s, $function:ease-in-out) {
+    transition: $property $time $function;
+}
+
+
+// Flexbox
+@mixin flex($direction:row, $justifycontent:center, $alignitems:center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justifycontent;
+    align-items: $alignitems;
+}
+
+
+// Pseudo element
+@mixin pseudo ($loc: before, $content: '') {
+    position: relative;
+
+    &::#{$loc} {
+        content: $content;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: $transition;
+    }
+
+}
+
+
+// Bg-Image
+@mixin bg-image($image) {
+    background-image: url(/src/assets/images/#{$image});
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+
+// Darken bg color
+@mixin darkenBgColor ($color,$amount: 6%) {
+    background-color: $color;
+
+    // &:hover,
+    // &:active {
+    //     background-color: darken($color, $amount);
+    // }
+}
+
+
+// Focus State
+@mixin focus-state($color: color('primary.base')){
+
+    &:focus-visible {
+        outline: 2px solid transparent;
+        outline-offset: 4px;
+        box-shadow: 0 0 3px 2px #ffffff,
+          0 0 4px 5px $color;
+        transform: translateY(1.5px);
+    }
+}
+
+
+// Clearfix
+@mixin clearfix {
+
+    &::after,
+    &::before {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+// Generate Color Custom Props
+@mixin generate-color-custom-props ($map: $colors,$prefix: clr) {
+
+    @each $color,$shades in $map{
+
+        @if type-of($shades)=='map' {
+
+            @each $shade,
+            $tone in $shades {
+                --#{$prefix}-#{$color}-#{$shade}: #{$tone};
+            }
+        }
+
+        @else {
+            --#{$prefix}-#{$color}: #{$shades};
+        }
+    }
+}
+
+//% ***************    *************** //
+
+
+
+//% ***************  Centering  *************** //
+
+// Center with position //
+@mixin center-pos {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+// Center with flexbox //
+@mixin center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+// Center with margins //
+@mixin center-mar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+//% ***************    *************** //
+
+
+
+//% ***************  Components  *************** //
+
+// Button //
+@mixin btn($bgColor: color('primary.base',$colors-light), $textColor: #fff, $type: normal){
+
+
+    &,
+    &:link,
+    &:visited {
+
+        @include transition(all, .4s, ease);
+        @include focus-state($bgColor);
+
+        display: inline-block;
+        padding: .9em 2em;
+        color: $textColor;
+
+        text-transform: capitalize;
+        font-size: fs(sm-2);
+        letter-spacing: $letterSpacing;
+
+        border-radius: var(--radius-3);
+        box-shadow: shadow(lg-1);
+        border: none;
+        cursor: pointer;
+
+
+        @if $type == normal {
+            @include darkenBgColor($bgColor);
+        }
+
+        @if $type == outlined {
+            background-color: #fff;
+            border: 1px solid $bgColor;
+            color: $bgColor;
+
+            &:hover,&:active {
+                background-color: $bgColor;
+                color: $textColor;
+            }
+        }
+    }
+}
