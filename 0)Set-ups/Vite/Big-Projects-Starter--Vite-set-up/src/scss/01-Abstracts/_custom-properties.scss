@@ -24,7 +24,7 @@
     --max-width: $max-width;
 
     @include respond(desktop-big){
-        --max-width: calc(${$max-width} * 1.2);
+        --max-width: calc(#{$max-width} * 1.2);
     }
 
     --shadow: #{shadow(rg-2)};

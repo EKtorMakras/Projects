@@ -1,0 +1,50 @@
+@use '../../01-Abstracts'as *;
+
+
+.single-product {
+
+  padding: 3.2rem 0;
+
+
+  &-center {
+    margin: 3.2rem auto;
+    display: grid;
+    gap: 1.6rem 3.2rem;
+
+    @include mq-min(em(992)){
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+
+  &-img {
+    height: 64rem;
+    border-radius: var(--radius-1);
+    object-fit: cover;
+  }
+
+
+  &-company {
+    font-size: 1.9rem;
+    color: getColor(gray-blue-2);
+    text-transform: uppercase;
+    letter-spacing: var(--letterSpacing);
+    margin-bottom: 2rem;
+  }
+
+
+  &-price {
+    color: var(gray-blue-7);
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+
+  &-desc {
+    max-width: 25em;
+    line-height: 1.8;
+  }
+}
+
+
+

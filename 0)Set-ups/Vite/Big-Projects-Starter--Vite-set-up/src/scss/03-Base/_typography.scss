@@ -6,7 +6,7 @@ body {
     font-family: $ff-primary;
     font-size: fs(rg);
     font-weight: fw(regular);
-    line-height: 1.5;
+    line-height: $lineHeight;
 }
 
 

@@ -6,7 +6,7 @@ import { initLs } from './utils.js'
 import { initTheme,toggleTheme } from './darkMode.js'
 import { initStartingData } from './fillStartingData.js'
 
-console.log(import.meta.env.VITE_APP_NAME)
+
 
 
 // Init App

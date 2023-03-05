@@ -1,0 +1,112 @@
+@use '../../01-Abstracts'as *;
+
+.products {
+  width: 90vw;
+  display: grid;
+  grid-gap: 1.6rem;
+  margin: 6.4rem auto;
+  max-width: var(--max-width);
+  position: relative;
+
+  @include mq-min(em(768)){
+    grid-template-columns: 200px 1fr;
+  }
+
+
+  &-container{
+
+    @include mq-min(em(992)){
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem;
+
+
+      & .product-img {
+        height: 16rem;
+      }
+
+      & .product-name {
+        font-size: 1.4rem;
+      }
+
+      & .product-price {
+        font-size: 1.4rem;
+      }
+    }
+
+    @include mq-min(em(1170)){
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+
+
+.filters {
+
+    &-container {
+      position: sticky;
+      top: 1.6rem;
+    }
+
+    h4 {
+      font-weight: 500;
+      margin: 2.4rem 0 0.8rem;
+    }
+}
+
+
+.search-input {
+  padding: 0.8rem;
+  background: getColor(slate-50);
+  border-radius: var(--radius-1);
+  border-color: transparent;
+  letter-spacing: var(--letterSpacing);
+
+  &::placeholder {
+    text-transform: capitalize;
+  }
+}
+
+
+.company-btn {
+  display: block;
+  margin: 0.25em 0;
+  padding: 0.4rem;
+  text-transform: capitalize;
+  background: transparent;
+  border-color: transparent;
+  letter-spacing: var(--letterSpacing);
+  color: getColor(gray-blue-5);
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    color: getColor(gray-blue-7);
+  }
+}
+
+
+.price-filter {
+  background: getColor(gray-blue-5) !important;
+  color: getColor(gray-blue-5);
+}
+
+
+.categories {
+
+  @include mq-min(em(768)){
+    position: sticky;
+    top: 1.6rem;
+  }
+}
+
+
+.filter-error {
+  position: absolute;
+  top: 8rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin-top: 6.4rem;
+}

@@ -1,14 +1,37 @@
 import { AppName} from './data.js'
 
+
 // ========= Strings ========= //
 export function toProperCase(str) {
     return (str[0].toUpperCase() + str.substring(1).toLowerCase())
 }
 
 
+
 // ========= Numbers ========= //
 export function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
+}
+
+export function randomNumberBetween(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+export function formatNumber(number,notation,locale) {
+  const NUMBER_FORMATTER = new Intl.NumberFormat(locale, {
+    notation
+  });
+
+  return NUMBER_FORMATTER.format(number);
+}
+
+export function formatCurrency(number, currency = 'EUR', locale) {
+  const CURRENCY_FORMATTER = new Intl.NumberFormat(locale, {
+    currency: currency,
+    style: 'currency',
+  });
+
+  return CURRENCY_FORMATTER.format(number);
 }
 
 
@@ -33,6 +56,34 @@ export function formatDate(date = new Date()) {
 }
 
 
+export function formatRelativeDate(toDate, fromDate = new Date(), locale) {
+
+  const DIVISIONS = [
+    { amount: 60, name: "seconds" },
+    { amount: 60, name: "minutes" },
+    { amount: 24, name: "hours" },
+    { amount: 7, name: "days" },
+    { amount: 4.34524, name: "weeks" },
+    { amount: 12, name: "months" },
+    { amount: Number.POSITIVE_INFINITY, name: "years" },
+  ]
+
+  const RELATIVE_DATE_FORMATTER = new Intl.RelativeTimeFormat(locale, {
+    numeric: "auto",
+  })
+
+  let duration = (toDate - fromDate) / 1000
+
+  for (let i = 0; i <= DIVISIONS.length; i++) {
+    const division = DIVISIONS[i]
+    if (Math.abs(duration) < division.amount) {
+      return RELATIVE_DATE_FORMATTER.format(Math.round(duration), division.name)
+    }
+    duration /= division.amount
+  }
+}
+
+
 
 // ========= Colors ========= //
 export function getColorFromCustomProps(colorName) {
@@ -42,10 +93,67 @@ export function getColorFromCustomProps(colorName) {
 
 
 
-// ========= Get Dom Element ========= //
-export function getDomElement(selection,multiple = false) {
+// ========= Arrays ========= //
+export function arrFirst(array, n = 1) {
+  if (n === 1) return array[0]
+  return array.filter((_, index) => index < n)
+}
+
+
+export function arrLast(array, n = 1) {
+  if (n === 1) return array[array.length - 1]
+  return array.filter((_, index) => array.length - index <= n)
+}
+
+
+export function arrRandom(array) {
+  return array[randomNumberBetween(0, array.length - 1)]
+}
+
+
+export function arrGetUniqueValues(array,value) {
+  return [
+      ...new Set(array.map(item => {
+          return item[value];
+      }))
+  ]
+}
+
+
+export function arrGroupBy(array, key) {
+  return array.reduce((group, element) => {
+    const keyValue = element[key]
+
+    return {
+      ...group,
+      [keyValue]: [...(group[keyValue] ?? []), element]
+    }
+  }, {})
+}
+
+
+
+// ========= DOM ========= //
+
+// Global Event Listener
+export function addGlobalEventListener(type = 'click', selector, callback, parent = document, options) {
+  parent.addEventListener(type, e => {
+    if (e.target.matches(selector)) callback(e);
+  },options)
+}
+
+//  Get Dom Element //
+export function getDomElement(selection, multiple = false, parent = document) {
     
-    const element = document[`querySelector${multiple ? 'All' : ''}`](selection);
+    let element;
+
+    if (multiple) {
+      element = [...parent.querySelectorAll(selection)];
+    }
+    else {
+      element = parent.querySelector(selection);
+    }
+    
 
     if (element) {
         return element;
@@ -55,14 +163,52 @@ export function getDomElement(selection,multiple = false) {
 }
 
 
-
-// ========= Create Element ========= //
+//  Create Element  //
 export function createHtmlElement(htmlString) {
     const template = document.createElement('template');
     htmlString = htmlString.trim(); // Never return a text node of whitespace as the result
     template.innerHTML = htmlString;
 
     return template.content.firstElementChild;
+}
+
+
+export function createElement(options = {}, type = 'div') {
+
+  const element = document.createElement(type)
+
+  Object.entries(options).forEach(([key, value]) => {
+
+    if (key === "class") {
+      element.classList.add(value)
+      return
+    }
+
+    if (key === "dataset") {
+      Object.entries(value).forEach(([dataKey, dataValue]) => {
+        element.dataset[dataKey] = dataValue
+      })
+      return
+    }
+
+    if (key === "text") {
+      element.textContent = value
+      return
+    }
+
+    element.setAttribute(key, value)
+  })
+  return element
+}
+
+
+//  Delete All Child Elements  //
+export function deleteChildElements(parentElement) {
+    let child = parentElement.lastElementChild;
+    while (child) {
+        parentElement.removeChild(child);
+        child = parentElement.lastElementChild;
+    }
 }
 
 
@@ -97,11 +243,20 @@ export function initLs() {
 }
 
 
-// ========= Arrays ========= //
-export function getUniqueValuesArr(array,value) {
-    return [
-        ...new Set(array.map(item => {
-            return item[value];
-        }))
-    ]
+// ========= Other ========= //
+export function sanitizeInput(inputValue) {
+    const div = document.createElement('div');
+    div.textContent = inputValue;
+    return div.innerHTML;
+}
+
+
+// Get parameters by name from url
+export function getParameterValue  (paramName, url) {
+    if (!url) url = window.location.href;
+    const regex = new RegExp(`[?&]${paramName}(=([^&#]*))`);
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return "";
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
