@@ -1,5 +1,5 @@
 import { AppName} from './data.js'
-import { dom } from './DOM.js';
+import { dom } from './dom.js';
 import { getObjectLs, setObjectLs , updateItemLs } from './utils.js';
 
 

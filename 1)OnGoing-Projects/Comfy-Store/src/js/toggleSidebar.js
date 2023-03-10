@@ -1,4 +1,4 @@
-import { dom } from './DOM.js'
+import { dom } from './dom.js'
 
 
 export function toggleNavListeners() {

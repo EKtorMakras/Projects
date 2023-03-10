@@ -3,17 +3,19 @@
 .products {
   width: 90vw;
   display: grid;
-  grid-gap: 1.6rem;
+  justify-content: center;
+  grid-gap: 3.6rem;
   margin: 6.4rem auto;
-  max-width: var(--max-width);
+  // max-width: var(--max-width);
   position: relative;
 
   @include mq-min(em(768)){
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: auto 1fr;
   }
 
 
   &-container{
+    position: relative;
 
     @include mq-min(em(992)){
       display: grid;
@@ -42,71 +44,3 @@
 
 
 
-.filters {
-
-    &-container {
-      position: sticky;
-      top: 1.6rem;
-    }
-
-    h4 {
-      font-weight: 500;
-      margin: 2.4rem 0 0.8rem;
-    }
-}
-
-
-.search-input {
-  padding: 0.8rem;
-  background: getColor(slate-50);
-  border-radius: var(--radius-1);
-  border-color: transparent;
-  letter-spacing: var(--letterSpacing);
-
-  &::placeholder {
-    text-transform: capitalize;
-  }
-}
-
-
-.company-btn {
-  display: block;
-  margin: 0.25em 0;
-  padding: 0.4rem;
-  text-transform: capitalize;
-  background: transparent;
-  border-color: transparent;
-  letter-spacing: var(--letterSpacing);
-  color: getColor(gray-blue-5);
-  cursor: pointer;
-  transition: var(--transition);
-
-  &:hover {
-    color: getColor(gray-blue-7);
-  }
-}
-
-
-.price-filter {
-  background: getColor(gray-blue-5) !important;
-  color: getColor(gray-blue-5);
-}
-
-
-.categories {
-
-  @include mq-min(em(768)){
-    position: sticky;
-    top: 1.6rem;
-  }
-}
-
-
-.filter-error {
-  position: absolute;
-  top: 8rem;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  margin-top: 6.4rem;
-}

@@ -8,8 +8,7 @@
 
 
   <!-- Font-awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/a9c97bd30a.js" crossorigin="anonymous"></script>
 
 
   <!-- Google Fonts -->
@@ -33,13 +32,120 @@
 
   <!--* ***************************************  Header  *************************************** -->
 
-  <header class="header">
 
-    <!-- $ *******************  Comment  ******************* $ -->
+  <!-- $ *******************  Nav  ******************* $ -->
+  <nav class="navbar page">
+    <div class="nav-center">
 
-    <!-- $ *******************  End Of Comment  ******************* $ -->
+      <!--^ *****  Links  *****  -->
+      <div>
+        <button class="toggle-nav">
+          <i class="fas fa-bars"></i>
+        </button>
 
-  </header>
+        <ul class="nav-links">
+          <!-- dynamically inserted links -->
+        </ul>
+      </div>
+
+
+      <!--^ *****  Logo  *****  -->
+      <img src="./src/assets/images/logo-black.svg" class="nav-logo" alt="logo">
+
+
+
+      <!--^ *****  Cart Icon  *****  -->
+      <div class="toggle-container">
+        <button class="toggle-cart">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+        <span class="cart-item-count">1</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- $ *******************  End Of Nav  ******************* $ -->
+
+
+
+  <!-- $ *******************  Hero  ******************* $ -->
+
+  <section class="page-hero">
+    <div class="section-center">
+      <h3 class="page-hero-title">Home / Products</h3>
+    </div>
+  </section>
+  <!-- $ *******************  End Of Hero  ******************* $ -->
+
+
+
+  <!-- $ *******************  Sidebar  ******************* $ -->
+  <div class="sidebar-overlay">
+    <aside class="sidebar">
+
+      <!-- close -->
+      <button class="sidebar-close">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- links -->
+      <ul class="sidebar-links">
+        <!-- dynamically inserted links -->
+      </ul>
+    </aside>
+  </div>
+  <!-- $ *******************  End Of Sidebar  ******************* $ -->
+
+
+
+  <!-- $ *******************  Cart  ******************* $ -->
+  <div class="cart-overlay">
+    <aside class="cart">
+
+      <!-- close -->
+      <button class="cart-close">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- header -->
+      <header>
+        <h3 class="text-slanted">your bag</h3>
+      </header>
+
+      <!-- Items -->
+      <div class="cart-items">
+
+        <article class="cart-item" data-id="1">
+
+          <img src="./src/assets/images/main-bcg.jpeg" class="cart-item-img" alt="name">
+
+          <div>
+            <h4 class="cart-item-name">high back bench</h4>
+            <p class="cart-item-price">$13.99</p>
+            <button class="cart-item-remove-btn">remove</button>
+          </div>
+
+          <div>
+            <button class="cart-item-increase-btn">
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <p class="cart-item-amount">1</p>
+            <button class="cart-item-decrease-btn">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- footer -->
+      <footer>
+        <h3 class="cart-total text-slanted">total: $123,75</h3>
+        <button class="cart-checkout btn">checkout</button>
+      </footer>
+    </aside>
+  </div>
+  <!-- $ *******************  End Of Cart  ******************* $ -->
+
   <!--* ***************************************  End Of Header  *************************************** -->
 
 
@@ -47,27 +153,46 @@
 
   <!--* ***************************************  Main  *************************************** -->
 
-  <main class="main">
+  <section class="products">
 
-    <!-- $ *******************  Comment  ******************* $ -->
-    <h2>Products page</h2>
-    <!-- $ *******************  End Of Comment  ******************* $ -->
+    <!--^ *****  Filters  *****  -->
+    <div class="filters">
+      <div class="filters-container">
 
-  </main>
+        <!-- search -->
+        <form class="search-form">
+          <input type="text" placeholder="search..." class="search-input">
+          <i class="fas fa-circle-xmark search-clear-icon hide"></i>
+        </form>
+
+        <!-- categories -->
+        <h4>Company</h4>
+
+        <article class="companies">
+          <button class="company-btn">All</button>
+          <button class="company-btn">ikea</button>
+        </article>
+
+        <!-- price -->
+        <h4>Price</h4>
+
+        <form class="price-form">
+          <input type="range" class="price-filter" min="0" max="100" value="50">
+        </form>
+      </div>
+    </div>
+
+    <!--^ *****  Filters  *****  -->
+    <div class="products-container"></div>
+
+  </section>
+
+  <!--^ *****  Page Loading  *****  -->
+  <div class="page-loading products-page-loading">
+    <h2>Loading...</h2>
+  </div>
 
   <!--* ***************************************  End Of Main  *************************************** -->
-
-
-
-  <!--* ***************************************  Footer  *************************************** -->
-
-  <footer class="footer">
-
-
-  </footer>
-
-  <!--* ***************************************  End Of Footer  *************************************** -->
-
 
 
 </body>

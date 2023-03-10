@@ -8,8 +8,7 @@
 
 
   <!-- Font-awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/a9c97bd30a.js" crossorigin="anonymous"></script>
 
 
   <!-- Google Fonts -->
@@ -19,6 +18,7 @@
 
 
   <!-- Js -->
+  <!-- <script src="./src/js/main.js" type="module" defer></script> -->
   <script src="./src/js/pages/about.js" type="module" defer></script>
 
   <!-- Css -->
@@ -33,13 +33,120 @@
 
   <!--* ***************************************  Header  *************************************** -->
 
-  <header class="header">
 
-    <!-- $ *******************  Comment  ******************* $ -->
+  <!-- $ *******************  Nav  ******************* $ -->
+  <nav class="navbar page">
+    <div class="nav-center">
 
-    <!-- $ *******************  End Of Comment  ******************* $ -->
+      <!--^ *****  Links  *****  -->
+      <div>
+        <button class="toggle-nav">
+          <i class="fas fa-bars"></i>
+        </button>
 
-  </header>
+        <ul class="nav-links">
+          <!-- dynamically inserted links -->
+        </ul>
+      </div>
+
+
+      <!--^ *****  Logo  *****  -->
+      <img src="./src/assets/images/logo-black.svg" class="nav-logo" alt="logo">
+
+
+
+      <!--^ *****  Cart Icon  *****  -->
+      <div class="toggle-container">
+        <button class="toggle-cart">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+        <span class="cart-item-count">1</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- $ *******************  End Of Nav  ******************* $ -->
+
+
+
+  <!-- $ *******************  Hero  ******************* $ -->
+
+  <section class="page-hero">
+    <div class="section-center">
+      <h3 class="page-hero-title">Home / About</h3>
+    </div>
+  </section>
+  <!-- $ *******************  End Of Hero  ******************* $ -->
+
+
+
+  <!-- $ *******************  Sidebar  ******************* $ -->
+  <div class="sidebar-overlay">
+    <aside class="sidebar">
+
+      <!-- close -->
+      <button class="sidebar-close">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- links -->
+      <ul class="sidebar-links">
+        <!-- dynamically inserted links -->
+      </ul>
+    </aside>
+  </div>
+  <!-- $ *******************  End Of Sidebar  ******************* $ -->
+
+
+
+  <!-- $ *******************  Cart  ******************* $ -->
+  <div class="cart-overlay">
+    <aside class="cart">
+
+      <!-- close -->
+      <button class="cart-close">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- header -->
+      <header>
+        <h3 class="text-slanted">your bag</h3>
+      </header>
+
+      <!-- Items -->
+      <div class="cart-items">
+
+        <article class="cart-item" data-id="1">
+
+          <img src="./src/assets/images/main-bcg.jpeg" class="cart-item-img" alt="name">
+
+          <div>
+            <h4 class="cart-item-name">high back bench</h4>
+            <p class="cart-item-price">$13.99</p>
+            <button class="cart-item-remove-btn">remove</button>
+          </div>
+
+          <div>
+            <button class="cart-item-increase-btn">
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <p class="cart-item-amount">1</p>
+            <button class="cart-item-decrease-btn">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- footer -->
+      <footer>
+        <h3 class="cart-total text-slanted">total: $123,75</h3>
+        <button class="cart-checkout btn">checkout</button>
+      </footer>
+    </aside>
+  </div>
+  <!-- $ *******************  End Of Cart  ******************* $ -->
+
   <!--* ***************************************  End Of Header  *************************************** -->
 
 
@@ -47,28 +154,24 @@
 
   <!--* ***************************************  Main  *************************************** -->
 
-  <main class="main">
+  <section class="section section-center about-page">
 
-    <!-- $ *******************  Comment  ******************* $ -->
-    <h2>About page</h2>
-    <!-- $ *******************  End Of Comment  ******************* $ -->
+    <div class="title">
+      <h2>
+        <span>/</span> our history
+      </h2>
+    </div>
 
-  </main>
+    <p class="about-text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat repudiandae consectetur aliquid, officiis,
+      suscipit atque veniam vero commodi iste culpa facere debitis corporis excepturi? In incidunt facere ipsa, dolorum
+      ipsum deserunt. Nam culpa amet totam pariatur voluptatum quibusdam atque quisquam doloremque ipsa numquam illo
+      reprehenderit, illum odit iste nulla cumque assumenda alias laboriosam doloribus ullam aliquid maxime. Assumenda,
+      cum veritatis!
+    </p>
+  </section>
 
   <!--* ***************************************  End Of Main  *************************************** -->
-
-
-
-  <!--* ***************************************  Footer  *************************************** -->
-
-  <footer class="footer">
-
-
-  </footer>
-
-  <!--* ***************************************  End Of Footer  *************************************** -->
-
-
 
 </body>
 

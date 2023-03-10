@@ -4,18 +4,19 @@
 // ======== Module Imports ======== //
 
 // global imports
-import './toggleSidebar.js';
-import './cart/toggleCart.js';
-import './cart/setupCart.js';
+// import './toggleSidebar.js';
+// import './cart/toggleCart.js';
+// import './cart/setupCart.js';
 
 // specific imports
-import { initLs , getDomElement } from './utils.js'
+import { dom,domMain } from './dom.js'
 import { initTheme,toggleTheme } from './darkMode.js'
 import { initStartingData } from './fillStartingData.js'
 import { fetchProducts } from './fetchProducts.js'
-import { setupStore, store } from './store.js';
+import { setupStore, getFeaturedProducts ,store } from './store.js';
 import {displayProducts} from './displayProducts.js';
 import { toggleNavListeners } from './toggleSidebar.js';
+import { toggleCartListeners } from './cart/toggleCart.js';
 
 
 
@@ -26,10 +27,17 @@ document.addEventListener('DOMContentLoaded', initApp)
 
 
 // Functions
-function initApp() {
-  initStartingData()
-  initLs()
-  initTheme()
-  toggleNavListeners()
+async function initApp() {
+  initStartingData();
+  initTheme();
+  toggleNavListeners();
+  toggleCartListeners();
+  
+  const products = await fetchProducts();
+  if (products) {
+    setupStore(products);
+    const featuredProducts = getFeaturedProducts();
+    displayProducts(featuredProducts,domMain.featuredCenter);
+  }
 }
 

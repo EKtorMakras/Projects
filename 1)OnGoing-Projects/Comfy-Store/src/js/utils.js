@@ -34,7 +34,14 @@ export function formatCurrency(number, currency = 'EUR', locale) {
   return CURRENCY_FORMATTER.format(number);
 }
 
-export function formatPrice(){}
+export function formatPrice(price) {
+  let formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format((price / 100).toFixed(2));
+
+  return formattedPrice;
+}
 
 // ========= Dates ========= //
 export function getNextDay(i, length = 7) {
@@ -159,7 +166,7 @@ export function getDomElement(selection, multiple = false, parent = document) {
         return element;
     }
 
-    throw new Error('no element selected');
+    // throw new Error('no element selected');
 }
 
 
@@ -242,9 +249,24 @@ export function initLs() {
     setObjectLs(AppName,{})
 }
 
-export function getStorageItem() {}
+export function getStorageItem(item) {
+  let storageItem = localStorage.getItem(item)
 
-export function setStorageItem() {}
+  if (storageItem) {
+    storageItem = JSON.parse(storageItem)
+  }
+  else {
+    storageItem = []
+  }
+
+  return storageItem
+}
+
+export function setStorageItem(name, item) {
+  localStorage.setItem(name, JSON.stringify(item));
+}
+
+
 
 // ========= Other ========= //
 export function sanitizeInput(inputValue) {

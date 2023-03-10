@@ -48,7 +48,7 @@ input[type="submit"] {
     min-height: 20vh;
     display: grid;
     place-items: center;
-    background: getColor(slate-50);
+    background: getColor(slate-200);
     color: getColor(gray-blue-5);
 
     &-title{

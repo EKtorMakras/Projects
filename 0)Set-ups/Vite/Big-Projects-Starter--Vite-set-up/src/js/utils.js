@@ -25,7 +25,7 @@ export function formatNumber(number,notation,locale) {
   return NUMBER_FORMATTER.format(number);
 }
 
-export function formatCurrency(number, currency = 'EUR', locale) {
+export function formatCurrency(number, currency = 'USD', locale = 'en-US') {
   const CURRENCY_FORMATTER = new Intl.NumberFormat(locale, {
     currency: currency,
     style: 'currency',

@@ -2,9 +2,8 @@
 // App Name
 export const AppName = import.meta.env.VITE_APP_NAME
 
-
 // URLS
-export const BASE_URL = import.meta.env.BASE_URL
+export const BASE_URL = import.meta.env.VITE_BASE_URL
 
 export const allProductsUrl = `${BASE_URL}/javascript-store-products`
 

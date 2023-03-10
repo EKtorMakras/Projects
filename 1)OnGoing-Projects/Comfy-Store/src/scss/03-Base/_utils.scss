@@ -50,6 +50,16 @@
 }
 
 
+//& ******* Visibility ******* //
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+
 //& ******* Styled Text ******* //
 .error {
     color: getColor(slate-50);

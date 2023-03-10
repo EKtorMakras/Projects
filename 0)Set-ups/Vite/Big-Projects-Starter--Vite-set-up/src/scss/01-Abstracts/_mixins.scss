@@ -22,7 +22,7 @@
 
 
 // Pseudo element overlay
-@mixin pseudo ($loc: before, $content: '',$bgColor: rgba(color('black'),.3)) {
+@mixin pseudo ($loc: before, $content: '', $bgColor: rgba(color('black'),.3)) {
     position: relative;
     isolation: isolate;
 
@@ -40,7 +40,7 @@
 }
 
 // Darken Overlay
-@mixin darkenOverlay ($bg: rgb(0,0,0),$opacity: 0.15) {
+@mixin darkenOverlay ($bg: rgb(0,0,0), $opacity: 0.15, $radius:0) {
     position: relative;
 
     &::after {
@@ -52,6 +52,7 @@
         height: 100%;
         z-index: 1;
         background: $bg;
+        border-radius: $radius;
         opacity: $opacity;
         pointer-events: none;
         user-select: none;
@@ -70,12 +71,24 @@
 
 
 // Darken bg color
-@mixin darkenBgColor ($color,$amount: 6%) {
-    background-color: $color;
+@mixin darkenBgColor ($bgColor, $amount: 6%, $color) {
+    background-color: $bgColor;
 
     &:hover,
     &:active {
-        background-color: darken($color, $amount);
+        background-color: darken($bgColor, $amount);
+        color: $color;
+    }
+}
+
+// Lighten bg color
+@mixin lightenBgColor ($bgColor, $amount: 10%, $color) {
+    background-color: $bgColor;
+
+    &:hover,
+    &:active {
+        background-color: lighten($bgColor, $amount);
+        color: $color;
     }
 }
 
@@ -105,7 +118,7 @@
 
 
 // Generate Color Custom Props
-@mixin generate-color-custom-props ($map: $colors,$prefix: clr) {
+@mixin generate-color-custom-props ($map: $colors, $prefix: clr) {
 
     @each $color,$shades in $map{
 
@@ -161,28 +174,32 @@
 //% ***************  Components  *************** //
 
 // Button //
-@mixin btn($bgColor: color('primary-light.base'), $textColor: color('slate.50'), $type: normal){
+%btn-standard-props {
+    @include transition(all, .4s, ease);
+    display: inline-block;
+    text-transform: capitalize;
+    letter-spacing: $letterSpacing;
+    border-color: transparent;
+    border-radius: var(--radius-2);
+    box-shadow: shadow(lg-1);
+    white-space: nowrap;
+    cursor: pointer;
+}
 
+
+@mixin btn($bgColor: color('primary-light.base'), $textColor: color('slate.50'), $type: normal){
 
     &,
     &:link,
     &:visited {
 
-        @include transition(all, .4s, ease);
+        @extend %btn-standard-props;
         @include focus-state($bgColor);
 
-        display: inline-block;
         padding: .9em 2em;
         color: $textColor;
 
-        text-transform: capitalize;
         font-size: fs(sm-2);
-        letter-spacing: $letterSpacing;
-
-        border-radius: var(--radius-3);
-        box-shadow: shadow(lg-1);
-        border: none;
-        cursor: pointer;
 
 
         @if $type == normal {

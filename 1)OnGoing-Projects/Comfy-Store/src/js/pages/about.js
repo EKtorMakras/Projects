@@ -1,6 +1,20 @@
 // ======== Module Imports ======== //
+import { dom } from '../dom.js'
+import { initTheme,toggleTheme } from '../darkMode.js'
+import { initStartingData } from '../fillStartingData.js'
+import { toggleNavListeners } from '../toggleSidebar.js';
+import { toggleCartListeners } from '../cart/toggleCart.js';
 
-// global imports
-// import '../toggleSidebar.js';
-// import '../cart/toggleCart.js';
-// import '../cart/setupCart.js';
+
+// Init App
+document.addEventListener('DOMContentLoaded', initApp)
+
+
+
+// Functions
+async function initApp() {
+  initStartingData();
+  initTheme();
+  toggleNavListeners();
+  toggleCartListeners();
+}

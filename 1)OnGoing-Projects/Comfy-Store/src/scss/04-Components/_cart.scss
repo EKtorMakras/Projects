@@ -88,16 +88,19 @@
     }
 
     &-name{
-      margin-bottom: 0.24rem;
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      text-align: left;
     }
 
     &-price {
       margin-bottom: 0;
-      font-size: 1.2rem;
+      font-size: 1.8rem;
       color: getColor(gray-blue-7);
     }
 
     &-remove-btn {
+      font-size: 2;
       background: transparent;
       border-color: transparent;
       color: getColor(gray-blue-5);
@@ -115,7 +118,7 @@
     &-increase-btn,&-decrease-btn{
       background: transparent;
       border-color: transparent;
-      color: getColor(gray-blue-5);
+      color: getColor(primary-base);
       cursor: pointer;
       font-size: 1.4rem;
       padding: 0.4rem;

@@ -8,8 +8,7 @@
 
 
   <!-- Font-awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/a9c97bd30a.js" crossorigin="anonymous"></script>
 
 
   <!-- Google Fonts -->
@@ -105,6 +104,56 @@
   </div>
   <!-- $ *******************  End Of Sidebar  ******************* $ -->
 
+
+
+  <!-- $ *******************  Cart  ******************* $ -->
+  <div class="cart-overlay">
+    <aside class="cart">
+
+      <!-- close -->
+      <button class="cart-close">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- header -->
+      <header>
+        <h3 class="text-slanted">your bag</h3>
+      </header>
+
+      <!-- Items -->
+      <div class="cart-items">
+
+        <article class="cart-item" data-id="1">
+
+          <img src="./src/assets/images/main-bcg.jpeg" class="cart-item-img" alt="name">
+
+          <div>
+            <h4 class="cart-item-name">high back bench</h4>
+            <p class="cart-item-price">$13.99</p>
+            <button class="cart-item-remove-btn">remove</button>
+          </div>
+
+          <div>
+            <button class="cart-item-increase-btn">
+              <i class="fas fa-chevron-up"></i>
+            </button>
+            <p class="cart-item-amount">1</p>
+            <button class="cart-item-decrease-btn">
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- footer -->
+      <footer>
+        <h3 class="cart-total text-slanted">total: $123,75</h3>
+        <button class="cart-checkout btn">checkout</button>
+      </footer>
+    </aside>
+  </div>
+  <!-- $ *******************  End Of Cart  ******************* $ -->
+
   <!--* ***************************************  End Of Header  *************************************** -->
 
 
@@ -112,13 +161,23 @@
 
   <!--* ***************************************  Main  *************************************** -->
 
-  <main class="main">
+  <!-- $ *******************  Featured Products  ******************* $ -->
+  <section class="section featured">
 
-    <!-- $ *******************  Comment  ******************* $ -->
-    <h2>home page</h2>
-    <!-- $ *******************  End Of Comment  ******************* $ -->
+    <div class="title">
+      <h2><span>/</span> featured</h2>
+    </div>
 
-  </main>
+    <div class="featured-center section-center">
+      <h2 class="section-loading">
+        loading...
+      </h2>
+
+    </div>
+
+    <a href="products.html" class="btn">all products</a>
+  </section>
+  <!-- $ *******************  End Of Featured Products  ******************* $ -->
 
   <!--* ***************************************  End Of Main  *************************************** -->
 

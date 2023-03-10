@@ -1,5 +1,5 @@
 import { AppName , navLinks} from './data.js'
-import { dom } from './DOM.js';
+import { dom } from './dom.js';
 
 export function initStartingData() {
   fillBasicData();
