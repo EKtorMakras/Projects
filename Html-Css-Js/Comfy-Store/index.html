@@ -18,13 +18,12 @@
 
 
   <!-- Js -->
-  <!-- <script src="./src/js/main.js" type="module" defer></script> -->
-  <script src="./src/js/pages/about.js" type="module" defer></script>
+  <script src="./src/js/main.js" type="module" defer></script>
 
   <!-- Css -->
   <link rel="stylesheet" href="./src/scss/style.scss">
 
-  <title>About | Comfy</title>
+  <title>Home | Comfy</title>
 
 </head>
 
@@ -35,7 +34,7 @@
 
 
   <!-- $ *******************  Nav  ******************* $ -->
-  <nav class="navbar page">
+  <nav class="navbar">
     <div class="nav-center">
 
       <!--^ *****  Links  *****  -->
@@ -51,7 +50,7 @@
 
 
       <!--^ *****  Logo  *****  -->
-      <img src="./src/assets/images/logo-black.svg" class="nav-logo" alt="logo">
+      <img src="./src/assets/images/logo-white.svg" class="nav-logo" alt="logo">
 
 
 
@@ -71,9 +70,17 @@
 
   <!-- $ *******************  Hero  ******************* $ -->
 
-  <section class="page-hero">
-    <div class="section-center">
-      <h3 class="page-hero-title">Home / About</h3>
+  <section class="hero">
+    <div class="hero-container">
+      <h1 class="text-slanted">
+        rest, relax, unwind
+      </h1>
+      <h3>
+        Embrace your choices - we do
+      </h3>
+      <a href="product.html" class="hero-btn">
+        shop now
+      </a>
     </div>
   </section>
   <!-- $ *******************  End Of Hero  ******************* $ -->
@@ -116,31 +123,11 @@
       <!-- Items -->
       <div class="cart-items">
 
-        <article class="cart-item" data-id="1">
-
-          <img src="./src/assets/images/main-bcg.jpeg" class="cart-item-img" alt="name">
-
-          <div>
-            <h4 class="cart-item-name">high back bench</h4>
-            <p class="cart-item-price">$13.99</p>
-            <button class="cart-item-remove-btn">remove</button>
-          </div>
-
-          <div>
-            <button class="cart-item-increase-btn">
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <p class="cart-item-amount">1</p>
-            <button class="cart-item-decrease-btn">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-        </article>
       </div>
 
       <!-- footer -->
       <footer>
-        <h3 class="cart-total text-slanted">total: $123,75</h3>
+        <h3 class="cart-total text-slanted"></h3>
         <button class="cart-checkout btn">checkout</button>
       </footer>
     </aside>
@@ -154,24 +141,38 @@
 
   <!--* ***************************************  Main  *************************************** -->
 
-  <section class="section section-center about-page">
+  <!-- $ *******************  Featured Products  ******************* $ -->
+  <section class="section featured">
 
     <div class="title">
-      <h2>
-        <span>/</span> our history
-      </h2>
+      <h2><span>/</span> featured</h2>
     </div>
 
-    <p class="about-text">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat repudiandae consectetur aliquid, officiis,
-      suscipit atque veniam vero commodi iste culpa facere debitis corporis excepturi? In incidunt facere ipsa, dolorum
-      ipsum deserunt. Nam culpa amet totam pariatur voluptatum quibusdam atque quisquam doloremque ipsa numquam illo
-      reprehenderit, illum odit iste nulla cumque assumenda alias laboriosam doloribus ullam aliquid maxime. Assumenda,
-      cum veritatis!
-    </p>
+    <div class="featured-center section-center">
+      <h2 class="section-loading">
+        loading...
+      </h2>
+
+    </div>
+
+    <a href="products.html" class="btn">all products</a>
   </section>
+  <!-- $ *******************  End Of Featured Products  ******************* $ -->
 
   <!--* ***************************************  End Of Main  *************************************** -->
+
+
+
+  <!--* ***************************************  Footer  *************************************** -->
+
+  <footer class="footer">
+
+
+  </footer>
+
+  <!--* ***************************************  End Of Footer  *************************************** -->
+
+
 
 </body>
 

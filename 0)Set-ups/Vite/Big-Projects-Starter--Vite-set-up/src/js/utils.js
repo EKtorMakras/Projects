@@ -13,9 +13,21 @@ export function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
 }
 
+
 export function randomNumberBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+
+export function numberIsEven(number) {
+  return number % 2 === 0;
+}
+
+
+export function getAverage(...nums) {
+  nums.reduce((a,b) => a + b) / nums.length
+}
+
 
 export function formatNumber(number,notation,locale) {
   const NUMBER_FORMATTER = new Intl.NumberFormat(locale, {
@@ -24,6 +36,7 @@ export function formatNumber(number,notation,locale) {
 
   return NUMBER_FORMATTER.format(number);
 }
+
 
 export function formatCurrency(number, currency = 'USD', locale = 'en-US') {
   const CURRENCY_FORMATTER = new Intl.NumberFormat(locale, {
@@ -132,6 +145,16 @@ export function arrGroupBy(array, key) {
 }
 
 
+export function arrIsNotEmpty(array) {
+  return Array.isArray(array) && array.length > 0;
+}
+
+
+export function arrShuffle(array) {
+  return array.sort(() => 0.5 - Math.random())
+}
+
+ 
 
 // ========= DOM ========= //
 
@@ -141,6 +164,7 @@ export function addGlobalEventListener(type = 'click', selector, callback, paren
     if (e.target.matches(selector)) callback(e);
   },options)
 }
+
 
 //  Get Dom Element //
 export function getDomElement(selection, multiple = false, parent = document) {
@@ -214,13 +238,16 @@ export function deleteChildElements(parentElement) {
 
 
 // ========= Local Storage ========= //
+
 export function getObjectLs(key) {
     return JSON.parse(localStorage.getItem(key));
 } 
 
+
 export function setObjectLs(key, obj) {
     localStorage.setItem(key, JSON.stringify(obj));
 }
+
 
 export function updateItemLs(key, property, value) {
     var obj = getObjectLs(key);
@@ -238,6 +265,7 @@ export function updateItemLs(key, property, value) {
     
 }
 
+
 export function initLs() {
     setObjectLs(AppName,{})
 }
@@ -251,8 +279,13 @@ export function sanitizeInput(inputValue) {
 }
 
 
+export function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+}
+
+
 // Get parameters by name from url
-export function getParameterValue  (paramName, url) {
+export function getParameterValue  (paramName, url = window.location.href) {
     if (!url) url = window.location.href;
     const regex = new RegExp(`[?&]${paramName}(=([^&#]*))`);
     const results = regex.exec(url);

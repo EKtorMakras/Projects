@@ -1,8 +1,8 @@
 import { formatPrice } from './utils.js';
 import { addToCart } from './cart/setupCart.js';
 
-export function displayProducts(productsArr, element) {
-  console.log(productsArr)
+export function displayProducts(productsArr, element, filters) {
+  
   element.innerHTML = productsArr.map(product => {
     const {id, name, image, price} = product;
     return `
@@ -10,7 +10,7 @@ export function displayProducts(productsArr, element) {
         <div class="product-container">
           <img src="${image}" class="product-img img" alt="${name}">
           <div class="product-icons">
-            <a href="product.html?id=${id}" class="product-icon">
+            <a href="product.html?id=${id}" class="product-icon" target="_blank">
               <i class="fas fa-search"></i>
             </a>
             <button class="product-cart-btn product-icon" data-id="${id}">
@@ -25,6 +25,8 @@ export function displayProducts(productsArr, element) {
      </article>
     `
   }).join('');
+
+  if (filters) return;
 
   addToCartListener(element);
 }

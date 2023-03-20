@@ -18,12 +18,13 @@
 
 
   <!-- Js -->
-  <script src="./src/js/pages/products.js" type="module" defer></script>
+  <!-- <script src="./src/js/main.js" type="module" defer></script> -->
+  <script src="./src/js/pages/about.js" type="module" defer></script>
 
   <!-- Css -->
   <link rel="stylesheet" href="./src/scss/style.scss">
 
-  <title>Products | Comfy</title>
+  <title>About | Comfy</title>
 
 </head>
 
@@ -72,7 +73,7 @@
 
   <section class="page-hero">
     <div class="section-center">
-      <h3 class="page-hero-title">Home / Products</h3>
+      <h3 class="page-hero-title">Home / About</h3>
     </div>
   </section>
   <!-- $ *******************  End Of Hero  ******************* $ -->
@@ -115,31 +116,12 @@
       <!-- Items -->
       <div class="cart-items">
 
-        <article class="cart-item" data-id="1">
 
-          <img src="./src/assets/images/main-bcg.jpeg" class="cart-item-img" alt="name">
-
-          <div>
-            <h4 class="cart-item-name">high back bench</h4>
-            <p class="cart-item-price">$13.99</p>
-            <button class="cart-item-remove-btn">remove</button>
-          </div>
-
-          <div>
-            <button class="cart-item-increase-btn">
-              <i class="fas fa-chevron-up"></i>
-            </button>
-            <p class="cart-item-amount">1</p>
-            <button class="cart-item-decrease-btn">
-              <i class="fas fa-chevron-down"></i>
-            </button>
-          </div>
-        </article>
       </div>
 
       <!-- footer -->
       <footer>
-        <h3 class="cart-total text-slanted">total: $123,75</h3>
+        <h3 class="cart-total text-slanted"></h3>
         <button class="cart-checkout btn">checkout</button>
       </footer>
     </aside>
@@ -153,47 +135,24 @@
 
   <!--* ***************************************  Main  *************************************** -->
 
-  <section class="products">
+  <section class="section section-center about-page">
 
-    <!--^ *****  Filters  *****  -->
-    <div class="filters">
-      <div class="filters-container">
-
-        <!-- search -->
-        <form class="search-form">
-          <input type="text" placeholder="search..." class="search-input">
-          <i class="fas fa-circle-xmark search-clear-icon hide"></i>
-        </form>
-
-        <!-- categories -->
-        <h4>Company</h4>
-
-        <article class="companies">
-          <button class="company-btn">All</button>
-          <button class="company-btn">ikea</button>
-        </article>
-
-        <!-- price -->
-        <h4>Price</h4>
-
-        <form class="price-form">
-          <input type="range" class="price-filter" min="0" max="100" value="50">
-        </form>
-      </div>
+    <div class="title">
+      <h2>
+        <span>/</span> our history
+      </h2>
     </div>
 
-    <!--^ *****  Filters  *****  -->
-    <div class="products-container"></div>
-
+    <p class="about-text">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat repudiandae consectetur aliquid, officiis,
+      suscipit atque veniam vero commodi iste culpa facere debitis corporis excepturi? In incidunt facere ipsa, dolorum
+      ipsum deserunt. Nam culpa amet totam pariatur voluptatum quibusdam atque quisquam doloremque ipsa numquam illo
+      reprehenderit, illum odit iste nulla cumque assumenda alias laboriosam doloribus ullam aliquid maxime. Assumenda,
+      cum veritatis!
+    </p>
   </section>
 
-  <!--^ *****  Page Loading  *****  -->
-  <div class="page-loading products-page-loading">
-    <h2>Loading...</h2>
-  </div>
-
   <!--* ***************************************  End Of Main  *************************************** -->
-
 
 </body>
 

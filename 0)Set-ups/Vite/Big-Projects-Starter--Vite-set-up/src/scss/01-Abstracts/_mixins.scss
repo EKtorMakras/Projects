@@ -203,7 +203,7 @@
 
 
         @if $type == normal {
-            @include darkenBgColor($bgColor);
+            @include darkenBgColor($bgColor,$color:$textColor);
         }
 
         @if $type == outlined {

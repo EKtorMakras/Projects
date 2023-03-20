@@ -16,7 +16,8 @@ import { fetchProducts } from './fetchProducts.js'
 import { setupStore, getFeaturedProducts ,store } from './store.js';
 import {displayProducts} from './displayProducts.js';
 import { toggleNavListeners } from './toggleSidebar.js';
-import { toggleCartListeners } from './cart/toggleCart.js';
+import {toggleCartListeners} from './cart/toggleCart.js';
+import { initCart } from './cart/setupCart.js';
 
 
 
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', initApp)
 async function initApp() {
   initStartingData();
   initTheme();
+  initCart();
   toggleNavListeners();
   toggleCartListeners();
   

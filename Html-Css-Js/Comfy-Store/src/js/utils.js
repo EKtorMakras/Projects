@@ -277,7 +277,7 @@ export function sanitizeInput(inputValue) {
 
 
 // Get parameters by name from url
-export function getParameterValue  (paramName, url) {
+export function getParameterValue  (paramName, url = window.location.href) {
     if (!url) url = window.location.href;
     const regex = new RegExp(`[?&]${paramName}(=([^&#]*))`);
     const results = regex.exec(url);
