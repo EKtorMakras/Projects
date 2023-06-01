@@ -259,15 +259,10 @@ export function updateItemLs(key, property, value) {
 
     else {
         setObjectLs(key, {
-         property: value
+         [property]: value
      });
     }
     
-}
-
-
-export function initLs() {
-    setObjectLs(AppName,{})
 }
 
 

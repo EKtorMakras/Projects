@@ -13,51 +13,24 @@
 
 
 // Flexbox
-@mixin flex($direction:row, $justifyContent:center, $alignItems:center) {
+@mixin flex($direction:row, $justify:center, $align:center, $gap:0, $wrap: nowrap) {
     display: flex;
     flex-direction: $direction;
-    justify-content: $justifyContent;
-    align-items: $alignItems;
-}
-
-
-// Pseudo element overlay
-@mixin pseudo ($loc: before, $content: '', $bgColor: rgba(color('black'),.3)) {
-    position: relative;
-    isolation: isolate;
-
-    &::#{$loc} {
-        content: $content;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background-color: $bgColor;
-        transition: $transition;
+    flex-wrap: $wrap;
+    justify-content: $justify;
+    align-items: $align;
+    
+    @if $gap != 0 {
+        gap: $gap;
     }
 }
 
-// Darken Overlay
-@mixin darkenOverlay ($bg: rgb(0,0,0), $opacity: 0.15, $radius:0) {
-    position: relative;
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: $bg;
-        border-radius: $radius;
-        opacity: $opacity;
-        pointer-events: none;
-        user-select: none;
-        backface-visibility: hidden;
-    }
+// Responsive Grid
+@mixin responsive-grid ($size: 35rem, $gap: 2rem) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(#{$size}, 100%), 1fr));
+    gap: $gap;
 }
 
 
@@ -105,6 +78,30 @@
 }
 
 
+// Link Underline
+@mixin link-underline($color: currentColor, $origin: center) {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: $color;
+      left: 0;
+      bottom: -5px;
+      transform: scaleX(0);
+      transform-origin: $origin;
+      transition: $transition;
+      border-radius: var(--pilled);
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+}
+
+
 // Clearfix
 @mixin clearfix {
 
@@ -115,6 +112,7 @@
         clear: both;
     }
 }
+
 
 
 // Generate Color Custom Props
@@ -140,6 +138,59 @@
 
 
 
+//% ***************  Overlays  *************** //
+// Pseudo element overlay
+@mixin pseudo ($loc: before, $content: '', $bgColor: rgba(color('black'),.3)) {
+    position: relative;
+    isolation: isolate;
+
+    &::#{$loc} {
+        content: $content;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-color: $bgColor;
+        transition: $transition;
+    }
+}
+
+// Cover parent element
+@mixin cover ($radius: 0){
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 1;
+    border-radius: $radius;
+}
+
+// Darken Overlay
+@mixin darkenOverlay ($bg: rgb(0,0,0), $opacity: 0.15, $radius:0) {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: $bg;
+        border-radius: $radius;
+        opacity: $opacity;
+        pointer-events: none;
+        user-select: none;
+        backface-visibility: hidden;
+    }
+}
+//% ***************    *************** //
+
+
+
 //% ***************  Centering  *************** //
 
 // Center with position //
@@ -149,15 +200,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-
-// Center with flexbox //
-@mixin center-flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 }
 
 
@@ -178,7 +220,7 @@
     @include transition(all, .4s, ease);
     display: inline-block;
     text-transform: capitalize;
-    letter-spacing: $letterSpacing;
+    letter-spacing: var(--letterSpacing-3);
     border-color: transparent;
     border-radius: var(--radius-2);
     box-shadow: shadow(lg-1);
@@ -187,7 +229,7 @@
 }
 
 
-@mixin btn($bgColor: color('primary-light.base'), $textColor: color('slate.50'), $type: normal){
+@mixin btn($bgColor: color('primary.base'), $textColor: color('gray.50'), $type: normal){
 
     &,
     &:link,
@@ -196,7 +238,7 @@
         @extend %btn-standard-props;
         @include focus-state($bgColor);
 
-        padding: .9em 2em;
+        padding: 1rem 2rem;
         color: $textColor;
 
         font-size: fs(sm-2);
@@ -217,4 +259,14 @@
             }
         }
     }
+}
+
+
+// Card
+@mixin card($bgColor: #fff,$min-height: 40rem, $radius: var(--radius-3), $shadow: var(--shadow-dark)) {
+    min-height: $min-height;
+    background-color: $bgColor;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    padding: 2rem 3rem;
 }

@@ -11,20 +11,20 @@ html {
     //# ---- Media ---- //
 
     @include respond (xxl) {
-        font-size: 75%; // 1rem = 12px //
+        font-size: 70%; // 1rem ~= 11px //
     }
 
     @include respond (lg) {
-        font-size: 56.25%; // 1rem = 9px //
+        font-size: 57%; // 1rem ~= 9px //
     }
 
     @include respond (md) {
-        font-size: 50%; // 1rem = 8px //
+        font-size: 52%; // 1rem ~= 8px //
     }
 
-    @include respond (sm) {
-        font-size: 43.75%; // 1rem = 7px //
-    }
+    // @include respond (sm) {
+    //     font-size: 43.75%; // 1rem = 7px //
+    // }
 
     //# ---- ---- //
 }

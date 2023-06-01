@@ -6,15 +6,15 @@ body {
     font-family: $ff-primary;
     font-size: fs(rg);
     font-weight: fw(regular);
-    line-height: $lineHeight;
+    line-height: $lineHeightText;
 }
 
 
 p {
     font-size: fs(rg);
-    line-height: 1.7;
     color: getColor(text);
     max-width: $paraMaxWidth;
+    letter-spacing: var(--letterSpacing-2);
 }
 
 
@@ -25,9 +25,9 @@ h1,
 h2,
 h3,
 h4 {
-    letter-spacing: $letterSpacing;
+    letter-spacing: var(--letterSpacing-5);
     text-transform: capitalize;
-    line-height: 1.25;
+    line-height: $lineHeightTitle;
     margin-bottom: 0.75rem;
     text-align: center;
     color: getColor(title);

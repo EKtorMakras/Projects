@@ -1,6 +1,6 @@
 import { AppName} from './data.js'
 import { dom } from './DOM.js';
-import { getObjectLs, setObjectLs , updateItemLs } from './utils.js';
+import { getObjectLs, updateItemLs } from './utils.js';
 
 
 // Init Theme

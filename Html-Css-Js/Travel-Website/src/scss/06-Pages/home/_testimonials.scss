@@ -1,0 +1,67 @@
+@use '../../01-Abstracts'as *;
+
+
+.testimonials {
+
+  background: url('testimonials-bg.jpg') top center no-repeat;
+  background-size: cover;
+
+  @include respond(sm){
+    background: getColor(primary-50);
+  }
+
+
+  .section-img-title img{
+    margin-top: 10px;
+
+    @include respond(sm){
+      display: none
+    }
+  }
+
+
+  &__grid-container {
+    @include responsive-grid(35rem,8rem);
+    row-gap: 12rem;
+  }
+}
+
+
+.testimonial {
+  @include flex(column,start,center);
+  position: relative;
+  background-color: rgba(color('slate.50'),.8);
+  border-radius: var(--radius-3);
+  padding: 2rem 4rem;
+  box-shadow: var(--shadow);
+
+  @include respond(sm){
+    padding: 1rem 2rem;
+  }
+
+
+  img {
+    position: absolute;
+    width: 14rem;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    top: 0;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+
+
+  h3 {
+    @include flex(column);
+    margin-bottom: 3rem;
+    padding-top: 8rem;
+    color: getColor(primary-600);
+    font-size: fs(lg-4);
+
+    span {
+      font-size: fs(sm-2);
+      font-weight: 500;
+      color: getColor(secondary-base);
+    }
+  }
+}

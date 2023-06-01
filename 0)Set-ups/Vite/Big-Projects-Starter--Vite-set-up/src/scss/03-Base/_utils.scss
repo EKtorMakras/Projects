@@ -76,48 +76,80 @@
 
 
 //& ******* Shadows ******* //
-.shadow {
-    box-shadow: var(--shadow) !important;
+.shadow-light {
+    box-shadow: var(--shadow-light) !important;
+}
+
+.shadow-dark {
+    box-shadow: var(--shadow-dark) !important;
 }
 
 
 //& ******* Spacing ******* //
 
+$subtractStep: 0.03rem;
+$vwStep: 0.15vw;
+$reduceAdjustment: 0.85;
+$increaseAdjustment: 1.6;
+
+
 @for $i from 1 through 35 {
+
+    $baseValue: calc(#{$baseGutter} * #{$i});
+    $subtractedValue: calc(#{$baseValue} * #{$reduceAdjustment});
+    $middleValue: calc(#{$subtractedValue}  + (#{$vwStep} * #{$i}));
+    $afterValue: calc(#{$baseValue} * #{$increaseAdjustment});
+    $clampValue: clamp( $baseValue, $middleValue, $afterValue);
+
 
     // Margins
     .ma-#{$i}{
-        margin: calc(#{$baseGutter} * #{$i});
+        margin: $clampValue;
     }
     .mt-#{$i}{
-        margin-top: calc(#{$baseGutter} * #{$i});
+        margin-top: $clampValue;
     }
     .mb-#{$i}{
-        margin-bottom: calc(#{$baseGutter} * #{$i});
+        margin-bottom: $clampValue;
     }
     .mr-#{$i}{
-        margin-right: calc(#{$baseGutter} * #{$i});;
+        margin-right: $clampValue;
     }
     .ml-#{$i}{
-        margin-left: calc(#{$baseGutter} * #{$i});
+        margin-left: $clampValue;
+    }
+    .mx-#{$i}{
+        margin-inline: $clampValue;
+    }
+    .my-#{$i}{
+        margin-block: $clampValue;
+    }
+    .mx-auto {
+        margin-inline: auto;
     }
 
 
     // Paddings
     .pa-#{$i}{
-        padding: calc(#{$baseGutter} * #{$i});
+        padding: $baseValue;
     }
     .pt-#{$i}{
-        padding-top: calc(#{$baseGutter} * #{$i});
+        padding-top: $baseValue;
     }
     .pb-#{$i}{
-        padding-bottom: calc(#{$baseGutter} * #{$i});
+        padding-bottom: $baseValue;
     }
     .pr-#{$i}{
-        padding-right: calc(#{$baseGutter} * #{$i});;
+        padding-right: $baseValue;
     }
     .pl-#{$i}{
-        padding-left: calc(#{$baseGutter} * #{$i});
+        padding-left: $baseValue;
+    }
+    .px-#{$i}{
+        padding-inline: $baseValue;
+    }
+    .py-#{$i}{
+        padding-block: $baseValue;
     }
 }
 

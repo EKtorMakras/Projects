@@ -1,0 +1,268 @@
+@use '../01-Abstracts'as *;
+
+
+//& ******* Generic ******* //
+
+// container
+.container {
+    @include center-mar;
+    max-width: var(--max-width);
+}
+
+// Break out of a container 
+.bust-out {
+    margin: 0 calc(50% - 50vw) 
+} 
+
+@mixin bust-out ($width: 20%) {
+   margin: auto calc(50% - 50vw);
+   width: $width;
+   transform: translateX(calc(50vw - 50%));
+ }
+
+
+// clearfix
+.clearfix {
+    @include clearfix;
+}
+
+
+// section set-up
+.section {
+    padding: 6rem 0;
+
+
+    &--blue {
+        background-color: getColor(primary-600);
+        color: #fff;
+
+        h2,h3,p {
+            color: inherit;
+        }
+    }
+
+
+    &-center {
+        width: 90vw;
+        @include center-mar;
+        max-width: $max-width;
+
+        @include mq-min(992px) {
+            width: 95vw;
+        }
+    }
+
+
+    &-title {
+        margin-bottom: .7em;
+        text-align: center;
+        font-size: 4rem;
+        color: getColor(primary-base);
+
+        span {
+            font-weight: 500;
+        }
+
+        &--secondary{
+            max-width: 55rem;
+            margin-inline: auto;
+            color: getColor(secondary-base);
+            font-size: 2.5rem;
+            letter-spacing: 1.2px;
+        }
+    }
+
+
+    &-img-title {
+
+        @include flex;
+        gap: 2.5rem;
+        margin-bottom: 12rem;
+        position: relative;
+    
+    
+        h2 {
+          font-size: 5rem;
+          margin-bottom: 0;
+    
+          span {
+            font-weight: 500;
+          }
+        }
+
+
+        &--blue h2{
+            color: getColor(primary-base);
+        }
+    }
+}
+
+
+.wrapper {
+    max-width: 976px;
+    margin-inline: auto;
+}
+
+
+//& ******* Show/Hide ******* //
+.hidden{
+    opacity: 0;
+    transition: all 1.5s ease-in-out;
+    transform: scale(1.3);
+}
+
+.visible {
+    transform: scale(1);
+    opacity: 1;
+    transition: all 1.5s ease-in-out;
+}
+
+
+
+//& ******* Colored ******* //
+.error {
+    color: getColor(slate-50);
+    background-color: getColor(error);
+}
+
+
+//& ******* Radius ******* //
+.sharp {
+    border-radius: var(--radius-1) !important;
+}
+
+.rounded {
+    border-radius: var(--radius-3) !important;
+}
+
+.pilled {
+    border-radius: var(--pilled) !important;
+}
+
+.circle {
+    border-radius: var(--circle) !important;
+}
+
+
+//& ******* Shadows ******* //
+.shadow {
+    box-shadow: var(--shadow) !important;
+}
+
+
+//& ******* Spacing ******* //
+
+@for $i from 1 through 35 {
+
+    // Margins
+    .ma-#{$i}{
+        margin: calc(#{$baseGutter} * #{$i});
+    }
+    .mt-#{$i}{
+        margin-top: calc(#{$baseGutter} * #{$i});
+    }
+    .mb-#{$i}{
+        margin-bottom: calc(#{$baseGutter} * #{$i});
+    }
+    .mr-#{$i}{
+        margin-right: calc(#{$baseGutter} * #{$i});;
+    }
+    .ml-#{$i}{
+        margin-left: calc(#{$baseGutter} * #{$i});
+    }
+    .mx-auto {
+        margin-inline: auto;
+    }
+
+    // Paddings
+    .pa-#{$i}{
+        padding: calc(#{$baseGutter} * #{$i});
+    }
+    .px-#{$i}{
+        padding-inline: calc(#{$baseGutter} * #{$i});
+    }
+    .pt-#{$i}{
+        padding-top: calc(#{$baseGutter} * #{$i});
+    }
+    .pb-#{$i}{
+        padding-bottom: calc(#{$baseGutter} * #{$i});
+    }
+    .pr-#{$i}{
+        padding-right: calc(#{$baseGutter} * #{$i});;
+    }
+    .pl-#{$i}{
+        padding-left: calc(#{$baseGutter} * #{$i});
+    }
+}
+
+
+//$ **************** Media Based Utils  ****************$//
+
+$text-align-values: left, right, justify, center;
+
+// center text
+@each $val in $text-align-values {
+  .text-#{$val}{
+      text-align: $val;
+  }
+}
+
+
+//& ******* Xs Breakpoint ******* //
+@include respond(xs) {
+
+  // center text
+  @each $val in $text-align-values {
+    .text-xs-#{$val}{
+        text-align: $val;
+    }
+  }
+}
+
+
+//& ******* Sm Breakpoint ******* //
+@include respond(sm) {
+
+  // center text
+  @each $val in $text-align-values {
+    .text-sm-#{$val}{
+        text-align: $val;
+    }
+  }
+}
+
+
+//& ******* Md Breakpoint ******* //
+@include respond(md) {
+
+  // center text
+  @each $val in $text-align-values {
+    .text-md-#{$val}{
+        text-align: $val;
+    }
+  }
+}
+
+
+//& ******* Lg Breakpoint ******* //
+@include respond(lg) {
+
+  // center text
+  @each $val in $text-align-values {
+    .text-lg-#{$val}{
+      text-align: $val;
+    }
+  } 
+}
+
+
+//& ******* Xl Breakpoint ******* //
+@include respond(xl) {
+
+  // center text
+  @each $val in $text-align-values {
+    .text-xl-#{$val}{
+        text-align: $val;
+    }
+  } 
+}

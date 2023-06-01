@@ -1,0 +1,19 @@
+@use '../01-Abstracts'as *;
+
+.client-area {
+ 
+
+  &__form {
+    display: flex;
+    padding-inline: 4rem;
+  }
+
+  &__input {
+    flex: 1;
+    padding: 4px 20px;
+  }
+
+  &__error {
+    color: crimson;
+  }
+}

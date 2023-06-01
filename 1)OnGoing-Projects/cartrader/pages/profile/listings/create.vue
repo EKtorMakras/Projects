@@ -25,6 +25,19 @@
           @change-input="handleChangeInput"
       />
       <CarAddImage @change-input="handleChangeInput"/>
+
+      <div>
+        <button 
+          class="bg-blue-400 text-white rounded py-2 px-7 mt-4 hover:bg-blue-500"
+          @click="handleSubmit"
+        >
+          Submit
+        </button>
+
+        <p v-if="errorMessage" class="mt-4 text-red-400">
+          {{ errorMessage }}
+        </p>
+      </div>
     </form>
   </div>
 </template>
@@ -37,11 +50,16 @@
         middleware: ['auth']
   })
 
+
   const props = defineProps({
     listing: Object
   })
 
-  const { makes } = useCars()
+
+const {makes} = useCars()
+
+const user = useSupabaseUser()
+
 
   const info = useState('addInfo', () => {
       return {
@@ -58,11 +76,24 @@
       }
   })
 
+  const errorMessage = ref('')
+
+
   const handleChangeInput = (data,name) => {
     info.value[name] = data
   }
 
-const inputs = [
+
+  const isButtonDisabled = computed(() => {
+    for (let key in info.value) {
+    console.log(info.value[key])
+    if (!info.value[key]) return true;
+  }
+  return false;
+  })
+
+
+  const inputs = [
     {
       id: 1,
       title: `Model *`,
@@ -77,27 +108,61 @@ const inputs = [
     },
     {
       id: 3,
+      title: `Price *`,
+      name: 'price ',
+      placeholder: '20000'
+    },
+    {
+      id: 4,
       title: `Miles *`,
       name: 'miles',
       placeholder: '12,344'
     },
     {
-      id: 4,
+      id: 5,
       title: `City *`,
       name: 'city',
       placeholder: 'Miami'
     },
     {
-      id: 5,
+      id: 6,
       title: `Number of Seats *`,
       name: 'seats',
       placeholder: '5'
     },
     {
-      id: 6,
+      id: 7,
       title: `Features*`,
       name: 'features',
       placeholder: 'Leather Interior,No accidents'
     },
   ]
+
+  async function handleSubmit() {
+    const body = {
+        ...info.value,
+        features: info.value.features.split(', '),
+        numberOfSeats: parseInt(info.value.seats),
+        miles: parseInt(info.value.miles),
+        price: parseInt(info.value.price),
+        name: `${info.value.name} ${info.value.model}`,
+        listerId: user.value.id
+    }
+
+    delete body.seats;
+
+    try {
+      const response = await $fetch('/api/car/listings', {
+        method: 'post',
+      })
+
+      navigateTo('/profile/listings')
+    }
+
+    catch (err) {
+      console.log(err)
+      errorMessage.value = err.statusMessage
+    }
+  }
+
 </script>

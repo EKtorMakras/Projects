@@ -5,22 +5,9 @@
 //% ***************  Light Theme  *************** //
 $colors-light: (
 
-    //& ******** Primary ******** //
-    primary: ( 
-        "base": color('primary-light.base'),
-    ),
-
-
-    //& ******** Secondary ******** //
-    secondary: ( 
-        "base": color('secondary-light.base'),
-    ),
-
-
-    //& ******** Other ******** //
     'text': color('slate.600'),
     'title': color('gray.blue-4'),
-    'bg': color('primary-light.50')
+    'bg': color('primary.50')
 );
 
 
@@ -28,19 +15,6 @@ $colors-light: (
 //% ***************  Dark Theme  *************** //
 $colors-dark: (
 
-    //& ******** Primary ******** //
-    primary: ( 
-        "base": color('primary-dark.base'), 
-    ),
-
-
-    //& ******** Secondary ******** //
-    secondary: ( 
-        "base": color('secondary-dark.base'),
-    ),
-    
-
-    //& ******** Other ******** //
     'text': color('slate.50'),
     'title': color('slate.100'),
     'bg': color('gray.blue-5')

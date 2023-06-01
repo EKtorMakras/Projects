@@ -1,7 +1,7 @@
-//& **********************************  Colors  ********************************** //
 @use "functions"as *;
 
 
+//& **********************************  Colors  ********************************** //
 
 $colors: ( 
 
@@ -34,12 +34,15 @@ $colors: (
 
 
         /* Variations */
+        "50": #f9fafb,
+        "100": #f3f4f6,
         "200": #e5e7eb,
         "300": #d1d5db,
         "400": #9ca3af,
         "500": #6b7280,
         "600": #4b5563,
         "700": #374151 ,
+        "800": #1f2937 ,
 
 
         /* Blue-Greys */
@@ -69,12 +72,10 @@ $colors: (
 
 
 
-    //@ ***************************** Theme Colors *****************************//
+    //@ ***************************** Project Colors *****************************//
 
-    //% ***************  Light Theme  *************** //
-
-    //# ******** Primary Light ******** //
-    primary-light: ( 
+    //# ******** Primary ******** //
+    primary: ( 
 
     "base": hsl(173, 58%, 39%),
 
@@ -94,8 +95,8 @@ $colors: (
     ),
 
 
-    //# ******** Secondary Light ******** //
-    secondary-light: ( 
+    //# ******** Secondary  ******** //
+    secondary: ( 
 
     "base": hsl(10, 58%, 39%),
 
@@ -114,22 +115,6 @@ $colors: (
     "900": hsl(10, 58%, 16%),
     ),
 
-
-    
-    //% ***************  Dark Theme *************** //
-
-    //# ******** Primary Dark ******** //
-    primary-dark: ( 
-        "base": hsl(168, 8%, 25%),
-    ),
-
-
-    //# ******** Secondary Dark ******** //
-    secondary-dark: ( 
-        "base": hsl(10, 51%, 17%),
-    ),
-
-
     //@ *****************************   ***************************** //
 );
 
@@ -141,7 +126,6 @@ $colors: (
 
     @return deep-map-get($map, $keys...);
 }
-
 
 //& **********************************  End Of Colors  ********************************** //
 
@@ -245,12 +229,13 @@ $shadows: (
 
 //& **********************************  Other  ********************************** //
 
-$letterSpacing: 2.5px;
+$baseLetterSpacing: 0.5px;
 $baseRadius: 3px;
-$baseGutter: 0.4rem;
-$lineHeight: 1.6;
+$baseGutter: 0.25rem;
+$lineHeightText: 1.5;
+$lineHeightTitle: 1.1;
 $max-width: 1170px;
-$paraMaxWidth: 40em;
+$paraMaxWidth: 45em;
 $transition: all 0.3s ease-in-out;
 
 //& **********************************  End Of Other  ********************************** //

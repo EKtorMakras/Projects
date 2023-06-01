@@ -16,18 +16,27 @@
         --radius-#{$i}: calc(#{$baseRadius} * #{$i});
     }
 
-    --pilled: 20rem;
+    --pilled: 25rem;
     --circle: 50%;
 
 
-    //@ ********* Other  *********//
-    --max-width: $max-width;
-
-    @include respond(desktop-big){
-        --max-width: calc(#{$max-width} * 1.2);
+    //@ ********* Letter Spacing  *********//
+    @for $i from 1 through 5 {
+        --letterSpacing-#{$i}: calc(#{$baseLetterSpacing} * #{$i});
     }
 
-    --shadow: #{shadow(rg-2)};
+
+    //@ ********* Shadows  *********//
+    --shadow-light: #{shadow(rg-2)};
+    --shadow-dark: #{shadow(lg-1)};
+
+
+    //@ ********* Other  *********//
+    --max-width: #{$max-width};
+
+    @include respond(xxl){
+        --max-width: calc(#{$max-width} * 1.2);
+    }
 }
 
 
@@ -41,4 +50,5 @@
 :root[data-theme="dark"]{
     @include generate-color-custom-props($map: $colors-dark);
 }
+
 
