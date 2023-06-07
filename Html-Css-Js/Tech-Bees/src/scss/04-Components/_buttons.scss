@@ -1,0 +1,39 @@
+@use '../01-Abstracts'as *;
+
+.btn {
+    @include btn();
+}
+
+.btn-outlined {
+    @include btn($type: outlined);
+
+    &--secondary {
+        @include btn($bgColor:color('secondary.base'), $type: outlined);
+    }
+
+    &--secondary-2 {
+        @include btn($bgColor:color('secondary2.base'), $type: outlined);
+
+        &:hover {
+            background-color: transparent;
+            background-image: var(--gradient-3);
+            outline: none;
+        }
+    }
+}
+
+.btn-cta {
+    @include btn($bgColor: transparent, $textColor: whitesmoke);
+
+    &,
+    &:link,
+    &:visited {
+        @include focus-state(color('secondary.base'));
+        background-image: var(--gradient-3);
+        border-radius: var(--pilled);
+    }
+
+    &:hover {
+        background-image: var(--gradient-3-reverse);
+    }
+}

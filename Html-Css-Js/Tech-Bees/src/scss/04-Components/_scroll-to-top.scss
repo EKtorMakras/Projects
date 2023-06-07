@@ -1,0 +1,18 @@
+@use '../01-Abstracts'as *;
+
+
+.scroll-to-top {
+  @include flex;
+  @include focus-state(color('secondary.base'));
+  position: fixed;
+  right: 3rem;
+  bottom: 4rem;
+  color: #fff;
+  background-color: getColor(secondary2-base);
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: $transition;
+}

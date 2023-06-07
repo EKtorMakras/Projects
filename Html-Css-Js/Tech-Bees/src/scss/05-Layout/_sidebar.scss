@@ -1,0 +1,93 @@
+@use '../01-Abstracts'as *;
+
+
+.sidebar {
+  @include flex(column, start, center, 2rem);
+  padding: 1rem 2rem 4rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 300;
+  width: 40vw;
+  height: 101vh;
+  background-color: getColor(sidebar);
+  transform: translateX(-200%) translateZ(-300px) rotateY(90deg);
+  transition: $transition;
+
+
+  @include respond (lg){
+    width: 45vw;
+  }
+
+  @include respond (md){
+    width: 55vw;
+  }
+
+
+  &.open {
+    transform: translateX(0) translateZ(0) rotateY(0);
+  }
+
+
+  // Close button
+  &__close-btn {
+    @include focus-state();
+    align-self: end;
+    color: whitesmoke;
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 2.8rem;
+    transition: $transition;
+
+    &:hover {
+      color: getColor(slate-400);
+    }
+  }
+
+
+  // Nav
+  &-nav {
+    margin-top: 2rem;
+
+    &__list {
+      @include flex(column, start, center, 3rem);
+    }
+
+
+    &__link {
+      font-size: fs(lg-3);
+      color: getColor(slate-200);
+      padding-inline: 20px;
+
+      &::after {
+        width: 80%;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+      }
+
+      &:hover::after {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      &.active {
+        &::after {
+          transform: translateX(-50%) scaleX(1);
+        }
+      }
+    }
+
+
+    .btn-cta {
+      margin-top: 4rem;
+      font-size: fs(sm-3);
+      padding-inline: 2.5em;
+    }
+  }
+
+
+  // Switcher
+  &__switcher {
+    margin-top: 2rem;
+  }
+}

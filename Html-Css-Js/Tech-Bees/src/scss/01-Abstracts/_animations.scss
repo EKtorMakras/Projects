@@ -1,0 +1,17 @@
+
+
+//& ******* Scale up ******* //
+@keyframes scale-up {
+
+  0% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+}

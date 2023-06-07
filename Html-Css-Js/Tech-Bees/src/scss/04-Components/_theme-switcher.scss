@@ -1,0 +1,65 @@
+@use '../01-Abstracts'as *;
+
+
+.theme {
+
+  $ballDimension: 2.2rem;
+
+  @include flex;
+  flex: 1;
+
+
+  &__checkbox {
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+
+  &__checkbox:checked ~  &__ball {
+    transform: translateY(-50%) translateX(120%);
+  }
+
+
+  &__label {
+    @include flex;
+  }
+
+
+  &__slider {
+    position: relative;
+    width: 6rem;
+    height: 2.7rem;
+    background-color: getColor(bg);
+    border-radius: 30px;
+    padding: 5px;
+    transition: background-color 250ms ease 0s;
+    cursor: pointer;
+  }
+
+
+  &__slider:has(.theme__checkbox:focus-visible) {
+      outline: 3px solid transparent;
+      outline-offset: 4px;
+      box-shadow: 0 0 3px 2px #ffffff,
+        0 0 4px 4px getColor(secondary2-base);
+  }
+
+
+  &__ball {
+    width: $ballDimension;
+    height: $ballDimension;
+    background-color: getColor(title);
+    border-radius: 50%;
+    transition: $transition;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

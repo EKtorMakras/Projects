@@ -1,0 +1,52 @@
+@use '../../01-Abstracts'as *;
+
+
+.testimonials{
+
+  &__wrapper {
+    @include responsive-grid(45rem,5rem);
+    row-gap: 6rem;
+    justify-items: center;
+  }
+}
+
+
+
+.testimonial {
+  // background-color: cyan;
+  min-height: 300px;
+
+  
+
+  &__profile {
+    @include flex($justify: start, $gap: 3rem);
+    margin-bottom: 3rem;
+  }
+
+
+  &__img {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+  }
+
+
+  &__icon {
+    display: inline-block;
+    font-size: 3rem;
+    color: getColor(slate-400);
+    margin-bottom: 1rem;
+  }
+
+
+  &__name {
+    font-size: fs(lg-2);
+    font-weight: fw(semibold);
+  }
+
+
+  &__desc {
+    font-size: fs(sm-3);
+    max-width: 45rem;
+  }
+}

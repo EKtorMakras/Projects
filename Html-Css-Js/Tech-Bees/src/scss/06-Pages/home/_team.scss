@@ -1,0 +1,35 @@
+@use '../../01-Abstracts'as *;
+
+
+.team {
+
+
+  &__members {
+    background-image: var(--gradient-2);
+    padding: 8rem 6rem;
+  }
+
+  &__card {
+
+
+    &-img{
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    &-title {
+      font-size: fs(lg-1);
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+
+
+    &-role {
+      font-size: fs(rg);
+      color: getColor(gray-400);
+      font-weight: fw(semibold);
+    }
+    
+  }
+}

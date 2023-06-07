@@ -1,0 +1,86 @@
+@use '../../01-Abstracts'as *;
+
+
+.blogs{
+
+  &__wrapper {
+    @include responsive-grid(35rem,6rem);
+    justify-items: center;
+    padding-inline: 4rem;
+
+    @include respond(sm) {
+      padding-inline: 0;
+    }
+  }
+}
+
+
+.blog {
+  padding: 0;
+  padding-bottom: 2.5rem;
+  min-height: unset;
+  justify-content: start;
+  border-radius: var(--radius-3);
+
+
+  &__img{
+    height: 28rem;
+    width: 100%;
+    display: flex;
+    @include darkenOverlay($radius: var(--radius-3));
+    
+
+    img{
+      width: 100%;
+      object-fit: fill;
+      border-top-right-radius: var(--radius-3);
+      border-top-left-radius: var(--radius-3);
+    }
+  }
+
+
+  &__content {
+    padding: 0 2rem;
+    @include flex(column,space-between,center,3rem);
+  }
+
+  &__details {
+    @include flex(row,space-between);
+    width: 100%;
+  }
+
+  &__read-time{
+    color: getColor(text-light-2);
+    font-size: fs(sm-2);
+  }
+
+  &__category {
+    color: whitesmoke;
+    font-size: fs(sm-1);
+    padding: .6em 1em;
+    border-radius: var(--pilled);
+  }
+
+
+  &__title {
+    font-size: fs(sm-3);
+    text-align: left;
+    margin-bottom: 1rem;
+    font-weight: fw(medium);
+  }
+
+  &__desc{
+    font-size: fs(sm-2);
+  }
+
+
+  &__link {
+    font-size: fs(sm-2);
+    margin-top: 1rem;
+    color: getColor(text-light-2);
+
+    &:hover {
+      color: getColor(text-light);
+    }
+  }
+}

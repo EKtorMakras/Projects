@@ -1,0 +1,86 @@
+@use '../01-Abstracts'as *;
+
+
+
+// General
+.nav {
+
+  &__link {
+    @include link-underline(color('slate.300'));
+    @include focus-state(color('secondary2.base'));
+    border-radius: var(--pilled);
+    padding: 5px;
+
+
+    &.active {
+      &::after {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+
+// Main Nav
+.main-nav {
+  @include flex;
+  width: 100%;
+  padding: 3rem;
+
+  @include respond(xl) {
+    justify-content: space-between;
+  }
+
+
+  &.sticky {
+    position: fixed;
+    background-color: getColor(sticky-nav);
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 1rem;
+    padding: 2rem 5rem;
+    border-radius: var(--pilled);
+    z-index: 100;
+    box-shadow: var(--shadow-dark);
+    transition: $transition;
+
+    @include respond (xl) {
+      width: 90%;
+    }
+  }
+
+
+  &__list {
+    @include flex($justify: end, $gap: 2.7rem);
+    flex: 1;
+    text-align: right;
+
+    @include respond(xl) {
+      display: none;
+    }
+  }
+
+
+  &__switcher {
+
+    @include respond(xl) {
+      display: none;
+    }
+  }
+
+
+  &__link {
+    color: whitesmoke;
+    font-size: fs(sm-3);
+
+    &:hover {
+      color: getColor(slate-300);
+    }
+  }
+
+  .btn-cta {
+    margin-left: 2rem;
+  }
+}

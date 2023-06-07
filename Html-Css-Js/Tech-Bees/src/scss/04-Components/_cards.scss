@@ -1,0 +1,12 @@
+@use '../01-Abstracts'as *;
+
+
+.card {
+  @include flex(column,space-around,center,2rem);
+  min-height: 40rem;
+  max-width: 50rem;
+  background-color: getColor(card);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-dark);
+  padding: 2rem 3rem;
+}

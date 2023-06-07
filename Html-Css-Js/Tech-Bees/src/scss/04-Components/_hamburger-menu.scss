@@ -1,0 +1,25 @@
+@use '../01-Abstracts'as *;
+
+.hamburger-menu {
+
+  cursor: pointer;
+  transition: $transition;
+  color: whitesmoke;
+  background-color: transparent;
+  padding: 10px;
+  @include focus-state(color('primary.base'));
+
+
+  @include respond(xl) {
+    display: block;
+  }
+
+  &:hover {
+    transform: scale(0.95);
+    color: getColor(slate-300);
+  }
+
+  i {
+    font-size: 3.5rem;
+  }
+}

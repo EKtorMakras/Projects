@@ -1,0 +1,117 @@
+@use '../../01-Abstracts'as *;
+
+
+.projects {
+
+
+  &__gallery {
+    @include responsive-grid(40rem, 4rem);
+  }
+}
+
+
+
+.project {
+  position: relative;
+
+
+  &:hover &__content {
+    transform: scale(1);
+  }
+
+
+  &__img {
+    height: 100%;
+    border-radius: var(--radius-2);
+  }
+
+
+  &__content {
+    @include darkenOverlay($radius: var(--radius-2), $opacity: 0.3);
+    @include cover($radius: var(--radius-2));
+    @include flex(column, space-between, center, 2rem);
+    padding: 1.5em 0;
+    color: whitesmoke;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: $transition;
+
+    &>* {
+      color: inherit;
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+
+  &__category {
+    padding: .5em 1em;
+    border-radius: var(--pilled);
+    font-size: fs(sm-1);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    isolation: isolate;
+
+
+    &::before {
+      content: '';
+      @include cover(var(--pilled));
+      background-color: #fff;
+      z-index: -1;
+      mix-blend-mode: multiply;
+    }
+  }
+
+
+  &__name {
+    font-size: fs(lg-4);
+    font-weight: 600;
+  }
+
+
+  &__icons {
+    @include flex($wrap: wrap, $gap: 5rem)
+  }
+
+  &__icon {
+    $hoverColor: getColor(gray-blue-2);
+
+    @include flex;
+    @include focus-state(color('primary.base'));
+    padding: 1.2rem;
+    border-radius: 50%;
+    color: #fff;
+    position: relative;
+
+
+    &:hover i {
+      color: $hoverColor;
+    }
+
+    &:hover::before {
+      transform: scale(1);
+    }
+
+
+    &::before {
+      content: attr(data-name);
+      position: absolute;
+      width: 200%;
+      height: 2.2rem;
+      @include flex;
+      font-size: 1.1rem;
+      background-color: $hoverColor;
+      border-radius: var(--radius-4);
+      top: -70%;
+      white-space: nowrap;
+      transition: $transition;
+      transform: scale(0);
+      transform-origin: center;
+    }
+
+    i {
+      font-size: 2rem;
+    }
+  }
+}

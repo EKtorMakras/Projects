@@ -1,0 +1,292 @@
+@use "functions"as *;
+
+
+//& **********************************  Colors  ********************************** //
+
+$colors: ( 
+    
+    //% ***************  General  *************** //
+
+    "black": #000,
+    "white": #fff,
+
+    "red-dark": #842029,
+    "red-light": #f8d7da,
+
+    "green-dark": #0f5132,
+    "green-light": #d1e7dd,
+
+    'error':#d32752,
+
+    //% ***************    *************** //
+
+
+
+    //% ***************  Gray  *************** //
+    'gray': (
+        /* General ones */
+        "generic-1": #999,
+        "generic-2": #777,
+        "generic-3": #555,
+        "generic-4": #333,
+
+
+        /* Variations */
+        "50": #f9fafb,
+        "100": #f3f4f6,
+        "200": #e5e7eb,
+        "300": #d1d5db,
+        "400": #9ca3af,
+        "500": #6b7280,
+        "600": #4b5563,
+        "700": #374151,
+        "800": #1f2937,
+
+
+        /* Blue-Greys */
+        "blue-1": #bcccdc,
+        "blue-2": #829ab0,
+        "blue-3": #617d98,
+        "blue-4": #233c57,
+        "blue-5": #102a42,
+    ),
+    //% ***************    *************** //
+
+
+    //% ***************  Slate  *************** //
+    slate: ("50": #f8fafc,
+        "100": #f1f5f9,
+        "200": #e2e8f0,
+        "300": #cbd5e1,
+        "400": #94a3b8,
+        "500": #64748b,
+        "600": #475569,
+        "700": #334155,
+        "800": #1e293b,
+        "900": #0f172a,
+    ),
+    //% ***************    *************** //
+
+
+
+    //@ ***************************** Project Colors *****************************//
+
+    //# ******** Primary ******** //
+    primary: (
+        
+        "base": hsl(240, 100%, 71%),
+
+        // Light Shades
+        "50": hsl(245, 35%, 94%),
+        "100": hsl(240, 38%, 82%),
+        "200": hsl(240, 50%, 73%),
+        "300": hsl(240, 70%, 63%),
+        "400": hsl(240, 100%, 66%),
+
+        // Dark Shades
+        "600": hsl(240, 73%, 54%),
+        "700": hsl(241, 58%, 35%),
+        "800": hsl(240, 58%, 23%),
+    ),
+
+
+    //# ******** Secondary ******** //
+    secondary: (
+        
+        "base": hsl(0, 97%, 73%),
+
+        // Light Shades
+        "50": hsl(0, 100%, 97%),
+        "100": hsl(0, 100%, 95%),
+        "200": hsl(0, 96%, 89%),
+        "300": hsl(0, 98%, 84%),
+        "400": hsl(0, 96%, 78%),
+
+        // Dark Shades
+        "600": hsl(0, 69%, 66%),
+        "700": hsl(0, 50%, 58%),
+        "800": hsl(0, 38%, 51%),
+    ),
+
+
+    //# ******** Secondary2 ******** //
+    secondary2: (
+        
+        "base": hsl(7, 100%, 68%),
+
+        // Light Shades
+        "50": hsl(7, 100%, 97%),
+        "100": hsl(7, 100%, 94%),
+        "200": hsl(6, 100%, 87%),
+        "300": hsl(7, 100%, 81%),
+        "400": hsl(7, 100%, 75%),
+
+        // Dark Shades
+        "600": hsl(7, 75%, 61%),
+        "700": hsl(7, 56%, 55%),
+        "800": hsl(7, 47%, 48%),
+    ),
+
+
+    //# ******** Tertiary ******** //
+    tertiary: (
+        
+        "base": hsl(34, 100%, 78%),
+
+        // Light Shades
+        "50": hsl(33, 100%, 98%),
+        "100": hsl(33, 100%, 96%),
+        "200": hsl(34, 100%, 91%),
+        "300": hsl(34, 100%, 87%),
+        "400": hsl(34, 100%, 83%),
+
+        // Dark Shades
+        "600": hsl(33, 66%, 71%),
+        "700": hsl(34, 46%, 63%),
+        "800": hsl(34, 34%, 55%),
+    ),
+
+
+    //% ***************  Other  *************** //
+
+    "green-base": #2af598,
+    "blue-base": #009efd,
+);
+
+
+// Get Color Function
+@function color($key, $map: $colors) {
+
+    $keys: str-explode($key, '.');
+
+    @return deep-map-get($map, $keys...);
+}
+
+//& **********************************  End Of Colors  ********************************** //
+
+
+
+
+//& **********************************  Gradients  ********************************** //
+
+$gradients : (
+    "gradient-1" : (color('primary.base'), blue),
+    "gradient-2" : (color('primary.400'), color('secondary.base')),
+    "gradient-3" : (color('tertiary.base'), color('secondary2.base')),
+    "gradient-4" : (color('green-base'), color('blue-base')),
+);
+
+//& **********************************  End of Gradients  ********************************** //
+
+
+
+
+//& **********************************  Fonts  ********************************** //
+
+//% ***************  Font-Size  *************** //
+$font-sizes: ( 
+    
+    // Text
+    "sm-1": clamp(.9rem, .8rem + 0.3vw, 1.1rem),
+    "sm-2": clamp(1.1rem, 1rem + 0.35vw, 1.4rem),
+    "sm-3": clamp(1.45rem, 1.2rem + 0.4vw, 1.8rem),
+    "sm-4": clamp(1.6rem, 1.3rem + 0.45vw, 2rem),
+    "rg": clamp(1.8rem, 1.5rem + 0.5vw, 2.2rem),
+    "lg-1": clamp(2rem, 1.7rem + 0.6vw, 2.5rem),
+    "lg-2": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
+    "lg-3": clamp(2.5rem, 2.2rem + 1vw, 3rem),
+    "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
+
+    // Headings
+    "head-1": clamp(4rem, 3.5rem + 2vw, 6rem),
+    "head-2": clamp(3.2rem, 2.8rem + 1.5vw, 4.8rem),
+    "head-3": clamp(2.6rem, 2.3rem + 1.2vw, 4rem),
+    "head-4": clamp(2.1rem, 1.9rem + 1vw, 3.5rem),
+
+    "head-xl": clamp(6rem, 5rem + 2vw, 9rem),
+    "head-xxl": clamp(9rem, 8rem + 2.5vw, 12.5rem),
+);
+
+
+@function fs($font-size) {
+    @return map-get($font-sizes, $font-size);
+}
+
+//% ***************    *************** //
+
+
+
+//% ***************  Font-Weight  *************** //
+$font-weights: (
+    "thin": 100,
+    "light": 300,
+    "regular": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700,
+    "black": 900);
+
+
+@function fw($font-weight-style) {
+    @return map-get($font-weights, $font-weight-style);
+}
+
+//% ***************    *************** //
+
+
+
+//% ***************  Font-Family  *************** //
+$ff-primary: "Poppins",
+sans-serif;
+$ff-secondary: Arial,
+Helvetica,
+sans-serif;
+//% ***************    *************** //
+
+
+//& **********************************  End Of Fonts  ********************************** //
+
+
+
+
+//& **********************************  Shadows  ********************************** //
+
+$shadows: ( 
+    
+    // Small
+    sm-1: 0 0.2rem 0.5rem rgba(color('black'), 0.05),
+    sm-2: 0 0.3rem 0.8rem rgba(color('black'), 0.05),
+    sm-3: 0 0.6rem 1.2rem rgba(color('black'), 0.05),
+
+    // Regular 
+    rg-1: 0 0.2rem 0.5rem rgba(color('black'), 0.08),
+    rg-2: 0 0.3rem 0.8rem rgba(color('black'), 0.08),
+    rg-3: 0 0.6rem 1.2rem rgba(color('black'), 0.08),
+
+    // Large
+    lg-1: 0 0.4rem 0.8rem rgba(color('black'), 0.12),
+    lg-2: 0 0.8rem 1.6rem rgba(color('black'), 0.1),
+    lg-3: 0 1.3rem 3rem rgba(color('black'), 0.1));
+
+
+@function shadow($shadow) {
+    @return map-get($shadows, $shadow);
+}
+
+//& **********************************  End Of Shadows  ********************************** //
+
+
+
+
+//& **********************************  Other  ********************************** //
+
+$baseLetterSpacing: 0.4px;
+$baseRadius: 3px;
+$baseGutter: 0.25rem;
+$lineHeightText: 1.5;
+$lineHeightTitle: 1.1;
+$max-width: 1270px;
+$paraMaxWidth: 45em;
+$transition: all 0.3s ease-in-out;
+
+//& **********************************  End Of Other  ********************************** //

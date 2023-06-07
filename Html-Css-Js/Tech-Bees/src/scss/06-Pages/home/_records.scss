@@ -1,0 +1,48 @@
+@use '../../01-Abstracts'as *;
+
+
+.records {
+
+  .section-title {
+    text-align: left;
+  }
+
+
+  &__boxes {
+    align-content: center;
+  }
+
+
+  &__box {
+    height: 18rem;
+    gap: 1rem;
+    transition: transform .8s ease-in-out;
+
+    &:hover {
+      transform: translateY(-20px);
+    }
+
+    &--clients{
+      background-image: var(--gradient-1);
+    }
+    &--projects-completed{
+      background-image: var(--gradient-2);
+    }
+    &--projects-running{
+      background-image: var(--gradient-3);
+    }
+    &--designs{
+      background-image: var(--gradient-4);
+    }
+  }
+
+
+  &__img {
+    
+    border-radius: 12px;
+
+    img{
+      box-shadow: var(--shadow-dark);
+    }
+  }
+}

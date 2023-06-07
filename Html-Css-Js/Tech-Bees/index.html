@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <!-- Font-awesome -->
+  <script src="https://kit.fontawesome.com/a9c97bd30a.js" crossorigin="anonymous"></script>
+
+
+  <!-- Js -->
+  <script src="./src/js/main.js" type="module" defer></script>
+
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="public/images/favicon.ico" type="image/x-icon">
+
+
+  <title></title>
+
+</head>
+
+
+<body>
+
+  <!--* ***************************************  Header  *************************************** -->
+  <header class="header">
+
+    <!-- $ *******************  Main Nav  ******************* $ -->
+    <nav class="main-nav container">
+
+      <!-- Logo -->
+      <img src="images/logo.png" alt="" class="logo main-nav__logo">
+
+      <!-- Theme Switcher -->
+      <div class="theme main-nav__switcher">
+        <label for="theme-checkbox" class="theme__label">
+          <div class="theme__slider">
+            <input type="checkbox" name="theme-switcher" id="theme-checkbox" class="theme__checkbox" role="switch">
+            <div class="theme__ball"></div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Navigation -->
+      <ul class="main-nav__list">
+        <li class="main-nav__item">
+          <a href="#" class="main-nav__link">Home</a>
+        </li>
+      </ul>
+
+      <!-- Hamburger Menu -->
+      <button class="hamburger-menu d-none">
+        <i class="fa fa-bars"></i>
+      </button>
+
+    </nav>
+    <!-- $ *******************  End Of Main Nav  ******************* $ -->
+
+
+    <!-- $ *******************  Header Content  ******************* $ -->
+    <div class="row header__row container">
+
+      <!-- Content -->
+      <div class="header__content">
+        <h1 class="header__content-title">We are startup creative agency</h1>
+        <p class="header__content-desc">
+          Welcome to Tech Bees, your go-to tech startup creative agency! We're a team of innovative and forward-thinking
+          professionals who are dedicated to helping businesses like yours succeed in the digital age. Our passion for
+          technology and design is matched only by our commitment to providing exceptional customer service and
+          delivering results that exceed your expectations.
+        </p>
+
+        <div class="header__content-btns">
+          <a href="#" class="btn-outlined--secondary-2 header__content-btn pilled">Learn more</a>
+          <a href="#contact-us" class="btn-cta header__content-btn">Contact us</a>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="header__hero-img-wrapper">
+        <img src="images/hero-img.svg" alt="" class="header__hero-img">
+      </div>
+    </div>
+    <!-- $ *******************  End Of Header Content  ******************* $ -->
+
+  </header>
+  <!--* ***************************************  End Of Header  *************************************** -->
+
+
+
+  <!--* ***************************************  Sidebar  *************************************** -->
+  <div class="overlay hidden"></div>
+
+  <div class="sidebar">
+
+    <!-- Close btn -->
+    <button class="sidebar__close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <!-- Logo -->
+    <div class="sidebar__logo-wrapper">
+      <img src="images/logo.png" alt="" class="logo sidebar__logo">
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidebar-nav">
+      <ul class="sidebar-nav__list">
+      </ul>
+    </nav>
+
+    <!-- Switcher -->
+    <div class="theme sidebar__switcher">
+      <label for="theme-checkbox" class="theme__label">
+        <div class="theme__slider">
+          <input type="checkbox" name="theme-switcher" id="theme-checkbox" class="theme__checkbox" role="switch">
+          <div class="theme__ball"></div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <!--* ***************************************  End Of Sidebar  *************************************** -->
+
+
+
+  <!--* ***************************************  Main  *************************************** -->
+
+  <main class="main container">
+
+    <!-- $ *******************  Services  ******************* $ -->
+    <div class="anchor-point" id="services"></div>
+    <section class="section services" data-aos="fade-right" data-aos-delay="500" data-aos-duration="1200"
+      data-id="services">
+      <div class="flex-container">
+
+        <!-- Services Boxes -->
+        <div class="grid-wrapper services__boxes"></div>
+
+        <!-- Services Content -->
+        <div class="section-content services__content">
+
+          <div class="services__content-img">
+            <img src="images/circle.svg" alt="" class="services__content-img-wrapper">
+          </div>
+
+          <h2 class="section-title">Our best services</h2>
+
+          <div class="section-desc">
+            <p>
+              At Tech Bees, we offer a range of services to help businesses succeed in the digital age. Our team of
+              experts can help you with everything from mobile development to web design, marketing, and branding.
+              Whether
+              you're looking to launch a new product or grow your online presence, we've got you covered.
+            </p>
+            <p>
+              Our approach is to work closely with you to understand your business goals and objectives, and then
+              develop
+              a custom solution that meets your needs. We pride ourselves on delivering exceptional results and
+              providing
+              our clients with the support they need to succeed. Contact us today to learn more about how Tech Bees can
+              help your business thrive!
+            </p>
+          </div>
+
+          <a href="#" class="btn-cta services__content-btn">Learn more</a>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- $ *******************  End Of Services  ******************* $ -->
+
+
+
+    <!-- $ *******************  Records  ******************* $ -->
+    <div class="anchor-point" id="about"></div>
+    <section class="section records" data-aos="fade-left" data-aos-delay="500" data-aos-duration="1200" data-id="about">
+
+      <!-- Records Content -->
+      <div class="section-content records__content">
+        <h2 class="section-title">Results-Driven Approach</h2>
+        <div class="section-desc">
+          <p>
+            At Tech Bees, we're proud of our track record of success. With years of experience under our belt, we've
+            completed countless projects and helped numerous clients achieve their business goals.
+          </p>
+          <p>
+            We believe that our success is a reflection of our clients' success, and we're dedicated to helping
+            businesses
+            of all sizes grow and thrive in the digital age. Contact us today to learn more about how Tech Bees can help
+            your business reach its full potential.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="flex-container">
+
+        <!-- Records Boxes -->
+        <div class="grid-wrapper records__boxes">
+
+        </div>
+
+
+        <!-- Records Image -->
+        <div class="records__img">
+          <img src="images/team-mockup.png" alt="">
+        </div>
+      </div>
+
+
+    </section>
+    <!-- $ *******************  End Of Records  ******************* $ -->
+
+
+
+    <!-- $ *******************  Projects  ******************* $ -->
+    <div class="anchor-point" id="portfolio"></div>
+    <section class="section projects" data-aos="zoom-in" data-aos-delay="800" data-aos-duration="1500"
+      data-aos-offset="0" data-id="portfolio">
+      <h2 class="section-title section-title--mb">Our Latest Projects</h2>
+
+      <div class="projects__gallery">
+      </div>
+    </section>
+    <!-- $ *******************  End Of Projects  ******************* $ -->
+
+
+    <!-- $ *******************  Team  ******************* $ -->
+    <div class="anchor-point" id="team"></div>
+    <section class="section team" data-id="team">
+      <h2 class="section-title section-title--mb">Our Team</h2>
+
+      <div class="grid-wrapper team__members bust-out">
+      </div>
+    </section>
+    <!-- $ *******************  End Of Team  ******************* $ -->
+
+
+
+    <!-- $ *******************  Testimonials  ******************* $ -->
+    <div class="anchor-point" id="testimonials"></div>
+    <section class="section testimonials" data-id="testimonials">
+
+      <!-- Testimonials Content -->
+      <div class="section-content testimonials__content">
+        <h2 class="section-title">What our clients say</h2>
+        <div class="section-desc">
+          <p>
+            Our top priority is the satisfaction of our clients. We are committed to delivering
+            exceptional
+            results and ensuring that our clients' needs and goals are met.We measure our success by the success of our
+            clients, and we are constantly striving to provide exceptional
+            service and support.
+          </p>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="grid-wrapper testimonials__wrapper">
+        <div class="testimonial">
+          <span class="testimonial__icon">
+            <i class="fas fa-quote-right"></i>
+          </span>
+          <div class="testimonial__profile">
+            <img src="images/testimonial-1.jpeg" class="testimonial__img"></img>
+            <h3 class="testimonial__name">John Doe</h3>
+          </div>
+          <p class="testimonial__desc">
+            Tech Bees has been an absolute game-changer for our business. Their expertise and dedication to delivering
+            results are unparalleled. They took the time to understand our goals and provided us with innovative
+            solutions that have significantly boosted our online presence.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- $ *******************  End Of Testimonials  ******************* $ -->
+
+
+
+    <!-- $ *******************  Blog  ******************* $ -->
+    <div class="anchor-point" id="blog"></div>
+    <section class="section blogs" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1500" data-id="blog">
+      <h2 class="section-title section-title--mb">Our Latest Blogs</h2>
+
+      <div class="grid-wrapper blogs__wrapper">
+      </div>
+    </section>
+    <!-- $ *******************  End Of Blog  ******************* $ -->
+
+
+
+    <!-- $ *******************  Contact  ******************* $ -->
+    <div class="anchor-point" id="contact-us"></div>
+    <section class="section contact" data-id="contact-us">
+      <div class="contact__box">
+
+        <div class="contact__text-column">
+          <h4 class="section-title contact__title">Get Connected With TechBees</h4>
+          <p class="contact__desc">
+            Ready to take your business to new heights? At TechBees, we're dedicated to providing innovative solutions
+            that drive success. Whether you need assistance with web development, mobile apps, branding, or digital
+            marketing, our team of experts is here to help. Contact us today to discuss your project and get started on
+            your journey towards growth and excellence.
+          </p>
+          <a href="#" class="contact__cta">Get Started</a>
+        </div>
+
+        <div class="contact__img-column">
+          <div class="contact__img">
+            <img src="./public/images/Get in touch-amico.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- $ *******************  End Of Contact  ******************* $ -->
+  </main>
+
+  <!--* ***************************************  End Of Main  *************************************** -->
+
+
+
+  <!--* ***************************************  Footer  *************************************** -->
+
+  <footer class="footer">
+
+    <div class="footer__content">
+      <div class="footer__column footer__column--main">
+        <h3 class="section-title">Tech Bees</h3>
+        <p>
+          Unleashing the Potential of Digital Transformation.
+        </p>
+        <div class="socials-wrapper footer__socials-wrapper"></div>
+      </div>
+      <div class="footer__column footer__column--contact" data-label="contact"></div>
+      <div class="footer__column footer__column--about" data-label="about">about</div>
+      <div class="footer__column footer__column--useful" data-label="useful">useful</div>
+    </div>
+
+    <hr class="footer__line">
+
+    <div class="footer__copy">
+      <p>
+        © 2023 TechBees. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!--* ***************************************  End Of Footer  *************************************** -->
+
+
+
+  <!--* ***************************************  Scroll-to-top  *************************************** -->
+  <button class="scroll-to-top hidden">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <!--* ***************************************  End Of Scroll-to-top  *************************************** -->
+
+
+</body>
+
+</html>
+
+
+
+<!-- ------------------------------------------------- Comments -------------------------------------------------- -->
+
+<!--* ***************************************   Comment  *************************************** -->
+<!--* ***************************************  End Of Comment  *************************************** -->
+
+
+<!-- & ********************************  Comment  ********************************  -->
+<!-- & ********************************  End Of Comment  ********************************  -->
+
+
+<!-- $ *******************  Comment  ******************* $ -->
+<!-- $ *******************  End Of Comment  ******************* $ -->
+
+
+<!-- % ***************  Comment  ***************  -->
+<!-- % ***************  End Of Comment  ***************  -->
+
+
+<!-- @ ************  Comment  ************  -->
+<!-- @ ************  End Of Comment  ************  -->
+
+
+<!-- # ********  Comment  ********  -->
+<!-- # ********  End Of Comment  ********  -->
+
+
+<!-- ^ *****  Comment  *****  -->
+<!-- ^ *****  End Of Comment  *****  -->

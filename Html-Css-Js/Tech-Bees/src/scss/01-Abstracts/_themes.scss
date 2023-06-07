@@ -1,0 +1,32 @@
+@use 'variables'as *;
+
+
+
+//% ***************  Light Theme  *************** //
+$colors-light: (
+    'text': #464646,
+    'text-light': color('gray.500'),
+    'text-light-2': color('gray.400'),
+    'title': #282f59,
+    'bg': color('white'),
+    'card': color('gray.50'),
+    'socials': color('slate.500'),
+    "sticky-nav": rgba(color('primary.200'), .92),
+    "sidebar": color('slate.500'),
+);
+
+
+
+
+//% ***************  Dark Theme  *************** //
+$colors-dark: (
+    'text': #CBCDDA,
+    'text-light': color('gray.100'),
+    'text-light-2': color('gray.400'),
+    'title': whitesmoke,
+    'bg': #282f59,
+    'card': '#3d446a',
+    'socials': color('slate.100'),
+    "sticky-nav": rgba(color('primary.400'), .85),
+    "sidebar": color('gray.blue-4'),
+);

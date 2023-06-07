@@ -1,0 +1,78 @@
+@use '../../01-Abstracts'as *;
+
+
+
+.contact {
+
+
+  &__box{
+    @include flex(row,space-around,start,4rem);
+    background-color: getColor(card);
+    max-width: 110rem;
+    margin-inline: auto;
+    border-radius: var(--radius-3);
+    box-shadow: var(--shadow-dark);
+    padding: 3rem 4rem 4rem;
+
+    @include respond (lg) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+
+  &__text-column {
+    flex-basis: 60%;
+    @include flex(column,$align: start, $gap: 2rem);
+
+    @include respond (lg) {
+      order: 1;
+      align-items: center;
+    }
+  }
+
+
+  &__title {
+    text-align: left;
+  }
+
+
+  &__img-column {
+    flex-basis: 35%;
+
+
+    img{
+      min-height: 20rem;
+
+      @include respond (lg) {
+        min-height: 30rem;
+      }
+    }
+  }
+
+
+  &__desc {
+    font-size: fs(sm-3);
+  }
+
+
+  &__cta {
+    @include btn($bgColor: transparent,$textColor: whitesmoke);
+    
+    &,
+    &:link,
+    &:visited {
+        margin-top: 2rem;
+        padding: 1.4rem 3rem;
+        font-size: fs(sm-3);
+        letter-spacing: var(--letterSpacing-5);
+        background-image: var(--gradient-2);
+        border-radius: var(--radius-2);
+        box-shadow: 3px 6px 8px rgba(color('primary.400'),.6),4px 8px 10px rgba(color('secondary.400'),.6);
+    }
+
+    &:hover {
+        background-image: var(--gradient-2-reverse);
+    }
+  }
+}
