@@ -1,73 +1,96 @@
 @use 'sass:list';
 @use 'variables' as *;
 @use 'themes' as *;
+@use 'functions' as *;
 
 
 
 //% ***************  General  *************** //
-
 // Transition
-@mixin transition($property:all, $time:.3s, $function:ease-in-out) {
+@mixin transition($property: all, $time:.3s, $function: ease-in-out) {
     transition: $property $time $function;
 }
 
 
-// Flexbox
-@mixin flex($direction:row, $justify:center, $align:center, $gap:0, $wrap: nowrap) {
-    display: flex;
-    flex-direction: $direction;
-    flex-wrap: $wrap;
-    justify-content: $justify;
-    align-items: $align;
-    
-    @if $gap != 0 {
-        gap: $gap;
-    }
-}
-
-
-// Responsive Grid
-@mixin responsive-grid ($size: 35rem, $gap: 2rem) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(#{$size}, 100%), 1fr));
-    gap: $gap;
-}
-
-
 // Bg-Image
-@mixin bg-image($image) {
-    background-image: url(/src/assets/images/#{$image});
-    background-size: cover;
-    background-position: center center;
+@mixin bg-image($image,$size: cover, $position: center center) {
+    background-image: url(@/assets/images/#{$image});
+    background-size: $size;
+    background-position: $position;
     background-repeat: no-repeat;
 }
 
 
-// Darken bg color
-@mixin darkenBgColor ($bgColor, $amount: 6%, $color) {
-    background-color: $bgColor;
+// Clearfix
+@mixin clearfix {
 
-    &:hover,
-    &:active {
-        background-color: darken($bgColor, $amount);
-        color: $color;
-    }
-}
-
-// Lighten bg color
-@mixin lightenBgColor ($bgColor, $amount: 10%, $color) {
-    background-color: $bgColor;
-
-    &:hover,
-    &:active {
-        background-color: lighten($bgColor, $amount);
-        color: $color;
+    &::after,
+    &::before {
+        content: "";
+        display: table;
+        clear: both;
     }
 }
 
 
+// Generate Color Custom Props
+@mixin generate-color-custom-props ($map: $colors, $prefix: clr) {
+
+    @each $color,$shades in $map{
+
+        @if type-of($shades)=='map' {
+
+            @each $shade,
+            $tone in $shades {
+                --#{$prefix}-#{$color}-#{$shade}: #{$tone};
+            }
+        }
+
+        @else {
+            --#{$prefix}-#{$color}: #{$shades};
+        }
+    }
+}
+//% ***************    *************** //
+
+
+
+//% ***************  Colors *************** //
+// Adjust bg color
+@mixin adjustBgColor ($adjustment: darken, $bgColor, $amount: 6%, $color) {
+    background-color: $bgColor;
+
+    &:hover,
+    &:active {
+        $adjustment-function: get-function($adjustment);
+        background-color: call($adjustment-function, $bgColor, $amount);
+        @if $color {
+            color: $color;
+        }
+    }
+}
+//% ***************   *************** //
+
+
+
+//% ***************  Units *************** //
+// Dynamic Viewport Units
+@mixin dvw($value: 100) {
+    width: #{$value}vw;
+    width: #{$value}dvw;
+}
+
+@mixin dvh($value: 100) {
+    height: #{$value}vw;
+    height: #{$value}dvw;
+}
+//% ***************   *************** //
+
+
+
+//% ***************  Link States *************** //
 // Focus State
-@mixin focus-state($color: color('primary-light.base')){
+@mixin focus-state($color: color('primary.base')){
 
     &:focus-visible {
         outline: 3px solid transparent;
@@ -100,40 +123,51 @@
       transform: scaleX(1);
     }
 }
+//% ***************    *************** //
 
 
-// Clearfix
-@mixin clearfix {
 
-    &::after,
-    &::before {
-        content: "";
-        display: table;
-        clear: both;
+//% ***************  Centering  *************** //
+// Center with position //
+@mixin center-pos {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+// Center with margins //
+@mixin center-mar {
+    margin-left: auto;
+    margin-right: auto;
+}
+//% ***************    *************** //
+
+
+
+//% ***************  Layout Tools *************** //
+// Flexbox
+@mixin flex($direction:row, $justify:center, $align:center, $gap:0, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    justify-content: $justify;
+    align-items: $align;
+    
+    @if $gap != 0 {
+        gap: $gap;
     }
 }
 
 
-
-// Generate Color Custom Props
-@mixin generate-color-custom-props ($map: $colors, $prefix: clr) {
-
-    @each $color,$shades in $map{
-
-        @if type-of($shades)=='map' {
-
-            @each $shade,
-            $tone in $shades {
-                --#{$prefix}-#{$color}-#{$shade}: #{$tone};
-            }
-        }
-
-        @else {
-            --#{$prefix}-#{$color}: #{$shades};
-        }
-    }
+// Responsive Grid
+@mixin responsive-grid ($size: 35rem, $gap: 2rem) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(#{$size}, 100%), 1fr));
+    gap: $gap;
 }
-
 //% ***************    *************** //
 
 
@@ -191,28 +225,6 @@
 
 
 
-//% ***************  Centering  *************** //
-
-// Center with position //
-@mixin center-pos {
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-// Center with margins //
-@mixin center-mar {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-//% ***************    *************** //
-
-
-
 //% ***************  Components  *************** //
 
 // Button //
@@ -227,7 +239,6 @@
     white-space: nowrap;
     cursor: pointer;
 }
-
 
 @mixin btn($bgColor: color('primary.base'), $textColor: color('gray.50'), $type: normal){
 
@@ -245,7 +256,7 @@
 
 
         @if $type == normal {
-            @include darkenBgColor($bgColor,$color:$textColor);
+            @include adjustBgColor(darken,$bgColor,$color: $textColor);
         }
 
         @if $type == outlined {
@@ -269,4 +280,70 @@
     border-radius: $radius;
     box-shadow: $shadow;
     padding: 2rem 3rem;
+}
+
+
+// Social Icons 
+@mixin socialIcons($official: false, $officialOnHover: false, $color: getColor(socials), $hoverColor: getColor(socialsHover) ) {
+
+    $socials: facebook,twitter,linkedin,youtube,instagram;
+
+    
+    @if $official {
+
+        @if $officialOnHover {
+            color: $color;
+
+            @each $icon in $socials {
+                @include fillIconsColor(true,$icon);
+            }
+        }
+
+        @else {
+            @each $icon in $socials {
+                @include fillIconsColor(false,$icon);
+            }
+        }
+    }
+
+    @else {
+        color: $color;
+
+        &:hover {
+            color: $hoverColor;
+        }
+    }
+}
+
+@mixin fillIconsColor($hover,$icon) {
+    
+    @if $hover {
+        @if $icon == instagram {
+            &--#{$icon}:hover {
+                background-image: getColor(#{$icon});
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        @else {
+            &--#{$icon}:hover {
+                color: getColor(#{$icon})
+            }
+        }
+    }
+
+    @else {
+        @if $icon == instagram {
+            &--#{$icon} {
+                background-image: getColor(#{$icon});
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        @else {
+            &--#{$icon} {
+                color: getColor(#{$icon})
+            }
+        }
+    }
 }

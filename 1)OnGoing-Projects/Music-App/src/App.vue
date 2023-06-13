@@ -277,6 +277,8 @@
 <script>
 import useModalStore from "@/stores/modal";
 import { mapWritableState } from "pinia";
+import useUserStore from "@/stores/user";
+import { auth } from "./includes/firebase";
 
 import TheHeader from "./components/TheHeader.vue";
 import AppAuth from "./components/AppAuth.vue";
@@ -293,6 +295,7 @@ export default {
     ...mapWritableState(useModalStore, {
       modalVisibility: "isOpen",
     }),
+    ...mapWritableState(useUserStore, ["userLoggedIn"]),
   },
 
   created() {
@@ -301,6 +304,11 @@ export default {
         this.modalVisibility = false;
       }
     });
+
+    // Check if user is logged in
+    if (auth.currentUser) {
+      this.userLoggedIn = true;
+    }
   },
 };
 </script>

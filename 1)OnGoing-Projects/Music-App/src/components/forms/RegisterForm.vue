@@ -117,6 +117,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import useUserStore from "@/stores/user";
 import { ErrorMessage } from "vee-validate";
 
 export default {
@@ -151,16 +153,31 @@ export default {
   },
 
   methods: {
-    register(values) {
+    ...mapActions(useUserStore, {
+      createUser: "register",
+    }),
+
+    async register(values) {
       this.registrationInSubmission = true;
       this.registrationAlert.show = true;
       this.registrationAlert.variant = "bg-blue-500";
       this.registrationAlert.msg =
         "Please wait. Your account is being created.";
 
+      try {
+        await this.createUser(values);
+      } catch (err) {
+        console.log(err);
+        this.registrationInSubmission = false;
+        this.registrationAlert.variant = "bg-red-500";
+        this.registrationAlert.msg =
+          "An unexpected error occurred. Please try again later.";
+        return;
+      }
+
       this.registrationAlert.variant = "bg-green-500";
       this.registrationAlert.msg = "Success. Your account has been created.";
-      console.log(values);
+      window.location.reload();
     },
   },
 };

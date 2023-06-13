@@ -1,0 +1,21 @@
+@use 'variables' as *;
+
+
+
+//% ***************  Light Theme  *************** //
+$colors-light: (
+
+    'text': color('slate.600'),
+    'title': color('gray.blue-4'),
+    'bg': color('primary.50')
+);
+
+
+
+//% ***************  Dark Theme  *************** //
+$colors-dark: (
+
+    'text': color('slate.50'),
+    'title': color('slate.100'),
+    'bg': color('gray.blue-5')
+);

@@ -8,10 +8,17 @@ import veeValidatePlugin from "./includes/validation.js";
 import "./assets/base.css";
 import "./assets/main.css";
 
-const app = createApp(App);
+import { auth } from "./includes/firebase.js";
+let app;
 
-app.use(createPinia());
-app.use(router);
-app.use(veeValidatePlugin);
+auth.onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App);
 
-app.mount("#app");
+    app.use(createPinia());
+    app.use(router);
+    app.use(veeValidatePlugin);
+
+    app.mount("#app");
+  }
+});

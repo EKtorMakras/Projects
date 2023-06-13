@@ -7,7 +7,9 @@ $colors-light: (
 
     'text': color('slate.600'),
     'title': color('gray.blue-4'),
-    'bg': color('primary.50')
+    'bg': color('primary.50'),
+    'socials': color('slate.500'),
+    'socialsHover': color('slate.700'),
 );
 
 
@@ -17,5 +19,7 @@ $colors-dark: (
 
     'text': color('slate.50'),
     'title': color('slate.100'),
-    'bg': color('gray.blue-5')
+    'bg': color('gray.blue-5'),
+    'socials': color('slate.100'),
+    'socialsHover': color('slate.300'),
 );

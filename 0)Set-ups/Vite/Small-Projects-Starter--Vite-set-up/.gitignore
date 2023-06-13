@@ -1,3 +1,18 @@
+# Numerous always-ignore extensions
+*.diff
+*.fig
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+node_modules/
+.tmp/
+
 # Logs
 logs
 *.log
