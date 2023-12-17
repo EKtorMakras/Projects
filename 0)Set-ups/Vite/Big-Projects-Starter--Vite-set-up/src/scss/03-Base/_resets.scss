@@ -1,15 +1,12 @@
 @use '../01-Abstracts'as *;
 
-
 html {
 
     box-sizing: border-box;
-
     font-size: 62.5%; //1rem = 10px //
 
-
+    
     //# ---- Media ---- //
-
     @include respond (xxl) {
         font-size: 70%; // 1rem ~= 11px //
     }
@@ -25,10 +22,8 @@ html {
     // @include respond (sm) {
     //     font-size: 43.75%; // 1rem = 7px //
     // }
-
     //# ---- ---- //
 }
-
 
 *,
 *::after,

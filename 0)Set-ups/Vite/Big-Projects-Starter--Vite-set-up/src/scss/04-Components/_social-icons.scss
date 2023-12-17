@@ -1,10 +1,8 @@
 @use '../01-Abstracts'as *;
 
-
 .socials-wrapper {
   @include flex($gap: 3rem, $wrap: wrap);
 }
-
 
 .social-icon {
   @include focus-state(color('primary.base'));
@@ -14,6 +12,6 @@
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }

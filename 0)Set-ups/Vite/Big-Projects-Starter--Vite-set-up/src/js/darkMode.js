@@ -1,6 +1,6 @@
-import { AppName} from './data.js'
-import { dom } from './DOM.js';
-import { getObjectLs, updateItemLs } from './utils.js';
+import { AppName} from "./data.js";
+import { dom } from "./DOM.js";
+import { getObjectLs, updateItemLs } from "./utils.js";
 
 
 // Init Theme
@@ -15,23 +15,23 @@ export function toggleTheme() {
 
   let theme = getCurrentTheme();
   
-  theme = theme === 'light' ? 'dark' : 'light';
+  theme = theme === "light" ? "dark" : "light";
   
-  updateItemLs(AppName,'theme',theme)
+  updateItemLs(AppName,"theme",theme);
 
-  loadTheme(theme)
+  loadTheme(theme);
 }
 
 
 // Get Theme
 function getCurrentTheme() {
 
-  let theme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let theme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  theme = theme ? 'dark' : 'light';
+  theme = theme ? "dark" : "light";
 
   if (getObjectLs(AppName)?.theme) {
-    theme = getObjectLs(AppName).theme
+    theme = getObjectLs(AppName).theme;
   }
 
   return theme;
@@ -40,7 +40,5 @@ function getCurrentTheme() {
 
 // Load Theme
 function loadTheme(theme) {
-  dom.root.dataset.theme = theme
+  dom.root.dataset.theme = theme;
 }
-
-

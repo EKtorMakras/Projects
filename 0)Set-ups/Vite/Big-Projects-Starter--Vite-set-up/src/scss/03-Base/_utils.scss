@@ -1,8 +1,6 @@
 @use '../01-Abstracts'as *;
 
-
 //& ******* Generic ******* //
-
 // container
 .container {
     @include center-mar;
@@ -20,12 +18,10 @@
    transform: translateX(calc(50vw - 50%));
  }
 
-
 // clearfix
 .clearfix {
     @include clearfix;
 }
-
 
 // section set-up
 .section {
@@ -49,6 +45,7 @@
     }
 }
 
+
 //& ******* Visibility ******* //
 .hidden {
     visibility: hidden;
@@ -63,15 +60,16 @@
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
-
 
 
 //& ******* Colored ******* //
 .error {
     color: getColor(slate-50);
     background-color: getColor(error);
+    padding: 4px 8px;
+    border-radius: var(--radius-2);
 }
 
 
@@ -104,7 +102,6 @@
 
 
 //& ******* Spacing ******* //
-
 $subtractStep: 0.03rem;
 $vwStep: 0.15vw;
 $reduceAdjustment: 0.85;
@@ -173,7 +170,6 @@ $increaseAdjustment: 1.6;
 
 
 //$ **************** Media Based Utils  ****************$//
-
 $text-align-values: left, right, justify, center;
 
 // center text

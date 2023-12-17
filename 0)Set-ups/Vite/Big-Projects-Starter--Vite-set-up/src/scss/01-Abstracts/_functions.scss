@@ -2,17 +2,13 @@
 
 
 //& ******* Custom props ******* //
-
 // Return custom prop with prefix
 @function getColor($name, $prefix: clr) {
     @return var(--#{$prefix}-#{$name});
 }
 
 
-
-
 //& ******* Px Conversions ******* //
-
 // Convert px to em
 @function em($pixels, $context: 16) {
     @return (math.div($pixels, $context)) * 1em;
@@ -25,10 +21,7 @@
 }
 
 
-
-
 //& ******* Other ******* //
-
 // Separates string to arguments by delimiter
 @function str-explode($string, $delimiter: '') {
 
@@ -69,7 +62,6 @@
     @return append($result, $string);
 }
 
-
 // Get values of nested map
 @function deep-map-get($map, $keys...) {
 
@@ -83,7 +75,6 @@
 
     @return $map;
 }
-
 
 
 @function colorTest($color-name, $color-variant: null, $true-val: false) { //https://codepen.io/jakealbaugh/post/css4-variables-and-sass

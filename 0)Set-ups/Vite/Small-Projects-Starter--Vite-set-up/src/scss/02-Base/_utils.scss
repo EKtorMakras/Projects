@@ -63,7 +63,7 @@
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 
@@ -71,6 +71,8 @@
 .error {
     color: getColor(slate-50);
     background-color: getColor(error);
+    padding: 4px 8px;
+    border-radius: var(--radius-2);
 }
 
 

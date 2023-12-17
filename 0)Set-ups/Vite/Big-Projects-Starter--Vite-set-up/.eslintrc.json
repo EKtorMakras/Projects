@@ -1,0 +1,46 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:json/recommended-with-comments"
+    // "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["html"],
+
+  "rules": {
+    // =========== General =========== //
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+
+    "no-empty": "warn",
+    "no-cond-assign": ["error", "always"],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2,
+        "maxEOF": 0,
+        "maxBOF": 0
+      }
+    ],
+
+    // Disable
+    "init-declarations": "off",
+    "no-console": "off",
+    "no-inline-comments": "off",
+    "no-unused-expressions": "off",
+    "curly": "off",
+    "no-new": "off",
+    "camelcase": "off",
+    "no-unused-vars": "off"
+  }
+}

@@ -1,22 +1,19 @@
 // Import Css
-import '@/scss/style.scss'
+import "@/scss/style.scss";
 
 // Module Imports
-import { initTheme,toggleTheme } from './darkMode.js'
-import { initStartingData } from './fillStartingData.js'
-
-
+import { initTheme, toggleTheme } from "./darkMode.js";
+import { initStartingData } from "./fillStartingData.js";
 
 
 // Init App
-document.addEventListener('DOMContentLoaded', initApp)
-
+document.addEventListener("DOMContentLoaded", initApp);
 
 
 // Functions
 function initApp() {
-  initStartingData()
-  initTheme()
+  initStartingData();
+  initTheme();
 }
 
-document.querySelector('#btn').addEventListener('click', toggleTheme);
+document.querySelector("#btn").addEventListener("click", toggleTheme);

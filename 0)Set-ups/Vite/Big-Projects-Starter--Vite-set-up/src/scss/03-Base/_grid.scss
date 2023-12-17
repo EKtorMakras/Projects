@@ -1,11 +1,8 @@
 @use 'sass:math';
 @use '../01-Abstracts'as *;
 
-
 $grid-columns: 12;
-
 $layout-values: start, end, center, space-between, space-around, space-evenly, baseline;
-
 
 .row {
   display: flex;
@@ -15,7 +12,6 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
     flex-grow: 0;
   }
 }
-
 
 // Direction
 .flex-column {
@@ -52,7 +48,6 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
       row-gap: calc(#{$baseGutter} * #{$i});
   }
 }
-
 
 //& ******* Xs Breakpoint ******* //
 @include respond(xs) {
