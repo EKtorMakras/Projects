@@ -192,8 +192,7 @@ export function rgbaToHex(r, g, b, a = 1) {
     !Number.isInteger(r) || r < 0 || r > 255 ||
     !Number.isInteger(g) || g < 0 || g > 255 ||
     !Number.isInteger(b) || b < 0 || b > 255 ||
-    typeof a !== "number" || a < 0 || a > 1 ||
-    !Number.isFinite(r) || !Number.isFinite(g) || !Number.isFinite(b) || !Number.isFinite(a)
+    typeof a !== "number" || a < 0 || a > 1
   ) {
     return null;
   }
@@ -203,12 +202,14 @@ export function rgbaToHex(r, g, b, a = 1) {
   const hexG = Math.round(g).toString(16).padStart(2, "0");
   const hexB = Math.round(b).toString(16).padStart(2, "0");
 
+  // Convert alpha to a hexadecimal representation
+  const hexA = Math.round(a * 255).toString(16).padStart(2, "0");
+
   // Construct the final hexadecimal color string
   let hexColor = `#${hexR}${hexG}${hexB}`;
 
   // Add the alpha component if it's not equal to 1
   if (a !== 1) {
-    const hexA = Math.round(a * 255).toString(16).padStart(2, "0");
     hexColor += hexA;
   }
 
@@ -227,7 +228,7 @@ export function hexToRgba(hex) {
   }
 
   // Check if the hex value has a valid length
-  if (hex.length !== 6 && hex.length !== 8) {
+  if (!/^[0-9A-Fa-f]{6}$|^[0-9A-Fa-f]{8}$/.test(hex)) {
     return null;
   }
 
@@ -362,7 +363,7 @@ export function arrRandom(arr) {
   return arr[randomNumberBetween(0, arr.length - 1)];
 }
 
-export function arrGetUniqueValues(arr, value) {
+export function arrGetUniqueObjectValues(arr, value) {
   return [
     ...new Set(arr.map(item => {
       return item[value];
