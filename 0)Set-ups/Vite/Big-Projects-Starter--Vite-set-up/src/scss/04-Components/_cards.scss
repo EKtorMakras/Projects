@@ -1,4 +1,4 @@
-@use '../01-Abstracts'as *;
+@use "../01-Abstracts" as *;
 
 .card {
   @include card();

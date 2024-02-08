@@ -1,4 +1,4 @@
-@use '../01-Abstracts'as *;
+@use "../01-Abstracts" as *;
 
 body {
   font-family: $ff-primary;
@@ -6,7 +6,6 @@ body {
   font-weight: fw(regular);
   line-height: $lineHeightText;
 }
-
 
 p {
   font-size: fs(rg);
@@ -33,18 +32,15 @@ h3 {
   line-height: $lineHeightTitle;
 }
 
-
 h1 {
   font-size: fs(head-1);
   font-weight: fw(thin);
 }
 
-
 h2 {
   font-size: fs(head-2);
   font-weight: fw(light);
 }
-
 
 h3 {
   font-size: fs(head-3);

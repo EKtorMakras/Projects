@@ -1,9 +1,9 @@
-@use '../01-Abstracts'as *;
+@use "../01-Abstracts" as *;
 
 body {
   overflow-x: hidden;
   background-color: getColor(body);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 ul {

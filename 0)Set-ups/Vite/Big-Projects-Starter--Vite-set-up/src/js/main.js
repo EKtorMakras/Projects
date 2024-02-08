@@ -5,10 +5,8 @@ import "@/scss/style.scss";
 import { initTheme, toggleTheme } from "./darkMode.js";
 import { initStartingData } from "./fillStartingData.js";
 
-
 // Init App
 document.addEventListener("DOMContentLoaded", initApp);
-
 
 // Functions
 function initApp() {
