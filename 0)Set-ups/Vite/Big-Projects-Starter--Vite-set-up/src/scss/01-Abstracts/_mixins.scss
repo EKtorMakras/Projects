@@ -36,14 +36,15 @@
 @mixin generate-color-custom-props($map: $colors, $prefix: clr) {
   @each $color, $shades in $map {
     @if type-of($shades) == "map" {
-      @each $shade, $tone in $shades {
-        --#{$prefix}-#{$color}-#{$shade}: #{$tone};
-      }
+      // If the value is another map, call the mixin recursively
+      @include generate-color-custom-props($shades, #{$prefix}-#{$color});
     } @else {
+      // If the value is not a map, it's a color value
       --#{$prefix}-#{$color}: #{$shades};
     }
   }
 }
+
 //% ***************    *************** //
 
 //% ***************  Colors *************** //
@@ -264,7 +265,12 @@
 }
 
 // Social Icons
-@mixin socialIcons($official: false, $officialOnHover: false, $color: getColor(socials), $hoverColor: getColor(socialsHover)) {
+@mixin socialIcons(
+  $official: false,
+  $officialOnHover: false,
+  $color: getColor(socials),
+  $hoverColor: getColor(socialsHover)
+) {
   $socials: facebook, twitter, linkedin, youtube, instagram;
 
   @if $official {

@@ -14,21 +14,25 @@ $colors: (
 
   "error": #d32752,
   //% ***************    *************** //
+
   //% ***************  Socials  *************** //
   "facebook": #3b5998,
   "twitter": #00acee,
   "linkedin": #0072b1,
   "youtube": #ff0000,
   "instagram": linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%),
+
   //% ***************  Gray  *************** //
   "gray":
     (
-      /* General ones */ "generic-1": #999,
+      // General ones
+      "generic-1": #999,
       "generic-2": #777,
       "generic-3": #555,
       "generic-4": #333,
 
-      /* Variations */ "50": #f9fafb,
+      // Variations
+      "50": #f9fafb,
       "100": #f3f4f6,
       "200": #e5e7eb,
       "300": #d1d5db,
@@ -38,7 +42,8 @@ $colors: (
       "700": #374151,
       "800": #1f2937,
 
-      /* Blue-Greys */ "blue-1": #bcccdc,
+      // Blue-Greys
+      "blue-1": #bcccdc,
       "blue-2": #829ab0,
       "blue-3": #617d98,
       "blue-4": #324d67,
@@ -46,6 +51,7 @@ $colors: (
       "blue-6": #102a42
     ),
   //% ***************    *************** //
+
   // Tailwind Colors
   "slate-50": #f8fafc,
   "slate-100": #f1f5f9,
@@ -184,15 +190,17 @@ $colors: (
   primary:
     (
       "base": hsl(173, 58%, 39%),
+
       // Light Shades
-      "50": hsl(175, 35%, 94%),
+      "50": hsl(173, 35%, 94%),
       "100": hsl(173, 38%, 82%),
       "150": hsl(173, 37%, 63%),
       "200": hsl(173, 58%, 56%),
       "300": hsl(173, 58%, 48%),
       "400": hsl(173, 45%, 45%),
+
       // Dark Shades
-      "600": hsl(174, 58%, 35%),
+      "600": hsl(173, 58%, 35%),
       "700": hsl(173, 58%, 23%),
       "800": hsl(173, 59%, 20%),
       "900": hsl(173, 58%, 16%),
@@ -202,15 +210,17 @@ $colors: (
   secondary:
     (
       "base": hsl(10, 58%, 39%),
+
       // Light Shades
-      "50": hsl(175, 35%, 94%),
+      "50": hsl(10, 35%, 94%),
       "100": hsl(10, 38%, 82%),
       "150": hsl(10, 37%, 63%),
       "200": hsl(10, 58%, 56%),
       "300": hsl(10, 58%, 48%),
       "400": hsl(10, 45%, 45%),
+
       // Dark Shades
-      "600": hsl(11, 58%, 35%),
+      "600": hsl(10, 58%, 35%),
       "700": hsl(10, 58%, 23%),
       "800": hsl(10, 59%, 20%),
       "900": hsl(10, 58%, 16%),
@@ -221,7 +231,6 @@ $colors: (
 // Get Color Function
 @function color($key, $map: $colors) {
   $keys: str-explode($key, ".");
-
   @return deep-map-get($map, $keys...);
 }
 //& **********************************  End Of Colors  ********************************** //
@@ -238,6 +247,7 @@ $font-sizes: (
   "lg-2": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
   "lg-3": clamp(2.5rem, 2.2rem + 1vw, 3rem),
   "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
+
   // Headings
   "head-1": 6rem,
   "head-2": 4.7rem,
@@ -273,6 +283,7 @@ $font-weights: (
 $ff-primary: "Lato", sans-serif;
 $ff-secondary: Arial, Helvetica, sans-serif;
 //% ***************    *************** //
+
 //& **********************************  End Of Fonts  ********************************** //
 
 //& **********************************  Shadows  ********************************** //
@@ -281,10 +292,12 @@ $shadows: (
   sm-1: 0 0.2rem 0.5rem rgba(color("black"), 0.05),
   sm-2: 0 0.3rem 0.8rem rgba(color("black"), 0.05),
   sm-3: 0 0.6rem 1.2rem rgba(color("black"), 0.05),
+
   // Regular
   rg-1: 0 0.2rem 0.5rem rgba(color("black"), 0.08),
   rg-2: 0 0.3rem 0.8rem rgba(color("black"), 0.08),
   rg-3: 0 0.6rem 1.2rem rgba(color("black"), 0.08),
+
   // Large
   lg-1: 0 0.4rem 0.8rem rgba(color("black"), 0.12),
   lg-2: 0 0.8rem 1.6rem rgba(color("black"), 0.1),

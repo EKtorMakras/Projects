@@ -21,15 +21,10 @@ export function toggleTheme() {
 
 // Get Theme
 function getCurrentTheme() {
-  let theme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const storedTheme = getItemLs(AppName)?.theme;
+  if (storedTheme) return storedTheme;
 
-  theme = theme ? "dark" : "light";
-
-  if (getItemLs(AppName)?.theme) {
-    theme = getItemLs(AppName).theme;
-  }
-
-  return theme;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 // Load Theme
