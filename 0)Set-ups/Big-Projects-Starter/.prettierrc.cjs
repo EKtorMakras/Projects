@@ -10,12 +10,4 @@ module.exports = {
   endOfLine: "auto",
   singleAttributePerLine: true,
   printWidth: 120,
-  overrides: [
-    {
-      files: "*.scss",
-      options: {
-        comment: "preserve", // or "normal" or "ignore"
-      },
-    },
-  ],
 };
