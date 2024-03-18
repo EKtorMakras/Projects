@@ -171,7 +171,7 @@
 }
 
 // Cover parent element
-@mixin cover($radius: 0) {
+@mixin cover($radius: inherit) {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -181,7 +181,7 @@
 }
 
 // Darken Overlay
-@mixin darkenOverlay($bg: rgb(0, 0, 0), $opacity: 0.15, $radius: 0) {
+@mixin darkenOverlay($bg: rgb(0, 0, 0), $opacity: 0.15, $radius: inherit) {
   position: relative;
   isolation: isolate;
 
