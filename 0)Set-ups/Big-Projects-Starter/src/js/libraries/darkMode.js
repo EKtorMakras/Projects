@@ -1,6 +1,6 @@
-import { AppName } from "./data.js";
-import { dom } from "./DOM.js";
-import { getItemLs, updateItemLs } from "./utils.js";
+import { AppName } from "../data";
+import { dom } from "./DOM";
+import { getItemLs, updateItemLs } from "./utils";
 
 // Init Theme
 export function initTheme() {

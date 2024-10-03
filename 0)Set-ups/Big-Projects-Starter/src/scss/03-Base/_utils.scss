@@ -95,6 +95,7 @@
 }
 
 //& ******* Spacing ******* //
+$baseGutter: 0.3rem;
 $subtractStep: 0.03rem;
 $vwStep: 0.15vw;
 $reduceAdjustment: 0.85;
@@ -106,6 +107,11 @@ $increaseAdjustment: 1.6;
   $middleValue: calc(#{$subtractedValue} + (#{$vwStep} * #{$i}));
   $afterValue: calc(#{$baseValue} * #{$increaseAdjustment});
   $clampValue: clamp($baseValue, $middleValue, $afterValue);
+
+  // Generate SCSS variables for margin
+  :root {
+    --spacer-#{$i}: #{$clampValue};
+  }
 
   // Margins
   .ma-#{$i} {

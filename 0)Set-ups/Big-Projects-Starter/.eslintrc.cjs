@@ -15,6 +15,12 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
+  settings: {
+    "import/ignore": ["node_modules"],
+    "prettier-vue": {
+      usePrettierrc: true,
+    },
+  },
   plugins: ["html"],
   globals: {
     process: "readonly",
@@ -29,25 +35,23 @@ module.exports = {
     quotes: ["warn", "double"],
     semi: ["warn", "always"],
 
+    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "no-empty": "warn",
     "no-cond-assign": ["warn", "always"],
     "no-multiple-empty-lines": [
       "warn",
       {
-        max: 2,
+        max: 1,
         maxEOF: 0,
         maxBOF: 0,
       },
     ],
 
     // Disable
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "init-declarations": "off",
-    "no-console": "off",
     "no-inline-comments": "off",
-    "no-unused-expressions": "off",
-    "no-unused-vars": "off",
-    "no-new": "off",
-    curly: "off",
     camelcase: "off",
   },
 };

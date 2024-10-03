@@ -45,6 +45,27 @@
   }
 }
 
+// Shadows
+@mixin shadow($type: box, $size: sm-1, $color: color("primary.base"), $opacity: null) {
+  // 1. Determine which map to use based on the type
+  $shadow-value: if($type == box, map-get($box-shadows, $size), map-get($text-shadows, $size));
+
+  // 2. Determine the size category from the size string
+  $category: if(str-index($size, "sm-"), "sm", if(str-index($size, "rg-"), "rg", "lg"));
+
+  // 3. Get the corresponding opacity from the opacity map, or use custom if provided
+  $final-opacity: if($opacity != null, $opacity, map-get($shadow-opacity, $category));
+
+  // 4. Convert the color to HSL if it's in HSL format
+  $hsl-color: if(type-of($color) == "color", $color, hsl($color));
+
+  // 5. Apply the shadow based on the type
+  @if $type == box {
+    box-shadow: #{$shadow-value} rgba($hsl-color, $final-opacity);
+  } @else if $type == text {
+    text-shadow: #{$shadow-value} rgba($hsl-color, $final-opacity);
+  }
+}
 //% ***************    *************** //
 
 //% ***************  Colors *************** //
@@ -300,6 +321,7 @@
       &--#{$icon}:hover {
         background-image: getColor(#{$icon});
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
       }
     } @else {
@@ -312,6 +334,7 @@
       &--#{$icon} {
         background-image: getColor(#{$icon});
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
       }
     } @else {

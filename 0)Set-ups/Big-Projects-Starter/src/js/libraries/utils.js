@@ -1,4 +1,4 @@
-import { AppName } from "./data.js";
+import { config } from "@/common/config";
 
 // ================== Strings ================== //
 export function toProperCase(str) {
@@ -11,6 +11,13 @@ export function toProperCase(str) {
   }
 
   return str[0].toUpperCase() + str.substring(1).toLowerCase();
+}
+
+export function cleanUppercaseText(text) {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .normalize("NFC");
 }
 
 // ================== Numbers ================== //
@@ -41,7 +48,9 @@ export function randomNumberBetween(min, max) {
   }
 
   if (min > max) {
-    throw new Error("randomNumberBetween: The first argument (min) must be less than or equal to the second argument (max).");
+    throw new Error(
+      "randomNumberBetween: The first argument (min) must be less than or equal to the second argument (max)."
+    );
   }
 
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -70,7 +79,7 @@ export function formatNumber(number, notation, locale) {
   }
 
   if (typeof notation !== "string" || (notation !== "compact" && notation !== "scientific")) {
-    throw new Error('formatNumber: Notation must be either "compact" or "scientific".');
+    throw new Error("formatNumber: Notation must be either 'compact' or 'scientific'.");
   }
 
   if (typeof locale !== "string") {
@@ -169,66 +178,65 @@ export function formatRelativeDate(toDate, fromDate = new Date(), locale) {
 }
 
 // ================== Colors ================== //
+// General
 export function getColor(colorName) {
-  const color = getComputedStyle(document.documentElement).getPropertyValue(`--clr-${colorName}`);
+  const color = `var(--clr-${colorName})`;
   return color;
 }
 
-export function rgbaToHex(r, g, b, a = 1) {
-  // Check if the arguments are valid numbers within the valid range
-  if (
-    !Number.isInteger(r) ||
-    r < 0 ||
-    r > 255 ||
-    !Number.isInteger(g) ||
-    g < 0 ||
-    g > 255 ||
-    !Number.isInteger(b) ||
-    b < 0 ||
-    b > 255 ||
-    typeof a !== "number" ||
-    a < 0 ||
-    a > 1
-  ) {
+// Conversions
+export function rgbToHex(rgb) {
+  rgb = rgb.toLowerCase();
+
+  // Check if the input is a string and has a valid format
+  if (!isValidRgbString(rgb)) {
+    console.warn(`rgbToHex: The input ${rgb} is not a valid RGB or RGBA string.`);
     return null;
   }
 
-  // Convert each color component to its hexadecimal representation
-  const hexR = Math.round(r).toString(16).padStart(2, "0");
-  const hexG = Math.round(g).toString(16).padStart(2, "0");
-  const hexB = Math.round(b).toString(16).padStart(2, "0");
+  // Determine the separator used in the input string (either a comma or a space)
+  let sep = rgb.indexOf(",") > -1 ? "," : " ";
 
-  // Convert alpha to a hexadecimal representation
-  const hexA = Math.round(a * 255)
-    .toString(16)
-    .padStart(2, "0");
+  // Check if the input string is an RGBA color
+  let isRgba = rgb.indexOf("rgba") > -1;
 
-  // Construct the final hexadecimal color string
-  let hexColor = `#${hexR}${hexG}${hexB}`;
+  // Remove the "rgb(" or "rgba(" prefix and the ")" suffix, and split the string into an array of values
+  rgb = rgb
+    .substring(isRgba ? 5 : 4)
+    .split(")")[0]
+    .split(sep);
 
-  // Add the alpha component if it's not equal to 1
-  if (a !== 1) {
-    hexColor += hexA;
-  }
+  // Convert the red, green, and blue values to hexadecimal
+  let r = (+rgb[0]).toString(16),
+    g = (+rgb[1]).toString(16),
+    b = (+rgb[2]).toString(16);
 
-  return hexColor;
+  // If the input string is an RGBA color, convert the alpha value to hexadecimal
+  // If the alpha value is 1 or not specified, set it to null
+  let a = isRgba && rgb[3] && rgb[3] !== "1" ? Math.round(+rgb[3] * 255).toString(16) : null;
+
+  // If any of the hexadecimal values are only one digit, prepend a zero
+  r = r.padStart(2, "0");
+  g = g.padStart(2, "0");
+  b = b.padStart(2, "0");
+  if (a) a = a.padStart(2, "0");
+
+  // Combine the hexadecimal values into a single string and return it
+  return "#" + r + g + b + (a ? a : "");
 }
 
 export function hexToRgba(hex) {
-  // Check if the argument is a string
-  if (typeof hex !== "string") {
+  console.log(hex);
+  if (!isValidHex(hex)) {
+    console.warn(`hexToRgba: The input ${hex} is not a valid hexadecimal color.`);
     return null;
   }
 
-  // Remove the '#' symbol if present
-  if (hex.startsWith("#")) {
-    hex = hex.slice(1);
-  }
+  // Remove the '#' symbol
+  hex = hex.slice(1);
 
-  // Check if the hex value has a valid length
-  if (!/^[0-9A-Fa-f]{6}$|^[0-9A-Fa-f]{8}$/.test(hex)) {
-    return null;
-  }
+  // Handle shorthand HEX notation (3 or 4 characters)
+  hex = expandShorthandHex(hex);
 
   // Separate the color components
   const hasAlpha = hex.length === 8;
@@ -239,109 +247,247 @@ export function hexToRgba(hex) {
 
   // Check if the parsed values are valid
   if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a)) {
+    console.warn(`hexToRgba: Failed to parse the color components from the input ${hex}.`);
     return null;
   }
 
   // Construct the final RGBA color string
   let rgbaColor = `rgba(${r}, ${g}, ${b}`;
+
   if (a !== 1) {
     rgbaColor += `, ${a}`;
   }
+
   rgbaColor += ")";
 
   return rgbaColor;
 }
 
+// Adjustments
+export function adjustColor(color, percent, mode) {
+  // Validate percent
+  if (typeof percent !== "number" || percent < 0 || percent > 100) {
+    console.warn(
+      `adjustColor: The percentage argument ${percent} is not valid. Please provide a number between 0 and 100.`
+    );
+    return color;
+  }
+
+  // Validate mode
+  if (mode !== "darken" && mode !== "lighten") {
+    console.warn(`adjustColor: The mode argument ${mode} is not valid. Please provide either 'darken' or 'lighten'.`);
+    return color;
+  }
+
+  const adjustmentAmount = percent / 100;
+  let colorToProcess = color;
+  let rgbaColor;
+  let isRGBA = false;
+  let opacity = 1;
+
+  const colorLowerCase = colorToProcess.toLowerCase();
+
+  // Handle RGB colors
+  if (colorLowerCase.startsWith("rgb")) {
+    rgbaColor = colorToProcess;
+    isRGBA = true;
+  }
+
+  // Handle HEX colors
+  else {
+    if (colorToProcess.startsWith("#")) {
+      colorToProcess = colorToProcess.slice(1);
+    }
+
+    // Handle short hex notation
+    colorToProcess = expandShorthandHex(colorToProcess);
+
+    // Check for opacity in HEX format (e.g., RRGGBBAA)
+    if (colorToProcess.length === 8) {
+      const alphaHex = colorToProcess.slice(-2);
+      opacity = parseInt(alphaHex, 16) / 255;
+      colorToProcess = colorToProcess.slice(0, -2);
+    } else if (colorToProcess.length !== 6) {
+      console.warn(`adjustColor: The color ${color} is not a valid hexadecimal color.`);
+      return color;
+    }
+
+    // Convert HEX to RGBA
+    rgbaColor = hexToRgba(`#${colorToProcess}`);
+
+    if (rgbaColor === null) {
+      console.warn(`adjustColor: The color ${color} is not a valid hexadecimal color.`);
+      return color;
+    }
+  }
+
+  // Parse RGBA components
+  const rgba = parseRgbString(rgbaColor);
+
+  if (!rgba) {
+    console.warn(`adjustColor: Failed to parse the color ${rgbaColor}.`);
+    return color;
+  }
+
+  let { r, g, b, a } = rgba;
+  a = isRGBA ? a : opacity;
+
+  // Adjust the color components
+  const adjustValue = (value) => Math.min(Math.max(value, 0), 255);
+  let adjustedR, adjustedG, adjustedB;
+
+  if (mode === "darken") {
+    adjustedR = adjustValue(Math.round(r - r * adjustmentAmount));
+    adjustedG = adjustValue(Math.round(g - g * adjustmentAmount));
+    adjustedB = adjustValue(Math.round(b - b * adjustmentAmount));
+  } else if (mode === "lighten") {
+    adjustedR = adjustValue(Math.round(r + (255 - r) * adjustmentAmount));
+    adjustedG = adjustValue(Math.round(g + (255 - g) * adjustmentAmount));
+    adjustedB = adjustValue(Math.round(b + (255 - b) * adjustmentAmount));
+  }
+
+  // Construct the adjusted color string
+  const adjustedColorString =
+    a === 1 ? `rgb(${adjustedR}, ${adjustedG}, ${adjustedB})` : `rgba(${adjustedR}, ${adjustedG}, ${adjustedB}, ${a})`;
+
+  // If the original color was RGBA, return the RGB/RGBA string; otherwise, convert it to HEX
+  let adjustedColor;
+
+  if (isRGBA) {
+    adjustedColor = adjustedColorString;
+  } else {
+    adjustedColor = rgbToHex(adjustedColorString);
+
+    if (!adjustedColor) {
+      console.warn(
+        `adjustColor: Unable to convert the adjusted color (${adjustedR}, ${adjustedG}, ${adjustedB}, ${a}) to hexadecimal format.`
+      );
+      return color;
+    }
+  }
+
+  return adjustedColor;
+}
+
 export function adjustColors(colors, percent, mode = "darken") {
-  //@ Check if the colors argument is an array
+  // Check if the colors argument is an array
   if (!Array.isArray(colors)) {
     // If the colors argument is a string, convert it to an array
     if (typeof colors === "string") {
       colors = [colors];
     } else {
       // Return null if colors is neither an array nor a string
+      console.error("The colors argument must be an array or a string.");
       return null;
     }
   }
 
-  //@ Validate the percent argument
+  // Validate the percent argument
   if (typeof percent !== "number" || percent <= 0 || percent > 100) {
-    console.log(`The percentage argument ${percent} is not a valid number. Please provide a number between 0 and 100.`);
+    console.error(
+      `The percentage argument ${percent} is not a valid number. Please provide a number between 0 and 100.`
+    );
     return null;
   }
 
-  //@ Validate the mode argument
+  // Validate the mode argument
   if (mode !== "darken" && mode !== "lighten") {
-    console.log(`The mode argument ${mode} is not valid. Please provide either 'darken' or 'lighten'.`);
+    console.error(`The mode argument ${mode} is not valid. Please provide either 'darken' or 'lighten'.`);
     return null;
   }
 
-  //@ Adjust each color in the array based on the specified mode and percentage
-  const adjustmentAmount = percent / 100;
+  // Adjust each color in the array
   const adjustedColors = colors.map((color) => {
-    let rgbaColor;
-    let isRGBA = false;
-    let opacity = 1; // Default opacity value
-
-    //@ Check if the color is already in RGBA format
-    if (color.startsWith("rgb")) {
-      rgbaColor = color;
-      isRGBA = true;
-    } else {
-      //@ Check if the color has an opacity value in HEX format
-      if (color.length === 9) {
-        opacity = parseInt(color.substr(6, 2), 16) / 255;
-        console.log(opacity);
-      }
-
-      // Convert the color to RGBA format
-      rgbaColor = hexToRgba(color);
-
-      if (rgbaColor === null) {
-        console.log(`The color ${color} is not a valid hexadecimal color.`);
-        return null;
-      }
-    }
-    // Extract the color components from the RGBA color string
-    const rgbaValues = rgbaColor.match(/[\d.]+/g);
-    const r = parseInt(rgbaValues[0]);
-    const g = parseInt(rgbaValues[1]);
-    const b = parseInt(rgbaValues[2]);
-    const a = isRGBA ? parseFloat(rgbaValues[3] ?? 1) : opacity;
-
-    // Adjust the color components
-    let adjustedR, adjustedG, adjustedB;
     if (mode === "darken") {
-      adjustedR = Math.max(Math.round(r - r * adjustmentAmount), 0);
-      adjustedG = Math.max(Math.round(g - g * adjustmentAmount), 0);
-      adjustedB = Math.max(Math.round(b - b * adjustmentAmount), 0);
-    } else if (mode === "lighten") {
-      adjustedR = Math.min(Math.round(r + (255 - r) * adjustmentAmount), 255);
-      adjustedG = Math.min(Math.round(g + (255 - g) * adjustmentAmount), 255);
-      adjustedB = Math.min(Math.round(b + (255 - b) * adjustmentAmount), 255);
-    }
-
-    // Convert the adjusted color back to the original format
-    let adjustedColor;
-    if (isRGBA) {
-      if (a === 1) {
-        adjustedColor = `rgb(${adjustedR}, ${adjustedG}, ${adjustedB})`;
-      } else {
-        adjustedColor = `rgba(${adjustedR}, ${adjustedG}, ${adjustedB}, ${a})`;
-      }
+      return darkenColor(color, percent);
     } else {
-      adjustedColor = rgbaToHex(adjustedR, adjustedG, adjustedB, a);
-
-      if (adjustedColor === null) {
-        console.log(`Unable to convert the adjusted color (${adjustedR}, ${adjustedG}, ${adjustedB}, ${a}) to hexadecimal format.`);
-        return null;
-      }
+      return lightenColor(color, percent);
     }
-
-    return adjustedColor;
   });
 
   return adjustedColors;
+}
+
+export function lightenColor(color, percent) {
+  return adjustColor(color, percent, "lighten");
+}
+
+export function darkenColor(color, percent) {
+  return adjustColor(color, percent, "darken");
+}
+
+// Helpers
+function isValidRgbString(rgb) {
+  const rgbRegex = /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})(?:\s*,\s*(0|1|0?\.\d+))?\s*\)$/;
+  if (typeof rgb !== "string") return false;
+  const match = rgb.match(rgbRegex);
+  if (!match) return false;
+
+  const r = Number(match[1]);
+  const g = Number(match[2]);
+  const b = Number(match[3]);
+  const a = match[4] !== undefined ? Number(match[4]) : 1;
+
+  // Check if RGB components are within 0-255 and alpha is within 0-1
+  return r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255 && a >= 0 && a <= 1;
+}
+
+function isValidHex(hex) {
+  if (typeof hex !== "string") return false;
+
+  // Check if the input starts with "#"
+  if (!hex.startsWith("#")) return false;
+
+  // Remove the '#' symbol for further validation
+  const hexWithoutHash = hex.slice(1);
+
+  // Handle shorthand HEX notation (3 or 4 characters)
+  const expandedHex = expandShorthandHex(hexWithoutHash);
+
+  // Validate the expanded HEX length (6 for RGB or 8 for RGBA)
+  return /^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/.test(expandedHex);
+}
+
+function parseRgbString(rgbString) {
+  // Check if the argument is a string
+  if (typeof rgbString !== "string") {
+    console.warn(`parseRgbString: The input ${rgbString} is not a valid string.`);
+    return null;
+  }
+
+  // Match the RGB(A) values in the string
+  const rgbaValues = rgbString.match(/[\d.]+/g);
+
+  // Check if the values are valid
+  if (!rgbaValues || rgbaValues.length < 3) {
+    console.warn(`parseRgbString: The input ${rgbString} does not contain valid RGB or RGBA values.`);
+    return null;
+  }
+
+  // Parse the red, green, blue, and optional alpha components
+  const r = parseInt(rgbaValues[0]);
+  const g = parseInt(rgbaValues[1]);
+  const b = parseInt(rgbaValues[2]);
+  const a = rgbaValues[3] !== undefined ? parseFloat(rgbaValues[3]) : 1;
+
+  // Check if the parsed values are valid
+  if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a)) {
+    console.warn(`parseRgbString: Failed to parse the color components from the input ${rgbString}.`);
+    return null;
+  }
+
+  return { r, g, b, a };
+}
+
+function expandShorthandHex(hex) {
+  if (hex.length === 3 || hex.length === 4) {
+    return hex
+      .split("")
+      .map((ch) => ch + ch)
+      .join("");
+  }
+
+  return hex;
 }
 
 // ================== Arrays ================== //
@@ -501,6 +647,30 @@ export function updateItemLs(key, property, value) {
     setItemLs(key, {
       [property]: value,
     });
+  }
+}
+
+// ================== Fetch ================== //
+export function timeout(s) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error(`Request took too long! Timeout after ${s} second`));
+    }, s * 1000);
+  });
+}
+
+export async function getJSON(url) {
+  try {
+    const response = await Promise.race([fetch(url), timeout(config.TIMEOUT_SECONDS)]);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`${data?.message} (${response?.status})`);
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    return { data: null, error };
   }
 }
 

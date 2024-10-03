@@ -2,8 +2,8 @@
 import "@/scss/style.scss";
 
 // Module Imports
-import { initTheme, toggleTheme } from "./darkMode.js";
-import { initStartingData } from "./fillStartingData.js";
+import { initTheme, toggleTheme } from "./libraries/darkMode";
+import { initStartingData } from "./fillStartingData";
 
 // Init App
 document.addEventListener("DOMContentLoaded", initApp);
