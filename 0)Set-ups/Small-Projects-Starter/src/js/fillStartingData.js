@@ -1,10 +1,8 @@
-import { AppName} from './data.js'
-import { dom } from './DOM.js';
+import { AppName } from "@/data";
 
 export function initStartingData() {
   fillBasicData();
 }
-
 
 function fillBasicData() {
   document.title = AppName;

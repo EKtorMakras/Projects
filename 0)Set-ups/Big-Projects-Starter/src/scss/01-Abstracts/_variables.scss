@@ -1,229 +1,13 @@
 @use "functions" as *;
+@use "colors" as *;
 
 //& **********************************  Colors  ********************************** //
-$colors: (
-  //% ***************  General  *************** //
-  "black": #000,
-  "white": #fff,
+$colors: ();
 
-  "red-dark": #842029,
-  "red-light": #f8d7da,
-
-  "green-dark": #0f5132,
-  "green-light": #d1e7dd,
-
-  "error": #d32752,
-  //% ***************    *************** //
-
-  //% ***************  Socials  *************** //
-  "facebook": #3b5998,
-  "twitter": #00acee,
-  "linkedin": #0072b1,
-  "youtube": #ff0000,
-  "instagram": linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%),
-
-  //% ***************  Gray  *************** //
-  "gray": (
-      // General ones
-      "generic-1": #999,
-      "generic-2": #777,
-      "generic-3": #555,
-      "generic-4": #333,
-
-      // Variations
-      "50": #f9fafb,
-      "100": #f3f4f6,
-      "200": #e5e7eb,
-      "300": #d1d5db,
-      "400": #9ca3af,
-      "500": #6b7280,
-      "600": #4b5563,
-      "700": #374151,
-      "800": #1f2937,
-
-      // Blue-Greys
-      "blue-1": #bcccdc,
-      "blue-2": #829ab0,
-      "blue-3": #617d98,
-      "blue-4": #324d67,
-      "blue-5": #233c57,
-      "blue-6": #102a42
-    ),
-  //% ***************    *************** //
-
-  // Tailwind Colors
-  "slate-50": #f8fafc,
-  "slate-100": #f1f5f9,
-  "slate-200": #e2e8f0,
-  "slate-300": #cbd5e1,
-  "slate-400": #94a3b8,
-  "slate-500": #64748b,
-  "slate-600": #475569,
-  "slate-700": #334155,
-  "slate-800": #1e293b,
-  "slate-900": #0f172a,
-
-  "zinc-50": #fafafa,
-  "zinc-100": #f4f4f5,
-  "zinc-200": #e4e4e7,
-  "zinc-300": #d4d4d8,
-  "zinc-400": #a1a1aa,
-  "zinc-500": #71717a,
-  "zinc-600": #52525b,
-  "zinc-700": #3f3f46,
-  "zinc-800": #27272a,
-  "zinc-900": #18181b,
-
-  "orange-50": #fff7ed,
-  "orange-100": #ffedd5,
-  "orange-200": #fed7aa,
-  "orange-300": #fdba74,
-  "orange-400": #fb923c,
-  "orange-500": #f97316,
-  "orange-600": #ea580c,
-  "orange-700": #c2410c,
-  "orange-800": #9a3412,
-  "orange-900": #7c2d12,
-
-  "yellow-50": #fefce8,
-  "yellow-100": #fef9c3,
-  "yellow-200": #fef08a,
-  "yellow-300": #fde047,
-  "yellow-400": #facc15,
-  "yellow-500": #eab308,
-  "yellow-600": #ca8a04,
-  "yellow-700": #a16207,
-  "yellow-800": #854d0e,
-  "yellow-900": #713f12,
-
-  "lime-50": #f7fee7,
-  "lime-100": #ecfccb,
-  "lime-200": #d9f99d,
-  "lime-300": #bef264,
-  "lime-400": #a3e635,
-  "lime-500": #84cc16,
-  "lime-600": #65a30d,
-  "lime-700": #4d7c0f,
-  "lime-800": #3f6212,
-  "lime-900": #365314,
-
-  "emerald-50": #ecfdf5,
-  "emerald-100": #d1fae5,
-  "emerald-200": #a7f3d0,
-  "emerald-300": #6ee7b7,
-  "emerald-400": #34d399,
-  "emerald-500": #10b981,
-  "emerald-600": #059669,
-  "emerald-700": #047857,
-  "emerald-800": #065f46,
-  "emerald-900": #064e3b,
-
-  "teal-50": #f0fdfa,
-  "teal-100": #ccfbf1,
-  "teal-200": #99f6e4,
-  "teal-300": #5eead4,
-  "teal-400": #2dd4bf,
-  "teal-500": #14b8a6,
-  "teal-600": #0d9488,
-  "teal-700": #0f766e,
-  "teal-800": #115e59,
-  "teal-900": #134e4a,
-
-  "cyan-50": #ecfeff,
-  "cyan-100": #cffafe,
-  "cyan-200": #a5f3fc,
-  "cyan-300": #67e8f9,
-  "cyan-400": #22d3ee,
-  "cyan-500": #06b6d4,
-  "cyan-600": #0891b2,
-  "cyan-700": #0e7490,
-  "cyan-800": #155e75,
-  "cyan-900": #164e63,
-
-  "blue-50": #eff6ff,
-  "blue-100": #dbeafe,
-  "blue-200": #bfdbfe,
-  "blue-300": #93c5fd,
-  "blue-400": #60a5fa,
-  "blue-500": #3b82f6,
-  "blue-600": #2563eb,
-  "blue-700": #1d4ed8,
-  "blue-800": #1e40af,
-  "blue-000": #1e3a8a,
-
-  "indigo-50": #eef2ff,
-  "indigo-100": #e0e7ff,
-  "indigo-200": #c7d2fe,
-  "indigo-300": #a5b4fc,
-  "indigo-400": #818cf8,
-  "indigo-500": #6366f1,
-  "indigo-600": #4f46e5,
-  "indigo-700": #4338ca,
-  "indigo-800": #3730a3,
-  "indigo-900": #312e81,
-
-  "purple-50": #faf5ff,
-  "purple-100": #f3e8ff,
-  "purple-200": #e9d5ff,
-  "purple-300": #d8b4fe,
-  "purple-400": #c084fc,
-  "purple-500": #a855f7,
-  "purple-600": #9333ea,
-  "purple-700": #7e22ce,
-  "purple-800": #6b21a8,
-  "purple-900": #581c87,
-
-  "rose-50": #fff1f2,
-  "rose-100": #ffe4e6,
-  "rose-200": #fecdd3,
-  "rose-300": #fda4af,
-  "rose-400": #fb7185,
-  "rose-500": #f43f5e,
-  "rose-600": #e11d48,
-  "rose-700": #be123c,
-  "rose-800": #9f1239,
-  "rose-900": #881337,
-
-  //@ ***************************** Project Colors *****************************//
-  //# ******** Primary ******** //
-  primary: (
-      "base": hsl(173, 58%, 39%),
-
-      // Light Shades
-      "50": hsl(173, 35%, 94%),
-      "100": hsl(173, 38%, 82%),
-      "150": hsl(173, 37%, 63%),
-      "200": hsl(173, 58%, 56%),
-      "300": hsl(173, 58%, 48%),
-      "400": hsl(173, 45%, 45%),
-
-      // Dark Shades
-      "600": hsl(173, 58%, 35%),
-      "700": hsl(173, 58%, 23%),
-      "800": hsl(173, 59%, 20%),
-      "900": hsl(173, 58%, 16%),
-    ),
-
-  //# ******** Secondary  ******** //
-  secondary: (
-      "base": hsl(10, 58%, 39%),
-
-      // Light Shades
-      "50": hsl(10, 35%, 94%),
-      "100": hsl(10, 38%, 82%),
-      "150": hsl(10, 37%, 63%),
-      "200": hsl(10, 58%, 56%),
-      "300": hsl(10, 58%, 48%),
-      "400": hsl(10, 45%, 45%),
-
-      // Dark Shades
-      "600": hsl(10, 58%, 35%),
-      "700": hsl(10, 58%, 23%),
-      "800": hsl(10, 59%, 20%),
-      "900": hsl(10, 58%, 16%),
-    ),
-  //@ *****************************   ***************************** //
-);
+// Populate $colors map
+@each $map in ($generic-colors, $social-colors, $tailwind-colors, $project-colors) {
+  $colors: map-merge($colors, $map);
+}
 
 // Get Color Function
 @function color($key, $map: $colors) {
@@ -280,19 +64,18 @@ $font-weights: (
 $ff-primary: "Lato", sans-serif;
 $ff-secondary: Arial, Helvetica, sans-serif;
 //% ***************    *************** //
-
 //& **********************************  End Of Fonts  ********************************** //
 
 //& **********************************  Shadows  ********************************** //
 //% ***************  Mapping  *************** //
-// Shadow Opacity
+//@ Shadow Opacity
 $shadow-opacity: (
   sm: 0.05,
   rg: 0.1,
-  lg: 0.15
+  lg: 0.15,
 );
 
-// Box Shadows
+//@ Box Shadows
 $box-shadows: (
   // Small
   sm-1: 0 1px 2px,
@@ -310,8 +93,7 @@ $box-shadows: (
   lg-3: 0 25px 50px
 );
 
-
-// Text Shadows
+//@ Text Shadows
 $text-shadows: (
   // Small
   sm-1: 0 0.05rem 0.1rem,
@@ -347,18 +129,26 @@ $shadows: (
   lg-3: #{map-get($box-shadows, lg-3)} rgba(color("black"), map-get($shadow-opacity, lg))
 );
 
+@function shadow($size: sm-1, $color: color("primary.500"), $opacity: null, $type: box) {
+  // 1. Determine which map to use based on the type
+  $shadow-value: if($type == box, map-get($box-shadows, $size), map-get($text-shadows, $size));
+
+  // 2. Determine the size category from the size string
+  $category: if(str-index($size, "sm-"), "sm", if(str-index($size, "rg-"), "rg", "lg"));
+
+  // 3. Get the corresponding opacity from the opacity map, or use custom if provided
+  $final-opacity: if($opacity != null, $opacity, map-get($shadow-opacity, $category));
+
+  // 4. Convert the color to HSL if it's in HSL format
+  $hsl-color: if(type-of($color) == "color", $color, hsl($color));
+
+  // 5. Construct the final shadow string
+  $shadow-string: #{$shadow-value} rgba($hsl-color, $final-opacity);
+
+  @return $shadow-string;
+}
+
 @function shadow-black($shadow) {
   @return map-get($shadows, $shadow);
 }
 //& **********************************  End Of Shadows  ********************************** //
-
-//& **********************************  Other  ********************************** //
-$baseLetterSpacing: 0.5px;
-$baseRadius: 3px;
-$baseGutter: 0.25rem;
-$lineHeightText: 1.5;
-$lineHeightTitle: 1.1;
-$max-width: 1170px;
-$paraMaxWidth: 65ch;
-$transition: all 0.3s ease-in-out;
-//& **********************************  End Of Other  ********************************** //

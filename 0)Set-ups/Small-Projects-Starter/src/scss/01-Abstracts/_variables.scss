@@ -1,241 +1,154 @@
-@use "functions"as *;
-
+@use "functions" as *;
+@use "colors" as *;
 
 //& **********************************  Colors  ********************************** //
+$colors: ();
 
-$colors: ( 
-
-
-    //% ***************  General  *************** //
-
-    "black": #000,
-    "white": #fff,
-
-    "red-dark": #842029,
-    "red-light": #f8d7da,
-
-    "green-dark": #0f5132,
-    "green-light": #d1e7dd,
-
-    'error':#d32752, 
-
-    //% ***************    *************** //
-
-    
-
-    //% ***************  Gray  *************** //
-    'gray': ( 
-
-        /* General ones */
-        "generic-1": #999,
-        "generic-2": #777,
-        "generic-3": #555,
-        "generic-4": #333,
-
-
-        /* Variations */
-        "50": #f9fafb,
-        "100": #f3f4f6,
-        "200": #e5e7eb,
-        "300": #d1d5db,
-        "400": #9ca3af,
-        "500": #6b7280,
-        "600": #4b5563,
-        "700": #374151 ,
-        "800": #1f2937 ,
-
-
-        /* Blue-Greys */
-        "blue-1": #bcccdc,
-        "blue-2": #829ab0,
-        "blue-3": #617d98,
-        "blue-4": #233c57,
-        "blue-5": #102a42,
-    ),
-    //% ***************    *************** //
-
-
-    //% ***************  Slate  *************** //
-    slate: (
-        "50": #f8fafc,
-        "100": #f1f5f9,
-        "200": #e2e8f0,
-        "300": #cbd5e1,
-        "400": #94a3b8,
-        "500": #64748b,
-        "600": #475569,
-        "700": #334155,
-        "800": #1e293b,
-        "900": #0f172a,
-    ),
-    //% ***************    *************** //
-
-
-
-    //@ ***************************** Project Colors *****************************//
-
-    //# ******** Primary ******** //
-    primary: ( 
-
-    "base": hsl(173, 58%, 39%),
-
-    // Light Shades
-    "50": hsl(175, 35%, 94%),
-    "100": hsl(173, 38%, 82%),
-    "150": hsl(173, 37%, 63%),
-    "200": hsl(173, 58%, 56%),
-    "300": hsl(173, 58%, 48%),
-    "400": hsl(173, 45%, 45%),
-
-    // Dark Shades
-    "600": hsl(174, 58%, 35%),
-    "700": hsl(173, 58%, 23%),
-    "800": hsl(173, 59%, 20%),
-    "900": hsl(173, 58%, 16%), 
-    ),
-
-
-    //# ******** Secondary  ******** //
-    secondary: ( 
-
-    "base": hsl(10, 58%, 39%),
-
-    // Light Shades
-    "50": hsl(175, 35%, 94%),
-    "100": hsl(10, 38%, 82%),
-    "150": hsl(10, 37%, 63%),
-    "200": hsl(10, 58%, 56%),
-    "300": hsl(10, 58%, 48%),
-    "400": hsl(10, 45%, 45%),
-
-    // Dark Shades
-    "600": hsl(11, 58%, 35%),
-    "700": hsl(10, 58%, 23%),
-    "800": hsl(10, 59%, 20%),
-    "900": hsl(10, 58%, 16%),
-    ),
-
-    //@ *****************************   ***************************** //
-);
-
+// Populate $colors map
+@each $map in ($generic-colors, $social-colors, $tailwind-colors, $project-colors) {
+  $colors: map-merge($colors, $map);
+}
 
 // Get Color Function
 @function color($key, $map: $colors) {
-
-    $keys: str-explode($key, '.');
-
-    @return deep-map-get($map, $keys...);
+  $keys: str-explode($key, ".");
+  @return deep-map-get($map, $keys...);
 }
-
 //& **********************************  End Of Colors  ********************************** //
 
-
-
-
 //& **********************************  Fonts  ********************************** //
-
 //% ***************  Font-Size  *************** //
-$font-sizes: ( 
+$font-sizes: (
+  // Text
+  "sm-1": clamp(1.2rem, 1.1rem + 0.3vw, 1.6rem),
+  "sm-2": clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem),
+  "sm-3": clamp(1.6rem, 1.3rem + 0.4vw, 2rem),
+  "rg": clamp(1.8rem, 1.5rem + 0.5vw, 2.2rem),
+  "lg-1": clamp(2rem, 1.7rem + 0.6vw, 2.5rem),
+  "lg-2": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
+  "lg-3": clamp(2.5rem, 2.2rem + 1vw, 3rem),
+  "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
 
-    // Text
-    "sm-1": clamp(1.2rem, 1.1rem + 0.3vw, 1.6rem),
-    "sm-2": clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem),
-    "sm-3": clamp(1.6rem, 1.3rem + 0.4vw, 2rem),
-    "rg": clamp(1.8rem, 1.5rem + 0.5vw, 2.2rem),
-    "lg-1": clamp(2rem, 1.7rem + 0.6vw, 2.5rem),
-    "lg-2": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
-    "lg-3": clamp(2.5rem, 2.2rem + 1vw, 3rem),
-    "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
+  // Headings
+  "head-1": 6rem,
+  "head-2": 4.7rem,
+  "head-3": 4rem,
+  "head-4": 3.5rem,
 
-    // Headings
-    "head-1": 6rem,
-    "head-2": 4.7rem,
-    "head-3": 4rem,
-    "head-4": 3.5rem,
-
-    "head-xl": 9rem,
-    "head-xxl": 12rem,
+  "head-xl": 9rem,
+  "head-xxl": 12rem
 );
-
 
 @function fs($font-size) {
-    @return map-get($font-sizes, $font-size);
+  @return map-get($font-sizes, $font-size);
 }
 //% ***************    *************** //
-
-
 
 //% ***************  Font-Weight  *************** //
-$font-weights: ( 
-    "thin": 100,
-    "light": 300,
-    "regular": 400,
-    "medium": 500,
-    "semibold": 600,
-    "bold": 700,
-    "black": 900
+$font-weights: (
+  "thin": 100,
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+  "black": 900,
 );
 
-
 @function fw($font-weight-style) {
-    @return map-get($font-weights, $font-weight-style);
+  @return map-get($font-weights, $font-weight-style);
 }
 //% ***************    *************** //
-
-
 
 //% ***************  Font-Family  *************** //
-$ff-primary: "Lato",
-sans-serif;
-$ff-secondary: Arial,
-Helvetica,
-sans-serif;
+$ff-primary: "Lato", sans-serif;
+$ff-secondary: Arial, Helvetica, sans-serif;
 //% ***************    *************** //
-
-
 //& **********************************  End Of Fonts  ********************************** //
 
-
-
-
 //& **********************************  Shadows  ********************************** //
+//% ***************  Mapping  *************** //
+//@ Shadow Opacity
+$shadow-opacity: (
+  sm: 0.05,
+  rg: 0.1,
+  lg: 0.15,
+);
 
-$shadows: ( 
+//@ Box Shadows
+$box-shadows: (
+  // Small
+  sm-1: 0 1px 2px,
+  sm-2: 0 2px 4px,
+  sm-3: 0 4px 6px,
 
-    // Small
-    sm-1: 0 0.2rem 0.5rem rgba(color('black'), 0.05),
-    sm-2: 0 0.3rem 0.8rem rgba(color('black'), 0.05),
-    sm-3: 0 0.6rem 1.2rem rgba(color('black'), 0.05),
+  // Regular
+  rg-1: 0 4px 8px,
+  rg-2: 0 8px 16px,
+  rg-3: 0 10px 20px,
 
-    // Regular 
-    rg-1: 0 0.2rem 0.5rem  rgba(color('black'), 0.08),
-    rg-2: 0 0.3rem 0.8rem rgba(color('black'), 0.08),
-    rg-3: 0 0.6rem 1.2rem rgba(color('black'), 0.08),
+  // Large
+  lg-1: 0 10px 15px,
+  lg-2: 0 15px 20px,
+  lg-3: 0 25px 50px
+);
 
-    // Large
-    lg-1: 0 0.4rem 0.8rem rgba(color('black'), 0.12),
-    lg-2: 0 0.8rem 1.6rem rgba(color('black'), 0.1),
-    lg-3: 0 1.3rem 3rem rgba(color('black'), 0.1));
+//@ Text Shadows
+$text-shadows: (
+  // Small
+  sm-1: 0 0.05rem 0.1rem,
+  sm-2: 0 0.1rem 0.3rem,
+  sm-3: 0 0.15rem 0.5rem,
 
+  // Regular
+  rg-1: 0 0.1rem 0.3rem,
+  rg-2: 0 0.15rem 0.4rem,
+  rg-3: 0 0.2rem 0.6rem,
 
-@function shadow($shadow) {
-    @return map-get($shadows, $shadow);
+  // Large
+  lg-1: 0 0.2rem 0.5rem,
+  lg-2: 0 0.25rem 0.6rem,
+  lg-3: 0 0.3rem 0.8rem
+);
+
+//% ***************  Standard dark sizes  *************** //
+$shadows: (
+  // Small
+  sm-1: #{map-get($box-shadows, sm-1)} rgba(color("black"), map-get($shadow-opacity, sm)),
+  sm-2: #{map-get($box-shadows, sm-2)} rgba(color("black"), map-get($shadow-opacity, sm)),
+  sm-3: #{map-get($box-shadows, sm-3)} rgba(color("black"), map-get($shadow-opacity, sm)),
+
+  // Regular
+  rg-1: #{map-get($box-shadows, rg-1)} rgba(color("black"), map-get($shadow-opacity, rg)),
+  rg-2: #{map-get($box-shadows, rg-2)} rgba(color("black"), map-get($shadow-opacity, rg)),
+  rg-3: #{map-get($box-shadows, rg-3)} rgba(color("black"), map-get($shadow-opacity, rg)),
+
+  // Large
+  lg-1: #{map-get($box-shadows, lg-1)} rgba(color("black"), map-get($shadow-opacity, lg)),
+  lg-2: #{map-get($box-shadows, lg-2)} rgba(color("black"), map-get($shadow-opacity, lg)),
+  lg-3: #{map-get($box-shadows, lg-3)} rgba(color("black"), map-get($shadow-opacity, lg))
+);
+
+@function shadow($size: sm-1, $color: color("primary.500"), $opacity: null, $type: box) {
+  // 1. Determine which map to use based on the type
+  $shadow-value: if($type == box, map-get($box-shadows, $size), map-get($text-shadows, $size));
+
+  // 2. Determine the size category from the size string
+  $category: if(str-index($size, "sm-"), "sm", if(str-index($size, "rg-"), "rg", "lg"));
+
+  // 3. Get the corresponding opacity from the opacity map, or use custom if provided
+  $final-opacity: if($opacity != null, $opacity, map-get($shadow-opacity, $category));
+
+  // 4. Convert the color to HSL if it's in HSL format
+  $hsl-color: if(type-of($color) == "color", $color, hsl($color));
+
+  // 5. Construct the final shadow string
+  $shadow-string: #{$shadow-value} rgba($hsl-color, $final-opacity);
+
+  @return $shadow-string;
 }
 
+@function shadow-black($shadow) {
+  @return map-get($shadows, $shadow);
+}
 //& **********************************  End Of Shadows  ********************************** //
-
-
-
-
-//& **********************************  Other  ********************************** //
-
-$baseLetterSpacing: 0.5px;
-$baseRadius: 3px;
-$baseGutter: 0.25rem;
-$lineHeightText: 1.5;
-$lineHeightTitle: 1.1;
-$max-width: 1170px;
-$paraMaxWidth: 45em;
-$transition: all 0.3s ease-in-out;
-
-//& **********************************  End Of Other  ********************************** //

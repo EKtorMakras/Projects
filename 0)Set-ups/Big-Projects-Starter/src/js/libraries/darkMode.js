@@ -1,6 +1,6 @@
-import { AppName } from "../data";
+import { AppName } from "@/data";
 import { dom } from "./DOM";
-import { getItemLs, updateItemLs } from "./utils";
+import { getItemLs, updateItemLs, clearCssVariableCache } from "./utils";
 
 // Init Theme
 export function initTheme() {
@@ -15,8 +15,8 @@ export function toggleTheme() {
   theme = theme === "light" ? "dark" : "light";
 
   updateItemLs(AppName, "theme", theme);
-
   loadTheme(theme);
+  clearCssVariableCache();
 }
 
 // Get Theme

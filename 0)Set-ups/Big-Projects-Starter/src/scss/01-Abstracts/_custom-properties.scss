@@ -2,6 +2,7 @@
 @use "mixins" as *;
 @use "media" as *;
 @use "themes" as *;
+@use "globals" as *;
 
 :root {
   //@ ********* Colors  *********//
@@ -21,8 +22,8 @@
   }
 
   //@ ********* Shadows  *********//
-  --shadow-light: #{shadow(rg-2)};
-  --shadow-dark: #{shadow(lg-1)};
+  --shadow-light: #{shadow-black(rg-2)};
+  --shadow-dark: #{shadow-black(lg-3)};
 
   //@ ********* Other  *********//
   --max-width: #{$max-width};

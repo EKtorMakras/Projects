@@ -2,6 +2,7 @@
 @use "variables" as *;
 @use "themes" as *;
 @use "functions" as *;
+@use "globals" as *;
 
 //% ***************  General  *************** //
 // Transition
@@ -20,6 +21,7 @@
 // Gradient
 @mixin gradient($color1, $color2, $direction: to right bottom) {
   background-image: linear-gradient($direction, getColor($color1), getColor($color2));
+  color: #e7b2e7;
 }
 
 // Clearfix
@@ -33,7 +35,7 @@
 }
 
 // Generate Color Custom Props
-@mixin generate-color-custom-props($map: $colors, $prefix: clr) {
+@mixin generate-color-custom-props($map: $colors, $prefix: $CSS_PREFIX) {
   @each $color, $shades in $map {
     @if type-of($shades) == "map" {
       // If the value is another map, call the mixin recursively
@@ -46,24 +48,13 @@
 }
 
 // Shadows
-@mixin shadow($type: box, $size: sm-1, $color: color("primary.base"), $opacity: null) {
-  // 1. Determine which map to use based on the type
-  $shadow-value: if($type == box, map-get($box-shadows, $size), map-get($text-shadows, $size));
+@mixin shadow($size: sm-1, $color: color("primary.500"), $opacity: null, $type: box) {
+  $shadow-value: shadow($size, $color, $opacity, $type);
 
-  // 2. Determine the size category from the size string
-  $category: if(str-index($size, "sm-"), "sm", if(str-index($size, "rg-"), "rg", "lg"));
-
-  // 3. Get the corresponding opacity from the opacity map, or use custom if provided
-  $final-opacity: if($opacity != null, $opacity, map-get($shadow-opacity, $category));
-
-  // 4. Convert the color to HSL if it's in HSL format
-  $hsl-color: if(type-of($color) == "color", $color, hsl($color));
-
-  // 5. Apply the shadow based on the type
   @if $type == box {
-    box-shadow: #{$shadow-value} rgba($hsl-color, $final-opacity);
+    box-shadow: $shadow-value;
   } @else if $type == text {
-    text-shadow: #{$shadow-value} rgba($hsl-color, $final-opacity);
+    text-shadow: $shadow-value;
   }
 }
 //% ***************    *************** //
@@ -77,6 +68,7 @@
   &:active {
     $adjustment-function: get-function($adjustment);
     background-color: call($adjustment-function, $bgColor, $amount);
+
     @if $color {
       color: $color;
     }
@@ -99,7 +91,7 @@
 
 //% ***************  Link States *************** //
 // Focus State
-@mixin focus-state($color: color("primary.base")) {
+@mixin focus-state($color: color("primary.500")) {
   &:focus-visible {
     outline: 3px solid transparent;
     outline-offset: 4px;
@@ -234,13 +226,13 @@
   letter-spacing: var(--letterSpacing-3);
   border-color: transparent;
   border-radius: var(--radius-2);
-  box-shadow: shadow(lg-1);
+  box-shadow: shadow-black(rg-3);
   white-space: nowrap;
   cursor: pointer;
 }
 
 @mixin btn(
-  $bgColor: color("primary.base"),
+  $bgColor: color("primary.500"),
   $textColor: color("gray.50"),
   $padding: 1rem 2rem,
   $fontSize: fs(sm-2),
@@ -277,7 +269,7 @@
 }
 
 // Card
-@mixin card($bgColor: getColor(card), $min-height: 40rem, $radius: var(--radius-3), $shadow: var(--shadow-dark)) {
+@mixin card($bgColor: getColor(card), $min-height: 40rem, $radius: var(--radius-3), $shadow: shadow(lg-1, color("primary.600"))) {
   min-height: $min-height;
   background-color: $bgColor;
   border-radius: $radius;

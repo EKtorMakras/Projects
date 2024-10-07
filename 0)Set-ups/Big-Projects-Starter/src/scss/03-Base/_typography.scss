@@ -5,10 +5,12 @@ body {
   font-size: fs(rg);
   font-weight: fw(regular);
   line-height: $lineHeightText;
-   color: getColor(text);
+  color: getColor(text);
 }
 
-p, li, figcaption {
+p,
+li,
+figcaption {
   text-wrap: pretty;
   max-width: $paraMaxWidth;
 }

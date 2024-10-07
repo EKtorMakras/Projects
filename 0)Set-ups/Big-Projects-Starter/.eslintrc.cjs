@@ -17,9 +17,6 @@ module.exports = {
   },
   settings: {
     "import/ignore": ["node_modules"],
-    "prettier-vue": {
-      usePrettierrc: true,
-    },
   },
   plugins: ["html"],
   globals: {

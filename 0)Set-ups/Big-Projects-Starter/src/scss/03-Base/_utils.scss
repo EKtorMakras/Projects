@@ -108,9 +108,10 @@ $increaseAdjustment: 1.6;
   $afterValue: calc(#{$baseValue} * #{$increaseAdjustment});
   $clampValue: clamp($baseValue, $middleValue, $afterValue);
 
-  // Generate SCSS variables for margin
+  // Generate SCSS variables for Spacing
   :root {
-    --spacer-#{$i}: #{$clampValue};
+    --#{$SPACER_PREFIX}-dynamic-#{$i}: #{$clampValue};
+    --#{$SPACER_PREFIX}-base-#{$i}: #{$baseValue};
   }
 
   // Margins

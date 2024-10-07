@@ -1,4 +1,4 @@
-import { AppName } from "./data";
+import { AppName } from "@/data";
 
 export function initStartingData() {
   fillBasicData();

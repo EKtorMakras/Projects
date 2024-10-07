@@ -1,0 +1,42 @@
+@use "../01-Abstracts" as *;
+
+body {
+  overflow-x: hidden;
+  background-color: getColor(body);
+  transition: all 0.3s ease-in-out;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  transition: $transition;
+}
+
+img,
+picture,
+video {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+  font-style: italic;
+}
+
+input,
+textarea,
+select,
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+  transition: $transition;
+}

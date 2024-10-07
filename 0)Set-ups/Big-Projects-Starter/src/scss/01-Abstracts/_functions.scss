@@ -1,9 +1,38 @@
 @use "sass:math";
+@use "globals" as *;
 
 //& ******* Custom props ******* //
-// Return custom prop with prefix
-@function getColor($name, $prefix: clr) {
+/**
+ * Retrieves a CSS custom property for a color based on the given name and prefix.
+ *
+ * @param {String} $name - The name of the color variable to be retrieved.
+ * @param {String} $prefix - (Optional) The prefix for the color variable. Defaults to the global $CSS_PREFIX value.
+ * @returns {String} - The CSS variable in the form of `var(--<prefix>-<name>)`.
+ *
+ * @example
+ * Get a color variable for a primary color:
+ * $primary-color: getColor('primary'); // Returns `var(--<prefix>-primary)` based on $CSS_PREFIX
+ */
+@function getColor($name, $prefix: $CSS_PREFIX) {
   @return var(--#{$prefix}-#{$name});
+}
+
+/**
+ * Retrieves a CSS custom property for spacing based on the given index and type.
+ *
+ * @param {Number} $i - The index of the spacer variable to be retrieved.
+ * @param {Boolean} $dynamic - (Optional) Whether to retrieve the dynamic spacer value. Defaults to `false`, which returns the base value.
+ * @param {String} $prefix - (Optional) The prefix for the spacer variable. Defaults to the global $SPACER_PREFIX value.
+ * @returns {String} - The CSS variable in the form of `var(--<prefix>-<type>-<index>)`.
+ *                     If `$dynamic` is `true`, the type is `dynamic`, otherwise it is `base`.
+ *
+ * @example
+ * Get a base spacer variable:
+ * $base-spacing: getSpacer(3); // Returns `var(--<prefix>-base-3)` based on $SPACER_PREFIX
+ */
+@function getSpacer($i, $dynamic: false, $prefix: $SPACER_PREFIX) {
+  $variable-name: if($dynamic, "#{$prefix}-dynamic-#{$i}", "#{$prefix}-base-#{$i}");
+  @return var(--#{$variable-name});
 }
 
 //& ******* Px Conversions ******* //
@@ -32,35 +61,31 @@
  */
 @function str-explode($string, $delimiter: "") {
   @if type-of($string) != "string" {
-    @error 'The argument $string: `#{$string}` is of incorrect type: `#{type-of($string)}`. Type of `String` is required!';
-  } @else if type-of($delimiter) != "string" {
-    @error 'The argument $string: `#{$string}` is of incorrect type: `#{type-of($string)}`. Type of `String` is required!';
+    @error "The argument $string: `#{$string}` is of incorrect type: `#{type-of($string)}`. Type 'String' is required!";
+  }
+  @if type-of($delimiter) != "string" {
+    @error "The argument $delimiter: `#{$delimiter}` is of incorrect type: `#{type-of($delimiter)}`. Type 'String' is required!";
   }
 
   $result: ();
-  $running: true;
 
-  @if str-length($delimiter) ==0 {
+  @if str-length($delimiter) == 0 {
+    // If the delimiter is empty, split the string into characters
     @for $i from 1 through str-length($string) {
       $result: append($result, str-slice($string, $i, $i));
     }
-
-    @return $result;
-  }
-
-  @while $running {
+  } @else {
+    // Use a more efficient way to split by delimiter
     $index: str-index($string, $delimiter);
-
-    @if $index !=null {
-      $item: str-slice($string, 1, ($index - 1));
-      $result: append($result, $item);
-      $string: str-slice($string, ($index + str-length($delimiter)));
-    } @else {
-      $running: false;
+    @while $index != null {
+      $result: append($result, str-slice($string, 1, $index - 1));
+      $string: str-slice($string, $index + str-length($delimiter));
+      $index: str-index($string, $delimiter);
     }
+    $result: append($result, $string);
   }
 
-  @return append($result, $string);
+  @return $result;
 }
 
 /**
@@ -84,19 +109,23 @@
  * );
  *
  * Retrieve the base color of the primary theme
- * $baseColor: deep-map-get($colors, "primary", "base"); // Returns #1e4367
+ * $baseColor: deep-map-get($colors, "primary", "500"); // Returns #1e4367
  */
 @function deep-map-get($map, $keys...) {
   @if type-of($map) != "map" {
-    @error "The argument $map: '#{$map}' is of incorrect type: #{type-of($map)}.Type of 'map' is required.";
+    @error "The argument $map: '#{$map}' is of incorrect type: #{type-of($map)}. Type 'map' is required.";
   }
 
   @each $key in $keys {
+    @if $map == null or type-of($map) != "map" {
+      @error "Key '#{$key}' not found in the map.";
+    }
     $map: map-get($map, $key);
   }
 
   @return $map;
 }
+
 
 /**
  * Retrieves a color value from a predefined color theme.
@@ -131,7 +160,7 @@
         @return map-get(map-get($color-themes, $color-name), $color-variant);
       } @else {
         // Default color
-        @return map-get(map-get($color-themes, $color-name), base);
+        @return map-get(map-get($color-themes, $color-name), "500");
       } // if we're only returning the CSS4 variable
     } @else {
       // color variant is optional
@@ -140,7 +169,7 @@
         @return var(#{$color-prefix}#{$color-name}-#{$color-variant});
       } @else {
         // Default color, one name
-        @return var(#{$color-prefix}#{$color-name}-base);
+        @return var(#{$color-prefix}#{$color-name}-500);
       }
     }
   } @else {
@@ -150,7 +179,7 @@
       @return map-get(map-get($color-themes, $color-name), $color-variant);
     } @else {
       // Default color
-      @return map-get(map-get($color-themes, $color-name), base);
+      @return map-get(map-get($color-themes, $color-name), "500");
     }
   }
 }

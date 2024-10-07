@@ -1,4 +1,9 @@
-.btn, .btn:link, .btn:visited, .btn-outlined, .btn-outlined:link, .btn-outlined:visited {
+.btn,
+.btn:link,
+.btn:visited,
+.btn-outlined,
+.btn-outlined:link,
+.btn-outlined:visited {
   transition: all 0.4s ease;
   display: inline-block;
   text-transform: capitalize;
@@ -201,7 +206,7 @@
   }
 }
 
-:root[data-theme=light] {
+:root[data-theme="light"] {
   --clr-text: #475569;
   --clr-title: #233c57;
   --clr-body: #f8fafc;
@@ -210,7 +215,7 @@
   --clr-socialsHover: #334155;
 }
 
-:root[data-theme=dark] {
+:root[data-theme="dark"] {
   --clr-text: #f8fafc;
   --clr-title: #f1f5f9;
   --clr-body: #102a42;
@@ -283,7 +288,7 @@ button {
 }
 
 button,
-input[type=submit] {
+input[type="submit"] {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
@@ -2824,7 +2829,8 @@ input[type=submit] {
   margin: 0 calc(50% - 50vw);
 }
 
-.clearfix::after, .clearfix::before {
+.clearfix::after,
+.clearfix::before {
   content: "";
   display: table;
   clear: both;
@@ -5133,23 +5139,36 @@ h4 {
   font-weight: 300;
 }
 
-.btn, .btn:link, .btn:visited {
+.btn,
+.btn:link,
+.btn:visited {
   padding: 1rem 2rem;
   color: #f9fafb;
   font-size: clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem);
   background-color: hsl(173, 58%, 39%);
 }
-.btn:focus-visible, .btn:link:focus-visible, .btn:visited:focus-visible {
+.btn:focus-visible,
+.btn:link:focus-visible,
+.btn:visited:focus-visible {
   outline: 3px solid transparent;
   outline-offset: 4px;
-  box-shadow: 0 0 3px 2px #ffffff, 0 0 4px 4px hsl(173, 58%, 39%);
+  box-shadow:
+    0 0 3px 2px #ffffff,
+    0 0 4px 4px hsl(173, 58%, 39%);
 }
-.btn:hover, .btn:active, .btn:link:hover, .btn:link:active, .btn:visited:hover, .btn:visited:active {
+.btn:hover,
+.btn:active,
+.btn:link:hover,
+.btn:link:active,
+.btn:visited:hover,
+.btn:visited:active {
   background-color: #23857a;
   color: #f9fafb;
 }
 
-.btn-outlined, .btn-outlined:link, .btn-outlined:visited {
+.btn-outlined,
+.btn-outlined:link,
+.btn-outlined:visited {
   padding: 1rem 2rem;
   color: #f9fafb;
   font-size: clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem);
@@ -5157,12 +5176,21 @@ h4 {
   border: 1px solid hsl(173, 58%, 39%);
   color: hsl(173, 58%, 39%);
 }
-.btn-outlined:focus-visible, .btn-outlined:link:focus-visible, .btn-outlined:visited:focus-visible {
+.btn-outlined:focus-visible,
+.btn-outlined:link:focus-visible,
+.btn-outlined:visited:focus-visible {
   outline: 3px solid transparent;
   outline-offset: 4px;
-  box-shadow: 0 0 3px 2px #ffffff, 0 0 4px 4px hsl(173, 58%, 39%);
+  box-shadow:
+    0 0 3px 2px #ffffff,
+    0 0 4px 4px hsl(173, 58%, 39%);
 }
-.btn-outlined:hover, .btn-outlined:active, .btn-outlined:link:hover, .btn-outlined:link:active, .btn-outlined:visited:hover, .btn-outlined:visited:active {
+.btn-outlined:hover,
+.btn-outlined:active,
+.btn-outlined:link:hover,
+.btn-outlined:link:active,
+.btn-outlined:visited:hover,
+.btn-outlined:visited:active {
   background-color: hsl(173, 58%, 39%);
   color: #f9fafb;
 }
@@ -5193,7 +5221,9 @@ h4 {
 .input:focus-visible {
   outline: 3px solid transparent;
   outline-offset: 4px;
-  box-shadow: 0 0 3px 2px #ffffff, 0 0 4px 4px hsl(173, 58%, 39%);
+  box-shadow:
+    0 0 3px 2px #ffffff,
+    0 0 4px 4px hsl(173, 58%, 39%);
 }
 .input::placeholder {
   font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.6rem);
@@ -5240,7 +5270,9 @@ h4 {
 .social-icon:focus-visible {
   outline: 3px solid transparent;
   outline-offset: 4px;
-  box-shadow: 0 0 3px 2px #ffffff, 0 0 4px 4px hsl(173, 58%, 39%);
+  box-shadow:
+    0 0 3px 2px #ffffff,
+    0 0 4px 4px hsl(173, 58%, 39%);
 }
 .social-icon--facebook:hover {
   color: var(--clr-facebook);
@@ -5261,4 +5293,4 @@ h4 {
 }
 .social-icon:hover {
   transform: scale(1.1);
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */
