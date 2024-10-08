@@ -1,0 +1,145 @@
+@use "../../00-Globals" as globals;
+@use "../functions" as *;
+
+@use "./utility-mixins" as *;
+@use "./decoration-mixins" as *;
+@use "./state-mixins" as *;
+
+//% *************** Buttons *************** //
+%btn-standard-props {
+  @include transition(all, 0.4s, ease);
+  display: inline-block;
+  text-transform: capitalize;
+  letter-spacing: getLetterSpacing(3);
+  border-color: transparent;
+  border-radius: getRadius(2);
+  box-shadow: shadow-black(rg-3);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@mixin btn-normal($bgColor, $textColor, $adjustment-mode, $adjustment-amount) {
+  background-color: $bgColor;
+  color: $textColor;
+
+  @include adjustBgColor($bgColor, $adjustment-mode, $textColor, $amount: $adjustment-amount);
+}
+
+@mixin btn-outlined($bgColor, $textColor) {
+  background-color: transparent;
+  border: 1px solid $bgColor;
+  color: $bgColor;
+
+  &:hover,
+  &:active {
+    background-color: $bgColor;
+    color: $textColor;
+  }
+}
+
+@mixin btn(
+  $bgColor: color("primary"),
+  $textColor: color("gray.50"),
+  $padding: .7em 1.6em,
+  $fontSize: fs(sm-2),
+  $adjustment-mode: darken,
+  $adjustment-amount: 6%,
+  $type: normal
+) {
+  &,
+  &:link,
+  &:visited {
+    @extend %btn-standard-props;
+    @include focus-state($bgColor);
+
+    padding: $padding;
+    font-size: $fontSize;
+    color: $textColor;
+
+
+    @if $type == normal {
+      @include btn-normal($bgColor, $textColor, $adjustment-mode, $adjustment-amount);
+    }
+
+    @else if $type == outlined {
+      @include btn-outlined($bgColor, $textColor);
+    }
+  }
+}
+//% ***************  *************** //
+
+//% *************** Cards *************** //
+@mixin card(
+  $bgColor: getColor(card),
+  $min-height: 40rem,
+  $radius: getRadius(3),
+  $shadow: generate-shadow(lg-1)
+  ) {
+  min-height: $min-height;
+  background-color: $bgColor;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: 2rem 3rem;
+}
+//% ***************  *************** //
+
+//% *************** Social Icons *************** //
+@mixin socialIcons(
+  $official: false,
+  $officialOnHover: false,
+  $color: getColor(socials),
+  $hoverColor: getColor(socialsHover)
+) {
+  $socials: facebook, twitter, linkedin, youtube, instagram;
+
+  @if $official {
+    @if $officialOnHover {
+      color: $color;
+
+      @each $icon in $socials {
+        @include fillIconsColor(true, $icon);
+      }
+    } @else {
+      @each $icon in $socials {
+        @include fillIconsColor(false, $icon);
+      }
+    }
+  } @else {
+    color: $color;
+
+    &:hover {
+      color: $hoverColor;
+    }
+  }
+}
+
+@mixin fillIconsColor($hover, $icon) {
+  @if $hover {
+    @if $icon == instagram {
+      &--#{$icon}:hover {
+        background-image: getColor(#{$icon});
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    } @else {
+      &--#{$icon}:hover {
+        color: getColor(#{$icon});
+      }
+    }
+  } @else {
+    @if $icon == instagram {
+      &--#{$icon} {
+        background-image: getColor(#{$icon});
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    } @else {
+      &--#{$icon} {
+        color: getColor(#{$icon});
+      }
+    }
+  }
+}
+//% ***************  *************** //

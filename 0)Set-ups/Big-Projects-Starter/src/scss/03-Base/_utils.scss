@@ -1,3 +1,4 @@
+@use "../00-Globals" as globals;
 @use "../01-Abstracts" as *;
 
 //& ******* Generic ******* //
@@ -18,11 +19,6 @@
   transform: translateX(calc(50vw - 50%));
 }
 
-// clearfix
-.clearfix {
-  @include clearfix;
-}
-
 // section set-up
 .section {
   padding: 5rem 0;
@@ -30,7 +26,7 @@
   &-center {
     width: 90vw;
     @include center-mar;
-    max-width: $max-width;
+    max-width: var(--max-width);
 
     @include mq-min(992px) {
       width: 95vw;
@@ -70,19 +66,19 @@
 
 //& ******* Radius ******* //
 .sharp {
-  border-radius: var(--radius-1) !important;
+  border-radius: getRadius(1) !important;
 }
 
 .rounded {
-  border-radius: var(--radius-3) !important;
+  border-radius: getRadius(3) !important;
 }
 
 .pilled {
-  border-radius: var(--pilled) !important;
+  border-radius: getRadius(pilled) !important;
 }
 
 .circle {
-  border-radius: var(--circle) !important;
+  border-radius: getRadius(circle) !important;
 }
 
 //& ******* Shadows ******* //
@@ -94,15 +90,18 @@
   box-shadow: var(--shadow-dark) !important;
 }
 
+.shadow-none {
+  box-shadow: none !important;
+}
+
 //& ******* Spacing ******* //
-$baseGutter: 0.3rem;
 $subtractStep: 0.03rem;
 $vwStep: 0.15vw;
 $reduceAdjustment: 0.85;
 $increaseAdjustment: 1.6;
 
 @for $i from 1 through 35 {
-  $baseValue: calc(#{$baseGutter} * #{$i});
+  $baseValue: calc(#{globals.$baseGutter} * #{$i});
   $subtractedValue: calc(#{$baseValue} * #{$reduceAdjustment});
   $middleValue: calc(#{$subtractedValue} + (#{$vwStep} * #{$i}));
   $afterValue: calc(#{$baseValue} * #{$increaseAdjustment});
@@ -110,8 +109,8 @@ $increaseAdjustment: 1.6;
 
   // Generate SCSS variables for Spacing
   :root {
-    --#{$SPACER_PREFIX}-dynamic-#{$i}: #{$clampValue};
-    --#{$SPACER_PREFIX}-base-#{$i}: #{$baseValue};
+    --#{globals.$SPACER_PREFIX}-dynamic-#{$i}: #{$clampValue};
+    --#{globals.$SPACER_PREFIX}-base-#{$i}: #{$baseValue};
   }
 
   // Margins

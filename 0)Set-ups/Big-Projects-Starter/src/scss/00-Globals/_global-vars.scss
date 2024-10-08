@@ -1,0 +1,34 @@
+$CSS_PREFIX: "clr";
+$SPACER_PREFIX: "spacer";
+$LETTER_SPACING_PREFIX: "letter-spacing";
+$BORDER_RADIUS_PREFIX: "radius";
+
+$CORNER_MAP: (
+  top: (border-top-left-radius, border-top-right-radius),
+  bottom: (border-bottom-left-radius, border-bottom-right-radius),
+  left: (border-top-left-radius, border-bottom-left-radius),
+  right: (border-top-right-radius, border-bottom-right-radius),
+  top-left: (border-top-left-radius),
+  top-right: (border-top-right-radius),
+  bottom-left: (border-bottom-left-radius),
+  bottom-right: (border-bottom-right-radius)
+);
+
+$defaults: (
+  color: "500",
+  font-size: "rg",
+  shadow-category: "rg",
+);
+
+
+$baseLetterSpacing: 0.5px;
+$baseRadius: 3px;
+$baseGutter: 0.3rem;
+
+$lineHeightText: 1.5;
+$lineHeightTitle: 1.1;
+
+$max-width: 1170px;
+$paraMaxWidth: 65ch;
+
+$transition: all 0.3s ease-in-out;

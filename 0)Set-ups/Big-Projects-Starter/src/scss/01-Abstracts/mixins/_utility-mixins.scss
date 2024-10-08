@@ -1,0 +1,64 @@
+@use "../../00-Globals" as globals;
+
+//% ***************  General  *************** //
+// Transition
+@mixin transition($property: all, $time: 0.3s, $function: ease-in-out) {
+  transition: $property $time $function;
+}
+
+// Generate Color Custom Props
+@mixin generate-color-custom-props($map, $prefix: globals.$CSS_PREFIX) {
+  @each $color, $shades in $map {
+    @if type-of($shades) == "map" {
+      // Handle nested color maps recursively
+      @each $shade, $value in $shades {
+        // If it's the "default-color" shade, use only the color name for the custom property
+        @if $shade == map-get(globals.$defaults, color) {
+          --#{$prefix}-#{$color}: #{$value};
+        } @else {
+          // Otherwise, use the shade as part of the variable name
+          --#{$prefix}-#{$color}-#{$shade}: #{$value};
+        }
+      }
+    } @else {
+      // If it's not a map, generate the custom property directly
+      --#{$prefix}-#{$color}: #{$shades};
+    }
+  }
+}
+
+// Hide element (for accessibility purposes)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+//% ***************    *************** //
+
+//% ***************  Units *************** //
+// Dynamic Viewport Units
+@mixin dvw($value: 100) {
+  @supports (width: 100dvw) {
+    width: #{$value}dvw;
+  }
+  @supports not (width: 100dvw) {
+    width: #{$value}vw;
+  }
+}
+
+@mixin dvh($value: 100) {
+  @supports (height: 100dvh) {
+    height: #{$value}dvh;
+  }
+  @supports not (height: 100dvh) {
+    height: #{$value}vh;
+  }
+}
+//% ***************   *************** //
+
+

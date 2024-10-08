@@ -1,8 +1,9 @@
+@use "../00-Globals" as globals;
+@use "functions" as *;
 @use "variables" as *;
 @use "mixins" as *;
 @use "media" as *;
 @use "themes" as *;
-@use "globals" as *;
 
 :root {
   //@ ********* Colors  *********//
@@ -10,15 +11,15 @@
 
   //@ ********* Radius  *********//
   @for $i from 1 through 5 {
-    --radius-#{$i}: calc(#{$baseRadius} * #{$i});
+    --#{globals.$BORDER_RADIUS_PREFIX}-#{$i}: calc(#{globals.$baseRadius} * #{$i});
   }
 
-  --pilled: 25rem;
-  --circle: 50%;
+  --#{globals.$BORDER_RADIUS_PREFIX}-pilled: 25rem;
+  --#{globals.$BORDER_RADIUS_PREFIX}-circle: 50%;
 
   //@ ********* Letter Spacing  *********//
   @for $i from 1 through 5 {
-    --letterSpacing-#{$i}: calc(#{$baseLetterSpacing} * #{$i});
+    --#{globals.$LETTER_SPACING_PREFIX}-#{$i}: calc(#{globals.$baseLetterSpacing} * #{$i});
   }
 
   //@ ********* Shadows  *********//
@@ -26,10 +27,10 @@
   --shadow-dark: #{shadow-black(lg-3)};
 
   //@ ********* Other  *********//
-  --max-width: #{$max-width};
+  --max-width: #{globals.$max-width};
 
   @include respond(xxl) {
-    --max-width: calc(#{$max-width} * 1.2);
+    --max-width: calc(#{globals.$max-width} * 1.2);
   }
 }
 

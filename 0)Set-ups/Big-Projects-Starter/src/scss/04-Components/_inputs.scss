@@ -2,7 +2,7 @@
 
 .input {
   padding: 0.5rem 1rem;
-  border-radius: var(--radius-1);
+  border-radius: getRadius(1);
   color: getColor(slate-600);
   font-size: fs(sm-3);
   @include focus-state();

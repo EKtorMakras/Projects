@@ -528,7 +528,7 @@ function isCssVariable(color) {
 }
 
 /**
- * Extracts the value part of a CSS variable, such as "primary-500" from "var(--clr-primary-500)".
+ * Extracts the value part of a CSS variable, such as "primary" from "var(--clr-primary)".
  * This function also verifies if the input is a valid CSS variable using `isCssVariable`.
  *
  * @param {string} color - The CSS variable reference to extract from.

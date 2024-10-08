@@ -1,3 +1,4 @@
+@use "../00-Globals" as globals;
 @use "../01-Abstracts" as *;
 
 .socials-wrapper {
@@ -5,10 +6,10 @@
 }
 
 .social-icon {
-  @include focus-state(color("primary.500"));
+  @include focus-state(color("primary"));
   @include socialIcons($official: true, $officialOnHover: true);
   font-size: 1.8rem;
-  transition: $transition;
+  transition: globals.$transition;
   cursor: pointer;
 
   &:hover {

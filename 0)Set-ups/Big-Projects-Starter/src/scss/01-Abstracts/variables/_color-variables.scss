@@ -1,0 +1,9 @@
+@use "../colors" as *;
+
+$colors: ();
+
+// Populate $colors map
+@each $map in ($generic-colors, $social-colors, $tailwind-colors, $project-colors) {
+  $colors: map-merge($colors, $map);
+}
+

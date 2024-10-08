@@ -14,10 +14,10 @@ import {
  * Get a color value from available CSS variables defined in the root element.
  *
  * @param {string} colorName - The name of the CSS color variable to retrieve, excluding the specified CSS color variables prefix.
- * @returns {string} - The CSS variable reference string (e.g., "var(--clr-primary-500)").
+ * @returns {string} - The CSS variable reference string (e.g., "var(--clr-primary)").
  *
  * @example
- * getColor("primary-500"); // Returns "var(--clr-primary-500)"
+ * getColor("primary"); // Returns "var(--clr-primary)"
  */
 function getColor(colorName) {
   const cssColor = validateCssVariable(colorName);
@@ -33,7 +33,7 @@ function getColor(colorName) {
  * @returns {string|null} - The HEX color string (e.g., "#331233"), or null if conversion fails.
  *
  * @example
- * getHexColor("primary-500"); // Returns the resolved color value, e.g., "#331233" if the CSS variable resolves to a valid color.
+ * getHexColor("primary"); // Returns the resolved color value, e.g., "#331233" if the CSS variable resolves to a valid color.
  */
 function getHexColor(colorName) {
   const color = getCssColorVariable(colorName);
@@ -53,7 +53,7 @@ function getHexColor(colorName) {
  * @returns {string|null} - The RGB or RGBA color string (e.g., "rgb(51, 18, 51)"), or null if conversion fails.
  *
  * @example
- * getRgbColor("primary-500"); // Returns the resolved color value, e.g., "rgb(51, 18, 51)" if the CSS variable resolves to a valid color.
+ * getRgbColor("primary"); // Returns the resolved color value, e.g., "rgb(51, 18, 51)" if the CSS variable resolves to a valid color.
  */
 function getRgbColor(colorName) {
   const color = getCssColorVariable(colorName);
@@ -76,7 +76,7 @@ function getRgbColor(colorName) {
  *
  * @example
  * lightenColor("#351335", 1); // Returns a lighter color, e.g., "#603b5f".
- * lightenColor("var(--clr-primary-500)", 1); // Returns a lighter color.
+ * lightenColor("var(--clr-primary)", 1); // Returns a lighter color.
  */
 function lightenColor(color, step) {
   color = resolveCssVariableColor(color);
@@ -98,7 +98,7 @@ function lightenColor(color, step) {
  * @example
 
  * darkenColor("#351335", 1); // Returns a darker color, e.g., "#140010".
- * darkenColor("var(--clr-primary-500)", 1); // Returns a darker color.
+ * darkenColor("var(--clr-primary)", 1); // Returns a darker color.
  */
 function darkenColor(color, step) {
   color = resolveCssVariableColor(color);

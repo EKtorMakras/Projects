@@ -1,0 +1,100 @@
+@use "sass:math";
+
+//% *************** Conversions *************** //
+// Convert px to em
+@function em($pixels, $context: 16) {
+  @return (math.div($pixels, $context)) * 1em;
+}
+
+// Convert px to rem
+@function rem($pixels, $context: 16) {
+  @return (math.div($pixels, $context)) * 1rem;
+}
+//% ***************  *************** //
+
+//% *************** Strings *************** //
+/**
+ * Splits a string into an array of substrings based on a delimiter.
+ *
+ * @param {String} $string - The input string to be exploded.
+ * @param {String} $delimiter - (Optional) The delimiter used to split the string. Defaults to an empty string.
+ * @returns {List} - An array of substrings obtained by splitting the input string based on the delimiter.
+ *                   If the input is not a string or if the delimiter is not a string, the function throws an error.
+ *
+ * @example
+ * Split a comma-separated string into an array
+ * $stringList: str-explode("apple,banana,watermelon", ","); // Returns ("apple", "banana", "watermelon")
+ */
+@function str-explode($string, $delimiter: "") {
+  @if type-of($string) != "string" {
+    @error "The argument $string: `#{$string}` is of incorrect type: `#{type-of($string)}`. Type 'String' is required!";
+  }
+  @if type-of($delimiter) != "string" {
+    @error "The argument $delimiter: `#{$delimiter}` is of incorrect type: `#{type-of($delimiter)}`. Type 'String' is required!";
+  }
+
+  $result: ();
+
+  @if str-length($delimiter) == 0 {
+    // If the delimiter is empty, split the string into characters
+    @for $i from 1 through str-length($string) {
+      $result: append($result, str-slice($string, $i, $i));
+    }
+  } @else {
+    // Use a more efficient way to split by delimiter
+    $index: str-index($string, $delimiter);
+    @while $index != null {
+      $result: append($result, str-slice($string, 1, $index - 1));
+      $string: str-slice($string, $index + str-length($delimiter));
+      $index: str-index($string, $delimiter);
+    }
+    $result: append($result, $string);
+  }
+
+  @return $result;
+}
+//% ***************  *************** //
+
+//% *************** General *************** //
+/**
+ * Retrieves a value from a nested map structure based on a sequence of keys.
+ *
+ * @param {Map} $map - The nested map structure from which to retrieve the value.
+ * @param {String} $keys... - One or more keys indicating the path to the desired value within the nested map.
+ * @returns {*} - The value associated with the sequence of keys in the nested map structure. If any key in the sequence is not found or if   the input is not a map, the function returns `null`.
+ *
+ * @example
+ * Define a nested map structure
+ * $colors: (
+ *   primary: (
+ *     base: #1e4367,
+ *     dark: #153452
+ *   ),
+ *   secondary: (
+ *     base: #234f33,
+ *     dark: #1a3f28
+ *   )
+ * );
+ *
+ * Retrieve the base color of the primary theme
+ * $baseColor: deep-map-get($colors, "primary", "500"); // Returns #1e4367
+ */
+@function deep-map-get($map, $keys...) {
+  @if type-of($map) != "map" {
+    @error "The argument $map: '#{$map}' is of incorrect type: #{type-of($map)}. Type 'map' is required.";
+  }
+
+  @each $key in $keys {
+    @if $map == null or type-of($map) != "map" {
+      @error "Key '#{$key}' not found in the map.";
+    }
+    $map: map-get($map, $key);
+  }
+
+  @return $map;
+}
+//% ***************  *************** //
+
+
+
+

@@ -11,7 +11,7 @@ import { patterns, cssVariableCache } from "./colorConstants";
  * @returns {boolean} - Returns true if the string is a CSS variable reference, false otherwise.
  *
  * @example
- * isCssVariable("var(--clr-primary-500)"); // Returns true
+ * isCssVariable("var(--clr-primary)"); // Returns true
  * isCssVariable("#331233"); // Returns false
  */
 function isCssVariable(color) {
@@ -25,7 +25,7 @@ function isCssVariable(color) {
  * @returns {string|null} - The value of the specified CSS variable as a string, or null if not found.
  *
  * @example
- * getCssColorVariable("primary-500"); // Returns the resolved color value, e.g., "hsl(300, 48%, 14%)" if defined.
+ * getCssColorVariable("primary"); // Returns the resolved color value, e.g., "hsl(300, 48%, 14%)" if defined.
  */
 function getCssColorVariable(colorName) {
   if (!colorName) {
@@ -51,14 +51,14 @@ function getCssColorVariable(colorName) {
 }
 
 /**
- * Extracts the value part of a CSS variable, such as "primary-500" from "var(--clr-primary-500)".
+ * Extracts the value part of a CSS variable, such as "primary" from "var(--clr-primary)".
  * This function also verifies if the input is a valid CSS variable using `isCssVariable`.
  *
  * @param {string} color - The CSS variable reference to extract from.
  * @returns {string|null} - The extracted value part of the CSS variable or null if the input is invalid.
  *
  * @example
- * extractCssVariableValue("var(--clr-primary-500)"); // Returns "primary-500"
+ * extractCssVariableValue("var(--clr-primary)"); // Returns "primary"
  * extractCssVariableValue("#331233"); // Returns null and logs a warning
  */
 function extractCssVariableValue(color) {
@@ -83,7 +83,7 @@ function extractCssVariableValue(color) {
  * @returns {string|null} - The CSS variable value if defined; otherwise, null.
  *
  * @example
- * validateCssVariable("primary-500"); // Returns the color value if it exists, or null.
+ * validateCssVariable("primary"); // Returns the color value if it exists, or null.
  */
 function validateCssVariable(colorName) {
   const cssColor = getCssColorVariable(colorName);
@@ -103,7 +103,7 @@ function validateCssVariable(colorName) {
  * @returns {string} - The resolved color value, or the original color if it's not a CSS variable.
  *
  * @example
- * resolveCssVariableColor("var(--clr-primary-500)"); // Returns the resolved color value, e.g., "#331233".
+ * resolveCssVariableColor("var(--clr-primary)"); // Returns the resolved color value, e.g., "#331233".
  */
 function resolveCssVariableColor(color) {
   if (isCssVariable(color)) {

@@ -1,9 +1,10 @@
+@use "../00-Globals" as globals;
 @use "../01-Abstracts" as *;
 
 body {
   overflow-x: hidden;
   background-color: getColor(body);
-  transition: all 0.3s ease-in-out;
+  @include transition($property: background-color);
 }
 
 ul {
@@ -13,7 +14,7 @@ ul {
 a {
   display: inline-block;
   text-decoration: none;
-  transition: $transition;
+  transition: globals.$transition;
 }
 
 img,
@@ -38,5 +39,5 @@ button {
 button,
 input[type="submit"] {
   cursor: pointer;
-  transition: $transition;
+  transition: globals.$transition;
 }

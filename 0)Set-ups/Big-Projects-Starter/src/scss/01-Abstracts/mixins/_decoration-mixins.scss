@@ -1,0 +1,122 @@
+@use "../../00-Globals" as globals;
+@use "../functions" as *;
+
+// Border Radius
+@mixin border-radius($radius, $corners: all) {
+  @if $corners == all {
+    border-radius: $radius;
+  }
+
+  @else {
+    $corners: if(type-of($corners) == string, $corners, $corners);
+
+    @each $corner in $corners {
+      @if map-has-key(globals.$CORNER_MAP, $corner) {
+        @each $property in map-get(globals.$CORNER_MAP, $corner) {
+          #{$property}: $radius;
+        }
+      } @else {
+        @error "Invalid corner value: #{$corner}. Expected one of: #{map-keys($corner-map)}.";
+      }
+    }
+  }
+}
+
+// Shadows
+@mixin shadow($size: sm-1, $color-options: (), $opacity: null, $type: box) {
+  $shadow-value: generate-shadow($size, $color-options, $opacity, $type);
+
+  // Apply either box-shadow or text-shadow based on the type
+  @if $type == box {
+    box-shadow: $shadow-value;
+  } @else if $type == text {
+    text-shadow: $shadow-value;
+  }
+}
+
+// Border
+@mixin border($width: 1px, $style: solid, $color: currentColor) {
+  border: #{$width} #{$style} #{$color};
+}
+
+/**
+ * Generates a flexible linear gradient background that supports different color formats
+ * using the `colorTest` function for dynamic color retrieval.
+ *
+ * @param {String|Map} $color1 - The first color or a map containing:
+ *                               - name: The color name (e.g., "primary").
+ *                               - variant: (Optional) The color variant (e.g., "500", "600").
+ *                               - use-true-color: (Optional) A flag to use the true color value.
+ * @param {String|Map} $color2 - The second color or a map with similar options to $color1.
+ * @param {String} $direction - (Optional) The direction of the gradient. Defaults to "to right bottom".
+ *
+ * @example
+ * Using CSS variables from the color map
+ * @include gradient("primary", "secondary");
+ *
+ * @example
+ * Using specific color variants from the map
+ * @include gradient((name: "primary", variant: "600"), (name: "secondary", variant: "400"));
+ *
+ * @example
+ * Using custom colors
+ * @include gradient(#ff3344, #3344ff);
+ *
+ * @example
+ * Using true color values from the map
+ * @include gradient((name: "primary", variant: "600", use-true-color: true), (name: "secondary", variant: "500", use-true-color: true));
+ */
+@mixin gradient($color1, $color2, $direction: to right bottom) {
+  $color1-value: resolveColor($color1);
+  $color2-value: resolveColor($color2);
+
+  background-image: linear-gradient($direction, $color1-value, $color2-value);
+}
+
+// Bg-Image
+@mixin bg-image($image, $size: cover, $position: center center) {
+  background-image: url(@/assets/images/#{$image});
+  background-size: $size;
+  background-position: $position;
+  background-repeat: no-repeat;
+}
+
+// Create Triangle
+@mixin triangle($size, $direction, $color) {
+  width: 0;
+  height: 0;
+
+  @if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  } @else if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  }
+}
+
+// Adjust bg color
+@mixin adjustBgColor($bgColor, $adjustment: darken, $color: null, $amount: 6%) {
+  background-color: $bgColor;
+  transition: globals.$transition;
+
+  &:hover,
+  &:active {
+    $adjustment-function: get-function($adjustment);
+    background-color: call($adjustment-function, $bgColor, $amount);
+
+    @if $color {
+      color: $color;
+    }
+  }
+}

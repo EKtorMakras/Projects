@@ -1,0 +1,77 @@
+//% ***************  Shadows Mapping *************** //
+//@ Default Shadow Color Options
+$default-shadow-color-options: (
+  name: "shadow",
+  variant: null,
+  use-true-color: false
+);
+
+//@ Shadow Sizes
+$shadow-sizes: (
+  "sm": sm-1 sm-2 sm-3,
+  "rg": rg-1 rg-2 rg-3,
+  "lg": lg-1 lg-2 lg-3
+);
+
+
+//@ Shadow Opacity
+$shadow-opacity: (
+  sm: 0.05,
+  rg: 0.1,
+  lg: 0.15,
+);
+
+//@ Box Shadows
+$box-shadows: (
+  // Small
+  sm-1: 0 1px 2px,
+  sm-2: 0 2px 4px,
+  sm-3: 0 4px 6px,
+
+  // Regular
+  rg-1: 0 4px 8px,
+  rg-2: 0 8px 16px,
+  rg-3: 0 10px 20px,
+
+  // Large
+  lg-1: 0 10px 15px,
+  lg-2: 0 15px 20px,
+  lg-3: 0 25px 50px
+);
+
+//@ Text Shadows
+$text-shadows: (
+  // Small
+  sm-1: 0 0.05rem 0.1rem,
+  sm-2: 0 0.1rem 0.3rem,
+  sm-3: 0 0.15rem 0.5rem,
+
+  // Regular
+  rg-1: 0 0.1rem 0.3rem,
+  rg-2: 0 0.15rem 0.4rem,
+  rg-3: 0 0.2rem 0.6rem,
+
+  // Large
+  lg-1: 0 0.2rem 0.5rem,
+  lg-2: 0 0.25rem 0.6rem,
+  lg-3: 0 0.3rem 0.8rem
+);
+//% ***************  *************** //
+
+//% ***************  Standard dark sizes  *************** //
+$shadows: (
+  // Small
+  sm-1: #{map-get($box-shadows, sm-1)} rgba(0, 0, 0, map-get($shadow-opacity, sm)),
+  sm-2: #{map-get($box-shadows, sm-2)} rgba(0, 0, 0, map-get($shadow-opacity, sm)),
+  sm-3: #{map-get($box-shadows, sm-3)} rgba(0, 0, 0, map-get($shadow-opacity, sm)),
+
+  // Regular
+  rg-1: #{map-get($box-shadows, rg-1)} rgba(0, 0, 0, map-get($shadow-opacity, rg)),
+  rg-2: #{map-get($box-shadows, rg-2)} rgba(0, 0, 0, map-get($shadow-opacity, rg)),
+  rg-3: #{map-get($box-shadows, rg-3)} rgba(0, 0, 0, map-get($shadow-opacity, rg)),
+
+  // Large
+  lg-1: #{map-get($box-shadows, lg-1)} rgba(0, 0, 0, map-get($shadow-opacity, lg)),
+  lg-2: #{map-get($box-shadows, lg-2)} rgba(0, 0, 0, map-get($shadow-opacity, lg)),
+  lg-3: #{map-get($box-shadows, lg-3)} rgba(0, 0, 0, map-get($shadow-opacity, lg))
+);

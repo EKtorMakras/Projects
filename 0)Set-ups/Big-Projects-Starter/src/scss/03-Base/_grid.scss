@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "../00-Globals" as globals;
 @use "../01-Abstracts" as *;
 
 $grid-columns: 12;
@@ -38,13 +39,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
 // Gaps
 @for $i from 1 through 35 {
   .gap-#{$i} {
-    gap: calc(#{$baseGutter} * #{$i});
+    gap: calc(#{globals.$baseGutter} * #{$i});
   }
   .col-gap-#{$i} {
-    column-gap: calc(#{$baseGutter} * #{$i});
+    column-gap: calc(#{globals.$baseGutter} * #{$i});
   }
   .row-gap-#{$i} {
-    row-gap: calc(#{$baseGutter} * #{$i});
+    row-gap: calc(#{globals.$baseGutter} * #{$i});
   }
 }
 
@@ -75,13 +76,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-xs-#{$i} {
-      gap: calc(#{$baseGutter} * #{$i});
+      gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .col-gap-xs-#{$i} {
-      column-gap: calc(#{$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .row-gap-xs-#{$i} {
-      row-gap: calc(#{$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$baseGutter} * #{$i});
     }
   }
 }
@@ -113,13 +114,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-sm-#{$i} {
-      gap: calc(#{$baseGutter} * #{$i});
+      gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .col-gap-sm-#{$i} {
-      column-gap: calc(#{$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .row-gap-sm-#{$i} {
-      row-gap: calc(#{$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$baseGutter} * #{$i});
     }
   }
 }
@@ -151,13 +152,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-md-#{$i} {
-      gap: calc(#{$baseGutter} * #{$i});
+      gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .col-gap-md-#{$i} {
-      column-gap: calc(#{$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .row-gap-md-#{$i} {
-      row-gap: calc(#{$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$baseGutter} * #{$i});
     }
   }
 }
@@ -189,13 +190,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-lg-#{$i} {
-      gap: calc(#{$baseGutter} * #{$i});
+      gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .col-gap-lg-#{$i} {
-      column-gap: calc(#{$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .row-gap-lg-#{$i} {
-      row-gap: calc(#{$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$baseGutter} * #{$i});
     }
   }
 }
@@ -227,13 +228,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-xl-#{$i} {
-      gap: calc(#{$baseGutter} * #{$i});
+      gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .col-gap-xl-#{$i} {
-      column-gap: calc(#{$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$baseGutter} * #{$i});
     }
     .row-gap-xl-#{$i} {
-      row-gap: calc(#{$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$baseGutter} * #{$i});
     }
   }
 }

@@ -1,10 +1,11 @@
+@use "../00-Globals" as globals;
 @use "../01-Abstracts" as *;
 
 body {
   font-family: $ff-primary;
   font-size: fs(rg);
   font-weight: fw(regular);
-  line-height: $lineHeightText;
+  line-height: globals.$lineHeightText;
   color: getColor(text);
 }
 
@@ -12,30 +13,28 @@ p,
 li,
 figcaption {
   text-wrap: pretty;
-  max-width: $paraMaxWidth;
+  max-width: globals.$paraMaxWidth;
 }
 
 p {
   font-size: fs(rg);
-  letter-spacing: var(--letterSpacing-2);
+  letter-spacing: getLetterSpacing(2);
 }
 
 //^ ---------  Headings ---------  //
 h1,
 h2,
 h3,
-h4 {
-  letter-spacing: var(--letterSpacing-5);
+h4,
+h5,
+h6 {
+  letter-spacing: getLetterSpacing(5);
   text-transform: capitalize;
-  margin-bottom: 0.75rem;
+  margin-bottom: getSpacer(3);
   text-align: center;
   color: getColor(title);
-}
+  line-height: globals.$lineHeightTitle;
 
-h1,
-h2,
-h3 {
-  line-height: $lineHeightTitle;
 }
 
 h1 {
@@ -56,5 +55,15 @@ h3 {
 h4 {
   font-size: fs(head-4);
   font-weight: fw(light);
+}
+
+h5 {
+  font-size: fs(head-5);
+  font-weight: fw(semibold);
+}
+
+h6 {
+  font-size: fs(head-6);
+  font-weight: fw(bold);
 }
 //^ ---------  --------- //

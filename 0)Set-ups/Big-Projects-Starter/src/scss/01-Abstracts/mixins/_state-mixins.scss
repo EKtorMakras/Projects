@@ -1,0 +1,36 @@
+@use "../../00-Globals" as globals;
+@use "../functions" as *;
+
+// Focus State
+@mixin focus-state($color: color("primary")) {
+  &:focus-visible {
+    outline: 3px solid transparent;
+    outline-offset: 4px;
+    box-shadow:
+      0 0 3px 2px color("white"),
+      0 0 4px 4px $color;
+  }
+}
+
+// Link Underline
+@mixin link-underline($color: currentColor, $origin: center, $transition: globals.$transition) {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: $color;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transform-origin: $origin;
+    transition: $transition;
+    border-radius: getRadius(pilled);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}

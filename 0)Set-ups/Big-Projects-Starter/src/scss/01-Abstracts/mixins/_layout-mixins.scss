@@ -1,0 +1,83 @@
+@use "../../00-Globals" as globals;
+@use "../functions" as *;
+
+//% ***************  Layout Tools *************** //
+@mixin flex($direction: row, $justify: center, $align: center, $gap: 0, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  align-items: $align;
+
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+// Responsive Grid
+@mixin responsive-grid($size: 35rem, $gap: 2rem) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(#{$size}, 100%), 1fr));
+  gap: $gap;
+}
+//% ***************    *************** //
+
+//% ***************  Centering  *************** //
+// Center with position //
+@mixin center-pos {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Center with margins //
+@mixin center-mar {
+  margin-left: auto;
+  margin-right: auto;
+}
+//% ***************    *************** //
+
+//% ***************  Overlays  *************** //
+@mixin cover($radius: inherit) {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  z-index: 1;
+  border-radius: $radius;
+}
+
+
+// Pseudo element overlay
+@mixin create-overlay(
+  $type: after,
+  $content: "",
+  $bgColor: rgba(color("black"), 0.3),
+  $opacity: 1,
+  $zIndex: -1,
+  $position: absolute,
+  $radius: inherit,
+  $inset: 0
+) {
+  position: relative;
+  isolation: isolate;
+
+  &::#{$type} {
+    content: $content;
+    position: $position;
+    inset: $inset;
+    width: 100%;
+    height: 100%;
+    background-color: $bgColor;
+    opacity: $opacity;
+    z-index: $zIndex;
+    border-radius: $radius;
+    pointer-events: none;
+    user-select: none;
+    backface-visibility: hidden;
+    transition: globals.$transition;
+  }
+}
+//% ***************    *************** //
