@@ -58,27 +58,27 @@
 
 //& ******* Colored ******* //
 .error {
-  color: getColor(slate-50);
-  background-color: getColor(error);
+  color: get-color(slate-50);
+  background-color: get-color(error);
   padding: 4px 8px;
   border-radius: var(--radius-2);
 }
 
 //& ******* Radius ******* //
 .sharp {
-  border-radius: getRadius(1) !important;
+  border-radius: get-css-var(globals.$RADIUS_PREFIX, 1) !important;
 }
 
 .rounded {
-  border-radius: getRadius(3) !important;
+  border-radius: get-css-var(globals.$RADIUS_PREFIX, 3) !important;
 }
 
 .pilled {
-  border-radius: getRadius(pilled) !important;
+  border-radius: get-css-var(globals.$RADIUS_PREFIX, pilled) !important;
 }
 
 .circle {
-  border-radius: getRadius(circle) !important;
+  border-radius: get-css-var(globals.$RADIUS_PREFIX, circle) !important;
 }
 
 //& ******* Shadows ******* //
@@ -101,7 +101,7 @@ $reduceAdjustment: 0.85;
 $increaseAdjustment: 1.6;
 
 @for $i from 1 through 35 {
-  $baseValue: calc(#{globals.$baseGutter} * #{$i});
+  $baseValue: calc(#{globals.$base_gutter} * #{$i});
   $subtractedValue: calc(#{$baseValue} * #{$reduceAdjustment});
   $middleValue: calc(#{$subtractedValue} + (#{$vwStep} * #{$i}));
   $afterValue: calc(#{$baseValue} * #{$increaseAdjustment});
@@ -214,7 +214,7 @@ $text-align-values: left, right, justify, center;
 }
 
 //& ******* Xl Breakpoint ******* //
-@include respond(xl) {
+@include respond(xl, min) {
   // center text
   @each $val in $text-align-values {
     .text-xl-#{$val} {

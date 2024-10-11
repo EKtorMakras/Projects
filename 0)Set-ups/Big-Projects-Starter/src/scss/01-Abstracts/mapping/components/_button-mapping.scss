@@ -1,0 +1,56 @@
+@use "../colors/project-colors" as *;
+@use "../colors/notification-colors" as *;
+
+//% *************** Buttons *************** //
+$button-mapping: (
+  defaults:(
+    "size": rg,
+    "bg-color": primary,
+    "hover-bg-color": null,
+    "color": "gray.50",
+    "text-transform": capitalize,
+    "radius": 1,
+    "shadow": rg-3,
+    "transition": all 0.4s ease,
+    "adjustment-props": (
+      "mode": lightness,
+      "amount": -6%
+    ),
+    "border-props": (),
+  ),
+  types: (normal, outlined),
+  colors: map-merge($project-colors, $notification-colors),
+  sizes: (
+    xxs: (
+      "padding": .4em .8em,
+      "font-size": sm-1,
+      "letter-spacing": 2
+    ),
+    xs: (
+      "padding": .65em 1em,
+      "font-size": sm-1,
+      "letter-spacing": 2
+    ),
+    sm: (
+      "padding": .5em .8em,
+      "font-size": sm-2,
+      "letter-spacing": 2
+    ),
+    rg: (
+      "padding": .7em 1.3em,
+      "font-size": sm-2,
+      "letter-spacing": 3
+    ),
+    lg: (
+      "padding": .7em 1.2em,
+      "font-size": rg,
+      "letter-spacing": 3
+    ),
+    xl: (
+      "padding": .9em 1.5em,
+      "font-size": lg-1,
+      "letter-spacing": 4
+    )
+  ),
+);
+//% ***************  *************** //

@@ -1,9 +1,22 @@
 @use "../../00-Globals" as globals;
+@use "../functions" as *;
 
 //% ***************  General  *************** //
 // Transition
 @mixin transition($property: all, $time: 0.3s, $function: ease-in-out) {
-  transition: $property $time $function;
+  @if type-of($property) == "list" {
+    // Create a new list where each property is combined with the time and function
+    $transitions: ();
+    @each $item in $property {
+      $transitions: append($transitions, $item + ' ' + $time + ' ' + $function, comma);
+    }
+
+    // Apply the transition with the generated list
+    transition: $transitions;
+  } @else {
+    // If it's a single property, apply it directly
+    transition: $property $time $function;
+  }
 }
 
 // Generate Color Custom Props
@@ -13,7 +26,7 @@
       // Handle nested color maps recursively
       @each $shade, $value in $shades {
         // If it's the "default-color" shade, use only the color name for the custom property
-        @if $shade == map-get(globals.$defaults, color) {
+        @if $shade == get-default(color-shade) {
           --#{$prefix}-#{$color}: #{$value};
         } @else {
           // Otherwise, use the shade as part of the variable name

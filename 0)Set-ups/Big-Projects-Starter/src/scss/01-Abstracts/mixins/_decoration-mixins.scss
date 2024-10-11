@@ -22,7 +22,32 @@
   }
 }
 
-// Shadows
+/** ============ SHADOW ============ //
+ * Applies either box-shadow or text-shadow to elements. The shadow size is determined
+ * by predefined shadow categories (e.g., "sm-1", "rg-2", etc.) that handle the blur radius,
+ * offset, and spread-radius. Shadow colors and opacity can also be customized.
+ *
+ * @param {String} $size - The shadow size, corresponding to predefined shadow categories (e.g., "sm-1", "rg-2").
+ * @param {Map} $color-options - (Optional) A map to define the shadow color, with options such as:
+ *                               - name: The color name (e.g., "primary", "shadow").
+ *                               - variant: (Optional) The color variant (e.g., "500", "600").
+ *                               - use-true-color: (Optional) A flag to use the actual color value or CSS variable.
+ *                               Defaults to an empty map.
+ * @param {Number|Null} $opacity - (Optional) The opacity of the shadow. Defaults to predefined opacity.
+ * @param {String} $type - The shadow type, either "box" or "text". Defaults to "box".
+ *
+ * @example
+ * Apply a box shadow with default values
+ * @include shadow();
+ *
+ * @example
+ * Apply a text shadow with custom size and opacity
+ * @include shadow(sm-2, (name: "black", opacity: 0.5), null, text);
+ *
+ * @example
+ * Apply a box shadow with custom color and variant
+ * @include shadow(sm-1, (name: "primary", variant: "600"));
+ */
 @mixin shadow($size: sm-1, $color-options: (), $opacity: null, $type: box) {
   $shadow-value: generate-shadow($size, $color-options, $opacity, $type);
 
@@ -39,9 +64,9 @@
   border: #{$width} #{$style} #{$color};
 }
 
-/**
+/** ============ GRADIENT ============ //
  * Generates a flexible linear gradient background that supports different color formats
- * using the `colorTest` function for dynamic color retrieval.
+ * using the `color-test` function for dynamic color retrieval.
  *
  * @param {String|Map} $color1 - The first color or a map containing:
  *                               - name: The color name (e.g., "primary").
@@ -67,8 +92,8 @@
  * @include gradient((name: "primary", variant: "600", use-true-color: true), (name: "secondary", variant: "500", use-true-color: true));
  */
 @mixin gradient($color1, $color2, $direction: to right bottom) {
-  $color1-value: resolveColor($color1);
-  $color2-value: resolveColor($color2);
+  $color1-value: resolve-color($color1);
+  $color2-value: resolve-color($color2);
 
   background-image: linear-gradient($direction, $color1-value, $color2-value);
 }
@@ -105,18 +130,59 @@
   }
 }
 
-// Adjust bg color
-@mixin adjustBgColor($bgColor, $adjustment: darken, $color: null, $amount: 6%) {
-  background-color: $bgColor;
+/** ============ ADJUST BG COLOR ============ //
+ * Mixin for adjusting background color based on an adjustment type such as "darken", "lighten", "saturate", or "desaturate".
+ * Allows overriding the adjusted background color with a custom hover color.
+ *
+ * @param {String} $bg-color - The background color to adjust.
+ * @param {String} $adjustment - The type of adjustment (e.g., "darken", "lighten", "saturate", "desaturate").
+ *                               Must be one of these values.
+ * @param {String} $color - (Optional) The color to apply when the element is hovered. Defaults to null.
+ * @param {Percentage} $amount - The amount to adjust the background color by (e.g., 10%).
+ * @param {String} $hover-bg-color - (Optional) A specific color to use on hover. If provided, it overrides the adjusted color.
+ *
+ * @example
+ * Adjust background color with darken effect
+ * @include adjust-bg-color(#3498db, darken, #fff, 10%, #2980b9);
+ */
+@mixin adjust-bg-color(
+  $bg-color,
+  $hover-bg-color: null,
+  $text-color: null,
+  $adjustment: lightness, // Default to lightness adjustment
+  $amount: -6%) {
+
+  // Ensure the adjustment channel is valid (lightness or saturation)
+  $valid-adjustments: ("lightness", "saturation");
+
+  @if not index($valid-adjustments, $adjustment) {
+    @error "Unsupported adjustment channel: `#{$adjustment}`. Supported channels are lightness, saturation.";
+  }
+
+  // Apply the initial background color
+  background-color: $bg-color;
   transition: globals.$transition;
 
+  // Adjust the background color on hover/active or use the provided hover color
   &:hover,
   &:active {
-    $adjustment-function: get-function($adjustment);
-    background-color: call($adjustment-function, $bgColor, $amount);
+    @if $hover-bg-color != null {
+      background-color: $hover-bg-color;
+    } @else {
+      @if $adjustment == lightness {
+        background-color: adjust-color($bg-color, $lightness: $amount);
+      } @else if $adjustment == saturation {
+        background-color: adjust-color($bg-color, $saturation: $amount);
+      }
+    }
 
-    @if $color {
-      color: $color;
+    // Apply the text color if provided
+    @if $text-color {
+      color: $text-color;
     }
   }
 }
+
+
+
+

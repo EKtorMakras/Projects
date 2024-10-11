@@ -7,7 +7,7 @@ $colors-light: (
   "body": color("slate-50"),
   "card": color("white"),
   "socials": color("slate-500"),
-  "socialsHover": color("slate-700"),
+  "socials-hover": color("slate-700"),
   "shadow": rgba(color("primary"), .25)
 );
 
@@ -18,6 +18,6 @@ $colors-dark: (
   "body": color("gray.blue-6"),
   "card": color("gray.blue-5"),
   "socials": color("slate-100"),
-  "socialsHover": color("slate-300"),
-  "shadow": rgba(color("primary"), .25)
+  "socials-hover": color("slate-300"),
+  "shadow": transparent
 );

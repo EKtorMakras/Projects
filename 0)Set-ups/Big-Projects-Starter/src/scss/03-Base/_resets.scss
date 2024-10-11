@@ -5,7 +5,7 @@ html {
   font-size: 62.5%; //1rem = 10px //
 
   //# ---- Media ---- //
-  @include respond(xxl) {
+  @include respond(xxl, min) {
     font-size: 70%; // 1rem ~= 11px //
   }
 

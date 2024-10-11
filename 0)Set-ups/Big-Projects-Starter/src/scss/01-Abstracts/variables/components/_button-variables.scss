@@ -1,0 +1,37 @@
+  @use "../../../00-Globals" as globals;
+  @use "../../mapping/components/button-mapping" as *;
+  @use "../../functions" as *;
+
+  // Retrieve all necessary default button values using map-deep-get
+  $default-btn-size: map-deep-get($button-mapping, (defaults, size));
+  $default-btn-bg-color: map-deep-get($button-mapping, (defaults, bg-color));
+  $default-btn-hover-bg-color: map-deep-get($button-mapping, (defaults, hover-bg-color));
+  $default-btn-text-color: map-deep-get($button-mapping, (defaults, color));
+  $default-btn-text-transform: map-deep-get($button-mapping, (defaults, text-transform));
+  $default-btn-radius: map-deep-get($button-mapping, (defaults, radius));
+  $default-btn-shadow: map-deep-get($button-mapping, (defaults, shadow));
+
+  // Retrieve grouped properties
+  $default-btn-adjustment-props: map-deep-get($button-mapping, (defaults, adjustment-props));
+  $default-btn-border-props: map-deep-get($button-mapping, (defaults, border-props));
+
+  // Retrieve size-dependent properties
+  $default-btn-font-size-number: map-deep-get($button-mapping, (sizes, $default-btn-size, font-size));
+  $default-btn-letter-spacing-number: map-deep-get($button-mapping, (sizes, $default-btn-size, letter-spacing));
+  $default-btn-padding: map-deep-get($button-mapping, (sizes, $default-btn-size, padding));
+
+  // Set default button styles map
+  $default-btn-styles: (
+    bg-color: color($default-btn-bg-color),
+    text-color: color($default-btn-text-color),
+    font-size: fs($default-btn-font-size-number),
+    letter-spacing: get-css-var(globals.$LETTER_SPACING_PREFIX, $default-btn-letter-spacing-number),
+    padding: $default-btn-padding,
+    text-transform: $default-btn-text-transform,
+    border-radius: get-css-var(globals.$RADIUS_PREFIX, $default-btn-radius),
+    box-shadow: shadow-black($default-btn-shadow),
+    adjustment-props: $default-btn-adjustment-props,  // Added adjustment mode
+    border-props: $default-btn-border-props, // Added border properties
+    transition: all 0.4s ease,
+  );
+

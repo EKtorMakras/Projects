@@ -1,13 +1,13 @@
-@use "functions" as *;
+@use "functions/helper-functions" as *;
 
 // Custom Breakpoints
 $break-points: (
-  "xs": em(400),
-  "sm": em(600),
-  "md": em(800),
-  "lg": em(1000),
-  "xl": em(1300),
-  "xxl": em(1800),
+  "xs": to-em(400),
+  "sm": to-em(600),
+  "md": to-em(800),
+  "lg": to-em(1000),
+  "xl": to-em(1300),
+  "xxl": to-em(1800),
 );
 
 @function break-points($break-point-limit) {
@@ -35,47 +35,34 @@ $break-points: (
 //@ ************    ************ //
 
 //@ ************  Custom Widths  ************ //
-@mixin respond($breakpoint) {
-  // 400px
-  @if $breakpoint==xs {
-    @media screen and (max-width: break-points(xs)) {
-      @content;
-    }
+/** ============ RESPOND MIXIN ============ //
+ * Handles media queries dynamically based on breakpoints and mode.
+ *
+ * @param {String} $breakpoint - The name of the breakpoint (e.g., "sm", "md").
+ * @param {String} $mode - The mode for the media query: "min" for min-width, "max" for max-width.
+ * @example
+ *   @include respond(sm, max);  // Apply for max-width: 600px
+ *   @include respond(lg, min);  // Apply for min-width: 1000px
+ */
+@mixin respond($breakpoint, $mode: max) {
+  $breakpoint-width: break-points($breakpoint);
+
+  // Error handling for invalid breakpoints
+  @if $breakpoint-width == null {
+    @error "Invalid breakpoint: `#{$breakpoint}`. Available options are: #{map-keys($break-points)}";
   }
 
-  // 600px
-  @if $breakpoint==sm {
-    @media screen and (max-width: break-points(sm)) {
+  // Handle max-width and min-width dynamically
+  @if $mode == max {
+    @include mq-max($breakpoint-width) {
       @content;
     }
-  }
-
-  // 800px
-  @if $breakpoint==md {
-    @media screen and (max-width: break-points(md)) {
+  } @else if $mode == min {
+    @include mq-min($breakpoint-width) {
       @content;
     }
-  }
-
-  // 1000px
-  @if $breakpoint==lg {
-    @media screen and (max-width: break-points(lg)) {
-      @content;
-    }
-  }
-
-  // 1300px
-  @if $breakpoint==xl {
-    @media screen and (min-width: break-points(xl)) {
-      @content;
-    }
-  }
-
-  // 1800px
-  @if $breakpoint==xxl {
-    @media screen and (min-width: break-points(xxl)) {
-      @content;
-    }
+  } @else {
+    @error "Invalid mode: `#{$mode}`. Use 'min' or 'max'.";
   }
 }
 //@ ************    ************ //

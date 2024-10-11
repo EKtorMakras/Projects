@@ -1,0 +1,53 @@
+$shadow-mapping: (
+  //@ Defaults
+  defaults: (
+    category: "rg",
+    color-options: (
+      name: "shadow",
+      variant: null,
+      use-css-var: true
+    ),
+  ),
+
+  //@ Categories
+  categories: (
+    sm: (
+      available-sizes: sm-1 sm-2 sm-3,
+      opacity: 0.05
+    ),
+    rg: (
+      available-sizes: rg-1 rg-2 rg-3,
+      opacity: 0.1
+    ),
+    lg: (
+      available-sizes: lg-1 lg-2 lg-3,
+      opacity: 0.15
+    )
+  ),
+
+  //@ Box Shadows
+  box: (
+    sm-1: 0 1px 2px,
+    sm-2: 0 2px 4px,
+    sm-3: 0 4px 6px,
+    rg-1: 0 4px 8px,
+    rg-2: 0 8px 16px,
+    rg-3: 0 10px 20px,
+    lg-1: 0 10px 15px,
+    lg-2: 0 15px 20px,
+    lg-3: 0 25px 50px
+  ),
+
+  //@ Text Shadows
+  text: (
+    sm-1: 0 0.05rem 0.1rem,
+    sm-2: 0 0.1rem 0.3rem,
+    sm-3: 0 0.15rem 0.5rem,
+    rg-1: 0 0.1rem 0.3rem,
+    rg-2: 0 0.15rem 0.4rem,
+    rg-3: 0 0.2rem 0.6rem,
+    lg-1: 0 0.2rem 0.5rem,
+    lg-2: 0 0.25rem 0.6rem,
+    lg-3: 0 0.3rem 0.8rem
+  )
+);

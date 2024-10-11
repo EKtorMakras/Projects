@@ -1,0 +1,27 @@
+@use "../../variables/font-variables" as vars;
+
+/**
+ * Retrieves the font size from the $font-sizes map based on the provided key.
+ *
+ * @param {String} $font-size - The key representing the desired font size.
+ * @returns {*} - The corresponding font size value from the $font-sizes map.
+ *
+ * @example
+ * font-size: fs("rg"); // Returns the value for regular font size, e.g., clamp(1.8rem, 1.5rem + 0.5vw, 2.2rem)
+ */
+@function fs($font-size) {
+  @return map-get(vars.$font-sizes, $font-size);
+}
+
+/**
+ * Retrieves the font weight from the $font-weights map based on the provided key.
+ *
+ * @param {String} $font-weight-style - The key representing the desired font weight.
+ * @returns {*} - The corresponding font weight value from the $font-weights map.
+ *
+ * @example
+ * font-weight: fw("regular"); // Returns 400
+ */
+@function fw($font-weight-style) {
+  @return map-get(vars.$font-weights, $font-weight-style);
+}

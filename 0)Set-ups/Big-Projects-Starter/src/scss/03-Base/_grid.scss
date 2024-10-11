@@ -39,13 +39,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
 // Gaps
 @for $i from 1 through 35 {
   .gap-#{$i} {
-    gap: calc(#{globals.$baseGutter} * #{$i});
+    gap: calc(#{globals.$base_gutter} * #{$i});
   }
   .col-gap-#{$i} {
-    column-gap: calc(#{globals.$baseGutter} * #{$i});
+    column-gap: calc(#{globals.$base_gutter} * #{$i});
   }
   .row-gap-#{$i} {
-    row-gap: calc(#{globals.$baseGutter} * #{$i});
+    row-gap: calc(#{globals.$base_gutter} * #{$i});
   }
 }
 
@@ -76,13 +76,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-xs-#{$i} {
-      gap: calc(#{globals.$baseGutter} * #{$i});
+      gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .col-gap-xs-#{$i} {
-      column-gap: calc(#{globals.$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .row-gap-xs-#{$i} {
-      row-gap: calc(#{globals.$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$base_gutter} * #{$i});
     }
   }
 }
@@ -114,13 +114,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-sm-#{$i} {
-      gap: calc(#{globals.$baseGutter} * #{$i});
+      gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .col-gap-sm-#{$i} {
-      column-gap: calc(#{globals.$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .row-gap-sm-#{$i} {
-      row-gap: calc(#{globals.$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$base_gutter} * #{$i});
     }
   }
 }
@@ -152,13 +152,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-md-#{$i} {
-      gap: calc(#{globals.$baseGutter} * #{$i});
+      gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .col-gap-md-#{$i} {
-      column-gap: calc(#{globals.$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .row-gap-md-#{$i} {
-      row-gap: calc(#{globals.$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$base_gutter} * #{$i});
     }
   }
 }
@@ -190,19 +190,19 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-lg-#{$i} {
-      gap: calc(#{globals.$baseGutter} * #{$i});
+      gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .col-gap-lg-#{$i} {
-      column-gap: calc(#{globals.$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .row-gap-lg-#{$i} {
-      row-gap: calc(#{globals.$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$base_gutter} * #{$i});
     }
   }
 }
 
 //& ******* Xl Breakpoint ******* //
-@include respond(xl) {
+@include respond(xl, min) {
   // Direction
   .flex-xl-column {
     flex-direction: column;
@@ -228,13 +228,13 @@ $layout-values: start, end, center, space-between, space-around, space-evenly, b
   // Gaps
   @for $i from 1 through 35 {
     .gap-xl-#{$i} {
-      gap: calc(#{globals.$baseGutter} * #{$i});
+      gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .col-gap-xl-#{$i} {
-      column-gap: calc(#{globals.$baseGutter} * #{$i});
+      column-gap: calc(#{globals.$base_gutter} * #{$i});
     }
     .row-gap-xl-#{$i} {
-      row-gap: calc(#{globals.$baseGutter} * #{$i});
+      row-gap: calc(#{globals.$base_gutter} * #{$i});
     }
   }
 }

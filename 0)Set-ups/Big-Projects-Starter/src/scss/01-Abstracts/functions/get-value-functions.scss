@@ -1,0 +1,75 @@
+@use "../../00-Globals" as globals;
+@use "./helper-functions.scss" as *;
+
+//% *************** Get Value *************** //
+/**
+ * Retrieves a default value from the $DEFAULTS map based on the provided key.
+ *
+ * @param {String} $key - The key for the default value to retrieve (e.g., "color", "font-size").
+ * @return {*} - The corresponding default value from the $DEFAULTS map.
+ *
+ * @example
+ * $default-color: get-default("color"); // Returns "500"
+ * $default-font-size: get-default("font-size-category"); // Returns "rg"
+ */
+@function get-default($key) {
+  @return map-get(globals.$DEFAULTS, $key);
+}
+
+/**
+ * Retrieves a CSS custom property for spacing based on the given index and type.
+ *
+ * @param {Number} $i - The index of the spacer variable to be retrieved.
+ * @param {Boolean} $dynamic - (Optional) Whether to retrieve the dynamic spacer value. Defaults to `false`, which returns the base value.
+ * @param {String} $prefix - (Optional) The prefix for the spacer variable. Defaults to the global $SPACER_PREFIX value.
+ * @returns {String} - The CSS variable in the form of `var(--<prefix>-<type>-<index>)`.
+ *                     If `$dynamic` is `true`, the type is `dynamic`, otherwise it is `base`.
+ *
+ * @example
+ * Get a base spacer variable:
+ * $base-spacing: get-spacer(3); // Returns `var(--<prefix>-base-3)` based on $SPACER_PREFIX
+ */
+@function get-spacer($i, $dynamic: false, $prefix: globals.$SPACER_PREFIX) {
+  $variable-name: if($dynamic, "#{$prefix}-dynamic-#{$i}", "#{$prefix}-base-#{$i}");
+  @return var(--#{$variable-name});
+}
+
+/**
+ * Retrieves a CSS variable based on the given name and optional prefix.
+ *
+ * @param {String} $prefix - The prefix for the CSS variable.
+ * @param {String} $name - The name or key for the CSS variable (e.g., letter-spacing, border-radius).
+ *
+ * @return {String} - The corresponding CSS variable (e.g., var(--border-radius-1)).
+ *
+ * @example
+ * $border-radius: get-css-var(globals.$RADIUS_PREFIX, 3);
+ * Returns: var(--border-radius-3)
+ */
+@function get-css-var($prefix, $name) {
+  @return var(--#{$prefix}-#{$name});
+}
+
+/**
+ * Retrieves the CSS variable for a given color name.
+ *
+ * @param {String} $name - The name of the color (e.g., "primary", "secondary").
+ * @param {String} $prefix - (Optional) The prefix for the CSS variable. Defaults to `globals.$CSS_PREFIX`.
+ *
+ * @return {String} - The generated CSS variable string in the format `var(--prefix-color-name)`.
+ *
+ * @example
+ * Retrieve the primary color
+ * $color: get-color("primary");
+ * Returns: var(--css-prefix-primary)
+ */
+
+@function get-color($name, $prefix: globals.$CSS_PREFIX) {
+  @return var(--#{$prefix}-#{$name});
+}
+
+
+
+
+
+

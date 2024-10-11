@@ -3,7 +3,7 @@
 
 body {
   overflow-x: hidden;
-  background-color: getColor(body);
+  background-color: get-color(body);
   @include transition($property: background-color);
 }
 

@@ -5,20 +5,24 @@ body {
   font-family: $ff-primary;
   font-size: fs(rg);
   font-weight: fw(regular);
-  line-height: globals.$lineHeightText;
-  color: getColor(text);
+  line-height: globals.$line-height_text;
+  color: get-color(text);
 }
 
 p,
 li,
 figcaption {
   text-wrap: pretty;
-  max-width: globals.$paraMaxWidth;
+  max-width: globals.$para_max-width;
+}
+
+a{
+  color: get-color(text);
 }
 
 p {
   font-size: fs(rg);
-  letter-spacing: getLetterSpacing(2);
+  letter-spacing: get-css-var(globals.$LETTER_SPACING_PREFIX, 2);
 }
 
 //^ ---------  Headings ---------  //
@@ -28,12 +32,12 @@ h3,
 h4,
 h5,
 h6 {
-  letter-spacing: getLetterSpacing(5);
+  letter-spacing: get-css-var(globals.$LETTER_SPACING_PREFIX, 5);
   text-transform: capitalize;
-  margin-bottom: getSpacer(3);
+  margin-bottom: get-spacer(3);
   text-align: center;
-  color: getColor(title);
-  line-height: globals.$lineHeightTitle;
+  color: get-color(title);
+  line-height: globals.$line-height_title;
 
 }
 

@@ -11,15 +11,15 @@
 
   //@ ********* Radius  *********//
   @for $i from 1 through 5 {
-    --#{globals.$BORDER_RADIUS_PREFIX}-#{$i}: calc(#{globals.$baseRadius} * #{$i});
+    --#{globals.$RADIUS_PREFIX}-#{$i}: calc(#{globals.$base_border-radius} * #{$i});
   }
 
-  --#{globals.$BORDER_RADIUS_PREFIX}-pilled: 25rem;
-  --#{globals.$BORDER_RADIUS_PREFIX}-circle: 50%;
+  --#{globals.$RADIUS_PREFIX}-pilled: 25rem;
+  --#{globals.$RADIUS_PREFIX}-circle: 50%;
 
   //@ ********* Letter Spacing  *********//
   @for $i from 1 through 5 {
-    --#{globals.$LETTER_SPACING_PREFIX}-#{$i}: calc(#{globals.$baseLetterSpacing} * #{$i});
+    --#{globals.$LETTER_SPACING_PREFIX}-#{$i}: calc(#{globals.$base_letter-spacing} * #{$i});
   }
 
   //@ ********* Shadows  *********//
@@ -29,7 +29,7 @@
   //@ ********* Other  *********//
   --max-width: #{globals.$max-width};
 
-  @include respond(xxl) {
+  @include respond(xxl, min) {
     --max-width: calc(#{globals.$max-width} * 1.2);
   }
 }

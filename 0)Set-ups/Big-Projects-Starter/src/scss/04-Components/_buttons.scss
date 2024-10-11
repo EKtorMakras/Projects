@@ -3,7 +3,3 @@
 .btn {
   @include btn();
 }
-
-.btn-outlined {
-  @include btn($type: outlined);
-}

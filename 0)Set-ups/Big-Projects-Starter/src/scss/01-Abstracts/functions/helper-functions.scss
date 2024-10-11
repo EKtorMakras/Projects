@@ -1,19 +1,243 @@
 @use "sass:math";
+@use "sass:map";
 
-//% *************** Conversions *************** //
-// Convert px to em
-@function em($pixels, $context: 16) {
+//% ************************* Map ************************* //
+/** ============ MAP DEEP MERGE ============ //
+ * Deeply merges two maps, recursively combining nested maps when both maps contain a map at the same key.
+ *
+ * If a key in both `$map1` and `$map2` contains a map, they will be merged recursively. Otherwise,
+ * values from `$map2` overwrite or add to `$map1`.
+ *
+ * @param {Map} $map1 - The base map to merge into.
+ * @param {Map} $map2 - The map whose keys and values will overwrite or merge into $map1.
+ * @returns {Map} - A new map containing the deeply merged values from both maps.
+ *
+ * @example
+ * $map1: (colors: (primary: (base: blue)));
+ * $map2: (colors: (primary: (dark: navy)));
+ *
+ * $mergedMap: map-deep-merge($map1, $map2);
+ * Result: (colors: (primary: (base: blue, dark: navy)))
+ */
+@function map-deep-merge($map1, $map2) {
+  @return map.deep-merge($map1, $map2);
+}
+
+/** ============ MAP DEEP GET ============ //
+ * Retrieves a value from a nested map structure based on a sequence of keys.
+ *
+ * @param {Map} $map - The nested map structure from which to retrieve the value.
+ * @param {List} $keys... - One or more keys indicating the path to the desired value within the nested map.
+ * @returns {*} - The value associated with the sequence of keys in the nested map structure. If any key in the sequence is not found, or if the input is not a map, it throws an error.
+ *
+ * @example
+ * Define a nested map structure
+ * $colors: (
+ *   primary: (
+ *     500: #1e4367,  // base color (shade 500)
+ *     700: #153452   // darker color (shade 700)
+ *   ),
+ *   secondary: (
+ *     500: #234f33,  // base color (shade 500)
+ *     700: #1a3f28   // darker color (shade 700)
+ *   )
+ * );
+ *
+ * Retrieve the base color of the primary theme (shade 500)
+ * $baseColor: map-deep-get($colors, "primary", "500"); // Returns #1e4367
+ */
+@function map-deep-get($map, $keys) {
+  @if type-of($map) != "map" {
+    @error "The argument $map: '#{$map}' is of incorrect type: #{type-of($map)}. Type 'map' is required.";
+  }
+
+  $value: map.get($map, $keys...);
+
+  @return $value;
+}
+
+/** ============ MAP DEEP REMOVE ============ //
+ * Removes a key (or nested key) from a map.
+ *
+ * @param {Map} $map - The map from which to remove the key.
+ * @param {List} $keys - A list of keys indicating the path to the key to remove.
+ * @returns {Map} - A new map with the key removed.
+ *
+ * @example
+ * $font-weights: ("regular": 400, "medium": 500, "bold": 700);
+ * $newMap: map-deep-remove($font-weights, "regular");
+ * Result: ( "medium": 500, "bold": 700 )
+ */
+@function map-deep-remove($map, $keys...) {
+  @return map.deep-remove($map, $keys...);
+}
+
+/** ============ MAP GET WITH ============ //
+ * Safely retrieves a value from a map with a default fallback if the key is not found.
+ *
+ * This function checks if the provided key exists in the map. If it exists, it returns the value associated with the key.
+ * If the key is not found in the map, it returns the specified default value.
+ *
+ * @param {Map} $map - The map to retrieve the value from.
+ * @param {String} $key - The key to search for within the map.
+ * @param {*} $default - The default value to return if the key is not found (can be any type).
+ *
+ * @return {*} - The value from the map associated with the key, or the default value if the key is not found.
+ *
+ * @example
+ * Example 1: Key exists in the map
+ * $map: (color: "primary", size: "large");
+ * $value: map-get-with-default($map, "color", "secondary");
+ * Returns "primary"
+ *
+ * @example
+ * Example 2: Key does not exist in the map
+ * $map: (color: "primary", size: "large");
+ * $value: map-get-with-default($map, "border", "solid");
+ * Returns "solid" (the default value)
+ */
+
+@function map-get-with-default($map, $key, $default) {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  } @else {
+    @return $default;
+  }
+}
+//% *************************  ************************* //
+
+//% ************************* Lists ************************* //
+/** ============ FLATTEN LIST ============ //
+ * Flattens a nested list of lists into a single-level list.
+ *
+ * @param {List} $list - The nested list.
+ * @returns {List} - A single-level flattened list.
+ *
+ * @example
+ * $flattened: flatten-list(((1, 2), (3, 4), 5)); // Returns (1, 2, 3, 4, 5)
+ */
+@function flatten-list($list) {
+  $flat-list: ();
+
+  @each $item in $list {
+    @if type-of($item) == "list" {
+      $flat-list: append($flat-list, flatten-list($item)...);
+    } @else {
+      $flat-list: append($flat-list, $item);
+    }
+  }
+
+  @return $flat-list;
+}
+//% *************************  ************************* //
+
+//% ************************* Booleans ************************* //
+/** ============ IS NUMERIC ============ //
+ * Determines if a value is numeric.
+ *
+ * @param {*} $value - The value to check.
+ * @returns {Boolean} - True if the value is a number, false otherwise.
+ *
+ * @example
+ * $isNumeric: is-numeric(5); // Returns true
+ * $isNumeric: is-numeric("text"); // Returns false
+ */
+@function is-numeric($value) {
+  @return type-of($value) == "number";
+}
+
+/** ============ IS BOOLEAN ============ //
+ * Determines if a value is a boolean.
+ *
+ * @param {*} $value - The value to check.
+ * @returns {Boolean} - True if the value is a boolean, false otherwise.
+ *
+ * @example
+ * $isBoolean: is-boolean(true); // Returns true
+ * $isBoolean: is-boolean("yes"); // Returns false
+ */
+@function is-boolean($value) {
+  @return $value == true or $value == false;
+}
+//% *************************  ************************* //
+
+//% ************************* Conversions ************************* //
+/** ============ TO EM ============ //
+ * Converts a pixel value to `em` units based on the given context.
+ *
+ * This function divides the pixel value by the context (default is 16px) to calculate the corresponding value in `em` units.
+ *
+ * @param {Number} $pixels - The pixel value to convert.
+ * @param {Number} $context - The context (or root font size) in pixels for the conversion. Defaults to 16px.
+ * @returns {Number} - The calculated value in `em` units.
+ *
+ * @example
+ * $emValue: to-em(32); // Returns 2em (32px / 16px = 2em)
+ * $emValue: to-em(32, 20); // Returns 1.6em (32px / 20px = 1.6em)
+ */
+@function to-em($pixels, $context: 16) {
   @return (math.div($pixels, $context)) * 1em;
 }
 
-// Convert px to rem
-@function rem($pixels, $context: 16) {
+/** ============ TO REM ============ //
+ * Converts a pixel value to `rem` units based on the given context.
+ *
+ * This function divides the pixel value by the context (default is 16px) to calculate the corresponding value in `rem` units.
+ *
+ * @param {Number} $pixels - The pixel value to convert.
+ * @param {Number} $context - The context (or root font size) in pixels for the conversion. Defaults to 16px.
+ * @returns {Number} - The calculated value in `rem` units.
+ *
+ * @example
+ * $remValue: to-rem(32); // Returns 2rem (32px / 16px = 2rem)
+ * $remValue: to-rem(32, 20); // Returns 1.6rem (32px / 20px = 1.6rem)
+ */
+@function to-rem($pixels, $context: 16) {
   @return (math.div($pixels, $context)) * 1rem;
 }
-//% ***************  *************** //
 
-//% *************** Strings *************** //
-/**
+/** ============ DEG TO RAD ============ //
+ * Converts degrees to radians.
+ *
+ * @param {Number} $degrees - The value in degrees.
+ * @returns {Number} - The value in radians.
+ *
+ * @example
+ * $radians: deg-to-rad(90); // Returns 1.5708 (90 degrees in radians)
+ */
+@function deg-to-rad($degrees) {
+  @return math.div($degrees, 180) * math.pi();
+}
+//% *************************  ************************* //
+
+//% ************************* Strings ************************* //
+/** ============ STR TO UPPER ============ //
+ * Converts a string to uppercase.
+ *
+ * @param {String} $string - The input string.
+ * @returns {String} - The uppercase version of the string.
+ *
+ * @example
+ * str-to-upper("bold"); // Returns "BOLD"
+ */
+@function str-to-upper($string) {
+  @return string.to-upper-case($string);
+}
+
+/** ============ STR TO LOWER ============ //
+ * Converts a string to lowercase.
+ *
+ * @param {String} $string - The input string.
+ * @returns {String} - The lowercase version of the string.
+ *
+ * @example
+ * str-to-lower("BOLD"); // Returns "bold"
+ */
+@function str-to-lower($string) {
+  @return string.to-lower-case($string);
+}
+
+/** ============ STRING EXPLODE ============ //
  * Splits a string into an array of substrings based on a delimiter.
  *
  * @param {String} $string - The input string to be exploded.
@@ -29,71 +253,36 @@
   @if type-of($string) != "string" {
     @error "The argument $string: `#{$string}` is of incorrect type: `#{type-of($string)}`. Type 'String' is required!";
   }
+
   @if type-of($delimiter) != "string" {
     @error "The argument $delimiter: `#{$delimiter}` is of incorrect type: `#{type-of($delimiter)}`. Type 'String' is required!";
   }
 
   $result: ();
 
+  // Split into characters if delimiter is empty
   @if str-length($delimiter) == 0 {
-    // If the delimiter is empty, split the string into characters
     @for $i from 1 through str-length($string) {
       $result: append($result, str-slice($string, $i, $i));
     }
   } @else {
-    // Use a more efficient way to split by delimiter
+    // Split by delimiter
     $index: str-index($string, $delimiter);
     @while $index != null {
       $result: append($result, str-slice($string, 1, $index - 1));
       $string: str-slice($string, $index + str-length($delimiter));
       $index: str-index($string, $delimiter);
     }
-    $result: append($result, $string);
+    @if str-length($string) > 0 {
+      $result: append($result, $string);
+    }
   }
 
   @return $result;
 }
-//% ***************  *************** //
+//% *************************  ************************* //
 
-//% *************** General *************** //
-/**
- * Retrieves a value from a nested map structure based on a sequence of keys.
- *
- * @param {Map} $map - The nested map structure from which to retrieve the value.
- * @param {String} $keys... - One or more keys indicating the path to the desired value within the nested map.
- * @returns {*} - The value associated with the sequence of keys in the nested map structure. If any key in the sequence is not found or if   the input is not a map, the function returns `null`.
- *
- * @example
- * Define a nested map structure
- * $colors: (
- *   primary: (
- *     base: #1e4367,
- *     dark: #153452
- *   ),
- *   secondary: (
- *     base: #234f33,
- *     dark: #1a3f28
- *   )
- * );
- *
- * Retrieve the base color of the primary theme
- * $baseColor: deep-map-get($colors, "primary", "500"); // Returns #1e4367
- */
-@function deep-map-get($map, $keys...) {
-  @if type-of($map) != "map" {
-    @error "The argument $map: '#{$map}' is of incorrect type: #{type-of($map)}. Type 'map' is required.";
-  }
 
-  @each $key in $keys {
-    @if $map == null or type-of($map) != "map" {
-      @error "Key '#{$key}' not found in the map.";
-    }
-    $map: map-get($map, $key);
-  }
-
-  @return $map;
-}
-//% ***************  *************** //
 
 
 

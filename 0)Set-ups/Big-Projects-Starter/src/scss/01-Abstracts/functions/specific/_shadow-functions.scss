@@ -1,0 +1,131 @@
+@use "../../mapping/shadow-mapping" as *;
+@use "../../variables/shadow-variables" as vars;
+
+@use "../helper-functions" as *;
+@use "../get-value-functions" as *;
+@use "../specific/color-functions" as *;
+
+/**
+ * Determines the shadow category (e.g., "sm", "rg", "lg") based on the provided shadow size.
+ *
+ * @param {String} $size - The shadow size (e.g., "sm-1", "rg-2", "lg-3"), which corresponds to predefined sizes in the $shadow-sizes map.
+ *
+ * @return {String} - The category of the shadow (e.g., "sm", "rg", "lg"). Defaults to "rg" if no matching category is found.
+ *
+ * @example
+ * $category: get-shadow-category("sm-2");
+ * Returns: "sm"
+ */
+@function get-shadow-category($size) {
+  $shadow-categories: map-deep-get($shadow-mapping, ("categories"));
+
+  @each $category-name, $category-properties in $shadow-categories {
+    $sizes: map-get($category-properties, "available-sizes");
+
+    @if index($sizes, $size) {
+      @return $category-name;
+    }
+  }
+
+  // Default to "$default-category" if no category is found
+  $default-category:  map-deep-get($shadow-mapping, ("defaults", "category"));
+  @warn "No matching shadow size category found for '#{$size}', defaulting to '#{$default-category}'.";
+  @return $default-category;
+}
+
+/**
+ * Generates a dynamic shadow string based on size, color options, opacity, and type.
+ *
+ * The function accepts a size and a color options map (e.g., name, variant, and true color flag),
+ * and merges the passed color options with default shadow options. It can output either a
+ * CSS variable or the actual color value based on the `use-true-color` flag.
+ *
+ * @param {String} $size - The shadow size (e.g., "sm-1", "rg-2", etc.), which corresponds to predefined shadow sizes.
+ * @param {Map} $passed-color-options - (Optional) A map containing color options, such as:
+ *                                        - name: The color name (e.g., "primary", "shadow").
+ *                                        - variant: (Optional) The color variant (e.g., "500", "600").
+ *                                        - use-true-color: (Optional) A flag to use the true color value or a CSS variable.
+ *                                      If no options are passed, defaults will be used.
+ * @param {Number} $opacity - (Optional) The opacity value for the shadow. If not provided, it uses predefined opacity.
+ * @param {String} $type - The shadow type (e.g., "box" for box shadows or "text" for text shadows).
+ *
+ * @return {String} - The generated shadow string, either as an rgba() string with true color or a CSS variable.
+ *
+ * @example
+ * Generate a shadow with default shadow color
+ * $box-shadow: generate-shadow(sm-1);
+ * Output: "0 1px 2px var(--clr-shadow)"
+ *
+ * @example
+ * Generate a shadow with primary color variant "600"
+ * $primary-shadow: generate-shadow(sm-2, (name: "primary", variant: "600"));
+ * Output: "0 2px 4px var(--clr-primary-600)"
+ *
+ * @example
+ * Generate a shadow using true color value for primary 600
+ * $true-primary-shadow: generate-shadow(sm-2, (name: "primary", variant: "600", use-true-color: true));
+ * Output: "0 2px 4px rgba(hsl(173, 58%, 35%), 0.1)"
+ *
+ * @example
+ * Generate a custom shadow using #334ff with 0.3 opacity
+ * $custom-shadow: generate-shadow(lg-3, (name: "#334ff"), 0.3);
+ * Output: "0 4px 6px rgba(#334ff, 0.3)"
+ */
+@function generate-shadow(
+  $size: sm-1,
+  $passed-color-options: (),
+  $opacity: null,
+  $type: box
+) {
+  // 1. Retrieve default shadow color options from the mapping
+  $default-color-options: map-get($shadow-mapping, "defaults", "color-options");
+
+  // 2. Merge passed options with the default options
+  $color-options: map-merge($default-color-options, $passed-color-options);
+  // 3. Extract values from the merged color options map using map-deep-get
+  $color-name: map-get($color-options, "name");
+  $color-variant: map-get($color-options, "variant");
+  $use-css-var: map-get($color-options, "use-css-var");
+
+
+  // 4. Determine the shadow value based on type
+  $shadow-value: null;
+
+  @if $type == box {
+    $shadow-value: map-deep-get($shadow-mapping, ("box", $size));
+  } @else {
+    $shadow-value: map-deep-get($shadow-mapping, ("text", $size));
+  }
+
+  // 5. Determine the size category using the helper function
+  $category: get-shadow-category($size);
+
+  // 6. Get the corresponding opacity from the opacity map or use custom if provided
+  $default-opacity: map-deep-get($shadow-mapping, ("categories", $category, "opacity"));
+  $final-opacity: if($opacity != null, $opacity, $default-opacity);
+
+  // 7. Use color-test to get either a CSS variable or the actual color value
+  $color: color-test($color-name, $color-variant, $use-css-var);
+
+  // 8. Construct the final shadow string
+  $shadow-string: if($use-css-var, #{$shadow-value} #{$color}, #{$shadow-value} rgba(#{$color}, $final-opacity), );
+
+  @return $shadow-string;
+}
+
+/**
+ * Retrieves the shadow value from the $shadows map based on the provided shadow key.
+ *
+ * @param {String} $shadow - The shadow key (e.g., "sm-1", "rg-2", "lg-3") to look up in the $shadows map.
+ *
+ * @return {String} - The shadow value corresponding to the provided key.
+ *
+ * @example
+ * $shadow-value: shadow-black("rg-1");
+ * Returns: "0 4px 8px rgba(0, 0, 0, 0.1)"
+ */
+@function shadow-black($shadow) {
+  @return map-get(vars.$default-black-shadows, $shadow);
+}
+
+
