@@ -1,0 +1,32 @@
+@use "../../01-Abstracts" as *;
+
+// container
+.container {
+  @include center-mar;
+  max-width: var(--max-width);
+}
+
+// Break out of a container
+.bust-out {
+  margin: 0 calc(50% - 50vw);
+}
+
+// section set-up
+.section {
+  padding: 5rem 0;
+
+  &-center {
+    width: 90vw;
+    @include center-mar;
+    max-width: var(--max-width);
+
+    @include mq-min(992px) {
+      width: 95vw;
+    }
+  }
+
+  &-title {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+}

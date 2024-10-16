@@ -1,0 +1,8 @@
+@use "../../00-Globals" as globals;
+
+$spacing-mapping: (
+  base-gutter: globals.$base_gutter,
+  vw-step: 0.15vw,
+  reduce-adjustment: 0.85,
+  increase-adjustment: 1.6,
+);

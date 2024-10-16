@@ -1,5 +1,5 @@
 @use "../../00-Globals" as globals;
-@use "../functions" as *;
+@use "../functions" as funcs;
 
 /** ============ FOCUS STATE ============ //
  * Applies focus styles to elements, including an outline and dynamic box-shadow effects.
@@ -20,9 +20,9 @@
  * @include focus-state(color("secondary"), 6px, color("gray.50"), 5px);
  */
 @mixin focus-state(
-  $color: color("primary"),
+  $color: funcs.color("primary"),
   $outline-offset: 4px,
-  $box-shadow-color: color("white"),
+  $box-shadow-color: funcs.color("white"),
   $box-shadow-size: 3px
 ) {
   &:focus-visible {
@@ -84,7 +84,7 @@
     transform: scaleX(0);
     transform-origin: $origin;
     transition: $transition;
-    border-radius: get-css-var(globals.$RADIUS_PREFIX, pilled);
+    border-radius: funcs.get-css-var(get-prefix(radius), pilled);
   }
 
   &:hover::after {

@@ -7,3 +7,5 @@ $colors: ();
   $colors: map-merge($colors, $map);
 }
 
+$default-light-text-color-string: "gray.50";
+$default-dark-text-color-string: "gray.900";

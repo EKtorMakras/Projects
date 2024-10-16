@@ -1,0 +1,8 @@
+@use "../../00-Globals" as globals;
+@use "../mapping/spacing-mapping" as *;
+
+$spacer-total-steps: map-get(globals.$TOTAL_STEPS, spacing);
+$spacer-base-value: globals.$base_gutter;
+$spacer-vw-step: map-get($spacing-mapping, vw-step);
+$spacer-reduce-adjustment: map-get($spacing-mapping, reduce-adjustment);
+$spacer-increase-adjustment: map-get($spacing-mapping, increase-adjustment);

@@ -1,45 +1,68 @@
 @use "../00-Globals" as globals;
-@use "functions" as *;
-@use "variables" as *;
-@use "mixins" as *;
-@use "media" as *;
-@use "themes" as *;
+@use "functions" as funcs;
+@use "variables" as vars;
+@use "mixins" as mixins;
+@use "media" as media;
+@use "themes" as themes;
 
 :root {
   //@ ********* Colors  *********//
-  @include generate-color-custom-props($map: $colors);
+  @include mixins.generate-color-custom-props($map: vars.$colors);
 
-  //@ ********* Radius  *********//
-  @for $i from 1 through 5 {
-    --#{globals.$RADIUS_PREFIX}-#{$i}: calc(#{globals.$base_border-radius} * #{$i});
+  //@ ********* Spacer  *********//
+  $spacer-prefix: funcs.get-prefix(spacer);
+
+  @for $i from 1 through vars.$spacer-total-steps {
+    $base-value: calc(#{vars.$spacer-base-value} * #{$i});
+    $subtracted-value: calc(#{$base-value} * #{vars.$spacer-reduce-adjustment});
+    $middle-value: calc(#{$subtracted-value} + (#{vars.$spacer-vw-step} * #{$i}));
+    $after-value: calc(#{$base-value} * #{vars.$spacer-increase-adjustment});
+    $clamp-value: clamp($base-value, $middle-value, $after-value);
+
+    --#{$spacer-prefix}-dynamic-#{$i}: #{$clamp-value};
+    --#{$spacer-prefix}-base-#{$i}: #{$base-value};
   }
 
-  --#{globals.$RADIUS_PREFIX}-pilled: 25rem;
-  --#{globals.$RADIUS_PREFIX}-circle: 50%;
+  //@ ********* Radius  *********//
+  $radius-prefix: funcs.get-prefix(radius);
+  $radius-total-steps: map-get(globals.$TOTAL_STEPS, radius);
+
+  @for $i from 1 through $radius-total-steps {
+    $current-b-radius: globals.$base_border-radius * $i;
+    --#{$radius-prefix}-#{$i}: #{$current-b-radius};
+  }
+
+  --#{$radius-prefix}-pilled: 25rem;
+  --#{$radius-prefix}-circle: 50%;
 
   //@ ********* Letter Spacing  *********//
-  @for $i from 1 through 5 {
-    --#{globals.$LETTER_SPACING_PREFIX}-#{$i}: calc(#{globals.$base_letter-spacing} * #{$i});
+  $l-spacing-prefix: funcs.get-prefix(letter-spacing);
+  $l-spacing-total-steps: map-get(globals.$TOTAL_STEPS, letter-spacing);
+
+  @for $i from 1 through $l-spacing-total-steps {
+    $current-l-spacing: globals.$base_letter-spacing * $i;
+    --#{$l-spacing-prefix}-#{$i}: #{$current-l-spacing};
   }
 
   //@ ********* Shadows  *********//
-  --shadow-light: #{shadow-black(rg-2)};
-  --shadow-dark: #{shadow-black(lg-3)};
+  --shadow-light: #{funcs.shadow-black(rg-1)};
+  --shadow-medium: #{funcs.shadow-black(lg-1)};
+  --shadow-dark: #{funcs.shadow-black(lg-3)};
 
   //@ ********* Other  *********//
   --max-width: #{globals.$max-width};
 
-  @include respond(xxl, min) {
+  @include media.respond(xxl, min) {
     --max-width: calc(#{globals.$max-width} * 1.2);
   }
 }
 
 //& ******* Light Theme ******* //
 :root[data-theme="light"] {
-  @include generate-color-custom-props($map: $colors-light);
+  @include mixins.generate-color-custom-props($map: themes.$colors-light);
 }
 
 //& ******* Dark Theme ******* //
 :root[data-theme="dark"] {
-  @include generate-color-custom-props($map: $colors-dark);
+  @include mixins.generate-color-custom-props($map: themes.$colors-dark);
 }

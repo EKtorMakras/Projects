@@ -1,20 +1,20 @@
-@use "functions/helper-functions" as *;
+@use "functions/helper-funcs" as funcs;
 
 // Custom Breakpoints
 $break-points: (
-  "xs": to-em(400),
-  "sm": to-em(600),
-  "md": to-em(800),
-  "lg": to-em(1000),
-  "xl": to-em(1300),
-  "xxl": to-em(1800),
+  "xs": funcs.to-em(400),
+  "sm": funcs.to-em(600),
+  "md": funcs.to-em(800),
+  "lg": funcs.to-em(1000),
+  "xl": funcs.to-em(1300),
+  "xxl": funcs.to-em(1800),
 );
 
 @function break-points($break-point-limit) {
   @return map-get($break-points, $break-point-limit);
 }
 
-//@ ************  All Widths  ************ //
+//@ ********************  All Widths  ******************** //
 @mixin mq-min($width) {
   @media screen and (min-width: $width) {
     @content;
@@ -32,9 +32,9 @@ $break-points: (
     @content;
   }
 }
-//@ ************    ************ //
+//@ ********************    ******************** //
 
-//@ ************  Custom Widths  ************ //
+//@ ********************  Custom Widths  ******************** //
 /** ============ RESPOND MIXIN ============ //
  * Handles media queries dynamically based on breakpoints and mode.
  *
@@ -57,12 +57,16 @@ $break-points: (
     @include mq-max($breakpoint-width) {
       @content;
     }
-  } @else if $mode == min {
+  }
+
+  @else if $mode == min {
     @include mq-min($breakpoint-width) {
       @content;
     }
-  } @else {
+  }
+
+  @else {
     @error "Invalid mode: `#{$mode}`. Use 'min' or 'max'.";
   }
 }
-//@ ************    ************ //
+//@ ********************    ******************** //

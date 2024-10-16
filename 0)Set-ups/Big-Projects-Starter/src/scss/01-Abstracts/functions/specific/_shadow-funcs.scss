@@ -1,11 +1,10 @@
 @use "../../mapping/shadow-mapping" as *;
-@use "../../variables/shadow-variables" as vars;
+@use "../../variables/shadow-vars" as vars;
 
-@use "../helper-functions" as *;
-@use "../get-value-functions" as *;
-@use "../specific/color-functions" as *;
+@use "../helper-funcs" as helper-funcs;
+@use "../specific/color-funcs" as color-funcs;
 
-/**
+/** ============ GET SHADOW CATEGORY ============ //
  * Determines the shadow category (e.g., "sm", "rg", "lg") based on the provided shadow size.
  *
  * @param {String} $size - The shadow size (e.g., "sm-1", "rg-2", "lg-3"), which corresponds to predefined sizes in the $shadow-sizes map.
@@ -17,7 +16,7 @@
  * Returns: "sm"
  */
 @function get-shadow-category($size) {
-  $shadow-categories: map-deep-get($shadow-mapping, ("categories"));
+  $shadow-categories: helper-funcs.map-deep-get($shadow-mapping, ("categories"));
 
   @each $category-name, $category-properties in $shadow-categories {
     $sizes: map-get($category-properties, "available-sizes");
@@ -28,12 +27,27 @@
   }
 
   // Default to "$default-category" if no category is found
-  $default-category:  map-deep-get($shadow-mapping, ("defaults", "category"));
+  $default-category:  helper-funcs.map-deep-get($shadow-mapping, ("defaults", "category"));
   @warn "No matching shadow size category found for '#{$size}', defaulting to '#{$default-category}'.";
   @return $default-category;
 }
 
-/**
+/** ============ SHADOW BLACK ============ //
+ * Retrieves the shadow value from the $shadows map based on the provided shadow key.
+ *
+ * @param {String} $shadow - The shadow key (e.g., "sm-1", "rg-2", "lg-3") to look up in the $shadows map.
+ *
+ * @return {String} - The shadow value corresponding to the provided key.
+ *
+ * @example
+ * $shadow-value: shadow-black("rg-1");
+ * Returns: "0 4px 8px rgba(0, 0, 0, 0.1)"
+ */
+@function shadow-black($shadow) {
+  @return map-get(vars.$default-black-shadows, $shadow);
+}
+
+/** ============ GENERATE SHADOW ============ //
  * Generates a dynamic shadow string based on size, color options, opacity, and type.
  *
  * The function accepts a size and a color options map (e.g., name, variant, and true color flag),
@@ -82,7 +96,7 @@
 
   // 2. Merge passed options with the default options
   $color-options: map-merge($default-color-options, $passed-color-options);
-  // 3. Extract values from the merged color options map using map-deep-get
+  // 3. Extract values from the merged color options map using helper-funcs.map-deep-get
   $color-name: map-get($color-options, "name");
   $color-variant: map-get($color-options, "variant");
   $use-css-var: map-get($color-options, "use-css-var");
@@ -92,20 +106,20 @@
   $shadow-value: null;
 
   @if $type == box {
-    $shadow-value: map-deep-get($shadow-mapping, ("box", $size));
+    $shadow-value: helper-funcs.map-deep-get($shadow-mapping, ("box", $size));
   } @else {
-    $shadow-value: map-deep-get($shadow-mapping, ("text", $size));
+    $shadow-value: helper-funcs.map-deep-get($shadow-mapping, ("text", $size));
   }
 
   // 5. Determine the size category using the helper function
   $category: get-shadow-category($size);
 
   // 6. Get the corresponding opacity from the opacity map or use custom if provided
-  $default-opacity: map-deep-get($shadow-mapping, ("categories", $category, "opacity"));
+  $default-opacity: helper-funcs.map-deep-get($shadow-mapping, ("categories", $category, "opacity"));
   $final-opacity: if($opacity != null, $opacity, $default-opacity);
 
   // 7. Use color-test to get either a CSS variable or the actual color value
-  $color: color-test($color-name, $color-variant, $use-css-var);
+  $color: color-funcs.color-test($color-name, $color-variant, $use-css-var);
 
   // 8. Construct the final shadow string
   $shadow-string: if($use-css-var, #{$shadow-value} #{$color}, #{$shadow-value} rgba(#{$color}, $final-opacity), );
@@ -113,19 +127,6 @@
   @return $shadow-string;
 }
 
-/**
- * Retrieves the shadow value from the $shadows map based on the provided shadow key.
- *
- * @param {String} $shadow - The shadow key (e.g., "sm-1", "rg-2", "lg-3") to look up in the $shadows map.
- *
- * @return {String} - The shadow value corresponding to the provided key.
- *
- * @example
- * $shadow-value: shadow-black("rg-1");
- * Returns: "0 4px 8px rgba(0, 0, 0, 0.1)"
- */
-@function shadow-black($shadow) {
-  @return map-get(vars.$default-black-shadows, $shadow);
-}
+
 
 

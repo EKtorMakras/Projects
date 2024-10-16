@@ -1,7 +1,7 @@
 @use "../../../00-Globals" as globals;
 @use "../../mapping/components/social-icon-mapping" as *;
-@use "../../functions/get-value-functions" as *;
-@use "../../functions/helper-functions" as *;
+@use "../../functions/get-value-funcs" as *;
+@use "../../functions/helper-funcs" as *;
 
 $default_social_icon_size: map-deep-get($social-icon-mapping, ("defaults", "size"));
 
@@ -10,14 +10,13 @@ $default-social-icon-styles: (
   hover-color: get-color(socials-hover),
   font-size: map-deep-get($social-icon-mapping, ("sizes", $default_social_icon_size, "font-size")),
   size: map-deep-get($social-icon-mapping, ("sizes", $default_social_icon_size, "size")),
-  border-radius: get-css-var(globals.$RADIUS_PREFIX, circle),
+  border-radius: get-css-var(get-prefix(radius), circle),
   transition: globals.$transition,
   bg-color: null,
   hover-bg-color: null,
   padding: null,
   box-shadow: null,
 );
-
 
 $social-icon-colors: ();
 

@@ -1,6 +1,6 @@
-@use "../../variables/font-variables" as vars;
+@use "../../variables/font-vars" as vars;
 
-/**
+/** ============ FS ============ //
  * Retrieves the font size from the $font-sizes map based on the provided key.
  *
  * @param {String} $font-size - The key representing the desired font size.
@@ -13,7 +13,7 @@
   @return map-get(vars.$font-sizes, $font-size);
 }
 
-/**
+/** ============ FW ============ //
  * Retrieves the font weight from the $font-weights map based on the provided key.
  *
  * @param {String} $font-weight-style - The key representing the desired font weight.

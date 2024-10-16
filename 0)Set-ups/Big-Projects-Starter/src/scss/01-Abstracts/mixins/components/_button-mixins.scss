@@ -1,36 +1,98 @@
 @use "../../functions" as funcs;
-@use "../../variables/components/button-variables" as vars;
+@use "../../variables/components/button-vars" as vars;
 @use "../decoration-mixins" as decor-mixins;
 @use "../state-mixins" as state-mixins;
 
-//% ************************* Buttons ************************* //
-/** ============ OUTLINED BTN ============ //
- * Mixin for creating outlined buttons with a border and hover effect.
+/** ============ OUTLINE BTN ============ //
+ * Mixin for creating outlined buttons with customizable background, border, and hover effects.
+ * By default, the background is set to `transparent`, but a custom background color can be provided.
+ * The border and text colors are customizable, with options to specify the border width and style,
+ * and to change the background and text colors on hover.
  *
  * @param {String} $main-color - The main color used for the button's text and border.
- * @param {String} $text-color - The text color of the button on hover.
- * @param {Map} $border-props - (Optional) A map containing border properties: `color`, `width`, and `style`.
- *                              The default border color is set to `$main-color`, with a default width of `1px` and style of `solid`.
+ *                               This color will be applied to the border and text in the default state.
+ * @param {String} $bg-color - (Optional) The background color of the button. Defaults to `transparent`.
+ * @param {String} $text-color - The text color of the button on hover or when active.
+ *                               Defaults to `$default-btn-text-color`.
+ * @param {Map} $border-props - (Optional) A map containing border properties:
+ *                              - `color`: The color of the border (defaults to `$main-color`).
+ *                              - `width`: The width of the border (defaults to `1px`).
+ *                              - `style`: The style of the border (defaults to `solid`).
  *
  * @example
- * @include btn-outlined(color("primary"), color("white"), (color: color("secondary"), width: 2px, style: dashed));
+ * Outlined button with a custom background, border color, and hover effects
+ * @include btn-outline(color("primary"), color("white"), (color: color("secondary"), width: 2px, style: dashed), color("light-gray"));
+ *
+ * @example
+ * Simple outlined button with default transparent background and primary color
+ * @include btn-outline(color("primary"), color("white"));
+ *
+ * @example
+ * Outlined button with a custom background color
+ * @include btn-outline(color("primary"), color("white"), (), color("gray-light"));
  */
+@mixin btn-outline(
+  $main-color: vars.$default-btn-bg-color,
+  $text-color: vars.$default-btn-text-color,
+  $border-props: (),
+  $bg-color: transparent
+) {
+  $border-color: map-get-with-default($border-props, color, $main-color);
+  $border-width: map-get-with-default($border-props, width, 1px);
+  $border-style: map-get-with-default($border-props, style, solid);
 
-// @mixin btn-outlined($main-color, $text-color, $border-props: ()) {
-//   $border-color: map-get-with-default($border-props, color, $main-color);
-//   $border-width: map-get-with-default($border-props, width, 1px);
-//   $border-style: map-get-with-default($border-props, style, solid);
+  background-color: $bg-color;
+  border: $border-width $border-style $border-color;
+  color: $main-color;
 
-//   background-color: transparent;
-//   border: $border-width $border-style $border-color;
-//   color: $main-color;
+  &:hover,
+  &:active {
+    background-color: $main-color;
+    color: $text-color;
+  }
+}
 
-//   &:hover,
-//   &:active {
-//     background-color: $main-color;
-//     color: $text-color;
-//   }
-// }
+/** ============ BTN COLOR ============ //
+ * Mixin for creating buttons with customizable background and text colors,
+ * and optional adjustment properties for dynamic background adjustments on hover.
+ *
+ * @param {String} $bg-color - The background color of the button. Defaults to `vars.$default-btn-bg-color`.
+ * @param {String} $hover-bg-color - The background color of the button on hover. Defaults to `vars.$default-btn-hover-bg-color`.
+ * @param {String} $text-color - The text color of the button. Defaults to `vars.$default-btn-text-color`.
+ * @param {String} $hover-text-color - The hover text color of the button. Defaults to `vars.$default-btn-hover-text-color`.
+ * @param {Map} $adjustment-props - (Optional) A map containing adjustment properties:
+ *                                  - `mode`: The mode for background adjustment (e.g., lightness, saturation).
+ *                                  - `amount`: The amount by which to adjust the background on hover.
+ *
+ * @example
+ * Button with custom background and text color
+ * @include btn-color(color("primary"), color("primary-light"), color("white"));
+ *
+ * @example
+ * Button with background adjustment for lightness on hover
+ * @include btn-color(color("primary"), null, color("white"), (mode: lightness, amount: -10%));
+ */
+@mixin btn-color(
+  $bg-color: vars.$default-btn-bg-color,
+  $hover-bg-color: vars.$default-btn-hover-bg-color,
+  $text-color: vars.$default-btn-text-color,
+  $hover-text-color: vars.$default-btn-hover-text-color,
+  $adjustment-props:()
+){
+  $merged-adjustment-props: map-merge(vars.$default-btn-adjustment-props, $adjustment-props);
+
+  $adjustment-mode: map-get($merged-adjustment-props, "mode");
+  $adjustment-amount: map-get($merged-adjustment-props, "amount");
+
+  @include decor-mixins.adjust-bg-color(
+    $bg-color: $bg-color,
+    $hover-bg-color: $hover-bg-color,
+    $text-color: $text-color,
+    $hover-text-color: $hover-text-color,
+    $adjustment: $adjustment-mode,
+    $amount: $adjustment-amount
+  );
+}
 
 /** ============ GENERIC BTN ============ //
  * Main button mixin for creating both normal and outlined buttons, merging custom styles with default styles.
@@ -55,7 +117,8 @@
   $padding: map-get($merged-styles, padding);
   $bg-color: map-get($merged-styles, bg-color);
   $hover-bg-color: map-get($merged-styles, hover-bg-color);
-  $text-color: map-get($merged-styles, text-color);
+  $text-color: map-get($merged-styles, hover-text-color);
+  $hover-text-color: map-get($merged-styles, text-color);
   $font-size: map-get($merged-styles, font-size);
   $text-transform: map-get($merged-styles, text-transform);
   $letter-spacing: map-get($merged-styles, letter-spacing);
@@ -89,7 +152,14 @@
   @include state-mixins.focus-state($bg-color);
 
   // Adjust background color on hover using the provided adjustment mode and amount
-  @include decor-mixins.adjust-bg-color($bg-color, $hover-bg-color, $text-color, $adjustment-mode, $adjustment-amount);
+  @include decor-mixins.adjust-bg-color(
+    $bg-color: $bg-color,
+    $hover-bg-color: $hover-bg-color,
+    $text-color: $text-color,
+    $hover-text-color: $hover-text-color,
+    $adjustment: $adjustment-mode,
+    $amount: $adjustment-amount
+  );
 
   // Apply border if all required border properties are present
   @if $border-color != null and $border-width != null and $border-style != null {

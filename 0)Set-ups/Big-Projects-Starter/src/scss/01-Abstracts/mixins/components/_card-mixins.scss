@@ -1,7 +1,5 @@
 @use "../../../00-Globals" as globals;
-@use "../../functions/specific/color-functions" as *;
-@use "../../functions/specific/shadow-functions" as *;
-@use "../../functions/get-value-functions.scss" as *;
+@use "../../functions" as funcs;
 
 /** ============ CARD ============ //
  * A mixin for styling card components. Allows customization of background color, minimum height,
@@ -25,10 +23,10 @@
  * @include card(get-color(card), 40rem, get-radius(3), generate-shadow(sm-1));
  */
 @mixin card(
-  $bg-color: get-color(card),
+  $bg-color: funcs.get-color(card),
   $min-height: 40rem,
-  $radius: get-css-var(globals.$RADIUS_PREFIX, 3),
-  $shadow: generate-shadow(lg-1),
+  $radius: funcs.get-css-var(funcs.get-prefix(radius), 3),
+  $shadow: funcs.generate-shadow(lg-1),
   $padding: 2rem 3rem
   ) {
   min-height: $min-height;

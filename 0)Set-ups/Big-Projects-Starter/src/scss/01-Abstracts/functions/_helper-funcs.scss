@@ -159,6 +159,21 @@
 @function is-boolean($value) {
   @return $value == true or $value == false;
 }
+
+/** ============ IS CSS VARIABLE ============ //
+ * Determines if a value is a CSS variable.
+ *
+ * @param {String} $color - The color value to check.
+ * @returns {Boolean} - True if the value is a CSS variable, false otherwise.
+ *
+ * @example
+ * $isCssVar: is-css-var("var(--clr-primary)"); // Returns true
+ * $isCssVar: is-css-var("#ffffff"); // Returns false
+ */
+@function is-css-var($color) {
+  @return type-of($color) == "string" and str-index($color, "var(--");
+}
+
 //% *************************  ************************* //
 
 //% ************************* Conversions ************************* //

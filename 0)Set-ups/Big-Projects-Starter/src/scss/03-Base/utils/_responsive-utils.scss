@@ -1,0 +1,55 @@
+@use "../../01-Abstracts" as *;
+
+$text-align-values: left, right, justify, center;
+
+// center text
+@each $val in $text-align-values {
+  .text-#{$val} {
+    text-align: $val;
+  }
+}
+
+//& ******* Xs Breakpoint ******* //
+@include respond(xs) {
+  @each $val in $text-align-values {
+    .text-xs-#{$val} {
+      text-align: $val;
+    }
+  }
+}
+
+//& ******* Sm Breakpoint ******* //
+@include respond(sm) {
+  @each $val in $text-align-values {
+    .text-sm-#{$val} {
+      text-align: $val;
+    }
+  }
+}
+
+//& ******* Md Breakpoint ******* //
+@include respond(md) {
+  @each $val in $text-align-values {
+    .text-md-#{$val} {
+      text-align: $val;
+    }
+  }
+}
+
+//& ******* Lg Breakpoint ******* //
+@include respond(lg) {
+  @each $val in $text-align-values {
+    .text-lg-#{$val} {
+      text-align: $val;
+    }
+  }
+}
+
+//& ******* Xl Breakpoint ******* //
+@include respond(xl, min) {
+  @each $val in $text-align-values {
+    .text-xl-#{$val} {
+      text-align: $val;
+    }
+  }
+}

@@ -2,10 +2,10 @@
 @use "../functions" as *;
 
 //% ***************  Layout Tools *************** //
-/**
- * Applies flexbox properties to a parent container. Allows customization of
- * direction, justification, alignment, and gap. Advanced flex properties (e.g., `basis`, `grow`, `shrink`)
- * can be applied to the direct children of the flex container.
+/** ============ FLEX ============ //
+ * Flexbox utility mixin for creating flexible layouts.
+ * Allows customization of flex direction, justification, alignment, gap, wrapping, and advanced flex options.
+ * Advanced flex properties (e.g., `basis`, `grow`, `shrink`) are applied to the direct children of the flex container.
  *
  * @param {String} $direction - (Optional) The direction of the flex container. Defaults to "row".
  * @param {String} $justify - (Optional) Flexbox justification. Defaults to "center".
@@ -61,8 +61,8 @@
   }
 }
 
-/**
- * A responsive grid mixin that adjusts the number of columns based on the container size.
+/** ============ RESPONSIVE GRID ============ //
+ * Responsive grid layout mixin for adjusting the number of columns based on the container size.
  * Allows customization of the grid's column size, gap, and maximum number of columns.
  *
  * @param {String} $size - (Optional) The minimum column size. Defaults to "35rem".
@@ -100,11 +100,16 @@
     gap: $gap;
   }
 }
-
-//% ***************    *************** //
+//% ***************   *************** //
 
 //% ***************  Centering  *************** //
-// Center with position //
+/** ============ CENTER POS ============ //
+ * Centers an element both vertically and horizontally using absolute positioning.
+ *
+ * @example
+ * Center an element on the page
+ * @include center-pos();
+ */
 @mixin center-pos {
   position: absolute;
   text-align: center;
@@ -113,28 +118,59 @@
   transform: translate(-50%, -50%);
 }
 
-// Center with margins //
+/** ============ CENTER MAR ============ //
+ * Horizontally centers an element using auto margins.
+ *
+ * @example
+ * Center an element within its container
+ * @include center-mar();
+ */
 @mixin center-mar {
   margin-left: auto;
   margin-right: auto;
 }
-//% ***************    *************** //
+
+/** ============ CENTER FLEX ============ //
+ * Centers all child elements inside a container using flexbox.
+ * Applies flexbox properties to center child elements both horizontally and vertically.
+ *
+ * @example
+ * Center all child elements inside a container
+ * @include center-flex();
+ */
+@mixin center-flex {
+  @include flex($justify: center, $align: center);
+}
+
+/** ============ CENTER GRID ============ //
+ * Centers all child elements inside a container using CSS grid.
+ * Applies grid properties to center child elements both horizontally and vertically.
+ *
+ * @example
+ * Center all child elements inside a container
+ * @include center-grid();
+ */
+@mixin center-grid {
+  display: grid;
+  place-items: center;
+}
+//% ***************   *************** //
 
 //% ***************  Overlays  *************** //
-/**
- * Applies a cover style to elements, filling the container entirely.
- * It allows customization of position, z-index, and border-radius.
+/** ============ COVER ============ //
+ * Applies a cover style to an element, making it fill the entire container.
+ * Customizable position, z-index, and border-radius can be applied.
  *
  * @param {String} $position - (Optional) The position of the element. Defaults to "absolute".
- * @param {Number} $zIndex - (Optional) The z-index of the element. Defaults to 1.
+ * @param {Number} $z-index - (Optional) The z-index of the element. Defaults to 1.
  * @param {String} $radius - (Optional) The border-radius of the element. Defaults to "inherit".
  *
  * @example
- * Default cover with all defaults
+ * Apply a default cover style
  * @include cover();
  *
  * @example
- * Custom cover with fixed position, custom z-index, and radius
+ * Apply a custom cover with fixed positioning and a border-radius
  * @include cover(fixed, 10, 5px);
  */
 @mixin cover(
@@ -150,12 +186,10 @@
   border-radius: $radius;
 }
 
-
-// Pseudo element overlay
-/**
- * Creates an overlay using pseudo-elements (`before` or `after`). Provides options for customizing
- * the content, background color, opacity, position, and z-index. Ensures valid pseudo-elements
- * ("before" or "after") are used.
+/** ============ CREATE OVERLAY ============ //
+ * Creates an overlay using pseudo-elements (`before` or `after`).
+ * Allows customization of content, background color, opacity, position, z-index, and border-radius.
+ * Ensures valid pseudo-elements ("before" or "after") are used.
  *
  * @param {String} $type - (Optional) The type of pseudo-element, either "before" or "after". Defaults to "after".
  * @param {String} $content - (Optional) The content for the pseudo-element. Defaults to an empty string.
@@ -209,4 +243,34 @@
     transition: globals.$transition;
   }
 }
-//% ***************    *************** //
+//% ***************   *************** //
+
+//% ***************  Other  *************** //
+/** ============ BUST-OUT ============ //
+ * A mixin for "busting out" an element from its container, making it extend beyond its parent width.
+ * This is useful for creating full-width elements, such as images or sections, that visually extend
+ * outside their parent container in a centered layout.
+ *
+ * @param {Length} $width - (Optional) The width of the element, typically a percentage or a fixed unit (e.g., "100%", "800px").
+ *                          Defaults to "20%".
+ *
+ * @example
+ * Create a bust-out element with 100% width
+ * .full-width-element {
+ *   @include bust-out(100%);
+ * }
+ *
+ * @example
+ * Bust out an element with a custom width (e.g., 50%)
+ * .custom-width-element {
+ *   @include bust-out(50%);
+ * }
+ */
+@mixin bust-out($width: 20%) {
+  margin: auto calc(50% - 50vw);
+  width: $width;
+  transform: translateX(calc(50vw - 50%));
+}
+//% ***************   *************** //
+
+

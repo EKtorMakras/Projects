@@ -1,12 +1,28 @@
 @use "../../00-Globals" as globals;
-@use "../functions" as *;
+@use "../functions" as funcs;
 
 //% ***************  General  *************** //
-// Transition
+/** ============ TRANSITION ============ //
+ * Applies a CSS transition to a single or list of properties.
+ *
+ * @param {String|List} $property - The property or list of properties to apply the transition to. Defaults to "all".
+ * @param {Time} $time - The transition duration. Defaults to "0.3s".
+ * @param {Function} $function - The timing function for the transition. Defaults to "ease-in-out".
+ *
+ * @example
+ * Apply transition to a single property
+ * @include transition(opacity, 0.5s, ease);
+ *
+ * @example
+ * Apply transition to a list of properties
+ * @include transition((opacity, transform), 0.4s, ease);
+ */
 @mixin transition($property: all, $time: 0.3s, $function: ease-in-out) {
   @if type-of($property) == "list" {
-    // Create a new list where each property is combined with the time and function
+    // Create an empty list for the transitions
     $transitions: ();
+
+    // Loop through each property in the list and combine it with time and function
     @each $item in $property {
       $transitions: append($transitions, $item + ' ' + $time + ' ' + $function, comma);
     }
@@ -19,28 +35,14 @@
   }
 }
 
-// Generate Color Custom Props
-@mixin generate-color-custom-props($map, $prefix: globals.$CSS_PREFIX) {
-  @each $color, $shades in $map {
-    @if type-of($shades) == "map" {
-      // Handle nested color maps recursively
-      @each $shade, $value in $shades {
-        // If it's the "default-color" shade, use only the color name for the custom property
-        @if $shade == get-default(color-shade) {
-          --#{$prefix}-#{$color}: #{$value};
-        } @else {
-          // Otherwise, use the shade as part of the variable name
-          --#{$prefix}-#{$color}-#{$shade}: #{$value};
-        }
-      }
-    } @else {
-      // If it's not a map, generate the custom property directly
-      --#{$prefix}-#{$color}: #{$shades};
-    }
-  }
-}
-
-// Hide element (for accessibility purposes)
+/** ============ VISUALLY HIDDEN ============ //
+ * Hides an element visually while keeping it accessible to screen readers.
+ * This is useful for accessibility purposes when hiding content visually but allowing assistive technologies to read it.
+ *
+ * @example
+ * Hide an element from view but keep it accessible
+ * @include visually-hidden();
+ */
 @mixin visually-hidden {
   position: absolute;
   width: 1px;
@@ -50,26 +52,144 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+  white-space: nowrap;
+}
+//% ***************    *************** //
+
+//% ***************  Custom Props *************** //
+/** ============ GENERATE COLOR CUSTOM PROP ============ //
+ * Generates a CSS custom property for a given color and shade.
+ * Outputs the custom property directly in the stylesheet.
+ *
+ * @param {String} $color - The name of the color (e.g., "primary").
+ * @param {String|Null} $shade - The shade of the color (e.g., "500"). If null or matches the default shade, the custom property will only include the color name.
+ * @param {String} $value - The value of the color (e.g., "#3498db").
+ * @param {String} $prefix - (Optional) The prefix for the CSS custom property. Defaults to the global prefix.
+ *
+ * @example
+ * Generate a custom property for primary color with a shade
+ * @include generate-color-custom-property("primary", "500", "#3498db");
+ *
+ * @example
+ * Generate a custom property for primary color without a shade
+ * @include generate-color-custom-property("primary", null, "#3498db");
+ *
+ * @example
+ * Generate a custom property for a secondary color with a custom prefix
+ * @include generate-color-custom-property("secondary", "300", "#e74c3c", "custom");
+ */
+@mixin generate-color-custom-prop($color, $shade, $value, $prefix) {
+  $default-shade: funcs.get-default(color-shade);
+
+  // Output the CSS custom property
+  @if $shade == $default-shade or $shade == null {
+    --#{$prefix}-#{$color}: #{$value};
+  } @else {
+    --#{$prefix}-#{$color}-#{$shade}: #{$value};
+  }
+}
+
+/** ============ GENERATE COLOR CUSTOM PROPS ============ //
+ * Generates CSS custom properties for colors from a map of colors and shades.
+ *
+ * @param {Map} $map - A map of colors and their shades to generate custom properties from.
+ * @param {String} $prefix - (Optional) The CSS variable prefix. Defaults to global CSS prefix.
+ *
+ * @example
+ * Generate custom properties for color map
+ * $colors: (
+ *   primary: (
+ *     500: #3498db,
+ *     600: #2980b9,
+ *   ),
+ *   secondary: #e74c3c
+ * );
+ * @include generate-color-custom-props($colors);
+ */
+@mixin generate-color-custom-props($map, $prefix: funcs.get-prefix(color-var)) {
+  @each $color, $shades in $map {
+
+    // Include the custom property mixin
+    @if type-of($shades) == "map" {
+      @each $shade, $value in $shades {
+        @include generate-color-custom-prop($color, $shade, $value, $prefix);
+      }
+    }
+
+    // Handle single color value without shades
+    @else {
+      @include generate-color-custom-prop($color, null, $shades, $prefix);
+    }
+  }
 }
 //% ***************    *************** //
 
 //% ***************  Units *************** //
-// Dynamic Viewport Units
-@mixin dvw($value: 100) {
-  @supports (width: 100dvw) {
-    width: #{$value}dvw;
+/** ============ DYNAMIC VIEWPORT WIDTH (DVW) ============ //
+ * Applies a width using dynamic viewport units (dvw) when supported, and falls back to regular viewport units (vw) if not supported.
+ *
+ * @param {Number} $value - The desired width value. Defaults to 100.
+ * @param {String} $type - (Optional) Either "min", "max", or an empty string. Defaults to an empty string.
+ *
+ * @example
+ * Apply 100 dynamic viewport width units
+ * @include dvw(100);
+ *
+ * @example
+ * Apply min-width dynamic viewport width units
+ * @include dvw(100, "min");
+ */
+@mixin dvw($value: 100, $type: "") {
+  // Validate the $type argument to ensure it's either "", "min", or "max"
+  $valid-types: ("", "min", "max");
+
+  @if not index($valid-types, $type) {
+    @error "Invalid type `#{$type}`. Must be '', 'min', or 'max'.";
   }
-  @supports not (width: 100dvw) {
-    width: #{$value}vw;
+
+  // Check if $type is empty, to avoid creating something like "-width"
+  $final-property: if($type == "", "width", "#{$type}-width");
+
+  // Apply the dynamic viewport units if supported
+  @supports (#{$final-property}: 100dvw) {
+    #{$final-property}: #{$value}dvw;
+  }
+  @supports not (#{$final-property}: 100dvw) {
+    #{$final-property}: #{$value}vw;
   }
 }
 
-@mixin dvh($value: 100) {
-  @supports (height: 100dvh) {
-    height: #{$value}dvh;
+/** ============ DYNAMIC VIEWPORT HEIGHT (DVH) ============ //
+ * Applies a height using dynamic viewport units (dvh) when supported, and falls back to regular viewport units (vh) if not supported.
+ *
+ * @param {Number} $value - The desired height value. Defaults to 100.
+ * @param {String} $type - (Optional) Either "min", "max", or an empty string. Defaults to an empty string.
+ *
+ * @example
+ * Apply 100 dynamic viewport height units
+ * @include dvh(100);
+ *
+ * @example
+ * Apply min-height dynamic viewport height units
+ * @include dvh(100, "min");
+ */
+@mixin dvh($value: 100, $type: "") {
+  // Validate the $type argument to ensure it's either "", "min", or "max"
+  $valid-types: ("", "min", "max");
+
+  @if not index($valid-types, $type) {
+    @error "Invalid type `#{$type}`. Must be '', 'min', or 'max'.";
   }
-  @supports not (height: 100dvh) {
-    height: #{$value}vh;
+
+  // Check if $type is empty, to avoid creating something like "-height"
+  $final-property: if($type == "", "height", "#{$type}-height");
+
+  // Apply the dynamic viewport units if supported
+  @supports (#{$final-property}: 100dvh) {
+    #{$final-property}: #{$value}dvh;
+  }
+  @supports not (#{$final-property}: 100dvh) {
+    #{$final-property}: #{$value}vh;
   }
 }
 //% ***************   *************** //

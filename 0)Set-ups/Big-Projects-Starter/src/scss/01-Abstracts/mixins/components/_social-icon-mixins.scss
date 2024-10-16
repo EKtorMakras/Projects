@@ -1,6 +1,6 @@
 @use "../../../00-Globals" as globals;
 @use "../../functions" as funcs;
-@use "../../variables/components/social-icon-variables" as vars;
+@use "../../variables/components/social-icon-vars" as vars;
 @use "../layout-mixins" as layout-mixins;
 @use "../../mapping/components/social-icon-mapping" as *;
 
@@ -28,7 +28,7 @@
 @mixin social-icons(
   $official: false,
   $official-on-hover: false,
-  $category: rg,
+  $category: funcs.map-deep-get($social-icon-mapping, ("defaults", size)),
   $custom-styles: ()
 ) {
     $dynamic-social-icon-styles: (
@@ -50,7 +50,7 @@
     $box-shadow: map-get($merged-styles, box-shadow);
     $transition: map-get($merged-styles, transition);
 
-    @include layout-mixins.flex();
+    @include layout-mixins.center-flex();
     font-size: $font-size;
     padding: $padding;
     width: $size;

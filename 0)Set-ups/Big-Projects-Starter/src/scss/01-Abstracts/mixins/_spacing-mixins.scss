@@ -1,0 +1,70 @@
+@use "../variables/spacing-vars" as vars;
+
+/** ============ GENERATE-SPACING-CLASSES ============ //
+ * A mixin for generating margin and padding utility classes dynamically based on a specified property.
+ * This mixin creates classes for all spacing steps, such as top, bottom, left, right, inline, and block.
+ *
+ * @param {String} $property - The CSS property to be applied (e.g., "margin" or "padding").
+ * @param {String} $abbreviation - The abbreviation to use for the class names (e.g., "m" for margin, "p" for padding).
+ *
+ * @example
+ * Generate margin classes for all steps
+ * @include generate-spacing-classes(margin, m);
+ *
+ * @example
+ * Generate padding classes for all steps
+ * @include generate-spacing-classes(padding, p);
+ */
+@mixin generate-spacing-classes($property, $abbreviation) {
+  @for $i from 1 through vars.$spacer-total-steps {
+    $base-value: calc(#{vars.$spacer-base-value} * #{$i});
+    $subtracted-value: calc(#{$base-value} * #{vars.$spacer-reduce-adjustment});
+    $middle-value: calc(#{$subtracted-value} + (#{vars.$spacer-vw-step} * #{$i}));
+    $after-value: calc(#{$base-value} * #{vars.$spacer-increase-adjustment});
+    $clamp-value: clamp($base-value, $middle-value, $after-value);
+
+    .#{$abbreviation}a-#{$i} {
+      #{$property}: $clamp-value !important;
+    }
+    .#{$abbreviation}t-#{$i} {
+      #{$property}-top: $clamp-value !important;
+    }
+    .#{$abbreviation}b-#{$i} {
+      #{$property}-bottom: $clamp-value !important;
+    }
+    .#{$abbreviation}r-#{$i} {
+      #{$property}-right: $clamp-value !important;
+    }
+    .#{$abbreviation}l-#{$i} {
+      #{$property}-left: $clamp-value !important;
+    }
+    .#{$abbreviation}x-#{$i} {
+      #{$property}-inline: $clamp-value !important;
+    }
+    .#{$abbreviation}y-#{$i} {
+      #{$property}-block: $clamp-value !important;
+    }
+  }
+}
+
+/** ============ GENERATE-MARGIN- AUTO-CLASSES ============ //
+ * A mixin for generating margin auto utility classes for different sides of an element.
+ * This mixin generates `auto` classes for margins like `ml-auto`, `mr-auto`, `mt-auto`, `mb-auto`, `mx-auto`, and `my-auto`.
+ *
+ * @param {List} $sides - The list of sides for which to generate `auto` margin classes. Supported values: l (left), r (right), t (top), b (bottom), x (inline), y (block).
+ *
+ * @example
+ * Generate auto margin classes for left and right margins
+ * @include generate-auto-classes(l, r);
+ *
+ * @example
+ * Generate auto margin classes for top, bottom, and inline margins
+ * @include generate-auto-classes(t, b, x);
+ */
+@mixin generate-margin-auto-classes($sides...) {
+  @each $side in $sides {
+    .m#{$side}-auto {
+      margin-#{$side}: auto !important;
+    }
+  }
+}

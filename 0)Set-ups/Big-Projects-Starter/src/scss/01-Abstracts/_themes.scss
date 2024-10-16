@@ -1,23 +1,23 @@
-@use "functions" as *;
+@use "functions" as funcs;
 
 // //% ***************  Light Theme  *************** //
 $colors-light: (
-  "text": color("slate-600"),
-  "title": color("gray.blue-5"),
-  "body": color("slate-50"),
-  "card": color("white"),
-  "socials": color("slate-500"),
-  "socials-hover": color("slate-700"),
-  "shadow": rgba(color("primary"), .25)
+  "text": funcs.color("slate-600"),
+  "title": funcs.color("gray.blue-5"),
+  "body": funcs.color("slate-50"),
+  "card": funcs.color("white"),
+  "socials": funcs.color("slate-500"),
+  "socials-hover": funcs.color("slate-700"),
+  "shadow": rgba(funcs.color("primary"), .25),
 );
 
 // //% ***************  Dark Theme  *************** //
 $colors-dark: (
-  "text": color("slate-50"),
-  "title": color("slate-100"),
-  "body": color("gray.blue-6"),
-  "card": color("gray.blue-5"),
-  "socials": color("slate-100"),
-  "socials-hover": color("slate-300"),
-  "shadow": transparent
+  "text": funcs.color("slate-50"),
+  "title": funcs.color("slate-100"),
+  "body": funcs.color("gray.blue-6"),
+  "card": funcs.color("gray.blue-5"),
+  "socials": funcs.color("slate-100"),
+  "socials-hover": funcs.color("slate-300"),
+  "shadow": transparent,
 );

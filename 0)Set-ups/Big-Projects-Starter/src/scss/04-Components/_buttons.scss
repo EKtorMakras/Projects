@@ -1,5 +1,60 @@
+@use 'sass:color';
 @use "../01-Abstracts" as *;
 
+//& ******* Base btn ******* //
 .btn {
   @include btn();
 }
+//& *******  ******* //
+
+//& ******* Colored Btns ******* //
+@each $color-name, $color-value in $btn-available-colors {
+  // Handle color with the default shade (e.g., primary with 500)
+  @if type-of($color-value) == "map" {
+    $base-class: get-color-class(get-prefix(button), $color-name, $color-value);
+
+    .#{$base-class} {
+      $current-bg-color: color($color-name, $btn-available-colors);
+
+      @include btn-color(
+          $bg-color: $current-bg-color,
+      );
+
+      @include focus-state($current-bg-color);
+    }
+
+    // Loop through the shades and generate classes for them (e.g., primary-700)
+    @each $shade, $shade-color in $color-value {
+      @if $shade != get-default(color-shade) {
+        $shade-class: get-color-class(get-prefix(button), $color-name, $color-value, $shade);
+
+        .#{$shade-class} {
+          $current-bg-color: color("#{$color-name}.#{$shade}", $btn-available-colors);
+
+
+          @include btn-color(
+            $bg-color: $current-bg-color,
+          );
+
+          @include focus-state($current-bg-color);
+        }
+      }
+    }
+  }
+
+  // Handle direct color values (e.g., error, success)
+  @else {
+    $color-class: get-color-class(get-prefix(button), $color-name, $color-value);
+
+    .#{$color-class} {
+      $current-bg-color: $color-value;
+
+      @include btn-color(
+        $bg-color: $current-bg-color,
+      );
+
+      @include focus-state($current-bg-color);
+    }
+  }
+}
+//& *******  ******* //

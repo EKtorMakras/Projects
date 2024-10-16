@@ -1,0 +1,46 @@
+@use "../../01-Abstracts" as *;
+
+//& ******* Colored ******* //
+.error {
+  color: get-color(slate-50);
+  background-color: get-color(error);
+  padding: 4px 8px;
+  border-radius: var(--radius-2);
+}
+//& *******  ******* //
+
+//& ******* Radius ******* //
+.sharp {
+  border-radius: get-css-var(get-prefix(radius), 1) !important;
+}
+
+.rounded {
+  border-radius: get-css-var(get-prefix(radius), 3) !important;
+}
+
+.pilled {
+  border-radius: get-css-var(get-prefix(radius), pilled) !important;
+}
+
+.circle {
+  border-radius: get-css-var(get-prefix(radius), circle) !important;
+}
+//& *******  ******* //
+
+//& ******* Shadows ******* //
+.shadow-light {
+  box-shadow: get-css-var(get-prefix(shadow), light) !important;
+}
+
+.shadow-medium {
+  box-shadow: get-css-var(get-prefix(shadow), medium) !important;
+}
+
+.shadow-dark {
+  box-shadow: get-css-var(get-prefix(shadow), dark) !important;
+}
+
+.shadow-none {
+  box-shadow: none !important;
+}
+//& *******  ******* //

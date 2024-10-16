@@ -1,9 +1,10 @@
+@use 'sass:color';
 @use "../../../00-Globals" as globals;
-@use "../helper-functions.scss" as helper-funcs;
-@use "../get-value-functions.scss" as get-funcs;
-@use "../../variables/color-variables" as vars;
+@use "../helper-funcs.scss" as helper-funcs;
+@use "../get-value-funcs.scss" as get-funcs;
+@use "../../variables/color-vars" as vars;
 
-/**
+/** ============ COLOR ============ //
  * Retrieves a value from a deeply nested map based on a key path,
  * which is split into segments using the default delimiter separator.
  *
@@ -50,6 +51,11 @@
  * $error-color: color('error'); // Returns #d32752
  */
 @function color($key, $map: vars.$colors) {
+  // Early return null as color is null
+  @if $key == null {
+    @return null;
+  }
+
   // Separate the keys by default delimiter
   $default-delimiter: get-funcs.get-default(color-delimiter);
   $keys: helper-funcs.str-explode($key, $default-delimiter);
@@ -65,12 +71,13 @@
   @return helper-funcs.map-deep-get($map, $keys);
 }
 
-/**
+/** ============ COLOR TEST ============ //
  * Retrieves a color value from the `$colors` map, or returns the CSS variable, or a custom color if valid.
  *
  * @param {String} $color-name - The name or value of the color to retrieve (e.g., "primary", "#334ff").
  * @param {String} $color-variant - (Optional) The variant of the color to retrieve (e.g., "500"). Defaults to "500".
  * @param {Boolean} $css-var - (Optional) Indicates whether to CSS variable or the actual color. Defaults to true.
+ * @param {Map} $map - (Optional) The map from which to retrieve the value. Defaults to `$colors`.
  * @returns {*} - The CSS variable, the true color value from the nested map, or a valid custom color.
  *
  * @example
@@ -83,7 +90,12 @@
  * Retrieve a custom color
  * $customColor: color-test("#334ff", null, true); // Returns #334ff
  */
-@function color-test($color-name, $color-variant: null, $css-var: true) {
+@function color-test($color-name, $color-variant: null, $css-var: true, $map: vars.$colors) {
+  // Early return null as color is null
+  @if $color-name == null {
+    @return null;
+  }
+
   // Check if the passed value is a valid color using type-of()
   @if type-of($color-name) == "color" {
     @return $color-name;
@@ -101,13 +113,13 @@
 
   // Use the existing color function to retrieve the color value from the map
    @if $color-variant != null {
-    @return color("#{$color-name}.#{$color-variant}");
+    @return color("#{$color-name}.#{$color-variant}", $map);
   } @else {
-    @return color($color-name);
+    @return color($color-name, $map);
   }
 }
 
-/**
+/** ============ RESOLVE COLOR ============ //
  * Resolves a color from either a map or a string and passes it to the color-test function.
  *
  * @param {Map|String} $color - The color input, which can either be a map or a string.
@@ -126,9 +138,27 @@
  * Using a simple color string
  * $resolved-color: resolve-color("primary");
  */
-@function resolve-color($color) {
+@function resolve-color($color, $map: vars.$colors) {
   @return if(type-of($color) == "map",
-    color-test(map-get($color, name), map-get($color, variant), map-get($color, use-css-var)),
-    color-test($color)
+    color-test(map-get($color, name), map-get($color, variant), map-get($color, use-css-var), $map),
+    color-test($color, $map: $map)
   );
 }
+
+/**
+ * Determines if a color is considered dark based on its blackness value.
+ *
+ * @param {Color} $color - The color to check.
+ * @param {Number} $threshold - (Optional) The threshold for blackness. Defaults to a custom brightness threshold.
+ * @return {Boolean} - Returns true if the color's blackness is greater than the threshold, otherwise false.
+ *
+ * @example
+ * @if isColorDark(#000000) {
+ * Do something for dark colors
+ * }
+ */
+@function is-color-dark($color, $threshold: get-funcs.get-threshold(brightness)) {
+  $blackness: color.channel($color, "blackness", $space: hwb);
+  @return $blackness > $threshold;
+}
+

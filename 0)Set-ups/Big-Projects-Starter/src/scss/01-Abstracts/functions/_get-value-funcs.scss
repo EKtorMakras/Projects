@@ -1,0 +1,164 @@
+@use "../../00-Globals" as globals;
+
+//% *************** Get Value *************** //
+/** ============ GET DEFAULT ============ //
+ * Retrieves a default value from the $DEFAULTS map based on the provided key.
+ *
+ * @param {String} $key - The key for the default value to retrieve (e.g., "color", "font-size").
+ * @return {*} - The corresponding default value from the $DEFAULTS map.
+ *
+ * @example
+ * $default-color: get-default("color"); // Returns "500"
+ * $default-font-size: get-default("font-size-category"); // Returns "rg"
+ */
+@function get-default($key) {
+  @if map-has-key(globals.$DEFAULTS, $key) {
+    @return map-get(globals.$DEFAULTS, $key);
+  } @else {
+    @warn "Default value '#{$key}' not found in the \$DEFAULTS map.";
+    @return null;
+  }
+}
+
+/** ============ GET PREFIX ============ //
+ * Retrieves a prefix from the $PREFIXES map based on the provided key.
+ *
+ * @param {String} $key - The key for the prefix to retrieve (e.g., "color-var", "spacer").
+ * @return {*} - The corresponding prefix from the $PREFIXES map.
+ *
+ * @example
+ * $css-var-prefix: get-prefix("color-var"); // Returns "clr"
+ * $button-prefix: get-prefix("button"); // Returns "btn"
+ */
+@function get-prefix($key) {
+  @if map-has-key(globals.$PREFIXES, $key) {
+    @return map-get(globals.$PREFIXES, $key);
+  } @else {
+    @warn "Prefix '#{$key}' not found in the \$PREFIXES map.";
+    @return null;
+  }
+}
+
+/** ============ GET THRESHOLD ============ //
+ * Retrieves the threshold value for a specific key from the `$THRESHOLDS` map.
+ *
+ * This function is used to get the value associated with a specific threshold (e.g., brightness, contrast).
+ * It looks up the key in the `$THRESHOLDS` map and returns the corresponding value.
+ *
+ * @param {String} $threshold-name - The name of the threshold (e.g., "brightness").
+ *
+ * @return {*} - The value associated with the threshold from the `$THRESHOLDS` map.
+ *
+ * @example
+ * Returns "50%" for brightness threshold
+ * $brightness: get-threshold("brightness");
+ */
+@function get-threshold($threshold-name) {
+  @if map-has-key(globals.$THRESHOLDS, $threshold-name) {
+    @return map-get(globals.$THRESHOLDS, $threshold-name);
+  } @else {
+    @warn "Threshold '#{$threshold-name}' not found in the \$THRESHOLDS map.";
+    @return null;
+  }
+}
+
+/** ============ GET CSS VAR ============ //
+ * Retrieves a CSS variable based on the given name and optional prefix.
+ *
+ * @param {String} $prefix - The prefix for the CSS variable.
+ * @param {String} $name - The name or key for the CSS variable (e.g., letter-spacing, border-radius).
+ *
+ * @return {String} - The corresponding CSS variable (e.g., var(--border-radius-1)).
+ *
+ * @example
+ * $border-radius: get-css-var(get-prefix(radius), 3);
+ * Returns: var(--border-radius-3)
+ */
+@function get-css-var($prefix, $name) {
+  @return var(--#{$prefix}-#{$name});
+}
+
+/** ============ GET SPACER ============ //
+ * Retrieves a CSS custom property for spacing based on the given index and type.
+ *
+ * @param {Number} $i - The index of the spacer variable to be retrieved.
+ * @param {Boolean} $dynamic - (Optional) Whether to retrieve the dynamic spacer value. Defaults to `false`, which returns the base value.
+ * @param {String} $prefix - (Optional) The prefix for the spacer variable. Defaults to the global spacer prefix value.
+ * @returns {String} - The CSS variable in the form of `var(--<prefix>-<type>-<index>)`.
+ *                     If `$dynamic` is `true`, the type is `dynamic`, otherwise it is `base`.
+ *
+ * @example
+ * Get a base spacer variable:
+ * $base-spacing: get-spacer(3); // Returns `var(--<prefix>-base-3)` based on spacer prefix
+ */
+@function get-spacer($i, $dynamic: false, $prefix: get-prefix(spacer)) {
+  $variable-name: if($dynamic, "#{$prefix}-dynamic-#{$i}", "#{$prefix}-base-#{$i}");
+  @return var(--#{$variable-name});
+}
+
+/** ============ GET COLOR ============ //
+ * Retrieves the CSS variable for a given color name.
+ *
+ * @param {String} $name - The name of the color (e.g., "primary", "secondary").
+ * @param {String} $prefix - (Optional) The prefix for the CSS variable. Defaults to `global color prefix`.
+ *
+ * @return {String} - The generated CSS variable string in the format `var(--prefix-color-name)`.
+ *
+ * @example
+ * Retrieve the primary color
+ * $color: get-color("primary");
+ * Returns: var(--css-prefix-primary)
+ */
+
+@function get-color($name, $prefix: get-prefix(color-var)) {
+  @return var(--#{$prefix}-#{$name});
+}
+
+/** ============ GET BTN  COLOR CLASS ============ //
+ * Generates a CSS class string for a button based on the provided color name, color value, and optional shade.
+ *
+ * This function constructs the CSS class for buttons by combining the prefix (e.g., "btn"), color name, and
+ * optional shade. If the color value is a map (i.e., it has multiple shades), it appends the shade to the class name.
+ * If no shade is provided or the color is a direct value (e.g., "error"), the class is generated without a shade.
+ *
+ * @param {String} $color-name - The name of the color (e.g., "primary", "secondary").
+ * @param {*} $color-value - The color value, which can be a map (with multiple shades) or a direct value (e.g., "error").
+ * @param {String} $shade - (Optional) The shade of the color (e.g., "500", "600"). If not provided, defaults to null.
+ *
+ * @return {String} - The generated CSS class string in the format `btn-color-shade` (e.g., "btn-primary-500").
+ *                    If the color has no shades or no shade is provided, it returns the class in the format `btn-color`.
+ *
+ * @example
+ * Returns "btn-primary-700" if $color-value is a map and $shade is "700"
+ * $color-class: get-btn-color-class("primary", $color-value, "700");
+ *
+ * @example
+ * Returns "btn-error" if $color-value is a direct value (e.g., "error")
+ * $color-class: get-btn-color-class("error", $color-value);
+ *
+ * @example
+ * Returns "btn-primary" if no shade is provided
+ * $color-class: get-btn-color-class("primary", $color-value);
+ */
+@function get-color-class($prefix, $color-name, $color-value, $shade: null) {
+  // Handle map of colors (e.g., "gray": (50, 100, etc.))
+  @if type-of($color-value) == "map" {
+    // Return the class with the shade if provided
+    @if $shade != null {
+      @return "#{$prefix}-#{$color-name}-#{$shade}";
+    }
+    // Default to the main class without shade
+    @else {
+      @return "#{$prefix}-#{$color-name}";
+    }
+  }
+  // Handle direct color values (e.g., "black", "white")
+  @else {
+    @return "#{$prefix}-#{$color-name}";
+  }
+}
+
+
+
+
+
