@@ -145,7 +145,7 @@
   );
 }
 
-/**
+/** ============ IS COLOR DARK ============ //
  * Determines if a color is considered dark based on its blackness value.
  *
  * @param {Color} $color - The color to check.
@@ -160,5 +160,41 @@
 @function is-color-dark($color, $threshold: get-funcs.get-threshold(brightness)) {
   $blackness: color.channel($color, "blackness", $space: hwb);
   @return $blackness > $threshold;
+}
+
+/** ============ TINT ============ //
+ * Creates a tinted version of a given color by mixing it with white.
+ * The percentage determines the strength of the tint, with 0% being the original color
+ * and 100% being pure white.
+ *
+ * @param {Color} $color - The base color to tint.
+ * @param {Number} $percentage - The percentage of white to mix with the base color (0-100).
+ * @returns {Color} - The resulting tinted color.
+ *
+ * @example
+ * $baseColor: #3498db;
+ * $tintedColor: tint($baseColor, 20%);
+ * Result: #5bc0de
+ */
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/** ============ SHADE ============ //
+ * Creates a shaded version of a given color by mixing it with black.
+ * The percentage determines the strength of the shade, with 0% being the original color
+ * and 100% being pure black.
+ *
+ * @param {Color} $color - The base color to shade.
+ * @param {Number} $percentage - The percentage of black to mix with the base color (0-100).
+ * @returns {Color} - The resulting shaded color.
+ *
+ * @example
+ * $baseColor: #3498db;
+ * $shadedColor: shade($baseColor, 20%);
+ * Result: #2980b9
+ */
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
 }
 

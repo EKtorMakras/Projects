@@ -1,9 +1,0 @@
-// List of display properties
-$display-properties: none, block, inline-block, inline, flex, inline-flex, grid, inline-grid, table, table-row, table-cell;
-
-// Generate display utility classes
-@each $value in $display-properties {
-  .d-#{$value} {
-    display: #{$value} !important;
-  }
-}

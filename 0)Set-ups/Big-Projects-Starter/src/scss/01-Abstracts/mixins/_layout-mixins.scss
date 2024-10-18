@@ -1,5 +1,35 @@
+@use "sass:math";
 @use "../../00-Globals" as globals;
 @use "../functions" as *;
+@use "../mapping/grid-mapping" as *;
+
+//% ***************  General  *************** //
+/** ============ BUST-OUT ============ //
+ * A mixin for "busting out" an element from its container, making it extend beyond its parent width.
+ * This is useful for creating full-width elements, such as images or sections, that visually extend
+ * outside their parent container in a centered layout.
+ *
+ * @param {Length} $width - (Optional) The width of the element, typically a percentage or a fixed unit (e.g., "100%", "800px").
+ *                          Defaults to "20%".
+ *
+ * @example
+ * Create a bust-out element with 100% width
+ * .full-width-element {
+ *   @include bust-out(100%);
+ * }
+ *
+ * @example
+ * Bust out an element with a custom width (e.g., 50%)
+ * .custom-width-element {
+ *   @include bust-out(50%);
+ * }
+ */
+@mixin bust-out($width: 20%) {
+  margin: auto calc(50% - 50vw);
+  width: $width;
+  transform: translateX(calc(50vw - 50%));
+}
+//% ***************   *************** //
 
 //% ***************  Layout Tools *************** //
 /** ============ FLEX ============ //
@@ -156,6 +186,99 @@
 }
 //% ***************   *************** //
 
+//% ***************  Centering  *************** //
+/** ============ POSITION ============ //
+ * A mixin that applies positioning styles to an element. It sets the position property
+ * along with optional top, right, bottom, and left properties.
+ *
+ * @param {String} $position - The positioning method (e.g., 'absolute', 'relative', 'fixed').
+ * @param {Number | Null} $top - The distance from the top edge (optional).
+ * @param {Number | Null} $right - The distance from the right edge (optional).
+ * @param {Number | Null} $bottom - The distance from the bottom edge (optional).
+ * @param {Number | Null} $left - The distance from the left edge (optional).
+ *
+ * @example
+ * .my-element {
+ *   @include position(relative, 10px, auto, null, 5px);
+ * }
+ * Resulting CSS:
+ * position: relative;
+ * top: 10px;
+ * right: auto;
+ * bottom: null;
+ * left: 5px;
+ */
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+/** ============ RELATIVE ============ //
+ * A mixin that applies relative positioning to an element by calling the position mixin
+ * with 'relative' as the positioning method. Additional arguments for top, right, bottom,
+ * and left can be provided.
+ *
+ * @param {...} $args - The values for top, right, bottom, and left (optional).
+ *
+ * @example
+ * .my-relative-element {
+ *   @include relative(10px, 20px);
+ * }
+ * Resulting CSS:
+ * position: relative;
+ * top: 10px;
+ * right: 20px;
+ */
+@mixin relative($args...) {
+  @include position(relative, $args...);
+}
+
+/** ============ ABSOLUTE ============ //
+ * A mixin that applies absolute positioning to an element by calling the position mixin
+ * with 'absolute' as the positioning method. Additional arguments for top, right, bottom,
+ * and left can be provided.
+ *
+ * @param {...} $args - The values for top, right, bottom, and left (optional).
+ *
+ * @example
+ * .my-absolute-element {
+ *   @include absolute(5px, 15px, 10px);
+ * }
+ * Resulting CSS:
+ * position: absolute;
+ * top: 5px;
+ * right: 15px;
+ * bottom: 10px;
+ */
+
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+/** ============ FIXED ============ //
+ * A mixin that applies fixed positioning to an element by calling the position mixin
+ * with 'fixed' as the positioning method. Additional arguments for top, right, bottom,
+ * and left can be provided.
+ *
+ * @param {...} $args - The values for top, right, bottom, and left (optional).
+ *
+ * @example
+ * .my-fixed-element {
+ *   @include fixed(0, 0);
+ * }
+ * Resulting CSS:
+ * position: fixed;
+ * top: 0;
+ * right: 0;
+ */
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+//% ***************   *************** //
+
 //% ***************  Overlays  *************** //
 /** ============ COVER ============ //
  * Applies a cover style to an element, making it fill the entire container.
@@ -245,32 +368,241 @@
 }
 //% ***************   *************** //
 
-//% ***************  Other  *************** //
-/** ============ BUST-OUT ============ //
- * A mixin for "busting out" an element from its container, making it extend beyond its parent width.
- * This is useful for creating full-width elements, such as images or sections, that visually extend
- * outside their parent container in a centered layout.
- *
- * @param {Length} $width - (Optional) The width of the element, typically a percentage or a fixed unit (e.g., "100%", "800px").
- *                          Defaults to "20%".
- *
- * @example
- * Create a bust-out element with 100% width
- * .full-width-element {
- *   @include bust-out(100%);
- * }
- *
- * @example
- * Bust out an element with a custom width (e.g., 50%)
- * .custom-width-element {
- *   @include bust-out(50%);
- * }
- */
-@mixin bust-out($width: 20%) {
-  margin: auto calc(50% - 50vw);
-  width: $width;
-  transform: translateX(calc(50vw - 50%));
+//% *************** Grid system *************** //
+@mixin columns-utilities($breakpoint: "", $grid-columns: map-get($grid-mapping, total-columns)) {
+  @for $i from 1 through $grid-columns {
+    $percentage: math.div($i * 100%, $grid-columns);
+
+    @if $breakpoint != "" {
+      .col-#{$breakpoint}-#{$i} {
+        flex: 0 0 #{$percentage};
+        max-width: #{$percentage};
+      }
+    } @else {
+      .col-#{$i} {
+        flex: 0 0 #{$percentage};
+        max-width: #{$percentage};
+      }
+    }
+  }
+}
+
+// Gaps mixin with total steps and base gutter as arguments
+@mixin gaps-utilities(
+  $breakpoint: "",
+  $grid-gap-total-steps: map-get($grid-mapping, gap-total-steps),
+  $base-gutter: map-get($grid-mapping, gap-gutter)
+){
+  @for $i from 1 through $grid-gap-total-steps {
+    @if $breakpoint != "" {
+      .gap-#{$breakpoint}-#{$i} {
+        gap: $base-gutter * $i !important;
+      }
+      .col-gap-#{$breakpoint}-#{$i} {
+        column-gap: $base-gutter * $i !important;
+      }
+      .row-gap-#{$breakpoint}-#{$i} {
+        row-gap: $base-gutter * $i !important;
+      }
+    } @else {
+      .gap-#{$i} {
+        gap: $base-gutter * $i !important;
+      }
+      .col-gap-#{$i} {
+        column-gap: $base-gutter * $i !important;
+      }
+      .row-gap-#{$i} {
+        row-gap: $base-gutter * $i !important;
+      }
+    }
+  }
+}
+
+@mixin flex-direction-utilities($breakpoint: "", $direction-values: map-get($grid-mapping, direction-values)) {
+  @each $direction in $direction-values {
+    @if $breakpoint != "" {
+      .flex-#{$breakpoint}-#{$direction} {
+        flex-direction: $direction !important;
+      }
+    } @else {
+      .flex-#{$direction} {
+        flex-direction: $direction !important;
+      }
+    }
+  }
+}
+
+@mixin flex-wrap-utilities(
+  $breakpoint: "",
+  $wrap-values: map-get($grid-mapping, wrap-values),
+  $wrap-map: map-get($grid-mapping, wrap-map)
+){
+  @each $wrap in $wrap-values {
+    $wrap-class: map-get($wrap-map, $wrap);
+
+    @if $breakpoint != "" {
+      .flex-#{$breakpoint}-#{$wrap-class} {
+        flex-wrap: $wrap !important;
+      }
+    } @else {
+      .flex-#{$wrap-class} {
+        flex-wrap: $wrap !important;
+      }
+    }
+  }
+}
+
+@mixin justify-content-utilities($breakpoint: "", $justify-values: map-get($grid-mapping, justify-values)) {
+  @each $val in $justify-values {
+    @if $breakpoint != "" {
+      .justify-#{$breakpoint}-#{$val} {
+        justify-content: $val !important;
+      }
+    } @else {
+      .justify-#{$val} {
+        justify-content: $val !important;
+      }
+    }
+  }
+}
+
+@mixin align-items-utilities($breakpoint: "", $align-values: map-get($grid-mapping, align-values)) {
+  @each $val in $align-values {
+    @if $breakpoint != "" {
+      .align-#{$breakpoint}-#{$val} {
+        align-items: $val !important;
+      }
+      .align-self-#{$breakpoint}-#{$val} {
+        align-self: $val !important;
+      }
+    } @else {
+      .align-#{$val} {
+        align-items: $val !important;
+      }
+      .align-self-#{$val} {
+        align-self: $val !important;
+      }
+    }
+  }
+}
+
+@mixin align-content-utilities($breakpoint: "", $align-content-values: map-get($grid-mapping, align-content-values)) {
+  @each $val in $align-content-values {
+    @if $breakpoint != "" {
+      .align-content-#{$breakpoint}-#{$val} {
+        align-content: $val;
+      }
+    } @else {
+      .align-content-#{$val} {
+        align-content: $val;
+      }
+    }
+  }
+}
+
+// Order utilities mixin with flexible order values
+@mixin order-utilities($breakpoint: "", $order-values: map-get($grid-mapping, order-values)) {
+  $order-first: nth($order-values, 1);
+  $order-last: nth($order-values, length($order-values));
+
+  @each $order in $order-values {
+    $order-class-name: if($order == $order-first, "first", if($order == $order-last, "last", $order));
+
+    @if $breakpoint != "" {
+      .order-#{$breakpoint}-#{$order-class-name} {
+        order: $order !important;
+      }
+    } @else {
+      .order-#{$order-class-name} {
+        order: $order !important;
+      }
+    }
+  }
+}
+
+@mixin flex-grow-utilities($breakpoint: "", $flex-grow: map-get($grid-mapping, flex-grow)) {
+  @each $grow in $flex-grow {
+    @if $breakpoint != "" {
+      .flex-#{$breakpoint}-grow-#{$grow} {
+        flex-grow: $grow !important;
+      }
+    } @else {
+      .flex-grow-#{$grow} {
+        flex-grow: $grow !important;
+      }
+    }
+  }
+}
+
+@mixin flex-shrink-utilities($breakpoint: "", $flex-shrink: map-get($grid-mapping, flex-shrink)) {
+  @each $shrink in $flex-shrink {
+    @if $breakpoint != "" {
+      .flex-#{$breakpoint}-shrink-#{$shrink} {
+        flex-shrink: $shrink !important;
+      }
+    } @else {
+      .flex-shrink-#{$shrink} {
+        flex-shrink: $shrink !important;
+      }
+    }
+  }
+}
+
+@mixin flex-basis-utilities($breakpoint: "", $flex-basis-map: map-get($grid-mapping, flex-basis-map)) {
+  @each $basis, $basis-class-name in $flex-basis-map {
+    @if $breakpoint != "" {
+      .flex-#{$breakpoint}-basis-#{$basis-class-name} {
+        flex-basis: $basis !important;
+      }
+    } @else {
+      .flex-basis-#{$basis-class-name} {
+        flex-basis: $basis !important;
+      }
+    }
+  }
+}
+
+@mixin flex-grow-shrink-basis-utilities(
+  $breakpoint: "",
+  $flex-grow: map-get($grid-mapping, flex-grow),
+  $flex-shrink: map-get($grid-mapping, flex-shrink),
+  $flex-basis-map: map-get($grid-mapping, flex-basis-map)
+) {
+  @each $grow in $flex-grow {
+    @each $shrink in $flex-shrink {
+      @each $basis, $basis-class-name in $flex-basis-map {
+        @if $breakpoint != "" {
+          .flex-#{$breakpoint}-#{$grow}-#{$shrink}-#{$basis-class-name} {
+            flex: $grow $shrink $basis !important;
+          }
+        } @else {
+          .flex-#{$grow}-#{$shrink}-#{$basis-class-name} {
+            flex: $grow $shrink $basis !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin generate-flex-layout-system($breakpoint: "") {
+  @include columns-utilities($breakpoint);
+  @include gaps-utilities($breakpoint);
+
+  @include flex-direction-utilities($breakpoint);
+  @include flex-wrap-utilities($breakpoint);
+
+  @include justify-content-utilities($breakpoint);
+  @include align-items-utilities($breakpoint);
+  @include align-content-utilities ($breakpoint);
+  @include order-utilities($breakpoint);
+
+  @include flex-grow-utilities($breakpoint);
+  @include flex-shrink-utilities($breakpoint);
+  @include flex-basis-utilities($breakpoint);
+  @include flex-grow-shrink-basis-utilities($breakpoint);
 }
 //% ***************   *************** //
+
 
 

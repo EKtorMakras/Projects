@@ -4,9 +4,11 @@
 body {
   overflow-x: hidden;
   background-color: get-color(body);
+  // @include bg-image("placeholder.jpg");
   @include transition($property: background-color);
   @include dvh(100, min);
 }
+
 .test {
   $size: 200px;
   width: $size * 1.5;
@@ -18,6 +20,7 @@ body {
   // @include triangle(100px, up, #0e6931);
   @include transition((opacity, transform), 0.5s, ease-in);
   @include border-radius(10px, top-left bottom-right);
+  @include border-radius(4px, bottom-left top-right);
   @include gradient(#ff3344, primary, $color1-pos: 20%);
   @include create-overlay("before", "", rgba(0, 0, 0, 0.1), 0.8, 1, absolute, 0, 10px);
 }

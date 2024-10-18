@@ -1,0 +1,25 @@
+// Named opacity map
+$named-opacities: (
+  border: 0.12,
+  high-emphasis: 0.87,
+  medium-emphasis: 0.6,
+  low-emphasis: 0.4,
+  subtle-bg: 0.93,
+  hover: 0.04,
+  disabled: 0.38,
+  focus: 0.12,
+  selected: 0.08,
+  activated: 0.12,
+  pressed: 0.12,
+  dragged: 0.08
+);
+
+// Numeric opacity map dynamically generated
+$numeric-opacities: ();
+
+@for $i from 0 through 10 {
+  $numeric-opacities: map-merge($numeric-opacities, ( #{($i * 10)}: calc(($i * 10) / 100 )));
+}
+
+// Merge the two maps into a final opacities map
+$opacities: map-merge($named-opacities, $numeric-opacities);

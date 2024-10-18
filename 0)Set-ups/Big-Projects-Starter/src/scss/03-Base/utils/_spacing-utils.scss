@@ -5,4 +5,4 @@
 @include generate-spacing-classes(padding, p);
 
 // Generate auto classes for individual sides and block/inline
-@include generate-margin-auto-classes(l, r, t, b, x, y);
+@include generate-margin-auto-classes();

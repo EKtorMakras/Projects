@@ -1,5 +1,43 @@
 @use "sass:math";
 @use "sass:map";
+@use "../../00-Globals" as globals;
+
+//% ************************* General ************************* //
+/** ============ CALL FUNCTIONS ============ //
+ * Iterates over a list of function names, executing each one with the provided arguments
+ * and returning a new list containing the results. If a function does not exist, an error
+ * will be thrown.
+ *
+ * @param {List} $functions - A list of function names to execute.
+ * @param {...} $args - Additional arguments to pass to each function during execution.
+ * @returns {List} - A new list containing the results of calling each function with the given arguments.
+ *
+ * @example
+ * @function add($a, $b) {
+ *   @return $a + $b;
+ * }
+ * @function multiply($a, $b) {
+ *   @return $a * $b;
+ * }
+ *
+ * $functionList: (add, multiply);
+ * $result: callFunctions($functionList, 2, 3);
+ * Result: (5, 6)
+ */
+@function call-functions($functions, $args...) {
+  $list: ();
+
+  @each $function in $functions {
+    @if not function-exists($function) {
+      @error "There is no `#{$function}` function.";
+    }
+
+    $list: append($list, call($function, $args...));
+  }
+
+  @return $list;
+}
+//% *************************  ************************* //
 
 //% ************************* Map ************************* //
 /** ============ MAP DEEP MERGE ============ //
@@ -107,6 +145,39 @@
 //% *************************  ************************* //
 
 //% ************************* Lists ************************* //
+/** ============ MAP LIST ============ //
+ * Iterates over a list, applying a specified function to each element and returning a new list
+ * with the results. The function can accept additional arguments to be passed during the call.
+ *
+ * If the specified function does not exist, an error will be thrown.
+ *
+ * @param {List} $list - The list of items to iterate over.
+ * @param {String} $function - The name of the function to apply to each item in the list.
+ * @param {...} $args - Additional arguments to pass to the function during each call.
+ * @returns {List} - A new list containing the results of applying the function to each element.
+ *
+ * @example
+ * $myList: (1, 2, 3);
+ * @function double($number) {
+ *   @return $number * 2;
+ * }
+ *
+ * $result: mapList($myList, double);
+ * Result: (2, 4, 6)
+ */
+
+@function map-list($list, $function, $args...) {
+  @if not function-exists($function) {
+    @error "There is no `#{$function}` function.";
+  }
+
+  @for $i from 1 through length($list) {
+    $list: set-nth($list, $i, call($function, nth($list, $i), $args...));
+  }
+
+  @return $list;
+}
+
 /** ============ FLATTEN LIST ============ //
  * Flattens a nested list of lists into a single-level list.
  *
@@ -128,6 +199,110 @@
   }
 
   @return $flat-list;
+}
+
+/** ============ SOME ============ //
+ * Checks if at least one element in a list satisfies a given condition defined by a specified function.
+ * If any element meets the condition, the function returns true. Otherwise, it returns false.
+ *
+ * @param {List} $list - The list of items to evaluate.
+ * @param {String} $function - The name of the function that defines the condition to check.
+ * @param {...} $args - Additional arguments to pass to the condition function during each call.
+ * @returns {Boolean} - Returns true if at least one element satisfies the condition; false otherwise.
+ *
+ * @example
+ * @function isOdd($number) {
+ *   @return $number % 2 != 0;
+ * }
+ *
+ * $myList: (2, 4, 5);
+ * $result: some($myList, isOdd);
+ * Result: true
+ */
+@function some($list, $function, $args...) {
+  @if not function-exists($function) {
+    @error "There is no `#{$function}` function.";
+  }
+
+  @each $item in $list {
+    @if call($function, $item, $args...) {
+      @return true;
+    }
+  }
+
+  @return false;
+}
+
+/** ============ EVERY ============ //
+ * Checks if all elements in a list satisfy a given condition defined by a specified function.
+ * If any element does not meet the condition, the function returns false. Otherwise, it returns true.
+ *
+ * @param {List} $list - The list of items to evaluate.
+ * @param {String} $function - The name of the function that defines the condition to check.
+ * @param {...} $args - Additional arguments to pass to the condition function during each call.
+ * @returns {Boolean} - Returns true if all elements satisfy the condition; false otherwise.
+ *
+ * @example
+ * @function isEven($number) {
+ *   @return $number % 2 == 0;
+ * }
+ *
+ * $myList: (2, 4, 6);
+ * $result: every($myList, isEven);
+ * Result: true
+  */
+@function every($list, $function, $args...) {
+  @if not function-exists($function) {
+    @error "There is no `#{$function}` function.";
+  }
+
+  @each $item in $list {
+    @if not call($function, $item, $args...) {
+      @return false;
+    }
+  }
+
+  @return true;
+}
+
+/** ============ QUICK SORT ============ //
+ * Implements the Quick Sort algorithm to sort a list of items in ascending order.
+ * The function divides the list into three categories: items less than the pivot,
+ * items equal to the pivot, and items greater than the pivot. It then recursively
+ * sorts the 'less' and 'greater' lists and combines them with the 'equal' list.
+ *
+ * @param {List} $list - The list of items to be sorted. Must contain comparable items.
+ * @returns {List} - A new list containing the sorted items in ascending order.
+ *
+ * @example
+ * $unsortedList: (3, 1, 4, 1, 5, 9, 2);
+ * $sortedList: quick-sort($unsortedList); // Result: (1, 1, 2, 3, 4, 5, 9)
+ *
+ * @note This function assumes that the items in the list can be compared using
+ *       the standard comparison operators (<, >, ==).
+ */
+@function quick-sort($list) {
+  $less:  ();
+  $equal: ();
+  $large: ();
+
+  @if length($list) > 1 {
+    $seed: nth($list, ceil(length($list) / 2));
+
+    @each $item in $list {
+      @if ($item == $seed) {
+        $equal: append($equal, $item);
+      } @else if ($item < $seed) {
+        $less: append($less, $item);
+      } @else if ($item > $SEED) {
+        $large: append($large, $item);
+      }
+    }
+
+    @return join(join(quick-sort($less, $order), $equal), quick-sort($large, $order));
+  }
+
+  @return $list;
 }
 //% *************************  ************************* //
 
@@ -174,6 +349,86 @@
   @return type-of($color) == "string" and str-index($color, "var(--");
 }
 
+/** ============ IS TIME ============ //
+ * Checks if a given value is a time value. A value is considered a time value
+ * if it is a number and has a unit of either milliseconds (ms) or seconds (s).
+ *
+ * @param {Number} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is a time value; false otherwise.
+ *
+ * @example
+ * @debug is-time(100ms); // Result: true
+ * @debug is-time(2s); // Result: true
+ * @debug is-time(10); // Result: false
+ */
+@function is-time($value) {
+  @return is-number($value) and index('ms' 's', unit($value)) != null;
+}
+
+/** ============ IS INTEGER ============ //
+ * Checks if a given value is an integer. A value is considered an integer
+ * if it is a number and is equal to its rounded value.
+ *
+ * @param {Number} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is an integer; false otherwise.
+ *
+ * @example
+ * @debug is-integer(10); // Result: true
+ * @debug is-integer(10.5); // Result: false
+ * @debug is-integer(-5); // Result: true
+ */
+@function is-integer($value) {
+  @return is-number($value) and round($value) == $value;
+}
+
+/** ============ IS PERCENTAGE ============ //
+ * Checks if a given value is a percentage. A value is considered a percentage
+ * if it is a number and has a unit of '%'.
+ *
+ * @param {Number} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is a percentage; false otherwise.
+ *
+ * @example
+ * @debug is-percentage(50%); // Result: true
+ * @debug is-percentage(0.5); // Result: false
+ * @debug is-percentage(-20%); // Result: true
+ */
+@function is-percentage($value) {
+  @return is-number($value) and unit($value) == '%';
+}
+
+
+/** ============ IS MAP ============ //
+ * Checks if a given value is a map. A value is considered a map if its type
+ * is "map".
+ *
+ * @param {Any} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is a map; false otherwise.
+ *
+ * @example
+ * @debug is-map((key: value)); // Result: true
+ * @debug is-map(5); // Result: false
+ * @debug is-map('string'); // Result: false
+ */
+@function is-map($value) {
+  @return type-of($value) == "map";
+}
+
+/** ============ IS LIST ============ //
+ * Checks if a given value is a list. A value is considered a list if its type
+ * is "list".
+ *
+ * @param {Any} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is a list; false otherwise.
+ *
+ * @example
+ * @debug is-list(1, 2, 3); // Result: true
+ * @debug is-list(5); // Result: false
+ * @debug is-list('string'); // Result: false
+ */
+@function is-list($value) {
+  @return type-of($value) == "list";
+}
 //% *************************  ************************* //
 
 //% ************************* Conversions ************************* //
@@ -226,30 +481,34 @@
 //% *************************  ************************* //
 
 //% ************************* Strings ************************* //
-/** ============ STR TO UPPER ============ //
- * Converts a string to uppercase.
+/** ============ STR REPLACE ============ //
+ * Replaces all occurrences of a substring within a string with another substring.
  *
- * @param {String} $string - The input string.
- * @returns {String} - The uppercase version of the string.
+ * This function is useful when you want to replace any occurrence of a specific substring
+ * with a different string in a given input. The replacement can be an empty string to remove
+ * the occurrences of the substring.
+ *
+ * @param {String} $string - The input string where the replacement will take place.
+ * @param {String} $search - The substring to search for within the input string.
+ * @param {String} $replace - (Optional) The string to replace each occurrence of $search with. Defaults to an empty string.
+ * @returns {String} - The modified string with all occurrences of $search replaced by $replace.
  *
  * @example
- * str-to-upper("bold"); // Returns "BOLD"
+ * Replace all occurrences of "test" with "replace"
+ * $result: str-replace("test-string-test", "test", "replace"); // Returns "replace-string-replace"
+ *
+ * Remove all occurrences of "e" from a string
+ * $result: str-replace("test", "e", ""); // Returns "tst"
  */
-@function str-to-upper($string) {
-  @return string.to-upper-case($string);
-}
+@function str-replace($string, $search, $replace: '') {
+  $string: "#{$string}";
+  $index: str-index($string, $search);
 
-/** ============ STR TO LOWER ============ //
- * Converts a string to lowercase.
- *
- * @param {String} $string - The input string.
- * @returns {String} - The lowercase version of the string.
- *
- * @example
- * str-to-lower("BOLD"); // Returns "bold"
- */
-@function str-to-lower($string) {
-  @return string.to-lower-case($string);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
 }
 
 /** ============ STRING EXPLODE ============ //
@@ -295,10 +554,185 @@
 
   @return $result;
 }
+
+/** ============ STRIP SUBSTRING ============ //
+ * Removes all occurrences of a specific substring from a given string value.
+ *
+ * This function is useful when you want to remove any instance of a specific substring (such as '%' or any other string)
+ * from a string, no matter where it appears within the input.
+ *
+ * @param {String} $value - The input string that may contain the substring to be removed.
+ * @param {String} $substring - The substring to remove from the input string. Defaults to "%".
+ * @returns {String} - The string with all occurrences of the specified substring removed.
+ *
+ * @example
+ * Remove all '%' symbols from the string
+ * $result: strip-substring("50%", "%"); // Returns "50"
+ *
+ * @example
+ * Remove all "test" substrings from a string
+ * $result: strip-substring("test-string-test", "test"); // Returns "-string-"
+ */
+@function strip-substring($value, $substring: "%") {
+  @return str-replace($value, $substring, "");
+}
+
+/** ============ STRIP UNIT ============ //
+ * Removes the unit from a given number. If the input is a number with a unit,
+ * it divides the number by itself (effectively stripping the unit) and returns
+ * the unitless value. If the input is already unitless or not a number, it
+ * returns the original value unchanged.
+ *
+ * @param {Number} $number - The number from which to strip the unit.
+ * @returns {Number} - The unitless version of the input number or the original value if it is already unitless or not a number.
+ *
+ * @example
+ * $valueWithUnit: 10px;
+ * $strippedValue: strip-unit($valueWithUnit);
+ * Result: 10
+ *
+ * @example
+ * $unitlessValue: 5;
+ * $result: strip-unit($unitlessValue);
+ * Result: 5
+ */
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return math.div($number, ($number * 0 + 1));
+  }
+
+  @return $number;
+}
 //% *************************  ************************* //
 
+//% ************************* Numbers ************************* //
+/** ============ TO FIXED ============ //
+ * Rounds a floating-point number to a specified number of decimal places.
+ * If the requested number of decimal places exceeds the Sass default precision,
+ * a warning will be issued, and the output will be limited to 5 decimal places.
+ *
+ * @param {Number} $float - The floating-point number to round.
+ * @param {Number} $digits - The number of decimal places to round to (default is 2).
+ * @returns {Number} - The rounded number, limited to a maximum of 5 decimal places.
+ *
+ * @warning If $digits is greater than 5, a warning will be issued indicating
+ *          that the output will be limited to 5 decimal places.
+ *
+ * @example
+ * @debug to-fixed(3.14159); // Result: 3.14
+ * @debug to-fixed(3.14159, 3); // Result: 3.142
+ * @debug to-fixed(3.14159, 6); // Warning issued; Result: 3.14159
+ */
 
+@function to-fixed($float, $digits: 2) {
+  @if $digits > globals.$SASS_DECIMAL_MAX_PRECISION {
+    @warn "Sass sets default precision to #{globals.$SASS_DECIMAL_MAX_PRECISION} digits, and there is no way to change that for now."
+    + "The returned number will have #{globals.$SASS_DECIMAL_MAX_PRECISION} digits, even if you asked for `#{$digits}`."
+    + "See https://github.com/sass/sass/issues/1122 for further informations.";
+  }
 
+  $pow: math.pow(10, $digits);
+  $rounded: round($float * $pow);
+  @return math.div($rounded, $pow);
+}
+//% *************************  ************************* //
 
+//% ************************* Paths ************************* //
+/** ============ ASSET ============ //
+ * Constructs a URL for an asset by combining a base path with the specified type and file name.
+ * This function helps in generating the correct URL format for assets such as images, fonts,
+ * and other files stored in the project directory.
+ *
+ * @param {String} $type - The type of asset (e.g., 'images', 'fonts').
+ * @param {String} $file - The name of the file to access, including the file extension.
+ * @returns {String} - The complete URL for the specified asset.
+ *
+ * @example
+ * $imageUrl: asset('images', 'logo.png');
+ * Result: url('/assets/images/logo.png')
+ */
+@function asset($type, $file) {
+  @return url(globals.$asset-base-path + '/' + $type + '/' + $file);
+}
 
+/** ============ IMAGE PATH ============ //
+ * Constructs a URL specifically for an image asset by calling the asset function
+ * with the type set to 'images' and the specified file name. This function simplifies
+ * the process of generating image URLs in stylesheets.
+ *
+ * @param {String} $file - The name of the image file to access, including the file extension.
+ * @returns {String} - The complete URL for the specified image asset.
+ *
+ * @example
+ * $imageUrl: image-path('banner.jpg');
+ * Result: url('/assets/images/banner.jpg')
+ */
+@function image-path($file) {
+  @return asset('images', $file);
+}
+
+/** ============ ICON PATH ============ //
+ * Constructs a URL specifically for an icon asset by calling the asset function
+ * with the type set to 'icons' and the specified file name. This function simplifies
+ * the process of generating icon URLs in stylesheets.
+ *
+ * @param {String} $file - The name of the icon file to access, including the file extension.
+ * @returns {String} - The complete URL for the specified icon asset.
+ *
+ * @example
+ * $iconUrl: icon-path('search.svg');
+ * Result: url('/assets/icons/search.svg')
+ */
+@function icon-path($file) {
+  @return asset('icons', $file);
+}
+
+/** ============ SVG URL ============ //
+ * Checks if the provided SVG string contains the "xmlns" substring. If not, it chunks
+ * the SVG string into smaller segments to avoid exceeding the maximum stack level
+ * and encodes special characters to create a valid data URL.
+ *
+ * @param {String} $svg - The SVG string to be processed and encoded.
+ * @returns {String} - A data URL containing the encoded SVG, or the original SVG if
+ *                     "xmlns" is present.
+ *
+ * @example
+ * $my-svg: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>';
+ * $encoded-svg: encode-svg($my-svg); // Returns the original SVG since it contains "xmlns"
+ *
+ * @example
+ * $invalid-svg: '<svg>...</svg>'; // Missing "xmlns"
+ * $encoded-invalid-svg: encode-svg($invalid-svg); // Returns a data URL for the encoded SVG
+ *
+ * @note This function is useful for embedding SVGs directly into CSS as data URLs,
+ *       especially for scenarios where the SVG might exceed maximum stack levels.
+ */
+@function svg-url($svg){
+  @if not str-index($svg, 'xmlns') {
+    // Chunk up the SVG string to avoid "stack level too deep" error
+    $encoded: '';
+    $slice: 2000; // Define the chunk size
+    $index: 0; // Initialize index for slicing
+    $loops: ceil(str-length($svg) / $slice); // Calculate the number of chunks
+
+    @for $i from 1 through $loops {
+      $chunk: str-slice($svg, $index, $index + $slice - 1); // Get the current chunk
+
+      // Encode special characters
+      $chunk: str-replace($chunk, '"', '\'');
+      $chunk: str-replace($chunk, '%', '%25');
+      $chunk: str-replace($chunk, '#', '%23');
+      $chunk: str-replace($chunk, '{', '%7B');
+      $chunk: str-replace($chunk, '}', '%7D');
+      $chunk: str-replace($chunk, '<', '%3C');
+      $chunk: str-replace($chunk, '>', '%3E');
+
+      $encoded: #{$encoded}#{$chunk}; // Concatenate encoded chunk to the result
+      $index: $index + $slice; // Update index for the next chunk
+    }
+
+    @return url("data:image/svg+xml,#{$encoded}"); // Return the final data URL
+  }
+}
+//% *************************  ************************* //
 

@@ -5,4 +5,12 @@ $spacing-mapping: (
   vw-step: 0.15vw,
   reduce-adjustment: 0.85,
   increase-adjustment: 1.6,
+  sides-map: (
+    l: left,
+    r: right,
+    t: top,
+    b: bottom,
+    x: inline,
+    y: block
+  )
 );

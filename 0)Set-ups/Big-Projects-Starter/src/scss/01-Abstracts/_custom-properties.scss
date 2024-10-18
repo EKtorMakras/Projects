@@ -25,15 +25,10 @@
 
   //@ ********* Radius  *********//
   $radius-prefix: funcs.get-prefix(radius);
-  $radius-total-steps: map-get(globals.$TOTAL_STEPS, radius);
 
-  @for $i from 1 through $radius-total-steps {
-    $current-b-radius: globals.$base_border-radius * $i;
-    --#{$radius-prefix}-#{$i}: #{$current-b-radius};
+  @each $radius-key, $radius-value in vars.$radius {
+   --#{$radius-prefix}-#{$radius-key}: #{$radius-value};
   }
-
-  --#{$radius-prefix}-pilled: 25rem;
-  --#{$radius-prefix}-circle: 50%;
 
   //@ ********* Letter Spacing  *********//
   $l-spacing-prefix: funcs.get-prefix(letter-spacing);
@@ -45,9 +40,25 @@
   }
 
   //@ ********* Shadows  *********//
-  --shadow-light: #{funcs.shadow-black(rg-1)};
-  --shadow-medium: #{funcs.shadow-black(lg-1)};
-  --shadow-dark: #{funcs.shadow-black(lg-3)};
+  $shadow-prefix: funcs.get-prefix(shadow);
+
+  --#{$shadow-prefix}-light: #{funcs.shadow-black(rg-1)};
+  --#{$shadow-prefix}-medium: #{funcs.shadow-black(lg-1)};
+  --#{$shadow-prefix}-dark: #{funcs.shadow-black(lg-3)};
+
+  //@ ********* Transitions  *********//
+  $transition-prefix: funcs.get-prefix(transition);
+
+  @each $speed, $transition-value in vars.$transitions {
+    --#{$transition-prefix}-#{$speed}: #{$transition-value};
+  }
+
+   //@ ********* Opacities  *********//
+   $opacity-prefix: funcs.get-prefix(opacity);
+
+   @each $opacity-key, $opacity-value in vars.$opacities {
+  --#{$opacity-prefix}-#{$opacity-key}: #{$opacity-value};
+}
 
   //@ ********* Other  *********//
   --max-width: #{globals.$max-width};

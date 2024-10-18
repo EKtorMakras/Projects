@@ -73,6 +73,25 @@
   }
 }
 
+@mixin text-ellipsis(
+  $number-of-lines: 1
+) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @if $number-of-lines == 1 {
+    white-space: nowrap;
+  } @else {
+    white-space: inherit;
+
+    @supports (-webkit-line-clamp: $number-of-lines) {
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: $number-of-lines;
+    }
+  }
+}
+
 /** ============ SHADOW ============ //
  * Applies either box-shadow or text-shadow to elements. The shadow size is determined
  * by predefined shadow categories (e.g., "sm-1", "rg-2", etc.) that handle the blur radius,
@@ -154,6 +173,55 @@
   }
 }
 
+/** ============ CUSTOM SCROLLBAR ============ //
+ * Creates a custom scrollbar with specified colors and sizes for both WebKit browsers
+ * (like Chrome and Safari) and Firefox. The mixin allows for customization of the scrollbar
+ * thumb and track, along with their dimensions and border radius.
+ *
+ * @param {Color} $thumb-bg-color - The background color for the scrollbar thumb (default: hsl(0deg 0% 0% / 15%)).
+ * @param {Color} $thumb-bg-color-hover - The background color for the scrollbar thumb on hover (default: hsl(0deg 0% 0% / 25%)).
+ * @param {Color} $track-bg-color - The background color for the scrollbar track (default: hsl(0deg 0% 0% / 5%)).
+ * @param {Number} $size - The size of the scrollbar (default: 0.5rem).
+ * @param {Number} $border-radius - The border radius for the scrollbar elements (default: 0.25rem).
+ *
+ * @example
+ * .custom-scrollable {
+ *   @include custom-scrollbar;
+ * }
+ * Resulting CSS will customize the scrollbar with the specified colors and sizes in both
+ * WebKit browsers and Firefox.
+ *
+ * @note This mixin primarily targets WebKit browsers and Firefox.
+ *       Other browsers may not support custom scrollbar styling.
+ */
+@mixin custom-scrollbar(
+  $thumb-bg-color: hsl(0deg 0% 0% / 15%),
+  $thumb-bg-color-hover: hsl(0deg 0% 0% / 25%),
+  $track-bg-color: hsl(0deg 0% 0% / 5%),
+  $size: 0.5rem,
+  $border-radius: 0.25rem
+) {
+  // WebKit browsers
+  &::-webkit-scrollbar {
+    block-size: $size;
+    inline-size: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-bg-color;
+    border-radius: $border-radius;
+
+    &:hover {
+      background: $thumb-bg-color-hover;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-bg-color;
+    border-radius: $border-radius;
+  }
+}
+
 /** ============ GRADIENT ============ //
  * Generates a flexible linear gradient background that supports different color formats
  * using the `color-test` function for dynamic color retrieval. You can optionally specify
@@ -200,6 +268,51 @@
   background-image: linear-gradient($direction, $color1-final, $color2-final);
 }
 
+/** ============ STRIPES ============ //
+ * Creates a striped background using a linear gradient based on the specified colors and direction.
+ * The mixin calculates the necessary gradient stops for each color provided as a list and applies
+ * them to create a striped effect. If only one color is provided, it sets the background color instead.
+ *
+ * @param {String} $direction - The direction of the stripes (e.g., 'to right', 'to bottom').
+ * @param {List} $colors - A list of colors to be used for the stripes.
+ *                         Must contain at least one color.
+ *
+ * @example
+ * .striped-background {
+ *   @include stripes(to right, (#8e44ad, #2c3e50, #2980b9, #16a085, #27ae60));
+ * }
+ * Resulting CSS:
+ * background-image: linear-gradient(to right, #8e44ad 0%, #2c3e50 20%, #2980b9 40%, #16a085 60%, #27ae60 100%) ;
+ *
+ * @example
+ * .single-color-background {
+ *   @include stripes(to bottom, (#8e44ad));
+ * }
+ * Resulting CSS:
+ * background-color: #8e44ad ;
+ */
+@mixin stripes($direction, $colors) {
+  $length: length($colors);
+
+  @if $length > 1 {
+    $stripes: ();
+
+    @for $i from 1 through $length {
+      $stripe: (100% / $length) * ($i - 1);
+
+      @if $i > 1 {
+        $stripes: append($stripes, nth($colors, $i - 1) $stripe, comma);
+      }
+
+      $stripes: append($stripes, nth($colors, $i) $stripe, comma);
+    }
+
+    background-image: linear-gradient($direction, $stripes);
+  } @else if $length == 1 {
+    background-color: $colors;
+  }
+}
+
 /** ============ BG-IMAGE ============ //
  * Sets a background image with customizable size and position.
  * Defaults to `cover` and `center center` for size and position respectively.
@@ -217,7 +330,7 @@
  * @include bg-image("my-image.png", contain, top left);
  */
 @mixin bg-image($image, $size: cover, $position: center center) {
-  background-image: url(@/assets/images/#{$image});
+  background-image: funcs.image-path($image);
   background-size: $size;
   background-position: $position;
   background-repeat: no-repeat;

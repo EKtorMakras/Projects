@@ -15,7 +15,9 @@ $PREFIXES: (
   letter-spacing: "letter-spacing",
   radius: "radius",
   button: "btn",
+  opacity: "opacity",
   shadow: "shadow",
+  transition: "transition"
 );
 
 $DEFAULTS: (
@@ -27,12 +29,17 @@ $DEFAULTS: (
 $TOTAL_STEPS: (
   radius: 5,
   letter-spacing: 5,
-  spacing: 35
+  spacing: 35,
+  grid-columns: 12
 );
 
 $THRESHOLDS: (
   brightness: 20%
 );
+
+$SASS_DECIMAL_MAX_PRECISION: 5;
+
+$asset-base-path: "@/assets";
 
 $base_letter-spacing: 0.5px;
 $base_border-radius: 3px;
@@ -47,3 +54,12 @@ $para_max-width: 65ch;
 $transition-duration: 300ms;
 $transition-timing-function: ease-in-out;
 $transition: all $transition-duration $transition-timing-function;
+
+// Standard css values
+$overflow-values: auto, hidden, visible;
+$text-align-values: left, right, justify, center;
+$display-values: none, block, inline-block, inline, flex, inline-flex, grid, inline-grid, table, table-row, table-cell;
+$position-values: static, relative, absolute, fixed, sticky;
+$sides: top, right, bottom, left;
+
+

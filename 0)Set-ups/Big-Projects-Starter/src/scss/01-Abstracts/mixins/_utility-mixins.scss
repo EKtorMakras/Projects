@@ -56,7 +56,184 @@
 }
 //% ***************    *************** //
 
-//% ***************  Custom Props *************** //
+//% ***************  Utility Classes Generation  *************** //
+/** ============ OVERFLOW UTILITIES ============ //
+ * Generates overflow utility classes based on the provided prefix and value.
+ * Allows creating utility classes for `overflow`, `overflow-x`, and `overflow-y` properties.
+ *
+ * @param {String} $prefix (Optional) - The axis on which the overflow property should be applied (e.g., "x", "y"). If not provided, applies to both axes.
+ * @param {String} $value - The value for the overflow property (e.g., "auto", "hidden", "visible").
+ *
+ * @example
+ * Apply overflow hidden for both axes
+ * @include overflow-utilities("", hidden);
+ *
+ * @example
+ * Apply overflow auto only on the x-axis
+ * @include overflow-utilities("x", auto);
+ *
+ * @example
+ * Apply overflow visible only on the y-axis
+ * @include overflow-utilities("y", visible);
+ */
+@mixin overflow-utilities($prefix: "", $value) {
+  @if $prefix == "" {
+    .overflow-#{$value} {
+      overflow: $value;
+    }
+  } @else {
+    .overflow-#{$prefix}-#{$value} {
+      overflow-#{$prefix}: $value;
+    }
+  }
+}
+
+/** ============ GENERATE COLOR UTILITIES ============ //
+ * Generates utility classes for text color, background color, and their hover states based on the provided color map.
+ * Supports both direct color values and color maps with shades.
+ *
+ * @param {Map} $colors - The color map that contains either direct colors or nested maps with shades.
+ *                        Example of a map:
+ *                        (
+ *                          "red": #ff0000,
+ *                          "gray": (
+ *                            "100": #f5f5f5,
+ *                            "500": #888888
+ *                          )
+ *                        )
+ *
+ * @example
+ * Generate color utilities for a light color palette
+ * @include generate-color-utilities($colors-light);
+ */
+
+@mixin generate-color-utilities($color-map) {
+  @each $color-name, $color-value in $color-map {
+    // Check if the color is a map (with shades)
+    @if type-of($color-value) == "map" {
+      // Declare base class variables (without shade)
+      $text-class: funcs.get-color-class('text', $color-name, $color-value);
+      $bg-class: funcs.get-color-class('bg', $color-name, $color-value);
+      $text-hover-class: funcs.get-color-class('text-hover', $color-name, $color-value);
+      $bg-hover-class: funcs.get-color-class('bg-hover', $color-name, $color-value);
+
+      // Generate base classes (without shade)
+      .#{$text-class} {
+        color: funcs.color($color-name, $color-map) !important;
+      }
+      .#{$bg-class} {
+        background-color: funcs.color($color-name, $color-map) !important;
+      }
+      .#{$text-hover-class}:hover {
+        color: funcs.color($color-name, $color-map) !important;
+      }
+      .#{$bg-hover-class}:hover {
+        background-color: funcs.color($color-name, $color-map) !important;
+      }
+
+      // Loop through the shades and generate additional classes
+      @each $shade, $shade-color in $color-value {
+        // Declare class variables for each shade
+        $text-class-shade: funcs.get-color-class('text', $color-name, $color-value, $shade);
+        $bg-class-shade: funcs.get-color-class('bg', $color-name, $color-value, $shade);
+        $text-hover-class-shade: funcs.get-color-class('text-hover', $color-name, $color-value, $shade);
+        $bg-hover-class-shade: funcs.get-color-class('bg-hover', $color-name, $color-value, $shade);
+
+        .#{$text-class-shade} {
+          color: funcs.color("#{$color-name}.#{$shade}", $color-map) !important;
+        }
+        .#{$bg-class-shade} {
+          background-color: funcs.color("#{$color-name}.#{$shade}", $color-map) !important;
+        }
+        .#{$text-hover-class-shade}:hover {
+          color: funcs.color("#{$color-name}.#{$shade}", $color-map) !important;
+        }
+        .#{$bg-hover-class-shade}:hover {
+          background-color: funcs.color("#{$color-name}.#{$shade}", $color-map) !important;
+        }
+      }
+    }
+
+    // Handle direct color values (e.g., "error", "success", etc.)
+    @else {
+      // Declare base class variables
+      $text-class: funcs.get-color-class('text', $color-name, $color-value);
+      $bg-class: funcs.get-color-class('bg', $color-name, $color-value);
+      $text-hover-class: funcs.get-color-class('text-hover', $color-name, $color-value);
+      $bg-hover-class: funcs.get-color-class('bg-hover', $color-name, $color-value);
+
+      // Generate utility classes for direct colors
+      .#{$text-class} {
+        color: $color-value !important;
+      }
+      .#{$bg-class} {
+        background-color: $color-value !important;
+      }
+      .#{$text-hover-class}:hover {
+        color: $color-value !important;
+      }
+      .#{$bg-hover-class}:hover {
+        background-color: $color-value !important;
+      }
+    }
+  }
+}
+
+/** ============ POSITION UTILITIES ============ //
+ * Generates position utility classes based on the provided value.
+ *
+ * @param {String} $value - The position value to apply (e.g., static, relative, absolute, etc.).
+ * @example
+ * Generates `.position-static { position: static; }`
+ * @include position-utilities("static");
+ */
+@mixin position-utilities($value) {
+  .position-#{$value} {
+    position: $value;
+  }
+}
+
+/** ============ SIDE POSITION UTILITIES ============ //
+ * Generates utility classes for top, right, bottom, and left properties with specified values.
+ *
+ * @param {String} $side - The side property to apply (e.g., top, right, bottom, left).
+ * @param {String|Number} $value - The value to apply (e.g., 0, auto, 50%, etc.).
+ * @example
+ * Generates `.top-0 { top: 0; }`
+ * @include side-utilities("top", 0);
+ */
+@mixin side-utilities($side, $value) {
+   $class-value: funcs.strip-unit($value);
+
+  .#{$side}-#{$class-value} {
+    #{$side}: $value;
+  }
+}
+
+/** ============ DIMENSION UTILITIES ============ //
+ * Generates utility classes for height or width based on the provided map.
+ *
+ * @param {String} $dimension - Either 'height' or 'width'.
+ * @param {Map} $dimension-map - A map of values for height or width.
+ * @param {String} $prefix - Class name prefix for height or width (e.g., 'h' or 'w').
+ * @example
+ * Generates `.h-auto { height: auto; }`
+ * @include dimension-utilities('height', $heights, 'h');
+ * Generates `.w-auto { width: auto; }`
+ * @include dimension-utilities('width', $widths, 'w');
+ */
+@mixin dimension-utilities($dimension, $dimension-map, $prefix) {
+  @each $name, $value in $dimension-map {
+    $class-name: funcs.strip-unit($name);
+
+    .#{$prefix}-#{$class-name} {
+      #{$dimension}: $value;
+    }
+  }
+}
+//% ***************    *************** //
+
+//% ***************  Custom Props  *************** //
 /** ============ GENERATE COLOR CUSTOM PROP ============ //
  * Generates a CSS custom property for a given color and shade.
  * Outputs the custom property directly in the stylesheet.
@@ -124,7 +301,7 @@
 }
 //% ***************    *************** //
 
-//% ***************  Units *************** //
+//% ***************  Units  *************** //
 /** ============ DYNAMIC VIEWPORT WIDTH (DVW) ============ //
  * Applies a width using dynamic viewport units (dvw) when supported, and falls back to regular viewport units (vw) if not supported.
  *
@@ -194,4 +371,52 @@
 }
 //% ***************   *************** //
 
+//% ***************  Selectors  *************** //
+/** ============ QUALIFY ============ //
+ * A mixin that qualifies a selector by combining it with the current selector
+ * using the `@at-root` directive. This is useful for creating nested styles
+ * that apply to a specific element selector in a more modular way.
+ *
+ * @param {String} $element-selector - The selector to qualify with the current selector.
+ *
+ * @example
+ * .parent {
+ *   @include qualify('.child') {
+ *     color: teal;
+ *   }
+ * }
+ * Resulting CSS:
+ * .child .parent {
+ *   color: teal;
+ * }
+ */
+@mixin qualify($element-selector) {
+  @at-root #{$element-selector + &} {
+    @content;
+  }
+}
 
+/** ============ WHEN IS ============ //
+ * A mixin that qualifies the current selector by calling the qualify mixin
+ * with the provided element selectors. It allows you to create styles that
+ * apply to specific conditions or elements while maintaining the current context.
+ *
+ * @param {...String} $args - One or more element selectors to qualify.
+ *
+ * @example
+ * .button {
+ *   @include when-is('.active', '.disabled') {
+ *     background: gray;
+ *   }
+ * }
+ * Resulting CSS:
+ * .active .button,
+ * .disabled .button {
+ *   background: gray;
+ * }
+ */
+@mixin when-is($args...) {
+  @include qualify($args...) {
+    @content;
+  }
+}

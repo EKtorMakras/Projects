@@ -1,0 +1,10 @@
+@use "../../variables/transition-vars" as *;
+
+@function ease($key) {
+  @if map-has-key($timing-functions-mapping, $key) {
+    @return map-get($timing-functions-mapping, $key);
+  }
+
+  @warn "Unknown '#{$key}' in $ease.";
+  @return null;
+}

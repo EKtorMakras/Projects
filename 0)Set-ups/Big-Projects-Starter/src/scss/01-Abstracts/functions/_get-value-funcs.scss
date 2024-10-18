@@ -63,19 +63,30 @@
 }
 
 /** ============ GET CSS VAR ============ //
- * Retrieves a CSS variable based on the given name and optional prefix.
+ * Retrieves a CSS variable based on the given prefix and an optional name.
+ * If the name is provided, it appends the name to the prefix. Otherwise, it returns the variable with the prefix only.
  *
- * @param {String} $prefix - The prefix for the CSS variable.
- * @param {String} $name - The name or key for the CSS variable (e.g., letter-spacing, border-radius).
+ * @param {String} $prefix - The prefix for the CSS variable (e.g., "color", "border-radius").
+ * @param {String} $name - (Optional) The name or key for the CSS variable (e.g., "primary", "lg"). If null, the function returns only the prefix.
  *
- * @return {String} - The corresponding CSS variable (e.g., var(--border-radius-1)).
+ * @return {String} - The corresponding CSS variable (e.g., var(--color-primary) or var(--color)).
  *
  * @example
+ * Example with a name
  * $border-radius: get-css-var(get-prefix(radius), 3);
- * Returns: var(--border-radius-3)
+ * Returns: var(--radius-3)
+ *
+ * @example
+ * Example without a name
+ * $color-var: get-css-var(get-prefix(color));
+ * Returns: var(--color)
  */
-@function get-css-var($prefix, $name) {
-  @return var(--#{$prefix}-#{$name});
+@function get-css-var($prefix, $name: null) {
+  @if $name == null {
+    @return var(--#{$prefix});
+  } @else {
+    @return var(--#{$prefix}-#{$name});
+  }
 }
 
 /** ============ GET SPACER ============ //
@@ -114,7 +125,7 @@
   @return var(--#{$prefix}-#{$name});
 }
 
-/** ============ GET BTN  COLOR CLASS ============ //
+/** ============ GET BTN COLOR CLASS ============ //
  * Generates a CSS class string for a button based on the provided color name, color value, and optional shade.
  *
  * This function constructs the CSS class for buttons by combining the prefix (e.g., "btn"), color name, and

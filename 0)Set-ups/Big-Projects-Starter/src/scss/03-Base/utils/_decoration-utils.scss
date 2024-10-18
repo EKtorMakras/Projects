@@ -9,38 +9,43 @@
 }
 //& *******  ******* //
 
-//& ******* Radius ******* //
-.sharp {
-  border-radius: get-css-var(get-prefix(radius), 1) !important;
-}
-
-.rounded {
-  border-radius: get-css-var(get-prefix(radius), 3) !important;
-}
-
-.pilled {
-  border-radius: get-css-var(get-prefix(radius), pilled) !important;
-}
-
-.circle {
-  border-radius: get-css-var(get-prefix(radius), circle) !important;
-}
-//& *******  ******* //
-
 //& ******* Shadows ******* //
+$shadow-prefix: get-prefix(shadow);
+
 .shadow-light {
-  box-shadow: get-css-var(get-prefix(shadow), light) !important;
+  box-shadow: get-css-var($shadow-prefix, light) !important;
 }
 
 .shadow-medium {
-  box-shadow: get-css-var(get-prefix(shadow), medium) !important;
+  box-shadow: get-css-var($shadow-prefix, medium) !important;
 }
 
 .shadow-dark {
-  box-shadow: get-css-var(get-prefix(shadow), dark) !important;
+  box-shadow: get-css-var($shadow-prefix, dark) !important;
 }
 
 .shadow-none {
   box-shadow: none !important;
+}
+//& *******  ******* //
+
+//& ******* Radius ******* //
+$radius-prefix: get-prefix(radius); // Assuming you have a function to get the prefix
+
+// Loop over the $radii map and create utility classes
+@each $radius-key, $radius-value in $radius {
+  .#{$radius-prefix}-#{$radius-key} {
+    border-radius: get-css-var($radius-prefix, $radius-key) !important;
+  }
+}
+//& *******  ******* //
+
+//& ******* Opacity ******* //
+$opacity-prefix: get-prefix(opacity);
+
+@each $opacity-key, $opacity-value in $opacities {
+  .#{$opacity-prefix}-#{$opacity-key} {
+    opacity: get-css-var($opacity-prefix, $opacity-key) !important;
+  }
 }
 //& *******  ******* //
