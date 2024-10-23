@@ -1,6 +1,5 @@
 @use "../../mapping/shadow-mapping" as *;
 @use "../../variables/shadow-vars" as vars;
-
 @use "../helper-funcs" as helper-funcs;
 @use "../specific/color-funcs" as color-funcs;
 
@@ -28,7 +27,9 @@
 
   // Default to "$default-category" if no category is found
   $default-category:  helper-funcs.map-deep-get($shadow-mapping, ("defaults", "category"));
+
   @warn "No matching shadow size category found for '#{$size}', defaulting to '#{$default-category}'.";
+
   @return $default-category;
 }
 
@@ -96,6 +97,7 @@
 
   // 2. Merge passed options with the default options
   $color-options: map-merge($default-color-options, $passed-color-options);
+
   // 3. Extract values from the merged color options map using helper-funcs.map-deep-get
   $color-name: map-get($color-options, "name");
   $color-variant: map-get($color-options, "variant");
@@ -107,7 +109,9 @@
 
   @if $type == box {
     $shadow-value: helper-funcs.map-deep-get($shadow-mapping, ("box", $size));
-  } @else {
+  }
+
+  @else {
     $shadow-value: helper-funcs.map-deep-get($shadow-mapping, ("text", $size));
   }
 
@@ -122,7 +126,25 @@
   $color: color-funcs.color-test($color-name, $color-variant, $use-css-var);
 
   // 8. Construct the final shadow string
-  $shadow-string: if($use-css-var, #{$shadow-value} #{$color}, #{$shadow-value} rgba(#{$color}, $final-opacity), );
+  $shadow-string: null;
+
+  // Handle multiple shadows
+  @if type-of($shadow-value) == "list" {
+    $shadow-length: length($shadow-value);
+    $shadow-list: ();
+
+    @for $i from 1 through $shadow-length {
+      $item: nth($shadow-value, $i);
+      $shadow-list: append($shadow-list, unquote("#{$item} #{$color}"), comma);
+    }
+
+    $shadow-string: $shadow-list;
+  }
+
+  // Handle single shadow
+  @else {
+    $shadow-string: if($use-css-var, #{$shadow-value} #{$color}, #{$shadow-value} rgba(#{$color}, $final-opacity));
+  }
 
   @return $shadow-string;
 }

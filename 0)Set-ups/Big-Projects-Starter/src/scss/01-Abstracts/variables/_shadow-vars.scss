@@ -2,20 +2,51 @@
 @use "../functions/helper-funcs" as *;
 
 //% ***************  Standard dark sizes  *************** //
-$default-black-shadows: (
-  // Small
-  sm-1: #{map-deep-get($shadow-mapping, ("box", "sm-1"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "sm", "opacity"))),
-  sm-2: #{map-deep-get($shadow-mapping, ("box", "sm-2"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "sm", "opacity"))),
-  sm-3: #{map-deep-get($shadow-mapping, ("box", "sm-3"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "sm", "opacity"))),
-
-  // Regular
-  rg-1: #{map-deep-get($shadow-mapping, ("box", "rg-1"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "rg", "opacity"))),
-  rg-2: #{map-deep-get($shadow-mapping, ("box", "rg-2"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "rg", "opacity"))),
-  rg-3: #{map-deep-get($shadow-mapping, ("box", "rg-3"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "rg", "opacity"))),
-
-  // Large
-  lg-1: #{map-deep-get($shadow-mapping, ("box", "lg-1"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "lg", "opacity"))),
-  lg-2: #{map-deep-get($shadow-mapping, ("box", "lg-2"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "lg", "opacity"))),
-  lg-3: #{map-deep-get($shadow-mapping, ("box", "lg-3"))} rgba(0, 0, 0, map-deep-get($shadow-mapping, ("categories", "lg", "opacity")))
+$black-shadows-opacities : (
+  sm: map-deep-get($shadow-mapping, ("categories", "sm", "opacity")),
+  rg: map-deep-get($shadow-mapping, ("categories", "rg", "opacity")),
+  lg: map-deep-get($shadow-mapping, ("categories", "lg", "opacity")),
 );
+
+$default-black-shadows: ();
+
+@each $key, $shadow in map-get($shadow-mapping, "box") {
+  // Extract the opacity based on the category (e.g., sm, rg, lg)
+  $opacity: map-get($black-shadows-opacities, str-slice($key, 1, 2));
+
+  // Declare the color variable
+  $color: rgba(0, 0, 0, $opacity);
+
+  // Initialize shadow-values as an empty list
+  $shadow-values: ();
+
+  // Check if $shadow is a string (single shadow) or list (multiple shadows)
+  @if type-of($shadow) == "string" {
+    $shadow-values: append($shadow-values, unquote("#{$shadow} #{$color}"));
+    $default-black-shadows: map-merge($default-black-shadows, ($key: $shadow-values));
+  }
+
+  // Handle multiple shadows
+  @else if type-of($shadow) == "list" {
+    $shadow-length: length($shadow);
+    $shadow-list: ();
+
+    @for $i from 1 through $shadow-length {
+      $item: nth($shadow, $i);
+      $shadow-list: append($shadow-list, unquote("#{$item} #{$color}"), comma);
+    }
+
+    $default-black-shadows: map-merge($default-black-shadows, ($key: $shadow-list));
+  }
+}
+
 //% ***************   *************** //
+
+//% ***************  Named Presets *************** //
+$box-shadow-named-presets : (
+  light: "rg-1",
+  medium: "lg-1",
+  dark: "lg-3",
+  none: none
+)
+//% ***************   *************** //NamedPresets$box-shadow-named-presets

@@ -26,6 +26,7 @@
 @each $value in globals.$position-values {
   @include position-utilities($value);
 }
+
 //& *******  ******* //
 
 //& ******* Side Values ******* //
@@ -34,6 +35,14 @@ $side-values: (0, 50%, auto);
 @each $side in globals.$sides {
   @each $value in $side-values {
     @include side-utilities($side, $value);
+  }
+}
+//& *******  ******* //
+
+//& ******* Z-Index ******* //
+@each $name, $value in $z-indexes {
+  .z-index-#{$name} {
+    z-index: $value;
   }
 }
 //& *******  ******* //

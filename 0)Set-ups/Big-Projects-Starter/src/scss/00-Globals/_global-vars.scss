@@ -34,7 +34,7 @@ $TOTAL_STEPS: (
 );
 
 $THRESHOLDS: (
-  brightness: 20%
+  brightness: 15%
 );
 
 $SASS_DECIMAL_MAX_PRECISION: 5;
@@ -61,5 +61,6 @@ $text-align-values: left, right, justify, center;
 $display-values: none, block, inline-block, inline, flex, inline-flex, grid, inline-grid, table, table-row, table-cell;
 $position-values: static, relative, absolute, fixed, sticky;
 $sides: top, right, bottom, left;
-
+$casing-values: uppercase, lowercase, capitalize;
+$text-decoration-values: none, overline, underline, line-through;
 

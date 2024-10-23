@@ -59,8 +59,7 @@
 @mixin border-radius($radius, $corners: all) {
   @if $corners == all {
     border-radius: $radius;
-  }
-  @else {
+  } @else {
     @each $corner in $corners {
       @if map-has-key(globals.$CORNER_MAP, $corner) {
         @each $property in map-get(globals.$CORNER_MAP, $corner) {
@@ -73,9 +72,18 @@
   }
 }
 
-@mixin text-ellipsis(
-  $number-of-lines: 1
-) {
+/** ============ TEXT ELLIPSIS ============ //
+ * Applies text overflow handling to achieve an ellipsis effect. This mixin allows you
+ * to truncate text with an ellipsis after a specified number of lines.
+ *
+ * @param {Number} $number-of-lines - The number of lines after which to apply the ellipsis (default: 1).
+ *
+ * @example
+ * .single-line {
+ *   @include text-ellipsis(1);
+ * }
+ */
+@mixin text-ellipsis($number-of-lines: 1) {
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -261,8 +269,8 @@
   $color2-value: funcs.resolve-color($color2);
 
   // Append the position to the color if it's provided and unquote the final value
-  $color1-final: if($color1-pos != null, unquote($color1-value + ' ' + $color1-pos), unquote($color1-value));
-  $color2-final: if($color2-pos != null, unquote($color2-value + ' ' + $color2-pos), unquote($color2-value));
+  $color1-final: if($color1-pos != null, unquote($color1-value + " " + $color1-pos), unquote($color1-value));
+  $color2-final: if($color2-pos != null, unquote($color2-value + " " + $color2-pos), unquote($color2-value));
 
   // Apply the gradient
   background-image: linear-gradient($direction, $color1-final, $color2-final);
@@ -396,13 +404,16 @@
   //* 5) Apply text color
   // Text color provided
   @if $text-color != null {
-
     color: $resolved-text-color;
   }
 
   // Calculate text color dynamically based on bg color
   @else {
-    $dynamic-text-color: if(funcs.is-color-dark($resolved-bg-color), $default-light-text-color, $default-dark-text-color);
+    $dynamic-text-color: if(
+      funcs.is-color-dark($resolved-bg-color),
+      $default-light-text-color,
+      $default-dark-text-color
+    );
     color: $dynamic-text-color;
   }
 
@@ -418,13 +429,13 @@
 
     //& 2. No hover bg color provided
     @else {
-       $is-css-var: funcs.is-css-var($bg-color);
+      $is-css-var: funcs.is-css-var($bg-color);
 
       //* Css var case
       @if $is-css-var {
         // Use the resolved CSS variable without adjustment
         background-color: $resolved-bg-color;
-        $adjusted-hover-bg-color: $resolved-bg-color
+        $adjusted-hover-bg-color: $resolved-bg-color;
       }
 
       //* NO Css var case
@@ -444,19 +455,18 @@
 
       // Apply hover text color if provided
       @if $hover-text-color != null {
-       color: $resolved-hover-text-color;
+        color: $resolved-hover-text-color;
       }
 
       // Dynamically calculate hover text color based on the adjusted hover background color
       @else {
-        $dynamic-hover-text-color: if(funcs.is-color-dark($adjusted-hover-bg-color), $default-light-text-color, $default-dark-text-color);
+        $dynamic-hover-text-color: if(
+          funcs.is-color-dark($adjusted-hover-bg-color),
+          $default-light-text-color,
+          $default-dark-text-color
+        );
         color: $dynamic-hover-text-color;
       }
     }
   }
 }
-
-
-
-
-

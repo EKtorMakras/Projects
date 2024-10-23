@@ -4,8 +4,6 @@
 @include dimension-utilities('height', $heights, 'h');
 //& *******  ******* //
 
-// Generate height utilities
-
-
-// Generate width utilities
+//& ******* Width ******* //
 @include dimension-utilities('width', $widths, 'w');
+//& *******  ******* //

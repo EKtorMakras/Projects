@@ -11,6 +11,13 @@
   }
 }
 
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  position: relative;
+}
+
 //& ******* No Breakpoint ******* //
 @include generate-flex-layout-system();
 //& *******  ******* //

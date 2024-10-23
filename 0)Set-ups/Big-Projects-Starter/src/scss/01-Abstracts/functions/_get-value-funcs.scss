@@ -14,7 +14,9 @@
 @function get-default($key) {
   @if map-has-key(globals.$DEFAULTS, $key) {
     @return map-get(globals.$DEFAULTS, $key);
-  } @else {
+  }
+
+  @else {
     @warn "Default value '#{$key}' not found in the \$DEFAULTS map.";
     @return null;
   }
@@ -33,7 +35,9 @@
 @function get-prefix($key) {
   @if map-has-key(globals.$PREFIXES, $key) {
     @return map-get(globals.$PREFIXES, $key);
-  } @else {
+  }
+
+  @else {
     @warn "Prefix '#{$key}' not found in the \$PREFIXES map.";
     @return null;
   }
@@ -56,7 +60,9 @@
 @function get-threshold($threshold-name) {
   @if map-has-key(globals.$THRESHOLDS, $threshold-name) {
     @return map-get(globals.$THRESHOLDS, $threshold-name);
-  } @else {
+  }
+
+  @else {
     @warn "Threshold '#{$threshold-name}' not found in the \$THRESHOLDS map.";
     @return null;
   }
@@ -84,7 +90,9 @@
 @function get-css-var($prefix, $name: null) {
   @if $name == null {
     @return var(--#{$prefix});
-  } @else {
+  }
+
+  @else {
     @return var(--#{$prefix}-#{$name});
   }
 }
@@ -104,6 +112,7 @@
  */
 @function get-spacer($i, $dynamic: false, $prefix: get-prefix(spacer)) {
   $variable-name: if($dynamic, "#{$prefix}-dynamic-#{$i}", "#{$prefix}-base-#{$i}");
+
   @return var(--#{$variable-name});
 }
 
@@ -152,17 +161,21 @@
  * $color-class: get-btn-color-class("primary", $color-value);
  */
 @function get-color-class($prefix, $color-name, $color-value, $shade: null) {
+
   // Handle map of colors (e.g., "gray": (50, 100, etc.))
   @if type-of($color-value) == "map" {
+
     // Return the class with the shade if provided
     @if $shade != null {
       @return "#{$prefix}-#{$color-name}-#{$shade}";
     }
+
     // Default to the main class without shade
     @else {
       @return "#{$prefix}-#{$color-name}";
     }
   }
+
   // Handle direct color values (e.g., "black", "white")
   @else {
     @return "#{$prefix}-#{$color-name}";

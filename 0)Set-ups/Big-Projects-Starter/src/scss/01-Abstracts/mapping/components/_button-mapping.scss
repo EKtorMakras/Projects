@@ -11,7 +11,7 @@ $button-mapping: (
     "hover-text-color": null,
     "text-transform": capitalize,
     "radius": 1,
-    "shadow": rg-3,
+    "shadow": rg-1,
     "transition": all 0.4s ease,
     "adjustment-props": (
       "mode": lightness,
@@ -43,12 +43,12 @@ $button-mapping: (
       "letter-spacing": 3
     ),
     lg: (
-      "padding": .7em 1.2em,
+      "padding": .6em 1.3em,
       "font-size": rg,
       "letter-spacing": 3
     ),
     xl: (
-      "padding": .9em 1.5em,
+      "padding": .7em 1.6em,
       "font-size": lg-1,
       "letter-spacing": 4
     )

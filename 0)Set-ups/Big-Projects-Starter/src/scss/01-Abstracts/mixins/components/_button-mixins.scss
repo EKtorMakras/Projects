@@ -1,5 +1,5 @@
 @use "../../functions" as funcs;
-@use "../../variables/components/button-vars" as vars;
+@use "../../variables" as vars;
 @use "../decoration-mixins" as decor-mixins;
 @use "../state-mixins" as state-mixins;
 
@@ -32,23 +32,52 @@
  * @include btn-outline(color("primary"), color("white"), (), color("gray-light"));
  */
 @mixin btn-outline(
-  $main-color: vars.$default-btn-bg-color,
-  $text-color: vars.$default-btn-text-color,
+  $main-color: map-get(vars.$default-btn-styles, bg-color),
+  $text-color: map-get(vars.$default-btn-styles, text-color),
+  $hover-text-color: map-get(vars.$default-btn-styles, hover-text-color),
+  $bg-color: transparent,
   $border-props: (),
-  $bg-color: transparent
 ) {
-  $border-color: map-get-with-default($border-props, color, $main-color);
-  $border-width: map-get-with-default($border-props, width, 1px);
-  $border-style: map-get-with-default($border-props, style, solid);
+  // Define the default light and dark text colors
+  $default-light-text-color: funcs.color(vars.$default-light-text-color-string);
+  $default-dark-text-color: funcs.color(vars.$default-dark-text-color-string);
 
-  background-color: $bg-color;
+  // Resolved colors
+  $resolved-main-color: funcs.resolve-color($main-color);
+  $resolved-bg-color: funcs.resolve-color($bg-color);
+  $resolved-text-color: funcs.resolve-color($text-color);
+  $resolved-hover-text-color: funcs.resolve-color($hover-text-color);
+
+  // Get border properties with default fallbacks
+  $border-color: funcs.map-get-with-default($border-props, color, $resolved-main-color);
+  $border-width: funcs.map-get-with-default($border-props, width, 1px);
+  $border-style: funcs.map-get-with-default($border-props, style, solid);
+
+  // Determine the text color based on the bg color if $text-color is null
+  @if $text-color != null {
+    color: $text-color;
+  }
+
+@else {
+    color: $main-color;
+  }
+
+  background-color: $resolved-bg-color;
   border: $border-width $border-style $border-color;
-  color: $main-color;
 
   &:hover,
   &:active {
     background-color: $main-color;
-    color: $text-color;
+
+    $dynamic-text-color: if(funcs.is-color-dark($resolved-main-color), $default-light-text-color, $default-dark-text-color);
+
+    @if $hover-text-color != null {
+      color: $hover-text-color;
+    }
+
+@else {
+      color: $dynamic-text-color;
+    }
   }
 }
 
@@ -164,5 +193,37 @@
   // Apply border if all required border properties are present
   @if $border-color != null and $border-width != null and $border-style != null {
     border: $border-width $border-style $border-color;
+  }
+}
+
+/** ============ GENERATE BUTTON STYLES ============ //
+ * Generates button styles for both filled and outlined variants.
+ * It applies the specified background color for the filled variant,
+ * and an outlined version with the main color for the outline.
+ * Focus states are applied to both variants.
+ *
+ * @param {String} $base-class - The base class name to apply styles to.
+ * @param {Color} $bg-color - The background color to use for the filled variant
+ *                            and the main color for the outline variant.
+ *
+ * @example
+ * Generate button styles for a primary button
+ * @include generate-button-styles('btn-primary', color("primary"));
+ */
+@mixin generate-button-styles($base-class, $bg-color) {
+  // Apply filled button styles
+  .#{$base-class} {
+    @include btn-color($bg-color: $bg-color);
+  }
+
+  // Apply outlined version
+  .#{$base-class}.btn-outline {
+    @include btn-outline($main-color: $bg-color);
+  }
+
+  // Apply focus state for both filled and outlined buttons
+  .#{$base-class},
+  .#{$base-class}.btn-outline {
+    @include state-mixins.focus-state($bg-color);
   }
 }

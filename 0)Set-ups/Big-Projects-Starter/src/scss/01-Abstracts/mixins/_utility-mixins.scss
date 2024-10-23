@@ -24,7 +24,7 @@
 
     // Loop through each property in the list and combine it with time and function
     @each $item in $property {
-      $transitions: append($transitions, $item + ' ' + $time + ' ' + $function, comma);
+      $transitions: append($transitions, $item + " " + $time + " " + $function, comma);
     }
 
     // Apply the transition with the generated list
@@ -112,10 +112,10 @@
     // Check if the color is a map (with shades)
     @if type-of($color-value) == "map" {
       // Declare base class variables (without shade)
-      $text-class: funcs.get-color-class('text', $color-name, $color-value);
-      $bg-class: funcs.get-color-class('bg', $color-name, $color-value);
-      $text-hover-class: funcs.get-color-class('text-hover', $color-name, $color-value);
-      $bg-hover-class: funcs.get-color-class('bg-hover', $color-name, $color-value);
+      $text-class: funcs.get-color-class("text", $color-name, $color-value);
+      $bg-class: funcs.get-color-class("bg", $color-name, $color-value);
+      $text-hover-class: funcs.get-color-class("text-hover", $color-name, $color-value);
+      $bg-hover-class: funcs.get-color-class("bg-hover", $color-name, $color-value);
 
       // Generate base classes (without shade)
       .#{$text-class} {
@@ -134,10 +134,10 @@
       // Loop through the shades and generate additional classes
       @each $shade, $shade-color in $color-value {
         // Declare class variables for each shade
-        $text-class-shade: funcs.get-color-class('text', $color-name, $color-value, $shade);
-        $bg-class-shade: funcs.get-color-class('bg', $color-name, $color-value, $shade);
-        $text-hover-class-shade: funcs.get-color-class('text-hover', $color-name, $color-value, $shade);
-        $bg-hover-class-shade: funcs.get-color-class('bg-hover', $color-name, $color-value, $shade);
+        $text-class-shade: funcs.get-color-class("text", $color-name, $color-value, $shade);
+        $bg-class-shade: funcs.get-color-class("bg", $color-name, $color-value, $shade);
+        $text-hover-class-shade: funcs.get-color-class("text-hover", $color-name, $color-value, $shade);
+        $bg-hover-class-shade: funcs.get-color-class("bg-hover", $color-name, $color-value, $shade);
 
         .#{$text-class-shade} {
           color: funcs.color("#{$color-name}.#{$shade}", $color-map) !important;
@@ -157,10 +157,10 @@
     // Handle direct color values (e.g., "error", "success", etc.)
     @else {
       // Declare base class variables
-      $text-class: funcs.get-color-class('text', $color-name, $color-value);
-      $bg-class: funcs.get-color-class('bg', $color-name, $color-value);
-      $text-hover-class: funcs.get-color-class('text-hover', $color-name, $color-value);
-      $bg-hover-class: funcs.get-color-class('bg-hover', $color-name, $color-value);
+      $text-class: funcs.get-color-class("text", $color-name, $color-value);
+      $bg-class: funcs.get-color-class("bg", $color-name, $color-value);
+      $text-hover-class: funcs.get-color-class("text-hover", $color-name, $color-value);
+      $bg-hover-class: funcs.get-color-class("bg-hover", $color-name, $color-value);
 
       // Generate utility classes for direct colors
       .#{$text-class} {
@@ -203,7 +203,7 @@
  * @include side-utilities("top", 0);
  */
 @mixin side-utilities($side, $value) {
-   $class-value: funcs.strip-unit($value);
+  $class-value: funcs.strip-unit($value);
 
   .#{$side}-#{$class-value} {
     #{$side}: $value;
@@ -285,7 +285,6 @@
  */
 @mixin generate-color-custom-props($map, $prefix: funcs.get-prefix(color-var)) {
   @each $color, $shades in $map {
-
     // Include the custom property mixin
     @if type-of($shades) == "map" {
       @each $shade, $value in $shades {
@@ -372,6 +371,30 @@
 //% ***************   *************** //
 
 //% ***************  Selectors  *************** //
+/** ============ THEMED CONTENT ============ //
+ * A mixin that applies styles within a specific theme context based on the provided
+ * data attribute. This mixin targets elements with a specific `data-theme` attribute
+ * in the HTML and allows you to easily manage theme-based styles.
+ *
+ * @param {String} $theme - The theme to target (e.g., 'light', 'dark').
+ *
+ * @example
+ * .my-element {
+ *   @include themed-content('dark') {
+ *     color: white;
+ *   }
+ * }
+ * Resulting CSS:
+ * html[data-theme="dark"] .my-element {
+ *   color: white;
+ * }
+ */
+@mixin themed-content($theme) {
+  html[data-theme="#{$theme}"] {
+    @content;
+  }
+}
+
 /** ============ QUALIFY ============ //
  * A mixin that qualifies a selector by combining it with the current selector
  * using the `@at-root` directive. This is useful for creating nested styles

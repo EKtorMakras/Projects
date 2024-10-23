@@ -4,6 +4,7 @@
 body {
   overflow-x: hidden;
   background-color: get-color(body);
+
   // @include bg-image("placeholder.jpg");
   @include transition($property: background-color);
   @include dvh(100, min);
@@ -11,9 +12,10 @@ body {
 
 .test {
   $size: 200px;
+
   width: $size * 1.5;
   height: $size;
-  // background-color: rgb(122, 31, 74);
+  // background-color: rgb(122 31 74);background-color
   color: #fff;
   margin-bottom: get-spacer(10);
 
