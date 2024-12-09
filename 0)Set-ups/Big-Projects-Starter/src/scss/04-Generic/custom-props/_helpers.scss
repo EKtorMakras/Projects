@@ -1,0 +1,69 @@
+@use "sass:meta";
+@use "../../02-Functions" as *;
+
+/** ============ GENERATE COLOR CUSTOM PROP ============ //
+ * Generates a CSS custom property for a given color and shade.
+ * Outputs the custom property directly in the stylesheet.
+ *
+ * @param {String} $color - The name of the color (e.g., "primary").
+ * @param {String|Null} $shade - The shade of the color (e.g., "500"). If null or matches the default shade, the custom property will only include the color name.
+ * @param {String} $value - The value of the color (e.g., "#3498db").
+ * @param {String} $prefix - (Optional) The prefix for the CSS custom property. Defaults to the global prefix.
+ *
+ * @example
+ * Generate a custom property for primary color with a shade
+ * @include generate-color-custom-property("primary", "500", "#3498db");
+ *
+ * @example
+ * Generate a custom property for primary color without a shade
+ * @include generate-color-custom-property("primary", null, "#3498db");
+ *
+ * @example
+ * Generate a custom property for a secondary color with a custom prefix
+ * @include generate-color-custom-property("secondary", "300", "#e74c3c", "custom");
+ */
+@mixin generate-color-custom-prop($color, $shade, $value, $prefix) {
+  $default-shade: get-default(color-shade);
+
+  // Output the CSS custom property
+  @if $shade == $default-shade or $shade == null {
+    --#{$prefix}-#{$color}: #{$value};
+  } @else {
+    --#{$prefix}-#{$color}-#{$shade}: #{$value};
+  }
+}
+
+/** ============ GENERATE COLOR CUSTOM PROPS ============ //
+ * Generates CSS custom properties for colors from a map of colors and shades.
+ *
+ * @param {Map} $map - A map of colors and their shades to generate custom properties from.
+ * @param {String} $prefix - (Optional) The CSS variable prefix. Defaults to global CSS prefix.
+ *
+ * @example
+ * Generate custom properties for color map
+ * $colors: (
+ *   primary: (
+ *     500: #3498db,
+ *     600: #2980b9,
+ *   ),
+ *   secondary: #e74c3c
+ * );
+ * @include generate-color-custom-props($colors);
+ */
+@mixin generate-color-custom-props($map) {
+  $prefix: get-prefix(color-var);
+
+  @each $color, $shades in $map {
+    // Include the custom property mixin
+    @if meta.type-of($shades) == "map" {
+      @each $shade, $value in $shades {
+        @include generate-color-custom-prop($color, $shade, $value, $prefix);
+      }
+    }
+
+    // Handle single color value without shades
+    @else {
+      @include generate-color-custom-prop($color, null, $shades, $prefix);
+    }
+  }
+}

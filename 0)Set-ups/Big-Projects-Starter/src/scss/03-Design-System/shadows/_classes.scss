@@ -1,0 +1,22 @@
+@use "../../02-Functions" as *;
+@use "variables" as  *;
+
+@each $name, $shadow-key in $box-shadow-named-presets {
+  .shadow-#{$name} {
+    @if $shadow-key != none {
+      box-shadow: get-css-var($shadow-prefix, $name) !important;
+    } @else {
+      box-shadow: none !important;
+    }
+  }
+}
+
+$shadow-util-counter: 1;
+
+@each $key, $value in $default-black-shadows {
+  .shadow-#{$shadow-util-counter} {
+    box-shadow: get-css-var($shadow-prefix, #{$key}) !important;
+  }
+
+  $shadow-util-counter: $shadow-util-counter + 1;
+}

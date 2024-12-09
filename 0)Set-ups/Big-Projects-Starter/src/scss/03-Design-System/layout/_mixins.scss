@@ -1,0 +1,185 @@
+@use "sass:math";
+@use "sass:map";
+
+//% *************** General  *************** //
+/** ============ BUST-OUT ============ //
+ * A mixin for "busting out" an element from its container, making it extend beyond its parent width.
+ * This is useful for creating full-width elements, such as images or sections, that visually extend
+ * outside their parent container in a centered layout.
+ *
+ * @param {Length} $width - (Optional) The width of the element, typically a percentage or a fixed unit (e.g., "100%", "800px").
+ *                          Defaults to "20%".
+ *
+ * @example
+ * Create a bust-out element with 100% width
+ * .full-width-element {
+ *   @include bust-out(100%);
+ * }
+ *
+ * @example
+ * Bust out an element with a custom width (e.g., 50%)
+ * .custom-width-element {
+ *   @include bust-out(50%);
+ * }
+ */
+@mixin bust-out($width: 20%) {
+  margin: auto calc(50% - 50vw);
+  width: $width;
+  transform: translateX(calc(50vw - 50%));
+}
+//% ***************   *************** //
+
+//% *************** Layout Tools *************** //
+/** ============ FLEX ============ //
+ * Flexbox utility mixin for creating flexible layouts.
+ * Allows customization of flex direction, justification, alignment, gap, wrapping, and advanced flex options.
+ * Advanced flex properties (e.g., `basis`, `grow`, `shrink`) are applied to the direct children of the flex container.
+ *
+ * @param {String} $direction - (Optional) The direction of the flex container. Defaults to "row".
+ * @param {String} $justify - (Optional) Flexbox justification. Defaults to "center".
+ * @param {String} $align - (Optional) Flexbox alignment. Defaults to "center".
+ * @param {Number|Null} $gap - (Optional) The gap between flex items. Defaults to null, only applies if a valid value is provided.
+ * @param {String} $wrap - (Optional) Flex-wrap property. Defaults to "nowrap".
+ * @param {Map|Null} $advanced-options - (Optional) Advanced flex properties such as `basis`, `grow`, `shrink` to apply to the direct children.
+ *
+ * @example
+ * Simple flex container with center alignment
+ * @include flex();
+ *
+ * @example
+ * Flex container with a gap and custom direction
+ * @include flex(column, space-between, flex-start, 1rem);
+ *
+ * @example
+ * Advanced flex properties applied to children
+ * @include flex(row, center, center, null, wrap, (basis: 200px, grow: 1, shrink: 0));
+ */
+@mixin flex(
+  $direction: row,
+  $justify: center,
+  $align: center,
+  $gap: null,
+  $wrap: nowrap,
+  $advanced-options: ()
+) {
+  display: flex;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  align-items: $align;
+
+  // Only add gap if it's provided and not null
+  @if $gap != null {
+    gap: $gap;
+  }
+
+  // Apply advanced flex properties to the direct children of the flex container
+  @if map.has-key($advanced-options, basis) or map.has-key($advanced-options, grow) or map.has-key($advanced-options, shrink) {
+    > * {
+      @if map.has-key($advanced-options, basis) {
+        flex-basis: map.get($advanced-options, basis);
+      }
+      @if map.has-key($advanced-options, grow) {
+        flex-grow: map.get($advanced-options, grow);
+      }
+      @if map.has-key($advanced-options, shrink) {
+        flex-shrink: map.get($advanced-options, shrink);
+      }
+    }
+  }
+}
+
+/** ============ RESPONSIVE GRID ============ //
+ * Responsive grid layout mixin for adjusting the number of columns based on the container size.
+ * Allows customization of the grid's column size, gap, and maximum number of columns.
+ *
+ * @param {String} $size - (Optional) The minimum column size. Defaults to "35rem".
+ * @param {String|Null} $gap - (Optional) The gap between grid items. Defaults to "2rem". If null, no gap is applied.
+ * @param {Number|Null} $max-columns - (Optional) The maximum number of columns. Defaults to null, which allows unlimited columns.
+ *
+ * @example
+ * Responsive grid with default settings
+ * @include responsive-grid();
+ *
+ * @example
+ * Responsive grid with a custom column size, gap, and maximum number of columns
+ * @include responsive-grid(30rem, 1rem, 4);
+ *
+ * @example
+ * Responsive grid with no gap
+ * @include responsive-grid(30rem, null, 4);
+ */
+@mixin responsive-grid(
+  $size: 35rem,
+  $gap: 2rem,
+  $max-columns: null
+) {
+  display: grid;
+
+  // If $max-columns is provided, limit the number of columns
+  @if $max-columns != null {
+    grid-template-columns: repeat(auto-fit, minmax(min(#{$size}, 100%), 1fr));
+    max-width: calc(#{$max-columns} * #{$size});
+  } @else {
+    grid-template-columns: repeat(auto-fit, minmax(#{$size}, 1fr));
+  }
+
+  @if $gap != null {
+    gap: $gap;
+  }
+}
+//% ***************   *************** //
+
+//% *************** Centering *************** //
+/** ============ CENTER POS ============ //
+ * Centers an element both vertically and horizontally using absolute positioning.
+ *
+ * @example
+ * Center an element on the page
+ * @include center-pos();
+ */
+@mixin center-pos {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/** ============ CENTER MAR ============ //
+ * Horizontally centers an element using auto margins.
+ *
+ * @example
+ * Center an element within its container
+ * @include center-mar();
+ */
+@mixin center-mar {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/** ============ CENTER FLEX ============ //
+ * Centers all child elements inside a container using flexbox.
+ * Applies flexbox properties to center child elements both horizontally and vertically.
+ *
+ * @example
+ * Center all child elements inside a container
+ * @include center-flex();
+ */
+@mixin center-flex {
+  @include flex($justify: center, $align: center);
+}
+
+/** ============ CENTER GRID ============ //
+ * Centers all child elements inside a container using CSS grid.
+ * Applies grid properties to center child elements both horizontally and vertically.
+ *
+ * @example
+ * Center all child elements inside a container
+ * @include center-grid();
+ */
+@mixin center-grid {
+  display: grid;
+  place-items: center;
+}
+//% ***************   *************** //

@@ -30,116 +30,123 @@
   </head>
 
   <body>
-    <!--* ***************************************  Header  *************************************** -->
-    <header class="header">
-      <!-- $ *******************  Comment  ******************* $ -->
-      <div class="container">
-        <h1 class="fs-head-xxl text-left">XXL Header</h1>
-        <h1 class="fs-head-xl text-left">XL Header</h1>
-
-        <div class="row col-gap-xl-5 my-3 align-center mt-3">
-          <h1 class="fs-head-1">H1</h1>
-          <h2 class="fs-head-2">H2</h2>
-          <h3 class="fs-head-3">H3</h3>
-          <h4 class="fs-head-4">H4</h4>
-          <h5 class="fs-head-5">H5</h5>
-          <h6 class="fs-head-6">H6</h6>
+    <div class="app">
+      <!--* ***************************************  Header  *************************************** -->
+      <header class="header">
+        <div class="logo-wrapper">
+          <a href="#">
+            <img
+              src="./src/assets/images/logo-example.png"
+              alt="logo"
+              class="logo"
+              style="height: 50px"
+            />
+          </a>
         </div>
+      </header>
+      <!--* ***************************************  End Of Header  *************************************** -->
 
-        <div class="row col-gap-5 my-3 align-center">
-          <span class="fs-lg-4">lg-4</span>
-          <span class="fs-lg-3">lg-3</span>
-          <span class="fs-lg-2">lg-2</span>
-          <span class="fs-lg-1">lg-1</span>
-          <span class="fs-rg">rg</span>
-          <span class="fs-sm-3">sm-3</span>
-          <span class="fs-sm-2">sm-2</span>
-          <span class="fs-sm-1">sm-1</span>
-        </div>
+      <!--* ***************************************  Main  *************************************** -->
+      <main class="main">
+        <div class="container">
+          <h1 class="fs-head-xxl text-left">XXL Header</h1>
+          <h1 class="fs-head-xl text-left">XL Header</h1>
 
-        <div class="row col-gap-4 my-8">
-          <a
-            class="social-icon social-icon--facebook"
-            href="#"
-            ><i class="fab fa-facebook"></i
-          ></a>
-          <a
-            class="social-icon social-icon--instagram"
-            href="#"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a
-            class="social-icon social-icon--linkedin"
-            href="#"
-            ><i class="fab fa-linkedin"></i
-          ></a>
-          <a
-            class="social-icon social-icon--twitter"
-            href="#"
-            ><i class="fab fa-twitter"></i
-          ></a>
-          <a
-            class="social-icon social-icon--youtube"
-            href="#"
-            ><i class="fab fa-youtube"></i
-          ></a>
-        </div>
+          <div class="row col-gap-xl-5 my-3 align-center mt-3">
+            <h1 class="fs-head-1">H1</h1>
+            <h2 class="fs-head-2">H2</h2>
+            <h3 class="fs-head-3">H3</h3>
+            <h4 class="fs-head-4">H4</h4>
+            <h5 class="fs-head-5">H5</h5>
+            <h6 class="fs-head-6">H6</h6>
+          </div>
 
-        <div class="row col-gap-2 justify-space-between">
-          <div class="col col-5 bg-rose-600 py-10"></div>
-          <div class="col col-5 bg-teal-600 py-10"></div>
-        </div>
+          <div class="row col-gap-5 my-3 align-center">
+            <span class="fs-lg-4">lg-4</span>
+            <span class="fs-lg-3">lg-3</span>
+            <span class="fs-lg-2">lg-2</span>
+            <span class="fs-lg-1">lg-1</span>
+            <span class="fs-rg">rg</span>
+            <span class="fs-sm-3">sm-3</span>
+            <span class="fs-sm-2">sm-2</span>
+            <span class="fs-sm-1">sm-1</span>
+          </div>
 
-        <button
-          id="btn"
-          class="btn d-xl-grid btn-rg flex-sm-1-1-fill ma-2 radius-3 l-spacing-4"
-        >
-          Change Theme
-        </button>
+          <div class="row col-gap-4 my-8 socials-wrapper justify-start">
+            <a
+              class="social-icon social-icon--facebook"
+              href="#"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a
+              class="social-icon social-icon--instagram"
+              href="#"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              class="social-icon social-icon--linkedin"
+              href="#"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a
+              class="social-icon social-icon--twitter"
+              href="#"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a
+              class="social-icon social-icon--youtube"
+              href="#"
+              ><i class="fab fa-youtube"></i
+            ></a>
+          </div>
 
-        <button class="btn btn-secondary-200 btn-outline btn-lg ma-2 radius-sharp">Outline</button>
+          <div class="row col-gap-2 justify-space-between">
+            <div class="col col-5 bg-rose-600 py-10"></div>
+            <div class="col col-5 bg-teal-600 py-10"></div>
+          </div>
 
-        <div
-          class="test shadow-9"
-          tabindex="0"
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </div>
+          <button
+            id="btn"
+            class="btn d-xl-grid btn-rg flex-sm-1-1-fill ma-2 radius-3 l-spacing-4"
+          >
+            Change Theme
+          </button>
 
-        <div>
-          <div class="mt-15">
-            <p
-              class="mb-1 pa-3 radius-5 bg-teal-900 text-gray-300 bg-hover-primary transition-base opacity-high-emphasis shadow-medium"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, obcaecati.
-            </p>
+          <button class="btn btn-secondary-200 btn-outline btn-lg ma-2 radius-sharp">Outline</button>
 
-            <p class="mb-15">L orem ipsum dolor sit amet consectetur adipisicing</p>
+          <div
+            class="test shadow-9"
+            tabindex="0"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
 
-            <div class="card d-grid">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Facere alias obcaecati sapiente doloribus explicabo laudantium repellat magni quia veritatis a.
+          <div>
+            <div class="mt-15">
+              <p
+                class="mb-1 pa-3 radius-5 bg-teal-900 text-gray-300 bg-hover-primary transition-base opacity-high-emphasis shadow-medium"
+              >
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, obcaecati.
               </p>
+
+              <p class="mb-15">L orem ipsum dolor sit amet consectetur adipisicing</p>
+
+              <div class="card d-grid">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing Lorem ipsum dolor sit amet consectetur adipisicing
+                  elit. Facere alias obcaecati sapiente doloribus explicabo laudantium repellat magni quia veritatis a.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
+      <!--* ***************************************  End Of Main  *************************************** -->
 
-      <!-- $ *******************  End Of Comment  ******************* $ -->
-    </header>
-    <!--* ***************************************  End Of Header  *************************************** -->
-
-    <!--* ***************************************  Main  *************************************** -->
-    <main class="main">
-      <!-- $ *******************  Comment  ******************* $ -->
-      <!-- $ *******************  End Of Comment  ******************* $ -->
-    </main>
-    <!--* ***************************************  End Of Main  *************************************** -->
-
-    <!--* ***************************************  Footer  *************************************** -->
-    <footer class="footer"></footer>
-    <!--* ***************************************  End Of Footer  *************************************** -->
+      <!--* ***************************************  Footer  *************************************** -->
+      <footer class="footer"></footer>
+      <!--* ***************************************  End Of Footer  *************************************** -->
+    </div>
   </body>
 </html>
 

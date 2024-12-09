@@ -1,0 +1,14 @@
+@use "../../01-Globals" as globals;
+@use "helpers" as *;
+
+@each $value in globals.$position-values {
+  @include generate-position-utilities($value);
+}
+
+$side-values: (0, 50%, auto);
+
+@each $side in globals.$sides {
+  @each $value in $side-values {
+    @include generate-side-utilities($side, $value);
+  }
+}

@@ -1,0 +1,6 @@
+@use "../../02-Functions" as *;
+@use "variables" as *;
+
+@function get-z-index($key, $fallback: null) {
+  @return map-get-with-default($z-indexes, $key, $fallback);
+}

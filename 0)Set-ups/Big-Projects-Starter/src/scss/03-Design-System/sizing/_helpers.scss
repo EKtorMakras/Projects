@@ -1,0 +1,23 @@
+@use "../../02-Functions" as *;
+
+/** ============ DIMENSION UTILITIES ============ //
+ * Generates utility classes for height or width based on the provided map.
+ *
+ * @param {String} $dimension - Either 'height' or 'width'.
+ * @param {Map} $dimension-map - A map of values for height or width.
+ * @param {String} $prefix - Class name prefix for height or width (e.g., 'h' or 'w').
+ * @example
+ * Generates `.h-auto { height: auto; }`
+ * @include dimension-utilities('height', $heights, 'h');
+ * Generates `.w-auto { width: auto; }`
+ * @include dimension-utilities('width', $widths, 'w');
+ */
+@mixin generate-dimension-utilities($dimension, $dimension-map, $prefix) {
+  @each $name, $value in $dimension-map {
+    $class-name: strip-unit($name);
+
+    .#{$prefix}-#{$class-name} {
+      #{$dimension}: $value;
+    }
+  }
+}

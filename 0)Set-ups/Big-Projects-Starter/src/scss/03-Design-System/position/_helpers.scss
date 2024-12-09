@@ -1,0 +1,32 @@
+@use "../../02-Functions" as *;
+
+/** ============ GENERATE POSITION UTILITIES ============ //
+ * Generates position utility classes based on the provided value.
+ *
+ * @param {String} $value - The position value to apply (e.g., static, relative, absolute, etc.).
+ * @example
+ * Generates `.position-static { position: static; }`
+ * @include position-utilities("static");
+ */
+@mixin generate-position-utilities($value) {
+  .position-#{$value} {
+    position: $value;
+  }
+}
+
+/** ============ GENERATE SIDE POSITION UTILITIES ============ //
+ * Generates utility classes for top, right, bottom, and left properties with specified values.
+ *
+ * @param {String} $side - The side property to apply (e.g., top, right, bottom, left).
+ * @param {String|Number} $value - The value to apply (e.g., 0, auto, 50%, etc.).
+ * @example
+ * Generates `.top-0 { top: 0; }`
+ * @include side-utilities("top", 0);
+ */
+@mixin generate-side-utilities($side, $value) {
+  $class-value: strip-unit($value);
+
+  .#{$side}-#{$class-value} {
+    #{$side}: $value;
+  }
+}

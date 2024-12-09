@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "../../01-Globals" as globals;
+@use "../../02-Functions" as *;
+@use "mapping" as *;
+
+$default_social_icon_size: map.get($social-icon-mapping, "defaults", "size");
+
+$default-social-icon-styles: (
+  color: get-color(socials),
+  hover-color: get-color(socials-hover),
+  font-size: map.get($social-icon-mapping, "sizes", $default_social_icon_size, "font-size"),
+  size: map.get($social-icon-mapping, "sizes", $default_social_icon_size, "size"),
+  border-radius: get-css-var(get-prefix(radius), circle),
+  transition: globals.$transition,
+  bg-color: null,
+  hover-bg-color: null,
+  padding: null,
+  box-shadow: null,
+);
+
+$social-icon-colors: ();
+
+@each $icon in map.get($social-icon-mapping, available) {
+  $social-icon-colors: map.merge($social-icon-colors, (
+    $icon: get-color(#{$icon})
+  ));
+}
+
+

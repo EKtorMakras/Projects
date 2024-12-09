@@ -1,0 +1,148 @@
+@use 'sass:list';
+@use 'sass:meta';
+@use "../../01-Globals" as globals;
+@use "../../02-Functions" as *;
+
+//% ***************  Units  *************** //
+/** ============ DYNAMIC VIEWPORT WIDTH (DVW) ============ //
+ * Applies a width using dynamic viewport units (dvw) when supported, and falls back to regular viewport units (vw) if not supported.
+ *
+ * @param {Number} $value - The desired width value. Defaults to 100.
+ * @param {String} $type - (Optional) Either "min", "max", or an empty string. Defaults to an empty string.
+ *
+ * @example
+ * Apply 100 dynamic viewport width units
+ * @include dvw(100);
+ *
+ * @example
+ * Apply min-width dynamic viewport width units
+ * @include dvw(100, "min");
+ */
+@mixin dvw($value: 100, $type: "") {
+  // Validate the $type argument to ensure it's either "", "min", or "max"
+  $valid-types: ("", "min", "max");
+
+  @if not index($valid-types, $type) {
+    @error "Invalid type `#{$type}`. Must be '', 'min', or 'max'.";
+  }
+
+  // Check if $type is empty, to avoid creating something like "-width"
+  $final-property: if($type == "", "width", "#{$type}-width");
+
+  // Apply the dynamic viewport units if supported
+  @supports (#{$final-property}: 100dvw) {
+    #{$final-property}: #{$value}dvw;
+  }
+  @supports not (#{$final-property}: 100dvw) {
+    #{$final-property}: #{$value}vw;
+  }
+}
+
+/** ============ DYNAMIC VIEWPORT HEIGHT (DVH) ============ //
+ * Applies a height using dynamic viewport units (dvh) when supported, and falls back to regular viewport units (vh) if not supported.
+ *
+ * @param {Number} $value - The desired height value. Defaults to 100.
+ * @param {String} $type - (Optional) Either "min", "max", or an empty string. Defaults to an empty string.
+ *
+ * @example
+ * Apply 100 dynamic viewport height units
+ * @include dvh(100);
+ *
+ * @example
+ * Apply min-height dynamic viewport height units
+ * @include dvh(100, "min");
+ */
+@mixin dvh($value: 100, $type: "") {
+  // Validate the $type argument to ensure it's either "", "min", or "max"
+  $valid-types: ("", "min", "max");
+
+  @if not list.index($valid-types, $type) {
+    @error "Invalid type `#{$type}`. Must be '', 'min', or 'max'.";
+  }
+
+  // Check if $type is empty, to avoid creating something like "-height"
+  $final-property: if($type == "", "height", "#{$type}-height");
+
+  // Apply the dynamic viewport units if supported
+  @supports (#{$final-property}: 100dvh) {
+    #{$final-property}: #{$value}dvh;
+  }
+  @supports not (#{$final-property}: 100dvh) {
+    #{$final-property}: #{$value}vh;
+  }
+}
+//% ***************   *************** //
+
+//% ***************  Selectors  *************** //
+/** ============ THEMED CONTENT ============ //
+ * A mixin that applies styles within a specific theme context based on the provided
+ * data attribute. This mixin targets elements with a specific `data-theme` attribute
+ * in the HTML and allows you to easily manage theme-based styles.
+ *
+ * @param {String} $theme - The theme to target (e.g., 'light', 'dark').
+ *
+ * @example
+ * .my-element {
+ *   @include themed-content('dark') {
+ *     color: white;
+ *   }
+ * }
+ * Resulting CSS:
+ * html[data-theme="dark"] .my-element {
+ *   color: white;
+ * }
+ */
+@mixin themed-content($theme) {
+  html[data-theme="#{$theme}"] {
+    @content;
+  }
+}
+
+/** ============ QUALIFY ============ //
+ * A mixin that qualifies a selector by combining it with the current selector
+ * using the `@at-root` directive. This is useful for creating nested styles
+ * that apply to a specific element selector in a more modular way.
+ *
+ * @param {String} $element-selector - The selector to qualify with the current selector.
+ *
+ * @example
+ * .parent {
+ *   @include qualify('.child') {
+ *     color: teal;
+ *   }
+ * }
+ * Resulting CSS:
+ * .child .parent {
+ *   color: teal;
+ * }
+ */
+@mixin qualify($element-selector) {
+  @at-root #{$element-selector + &} {
+    @content;
+  }
+}
+
+/** ============ WHEN IS ============ //
+ * A mixin that qualifies the current selector by calling the qualify mixin
+ * with the provided element selectors. It allows you to create styles that
+ * apply to specific conditions or elements while maintaining the current context.
+ *
+ * @param {...String} $args - One or more element selectors to qualify.
+ *
+ * @example
+ * .button {
+ *   @include when-is('.active', '.disabled') {
+ *     background: gray;
+ *   }
+ * }
+ * Resulting CSS:
+ * .active .button,
+ * .disabled .button {
+ *   background: gray;
+ * }
+ */
+@mixin when-is($args...) {
+  @include qualify($args...) {
+    @content;
+  }
+}

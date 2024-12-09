@@ -1,0 +1,39 @@
+@use "sass:map";
+@use "../../02-Functions" as *;
+@use "variables" as *;
+
+//& ******* Font Size ******* //
+@each $size, $value in $font-sizes {
+  .fs-#{$size} {
+    font-size: #{$value} !important;
+  }
+}
+//& *******  ******* //
+
+//& ******* Font Weight ******* //
+@each $weight, $value in $font-weights {
+  .fw-#{$weight} {
+    font-weight: #{$value} !important;
+  }
+}
+//& *******  ******* //
+
+//& ******* Font Family ******* //
+.ff-primary {
+  font-family: #{$ff-primary} !important;
+}
+
+.ff-secondary {
+  font-family: #{$ff-secondary} !important;
+}
+//& *******  ******* //
+
+//& ******* Letter Spacing ******* //
+@for $i from 1 through $l-spacing-total-steps {
+  $current-l-spacing: get-css-var(get-prefix(letter-spacing), $i);
+
+  .l-spacing-#{$i} {
+    letter-spacing: $current-l-spacing !important;
+  }
+}
+//& *******  ******* //

@@ -1,0 +1,91 @@
+@use "../../01-Globals" as globals;
+@use "../../03-Design-System" as *;
+
+// center text
+@each $val in globals.$text-align-values {
+  .text-#{$val} {
+    text-align: $val;
+  }
+}
+
+// Display
+@each $value in globals.$display-values {
+  .d-#{$value} {
+    display: #{$value} !important;
+  }
+}
+
+//& ******* Xs Breakpoint ******* //
+@include respond(xs) {
+  @each $val in globals.$text-align-values {
+    .text-xs-#{$val} {
+      text-align: $val;
+    }
+  }
+
+  @each $value in globals.$display-values {
+    .d-xs-#{$value} {
+      display: #{$value} !important;
+    }
+  }
+}
+
+//& ******* Sm Breakpoint ******* //
+@include respond(sm) {
+  @each $val in globals.$text-align-values {
+    .text-sm-#{$val} {
+      text-align: $val;
+    }
+  }
+
+  @each $value in globals.$display-values {
+    .d-sm-#{$value} {
+      display: #{$value} !important;
+    }
+  }
+}
+
+//& ******* Md Breakpoint ******* //
+@include respond(md) {
+  @each $val in globals.$text-align-values {
+    .text-md-#{$val} {
+      text-align: $val;
+    }
+  }
+
+  @each $value in globals.$display-values {
+    .d-md-#{$value} {
+      display: #{$value} !important;
+    }
+  }
+}
+
+//& ******* Lg Breakpoint ******* //
+@include respond(lg) {
+  @each $val in globals.$text-align-values {
+    .text-lg-#{$val} {
+      text-align: $val;
+    }
+  }
+
+  @each $value in globals.$display-values {
+    .d-lg-#{$value} {
+      display: #{$value} !important;
+    }
+  }
+}
+
+//& ******* Xl Breakpoint ******* //
+@include respond(xl, min) {
+  @each $val in globals.$text-align-values {
+    .text-xl-#{$val} {
+      text-align: $val;
+    }
+  }
+
+  @each $value in globals.$display-values {
+    .d-xl-#{$value} {
+      display: #{$value} !important;
+    }
+  }
+}

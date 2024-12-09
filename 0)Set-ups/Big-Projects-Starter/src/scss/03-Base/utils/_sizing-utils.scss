@@ -1,9 +1,0 @@
-@use "../../01-Abstracts" as *;
-
-//& ******* Height ******* //
-@include dimension-utilities('height', $heights, 'h');
-//& *******  ******* //
-
-//& ******* Width ******* //
-@include dimension-utilities('width', $widths, 'w');
-//& *******  ******* //

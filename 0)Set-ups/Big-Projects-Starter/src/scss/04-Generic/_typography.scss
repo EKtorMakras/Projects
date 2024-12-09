@@ -1,0 +1,74 @@
+@use "../01-Globals" as globals;
+@use "../02-Functions" as *;
+@use "../03-Design-System/" as *;
+
+body {
+  font-family: $ff-primary;
+  font-size: fs(rg);
+  font-weight: fw(regular);
+  line-height: globals.$line-height_text;
+  color: get-color(text);
+}
+
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+  max-width: globals.$para_max-width;
+}
+
+a{
+  color: get-color(text);
+}
+
+p {
+  font-size: fs(rg);
+  letter-spacing: get-css-var(get-prefix(letter-spacing), 2);
+}
+
+//^ ---------  Headings ---------  //
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: get-css-var(get-prefix(letter-spacing), 5);
+  text-transform: capitalize;
+  margin-bottom: get-spacer(3);
+  text-align: center;
+  color: get-color(title);
+  line-height: globals.$line-height_title;
+
+}
+
+h1 {
+  font-size: fs(head-1);
+  font-weight: fw(thin);
+}
+
+h2 {
+  font-size: fs(head-2);
+  font-weight: fw(light);
+}
+
+h3 {
+  font-size: fs(head-3);
+  font-weight: fw(light);
+}
+
+h4 {
+  font-size: fs(head-4);
+  font-weight: fw(light);
+}
+
+h5 {
+  font-size: fs(head-5);
+  font-weight: fw(semibold);
+}
+
+h6 {
+  font-size: fs(head-6);
+  font-weight: fw(bold);
+}
+//^ ---------  --------- //

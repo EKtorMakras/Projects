@@ -1,0 +1,10 @@
+@use "../../02-Functions" as*;
+
+$break-points: (
+  "xs": to-em(400),
+  "sm": to-em(600),
+  "md": to-em(800),
+  "lg": to-em(1000),
+  "xl": to-em(1300),
+  "xxl": to-em(1800),
+);

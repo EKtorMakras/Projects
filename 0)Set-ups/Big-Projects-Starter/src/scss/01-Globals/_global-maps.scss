@@ -1,0 +1,38 @@
+$CORNER_MAP: (
+  top: (border-top-left-radius, border-top-right-radius),
+  bottom: (border-bottom-left-radius, border-bottom-right-radius),
+  left: (border-top-left-radius, border-bottom-left-radius),
+  right: (border-top-right-radius, border-bottom-right-radius),
+  top-left: (border-top-left-radius),
+  top-right: (border-top-right-radius),
+  bottom-left: (border-bottom-left-radius),
+  bottom-right: (border-bottom-right-radius)
+);
+
+$PREFIXES: (
+  color-var: "clr",
+  spacer: "spacer",
+  letter-spacing: "letter-spacing",
+  radius: "radius",
+  button: "btn",
+  opacity: "opacity",
+  shadow: "shadow",
+  transition: "transition"
+);
+
+$DEFAULTS: (
+  color-shade: "500",
+  color-delimiter: ".",
+  font-size-category: "rg",
+);
+
+$TOTAL_STEPS: (
+  radius: 5,
+  letter-spacing: 5,
+  spacing: 35,
+  grid-columns: 12
+);
+
+$THRESHOLDS: (
+  brightness: 15%
+);

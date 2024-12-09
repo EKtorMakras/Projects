@@ -1,0 +1,91 @@
+/** ============ POSITION ============ //
+ * A mixin that applies positioning styles to an element. It sets the position property
+ * along with optional top, right, bottom, and left properties.
+ *
+ * @param {String} $position - The positioning method (e.g., 'absolute', 'relative', 'fixed').
+ * @param {Number | Null} $top - The distance from the top edge (optional).
+ * @param {Number | Null} $right - The distance from the right edge (optional).
+ * @param {Number | Null} $bottom - The distance from the bottom edge (optional).
+ * @param {Number | Null} $left - The distance from the left edge (optional).
+ *
+ * @example
+ * .my-element {
+ *   @include position(relative, 10px, auto, null, 5px);
+ * }
+ * Resulting CSS:
+ * position: relative;
+ * top: 10px;
+ * right: auto;
+ * bottom: null;
+ * left: 5px;
+ */
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+/** ============ RELATIVE ============ //
+ * A mixin that applies relative positioning to an element by calling the position mixin
+ * with 'relative' as the positioning method. Additional arguments for top, right, bottom,
+ * and left can be provided.
+ *
+ * @param {...} $args - The values for top, right, bottom, and left (optional).
+ *
+ * @example
+ * .my-relative-element {
+ *   @include relative(10px, 20px);
+ * }
+ * Resulting CSS:
+ * position: relative;
+ * top: 10px;
+ * right: 20px;
+ */
+@mixin relative($args...) {
+  @include position(relative, $args...);
+}
+
+/** ============ ABSOLUTE ============ //
+ * A mixin that applies absolute positioning to an element by calling the position mixin
+ * with 'absolute' as the positioning method. Additional arguments for top, right, bottom,
+ * and left can be provided.
+ *
+ * @param {...} $args - The values for top, right, bottom, and left (optional).
+ *
+ * @example
+ * .my-absolute-element {
+ *   @include absolute(5px, 15px, 10px);
+ * }
+ * Resulting CSS:
+ * position: absolute;
+ * top: 5px;
+ * right: 15px;
+ * bottom: 10px;
+ */
+
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+/** ============ FIXED ============ //
+ * A mixin that applies fixed positioning to an element by calling the position mixin
+ * with 'fixed' as the positioning method. Additional arguments for top, right, bottom,
+ * and left can be provided.
+ *
+ * @param {...} $args - The values for top, right, bottom, and left (optional).
+ *
+ * @example
+ * .my-fixed-element {
+ *   @include fixed(0, 0);
+ * }
+ * Resulting CSS:
+ * position: fixed;
+ * top: 0;
+ * right: 0;
+ */
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+

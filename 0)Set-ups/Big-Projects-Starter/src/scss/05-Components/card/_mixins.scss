@@ -1,0 +1,42 @@
+@use "../../01-Globals" as globals;
+@use "../../02-Functions" as *;
+@use "../../03-Design-System" as *;
+
+/** ============ CARD ============ //
+ * A mixin for styling card components. Allows customization of background color, minimum height,
+ * border-radius, and optionally includes a shadow.
+ *
+ * @param {String} $bgColor - (Optional) The background color of the card. Defaults to the value of `get-color(card)`.
+ * @param {String} $min-height - (Optional) The minimum height of the card. Defaults to "40rem".
+ * @param {String} $radius - (Optional) The border-radius of the card. Defaults to "get-radius(3)".
+ * @param {String|Null} $shadow - (Optional) The shadow applied to the card. If null, no shadow is applied. Defaults to "generate-shadow(lg-1)".
+ *
+ * @example
+ * Card with default shadow
+ * @include card();
+ *
+ * @example
+ * Card with no shadow
+ * @include card(get-color(card), 40rem, get-radius(3), null);
+ *
+ * @example
+ * Card with custom shadow
+ * @include card(get-color(card), 40rem, get-radius(3), generate-shadow(sm-1));
+ */
+@mixin card(
+  $bg-color: get-color(card),
+  $min-height: 40rem,
+  $radius: get-css-var(get-prefix(radius), 3),
+  $shadow: generate-shadow(lg-1),
+  $padding: 2rem 3rem
+  ) {
+  min-height: $min-height;
+  background-color: $bg-color;
+  border-radius: $radius;
+
+  @if $shadow != null {
+    box-shadow: $shadow;
+  }
+
+  padding: $padding;
+}

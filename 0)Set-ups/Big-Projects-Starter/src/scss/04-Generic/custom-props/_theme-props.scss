@@ -1,0 +1,12 @@
+@use "../../03-Design-System/" as *;
+@use "helpers" as *;
+
+//& ******* Light Theme ******* //
+:root[data-theme="light"] {
+  @include generate-color-custom-props($map: $colors-light);
+}
+
+//& ******* Dark Theme ******* //
+:root[data-theme="dark"] {
+  @include generate-color-custom-props($map: $colors-dark);
+}

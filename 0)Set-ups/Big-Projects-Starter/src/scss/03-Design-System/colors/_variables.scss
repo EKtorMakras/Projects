@@ -1,0 +1,12 @@
+@use "sass:map";
+@use "categories" as *;
+
+$colors: ();
+
+// Populate $colors map
+@each $map in ($generic-colors, $notification-colors, $social-colors, $tailwind-colors, $project-colors) {
+  $colors: map.merge($colors, $map);
+}
+
+$default-light-text-color-string: "gray.50";
+$default-dark-text-color-string: "gray.900";

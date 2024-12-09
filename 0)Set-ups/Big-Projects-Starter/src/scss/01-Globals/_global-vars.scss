@@ -1,0 +1,27 @@
+$SASS_DECIMAL_MAX_PRECISION: 5;
+
+$asset-base-path: "@/assets";
+
+$base_letter-spacing: 0.5px;
+$base_border-radius: 3px;
+$base_gutter: 0.3rem;
+
+$line-height_text: 1.5;
+$line-height_title: 1.1;
+
+$max-width: 1170px;
+$para_max-width: 65ch;
+
+$transition-duration: 300ms;
+$transition-timing-function: ease-in-out;
+$transition: all $transition-duration $transition-timing-function;
+
+// Standard css values
+$overflow-values: auto, hidden, visible;
+$text-align-values: left, right, justify, center;
+$display-values: none, block, inline-block, inline, flex, inline-flex, grid, inline-grid, table, table-row, table-cell;
+$position-values: static, relative, absolute, fixed, sticky;
+$sides: top, right, bottom, left;
+$casing-values: uppercase, lowercase, capitalize;
+$text-decoration-values: none, overline, underline, line-through;
+

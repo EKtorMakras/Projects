@@ -1,0 +1,68 @@
+@use 'sass:color';
+@use "sass:map";
+@use "sass:meta";
+@use "../../02-Functions" as *;
+@use "../../03-Design-System" as *;
+@use "mapping" as *;
+@use "helpers" as *;
+@use "mixins" as *;
+@use "variables" as *;
+
+//& ******* Base btn ******* //
+.btn {
+  @include btn();
+}
+//& *******  ******* //
+
+//& ******* Outline btn ******* //
+.btn-outline {
+  @include btn-outline();
+}
+//& *******  ******* //
+
+//& ******* Colored Btns ******* //
+@each $color-name, $color-value in $btn-available-colors {
+  // Handle color with the default shade (e.g., primary with 500)
+  @if meta.type-of($color-value) == "map" {
+    $base-class: get-color-class(get-prefix(button), $color-name, $color-value);
+    $current-bg-color: color($color-name, $btn-available-colors);
+
+    // Generate styles for the default shade
+    @include generate-button-styles($base-class, $current-bg-color);
+
+    // Loop through the shades and generate classes for them (e.g., primary-700)
+    @each $shade, $shade-color in $color-value {
+      @if $shade != get-default(color-shade) {
+        $shade-class: get-color-class(get-prefix(button), $color-name, $color-value, $shade);
+        $current-bg-color: color("#{$color-name}.#{$shade}", $btn-available-colors);
+
+        // Generate styles for each shade
+        @include generate-button-styles($shade-class, $current-bg-color);
+      }
+    }
+  }
+
+  // Handle direct color values (e.g., error, success)
+  @else {
+    $color-class: get-color-class(get-prefix(button), $color-name, $color-value);
+    $current-bg-color: $color-value;
+
+    // Generate styles for direct color values
+    @include generate-button-styles($color-class, $current-bg-color);
+  }
+}
+//& *******  ******* //
+
+//& ******* Sized Btns ******* //
+@each $size-name, $size-values in map.get($button-mapping, sizes) {
+  $padding: map.get($size-values, "padding");
+  $font-size: map.get($size-values, "font-size");
+  $letter-spacing: map.get($size-values, "letter-spacing");
+
+  .btn-#{$size-name} {
+    padding: $padding;
+    font-size: fs($font-size);
+    letter-spacing: get-css-var(get-prefix(letter-spacing), $letter-spacing);
+  }
+}
+//& *******  ******* //

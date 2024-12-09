@@ -1,6 +1,0 @@
-@use "../helper-funcs" as helper-funcs;
-@use "../../variables/stacking-context-vars" as vars;
-
-@function get-z-index($key, $fallback: null) {
-  @return helper-funcs.map-get-with-default(vars.$z-indexes, $key, $fallback);
-}

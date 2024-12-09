@@ -1,0 +1,29 @@
+@use "../../02-Functions" as *;
+
+/** ============ GENERATE ICON GRADIENT STYLE ============ //
+ * A helper mixin to apply or reset gradient styles for icons.
+ *
+ * @param {String} $icon - The name of the icon (used to retrieve the correct gradient).
+ * @param {Boolean} $fill - A flag to determine whether to apply (true) or reset (false) the gradient styles.
+ *
+ * @example
+ * Apply gradient for Instagram icon
+ * @include icon-gradient-style(instagram, true);
+ *
+ * @example
+ * Reset gradient styles
+ * @include icon-gradient-style(instagram, false);
+ */
+@mixin generate-icon-gradient-style($icon, $fill: true) {
+  @if $fill == true {
+    background-image: get-color(#{$icon});
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  } @else {
+    background-image: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    -webkit-text-fill-color: initial;
+  }
+}

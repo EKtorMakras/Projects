@@ -1,0 +1,319 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:string";
+@use "sass:list";
+@use "../../01-Globals" as globals;
+@use "../../02-Functions" as *;
+@use "../../03-Design-System" as *;
+
+/** ============ BORDER ============ //
+ * Mixin to apply a border with customizable width, style, and color.
+ * Defaults to a 1px solid border with the current color.
+ *
+ * @param {Length} $width - (Optional) The width of the border. Defaults to "1px".
+ * @param {String} $style - (Optional) The style of the border. Defaults to "solid".
+ *                          Accepts any valid CSS border style (e.g., "dashed", "double").
+ * @param {Color} $color - (Optional) The color of the border. Defaults to "currentColor".
+ *
+ * @example
+ * Apply a 2px solid black border
+ * @include border(2px, solid, black);
+ */
+@mixin border($width: 1px, $style: solid, $color: currentColor) {
+  border: #{$width} #{$style} #{$color};
+}
+
+/** ============ OUTLINE ============ //
+ * Mixin to apply an outline with customizable width, style, color, and optional outline offset.
+ * Defaults to a 1px solid outline with the current color and no offset.
+ *
+ * @param {Length} $width - (Optional) The width of the outline. Defaults to "1px".
+ * @param {String} $style - (Optional) The style of the outline. Defaults to "solid".
+ *                          Accepts any valid CSS outline style (e.g., "dashed", "double").
+ * @param {Color} $color - (Optional) The color of the outline. Defaults to "currentColor".
+ * @param {Length} $offset - (Optional) The outline offset. Defaults to "0" (no offset).
+ *
+ * @example
+ * Apply a 2px solid black outline with a 4px offset
+ * @include outline(2px, solid, black, 4px);
+ */
+@mixin outline($width: 1px, $style: solid, $color: currentColor, $offset: 0) {
+  outline: #{$width} #{$style} #{$color};
+  outline-offset: #{$offset};
+}
+
+/** ============ TEXT ELLIPSIS ============ //
+ * Applies text overflow handling to achieve an ellipsis effect. This mixin allows you
+ * to truncate text with an ellipsis after a specified number of lines.
+ *
+ * @param {Number} $number-of-lines - The number of lines after which to apply the ellipsis (default: 1).
+ *
+ * @example
+ * .single-line {
+ *   @include text-ellipsis(1);
+ * }
+ */
+@mixin text-ellipsis($number-of-lines: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @if $number-of-lines == 1 {
+    white-space: nowrap;
+  } @else {
+    white-space: inherit;
+
+    @supports (-webkit-line-clamp: $number-of-lines) {
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      -webkit-line-clamp: $number-of-lines;
+    }
+  }
+}
+
+/** ============ TRIANGLE ============ //
+ * Creates a CSS triangle with customizable size, direction, and color.
+ * This mixin generates a triangle using borders.
+ *
+ * @param {Length} $size - The size of the triangle (width/height).
+ * @param {String} $direction - The direction the triangle points. Expected values: "up", "down", "left", "right".
+ * @param {Color} $color - The color of the triangle.
+ *
+ * @example
+ * Create a #690e2a upward-pointing triangle
+ * @include triangle(10px, up, #690e2a);
+ *
+ * @example
+ * Create a #1d6980 right-pointing triangle
+ * @include triangle(15px, right, #1d6980);
+ */
+@mixin triangle($size, $direction, $color) {
+  // Ensure valid direction
+  $valid-directions: ("up", "down", "left", "right");
+  @if not index($valid-directions, $direction) {
+    @error "Invalid direction `#{$direction}`. Expected values: up, down, left, right.";
+  }
+
+  width: 0;
+  height: 0;
+
+  // Set the transparent borders
+  border-left: $size solid transparent;
+  border-right: $size solid transparent;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+
+  // Determine the border that should be colored based on the direction
+  @if $direction == up {
+    border-bottom: $size solid $color;
+  } @else if $direction == down {
+    border-top: $size solid $color;
+  } @else if $direction == left {
+    border-right: $size solid $color;
+  } @else if $direction == right {
+    border-left: $size solid $color;
+  }
+}
+
+/** ============ CUSTOM SCROLLBAR ============ //
+ * Creates a custom scrollbar with specified colors and sizes for both WebKit browsers
+ * (like Chrome and Safari) and Firefox. The mixin allows for customization of the scrollbar
+ * thumb and track, along with their dimensions and border radius.
+ *
+ * @param {Color} $thumb-bg-color - The background color for the scrollbar thumb (default: hsl(0deg 0% 0% / 15%)).
+ * @param {Color} $thumb-bg-color-hover - The background color for the scrollbar thumb on hover (default: hsl(0deg 0% 0% / 25%)).
+ * @param {Color} $track-bg-color - The background color for the scrollbar track (default: hsl(0deg 0% 0% / 5%)).
+ * @param {Number} $size - The size of the scrollbar (default: 0.5rem).
+ * @param {Number} $border-radius - The border radius for the scrollbar elements (default: 0.25rem).
+ *
+ * @example
+ * .custom-scrollable {
+ *   @include custom-scrollbar;
+ * }
+ * Resulting CSS will customize the scrollbar with the specified colors and sizes in both
+ * WebKit browsers and Firefox.
+ *
+ * @note This mixin primarily targets WebKit browsers and Firefox.
+ *       Other browsers may not support custom scrollbar styling.
+ */
+@mixin custom-scrollbar(
+  $thumb-bg-color: hsl(0deg 0% 0% / 15%),
+  $thumb-bg-color-hover: hsl(0deg 0% 0% / 25%),
+  $track-bg-color: hsl(0deg 0% 0% / 5%),
+  $size: 0.5rem,
+  $border-radius: 0.25rem
+) {
+  // WebKit browsers
+  &::-webkit-scrollbar {
+    block-size: $size;
+    inline-size: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-bg-color;
+    border-radius: $border-radius;
+
+    &:hover {
+      background: $thumb-bg-color-hover;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-bg-color;
+    border-radius: $border-radius;
+  }
+}
+
+/** ============ STRIPES ============ //
+ * Creates a striped background using a linear gradient based on the specified colors and direction.
+ * The mixin calculates the necessary gradient stops for each color provided as a list and applies
+ * them to create a striped effect. If only one color is provided, it sets the background color instead.
+ *
+ * @param {String} $direction - The direction of the stripes (e.g., 'to right', 'to bottom').
+ * @param {List} $colors - A list of colors to be used for the stripes.
+ *                         Must contain at least one color.
+ *
+ * @example
+ * .striped-background {
+ *   @include stripes(to right, (#8e44ad, #2c3e50, #2980b9, #16a085, #27ae60));
+ * }
+ * Resulting CSS:
+ * background-image: linear-gradient(to right, #8e44ad 0%, #2c3e50 20%, #2980b9 40%, #16a085 60%, #27ae60 100%) ;
+ *
+ * @example
+ * .single-color-background {
+ *   @include stripes(to bottom, (#8e44ad));
+ * }
+ * Resulting CSS:
+ * background-color: #8e44ad ;
+ */
+@mixin stripes($direction, $colors) {
+  $length: list.length($colors);
+
+  @if $length > 1 {
+    $stripes: ();
+
+    @for $i from 1 through $length {
+      $stripe: (100% / $length) * ($i - 1);
+
+      @if $i > 1 {
+        $stripes: list.append($stripes, list.nth($colors, $i - 1) $stripe, comma);
+      }
+
+      $stripes: list.append($stripes, list.nth($colors, $i) $stripe, comma);
+    }
+
+    background-image: linear-gradient($direction, $stripes);
+  } @else if $length == 1 {
+    background-color: $colors;
+  }
+}
+
+/** ============ BG-IMAGE ============ //
+ * Sets a background image with customizable size and position.
+ * Defaults to `cover` and `center center` for size and position respectively.
+ *
+ * @param {String} $image - The image file name (from the assets folder).
+ * @param {String} $size - (Optional) The size of the background image. Defaults to "cover".
+ * @param {String} $position - (Optional) The position of the background image. Defaults to "center center".
+ *
+ * @example
+ * Set a background image with default size and position
+ * @include bg-image("my-image.png");
+ *
+ * @example
+ * Set a background image with custom size and position
+ * @include bg-image("my-image.png", contain, top left);
+ */
+@mixin bg-image($image, $size: cover, $position: center center) {
+  background-image: image-path($image);
+  background-size: $size;
+  background-position: $position;
+  background-repeat: no-repeat;
+}
+
+/** ============ COVER ============ //
+ * Applies a cover style to an element, making it fill the entire container.
+ * Customizable position, z-index, and border-radius can be applied.
+ *
+ * @param {String} $position - (Optional) The position of the element. Defaults to "absolute".
+ * @param {Number} $z-index - (Optional) The z-index of the element. Defaults to 1.
+ * @param {String} $radius - (Optional) The border-radius of the element. Defaults to "inherit".
+ *
+ * @example
+ * Apply a default cover style
+ * @include cover();
+ *
+ * @example
+ * Apply a custom cover with fixed positioning and a border-radius
+ * @include cover(fixed, 10, 5px);
+ */
+@mixin cover(
+  $position: absolute,
+  $z-index: 1,
+  $radius: inherit
+) {
+  position: $position;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  z-index: $z-index;
+  border-radius: $radius;
+}
+
+/** ============ CREATE OVERLAY ============ //
+ * Creates an overlay using pseudo-elements (`before` or `after`).
+ * Allows customization of content, background color, opacity, position, z-index, and border-radius.
+ * Ensures valid pseudo-elements ("before" or "after") are used.
+ *
+ * @param {String} $type - (Optional) The type of pseudo-element, either "before" or "after". Defaults to "after".
+ * @param {String} $content - (Optional) The content for the pseudo-element. Defaults to an empty string.
+ * @param {String} $bgColor - (Optional) The background color of the overlay. Defaults to `rgba(color("black"), 0.3)`.
+ * @param {Number} $opacity - (Optional) The opacity of the overlay. Defaults to 1.
+ * @param {Number} $zIndex - (Optional) The z-index of the overlay. Defaults to -1.
+ * @param {String} $position - (Optional) The position of the overlay. Defaults to "absolute".
+ * @param {String} $inset - (Optional) The inset positioning of the overlay. Defaults to "0".
+ * @param {String} $radius - (Optional) The border-radius of the overlay. Defaults to "inherit".
+ *
+ * @example
+ * Default after-overlay
+ * @include create-overlay();
+ *
+ * @example
+ * Before-overlay with custom properties
+ * @include create-overlay("before", "", rgba(0, 0, 0, 0.5), 0.8, 1, fixed, 0, 10px);
+ */
+@mixin create-overlay(
+  $type: after,
+  $content: "",
+  $bg-color: rgba(color("black"), 0.3),
+  $opacity: 1,
+  $z-index: -1,
+  $position: absolute,
+  $inset: 0,
+  $radius: inherit
+) {
+  // Ensure that $type is either "before" or "after"
+  @if $type != "before" and $type != "after" {
+    @error "Invalid $type value: #{$type}. Expected 'before' or 'after'.";
+  }
+
+  // Apply styles for the overlay pseudo-element
+  position: relative;
+  isolation: isolate;
+
+  &::#{$type} {
+    content: $content;
+    position: $position;
+    inset: $inset;
+    width: 100%;
+    height: 100%;
+    background-color: $bg-color;
+    opacity: $opacity;
+    z-index: $z-index;
+    border-radius: $radius;
+    pointer-events: none;
+    user-select: none;
+    backface-visibility: hidden;
+    transition: globals.$transition;
+  }
+}

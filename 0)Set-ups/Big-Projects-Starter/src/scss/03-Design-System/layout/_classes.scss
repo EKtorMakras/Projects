@@ -1,0 +1,24 @@
+@use "../../02-Functions" as *;
+@use "mixins" as *;
+
+// container
+.container {
+  @include center-mar;
+  max-width: get-css-var(max-width);
+  padding: get-spacer(7) 0;
+}
+
+// Break out of a container
+.bust-out {
+  margin: 0 calc(50% - 50vw);
+}
+
+// section set-up
+.section {
+  padding: 5rem 0;
+
+  &-title {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+}

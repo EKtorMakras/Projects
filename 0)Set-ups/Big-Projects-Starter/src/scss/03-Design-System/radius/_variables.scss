@@ -1,0 +1,24 @@
+@use "sass:map";
+@use "../../01-Globals" as globals;
+@use "../../02-Functions" as *;
+
+// Radius global vars
+$radius-prefix: get-prefix(radius);
+$radius-total-steps: map.get(globals.$TOTAL_STEPS, radius);
+
+// Named radius
+$named-radius: (
+  pilled: 25rem,
+  circle: 50%,
+  none: 0
+);
+
+// Numeric radius
+$numeric-radius: ();
+
+@for $i from 1 through $radius-total-steps {
+  $numeric-radius: map.merge($numeric-radius, ( #{($i)}: globals.$base_border-radius * $i ));
+}
+
+// Merged radius map
+$radius: map.merge($named-radius, $numeric-radius);

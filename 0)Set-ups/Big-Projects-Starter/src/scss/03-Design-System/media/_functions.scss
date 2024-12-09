@@ -1,0 +1,6 @@
+@use "sass:map";
+@use "variables" as *;
+
+@function break-points($break-point-limit) {
+  @return map.get($break-points, $break-point-limit);
+}

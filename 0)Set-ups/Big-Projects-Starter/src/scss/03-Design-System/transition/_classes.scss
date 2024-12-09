@@ -1,0 +1,8 @@
+@use "../../02-Functions" as *;
+@use "variables" as *;
+
+@each $speed, $transition-value in $transitions {
+  .transition-#{$speed} {
+    transition: get-css-var(get-prefix(transition), $speed);
+  }
+}

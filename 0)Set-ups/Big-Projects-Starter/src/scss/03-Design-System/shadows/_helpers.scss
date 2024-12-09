@@ -1,0 +1,33 @@
+@use "sass:map";
+@use 'sass:list';
+@use "mapping" as *;
+
+/** ============ GET SHADOW CATEGORY ============ //
+ * Determines the shadow category (e.g., "sm", "rg", "lg") based on the provided shadow size.
+ *
+ * @param {String} $size - The shadow size (e.g., "sm-1", "rg-2", "lg-3"), which corresponds to predefined sizes in the $shadow-sizes map.
+ *
+ * @return {String} - The category of the shadow (e.g., "sm", "rg", "lg"). Defaults to "rg" if no matching category is found.
+ *
+ * @example
+ * $category: get-shadow-category("sm-2");
+ * Returns: "sm"
+ */
+@function get-shadow-category($size) {
+  $shadow-categories: map.get($shadow-mapping, "categories");
+
+  @each $category-name, $category-properties in $shadow-categories {
+    $sizes: map.get($category-properties, "available-sizes");
+
+    @if list.index($sizes, $size) {
+      @return $category-name;
+    }
+  }
+
+  // Default to "$default-category" if no category is found
+  $default-category:  map.get($shadow-mapping,"defaults", "category");
+
+  @warn "No matching shadow size category found for '#{$size}', defaulting to '#{$default-category}'.";
+
+  @return $default-category;
+}
