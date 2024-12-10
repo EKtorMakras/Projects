@@ -21,15 +21,15 @@
  *
  * @example
  * Outlined button with a custom background, border color, and hover effects
- * @include btn-outline(color("primary"), color("white"), (color: color("secondary"), width: 2px, style: dashed), color("light-gray"));
+ * @include btn-outline(color("primary-500"), color("white"), (color: color("secondary"), width: 2px, style: dashed), color("light-gray"));
  *
  * @example
  * Simple outlined button with default transparent background and primary color
- * @include btn-outline(color("primary"), color("white"));
+ * @include btn-outline(color("primary-500"), color("white"));
  *
  * @example
  * Outlined button with a custom background color
- * @include btn-outline(color("primary"), color("white"), (), color("gray-light"));
+ * @include btn-outline(color("primary-500"), color("white"), (), color("gray-light"));
  */
 @mixin btn-outline(
   $main-color: map.get($default-btn-styles, bg-color),
@@ -38,10 +38,6 @@
   $bg-color: transparent,
   $border-props: (),
 ) {
-  // Define the default light and dark text colors
-  $default-light-text-color: color($default-light-text-color-string);
-  $default-dark-text-color: color($default-dark-text-color-string);
-
   // Resolved colors
   $resolved-main-color: resolve-color($main-color);
   $resolved-bg-color: resolve-color($bg-color);
@@ -95,11 +91,11 @@
  *
  * @example
  * Button with custom background and text color
- * @include btn-color(color("primary"), color("primary-light"), color("white"));
+ * @include btn-color(color("primary-500"), color("primary-100"), color("white"));
  *
  * @example
  * Button with background adjustment for lightness on hover
- * @include btn-color(color("primary"), null, color("white"), (mode: lightness, amount: -10%));
+ * @include btn-color(color("primary-500"), null, color("white"), (mode: lightness, amount: -10%));
  */
 @mixin btn-color(
   $bg-color: $default-btn-bg-color,
@@ -132,11 +128,11 @@
  *
  * @example
  * Creating a normal button
- * @include btn(normal, sm, (bg-color: color("primary"), text-color: color("white")));
+ * @include btn(normal, sm, (bg-color: color("primary-500"), text-color: color("white")));
  *
  * @example
  * Creating an outlined button with custom border properties
- * @include btn(outlined, rg, (bg-color: color("primary"), border-props: (color: color("secondary"), width: 2px, style: dashed)));
+ * @include btn(outlined, rg, (bg-color: color("primary-500"), border-props: (color: color("secondary-500"), width: 2px, style: dashed)));
  */
 @mixin btn($custom-styles: ()) {
   // Merge the custom styles with the default button styles

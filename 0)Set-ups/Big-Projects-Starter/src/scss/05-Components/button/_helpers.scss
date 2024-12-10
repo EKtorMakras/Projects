@@ -13,7 +13,7 @@
  *
  * @example
  * Generate button styles for a primary button
- * @include generate-button-styles('btn-primary', color("primary"));
+ * @include generate-button-styles('btn-primary-500', color("primary-500"));
  */
 @mixin generate-button-styles($base-class, $bg-color) {
   // Apply filled button styles

@@ -22,34 +22,11 @@
 
 //& ******* Colored Btns ******* //
 @each $color-name, $color-value in $btn-available-colors {
-  // Handle color with the default shade (e.g., primary with 500)
-  @if meta.type-of($color-value) == "map" {
-    $base-class: get-color-class(get-prefix(button), $color-name, $color-value);
-    $current-bg-color: color($color-name, $btn-available-colors);
+  // Generate the button class name
+  $color-class: get-color-class(get-prefix(button), $color-name);
 
-    // Generate styles for the default shade
-    @include generate-button-styles($base-class, $current-bg-color);
-
-    // Loop through the shades and generate classes for them (e.g., primary-700)
-    @each $shade, $shade-color in $color-value {
-      @if $shade != get-default(color-shade) {
-        $shade-class: get-color-class(get-prefix(button), $color-name, $color-value, $shade);
-        $current-bg-color: color("#{$color-name}.#{$shade}", $btn-available-colors);
-
-        // Generate styles for each shade
-        @include generate-button-styles($shade-class, $current-bg-color);
-      }
-    }
-  }
-
-  // Handle direct color values (e.g., error, success)
-  @else {
-    $color-class: get-color-class(get-prefix(button), $color-name, $color-value);
-    $current-bg-color: $color-value;
-
-    // Generate styles for direct color values
-    @include generate-button-styles($color-class, $current-bg-color);
-  }
+  // Generate styles for the button using the color value
+  @include generate-button-styles($color-class, $color-value);
 }
 //& *******  ******* //
 

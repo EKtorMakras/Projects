@@ -1,97 +1,39 @@
-@use 'sass:meta';
 @use "../../02-Functions" as *;
-@use "functions" as *;
-@use "variables" as *;
 
 /** ============ GENERATE COLOR UTILITIES ============ //
- * Generates utility classes for text color, background color, and their hover states based on the provided color map.
- * Supports both direct color values and color maps with shades.
+ * Generates utility classes for text color, background color, and their hover states
+ * based on a flat color map.
  *
- * @param {Map} $colors - The color map that contains either direct colors or nested maps with shades.
- *                        Example of a map:
- *                        (
- *                          "red": #ff0000,
- *                          "gray": (
- *                            "100": #f5f5f5,
- *                            "500": #888888
- *                          )
- *                        )
+ * @param {Map} $color-map - The flat color map where each key represents a color (e.g., "primary-500")
+ *                           and each value is the corresponding color.
  *
  * @example
- * Generate color utilities for a light color palette
- * @include generate-color-utilities($colors-light);
+ * Generate color utilities for a flat color palette
+ * @include generate-color-utilities($colors);
  */
 @mixin generate-color-utilities($color-map) {
   @each $color-name, $color-value in $color-map {
+    // Declare utility class names
+    $text-class: get-color-class("text", $color-name);
+    $bg-class: get-color-class("bg", $color-name);
+    $text-hover-class: get-color-class("text-hover", $color-name);
+    $bg-hover-class: get-color-class("bg-hover", $color-name);
 
-    // Check if the color is a map (with shades)
-    @if meta.type-of($color-value) == "map" {
-
-      // Declare base class variables (without shade)
-      $text-class: get-color-class("text", $color-name, $color-value);
-      $bg-class: get-color-class("bg", $color-name, $color-value);
-      $text-hover-class: get-color-class("text-hover", $color-name, $color-value);
-      $bg-hover-class: get-color-class("bg-hover", $color-name, $color-value);
-
-      // Generate base classes (without shade)
-      .#{$text-class} {
-        color: color($color-name, $color-map) !important;
-      }
-      .#{$bg-class} {
-        background-color: color($color-name, $color-map) !important;
-      }
-      .#{$text-hover-class}:hover {
-        color: color($color-name, $color-map) !important;
-      }
-      .#{$bg-hover-class}:hover {
-        background-color: color($color-name, $color-map) !important;
-      }
-
-      // Loop through the shades and generate additional classes
-      @each $shade, $shade-color in $color-value {
-
-        // Declare class variables for each shade
-        $text-class-shade: get-color-class("text", $color-name, $color-value, $shade);
-        $bg-class-shade: get-color-class("bg", $color-name, $color-value, $shade);
-        $text-hover-class-shade: get-color-class("text-hover", $color-name, $color-value, $shade);
-        $bg-hover-class-shade: get-color-class("bg-hover", $color-name, $color-value, $shade);
-
-        .#{$text-class-shade} {
-          color: color("#{$color-name}.#{$shade}", $color-map) !important;
-        }
-        .#{$bg-class-shade} {
-          background-color: color("#{$color-name}.#{$shade}", $color-map) !important;
-        }
-        .#{$text-hover-class-shade}:hover {
-          color: color("#{$color-name}.#{$shade}", $color-map) !important;
-        }
-        .#{$bg-hover-class-shade}:hover {
-          background-color: color("#{$color-name}.#{$shade}", $color-map) !important;
-        }
-      }
+    // Generate utility classes
+    .#{$text-class} {
+      color: $color-value !important;
     }
 
-    // Handle direct color values (e.g., "error", "success", etc.)
-    @else {
-      // Declare base class variables
-      $text-class: get-color-class("text", $color-name, $color-value);
-      $bg-class: get-color-class("bg", $color-name, $color-value);
-      $text-hover-class: get-color-class("text-hover", $color-name, $color-value);
-      $bg-hover-class: get-color-class("bg-hover", $color-name, $color-value);
+    .#{$bg-class} {
+      background-color: $color-value !important;
+    }
 
-      // Generate utility classes for direct colors
-      .#{$text-class} {
-        color: $color-value !important;
-      }
-      .#{$bg-class} {
-        background-color: $color-value !important;
-      }
-      .#{$text-hover-class}:hover {
-        color: $color-value !important;
-      }
-      .#{$bg-hover-class}:hover {
-        background-color: $color-value !important;
-      }
+    .#{$text-hover-class}:hover {
+      color: $color-value !important;
+    }
+
+    .#{$bg-hover-class}:hover {
+      background-color: $color-value !important;
     }
   }
 }

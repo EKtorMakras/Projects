@@ -9,13 +9,12 @@
 
 /** ============ GRADIENT ============ //
  * Generates a flexible linear gradient background that supports different color formats
- * using the `color-test` function for dynamic color retrieval. You can optionally specify
+ * using the `resolve-color` function for dynamic color retrieval. You can optionally specify
  * the position of each color (e.g., "color1 10%", "color2 80%").
  *
  * @param {String|Map} $color1 - The first color or a map containing:
- *                               - name: The color name (e.g., "primary").
- *                               - variant: (Optional) The color variant (e.g., "500", "600").
- *                               - use-css-var: (Optional) A flag to use the css var.
+ *                               - color: The color name (e.g., "primary-500").
+ *                               - css-var: (Optional) A flag to use the css var.
  * @param {String|Map} $color2 - The second color or a map with similar options to $color1.
  * @param {String} $direction - (Optional) The direction of the gradient. Defaults to "to right bottom".
  * @param {String|Null} $color1-pos - (Optional) The position of the first color (e.g., "10%"). Defaults to null.
@@ -23,11 +22,7 @@
  *
  * @example
  * Using CSS variables from the color map
- * @include gradient("primary", "secondary");
- *
- * @example
- * Using specific color variants from the map
- * @include gradient((name: "primary", variant: "600"), (name: "secondary", variant: "400"));
+ * @include gradient("primary-500", "secondary-500");
  *
  * @example
  * Using custom colors
@@ -35,7 +30,7 @@
  *
  * @example
  * Using true color values from the map
- * @include gradient((name: "primary", variant: "600", use-css-var: true), (name: "secondary", variant: "500", use-css-var: true));
+ * @include gradient((color: "primary-600", css-var: true), (color: "secondary", css-var: true));
  *
  * @example
  * Specifying color positions
@@ -46,8 +41,8 @@
   $color2-value: resolve-color($color2);
 
   // Append the position to the color if it's provided and string.unquote the final value
-  $color1-final: if($color1-pos != null, string.unquote($color1-value + " " + $color1-pos), string.unquote($color1-value));
-  $color2-final: if($color2-pos != null, string.unquote($color2-value + " " + $color2-pos), string.unquote($color2-value));
+  $color1-final: if($color1-pos != null, string.unquote($color1-value + " " + $color1-pos), $color1-value);
+  $color2-final: if($color2-pos != null, string.unquote($color2-value + " " + $color2-pos), $color2-value);
 
   // Apply the gradient
   background-image: linear-gradient($direction, $color1-final, $color2-final);
@@ -97,20 +92,16 @@
     @error "Unsupported adjustment channel: `#{$adjustment}`. Supported channels are lightness, saturation.";
   }
 
-  //* 2) Default text colors
-  $default-light-text-color: color($default-light-text-color-string);
-  $default-dark-text-color: color($default-dark-text-color-string);
-
-  //* 3) Resolved Colors
+  //* 2) Resolved Colors
   $resolved-bg-color: resolve-color($bg-color);
   $resolved-hover-bg-color: resolve-color($hover-bg-color);
   $resolved-text-color: resolve-color($text-color);
   $resolved-hover-text-color: resolve-color($hover-text-color);
 
-  //* 4) Apply the initial background color
+  //* 3) Apply the initial background color
   background-color: $resolved-bg-color;
 
-  //* 5) Apply text color
+  //* 4) Apply text color
   // Text color provided
   @if $text-color != null {
     color: $resolved-text-color;

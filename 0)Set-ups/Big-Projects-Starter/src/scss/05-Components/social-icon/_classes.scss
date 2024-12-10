@@ -8,7 +8,7 @@
 }
 
 .social-icon {
-  @include focus-state(color("primary"));
+  @include focus-state(color(primary-500));
   @include social-icons($official: false, $official-on-hover: true);
 
   &:hover {

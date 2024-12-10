@@ -43,53 +43,61 @@
 //% *************************  ************************* //
 
 //% ************************* Map ************************* //
-/** ============ MAP DEEP GET ============ //
- * Retrieves a value from a nested map structure based on a sequence of keys.
+/** ============ FLATTEN MAP ============ //
+ * Flattens a deeply nested map structure into a single-level map by combining keys from all levels.
+ * Keys are concatenated with a separator (default is "-") to represent the nesting hierarchy.
  *
- * @param {Map} $map - The nested map structure from which to retrieve the value.
- * @param {List} $keys... - One or more keys indicating the path to the desired value within the nested map.
- * @returns {*} - The value associated with the sequence of keys in the nested map structure. If any key in the sequence is not found, or if the input is not a map, it throws an error.
+ * @param {Map} $map - The nested map structure to be flattened.
+ * @param {String} $prefix - (Optional) A string prefix for the keys, used during recursion. Defaults to an empty string.
+ * @returns {Map} - A single-level map with keys representing the hierarchy and values from the original nested map.
  *
  * @example
  * Define a nested map structure
- * $colors: (
+ * $nested-colors: (
  *   primary: (
- *     500: #1e4367,  // base color (shade 500)
- *     700: #153452   // darker color (shade 700)
+ *     500: hsl(173, 58%, 39%),
+ *     dark: (
+ *       700: hsl(173, 58%, 23%),
+ *       800: hsl(173, 59%, 20%)
+ *     )
  *   ),
  *   secondary: (
- *     500: #234f33,  // base color (shade 500)
- *     700: #1a3f28   // darker color (shade 700)
+ *     500: hsl(10, 58%, 39%),
+ *     light: (
+ *       50: hsl(10, 35%, 94%)
+ *     )
  *   )
  * );
  *
- * Retrieve the base color of the primary theme (shade 500)
- * $baseColor: map-deep-get($colors, "primary", "500"); // Returns #1e4367
- */
-@function map-deep-get($map, $keys) {
-  @if meta.type-of($map) != "map" {
-    @error "The argument $map: '#{$map}' is of incorrect type: #{meta.type-of($map)}. Type 'map' is required.";
-  }
-
-  $value: map.get($map, $keys...);
-
-  @return $value;
-}
-
-/** ============ MAP DEEP REMOVE ============ //
- * Removes a key (or nested key) from a map.
+ * Flatten the nested map structure
+ * $flat-colors: flatten-map($nested-colors);
  *
- * @param {Map} $map - The map from which to remove the key.
- * @param {List} $keys - A list of keys indicating the path to the key to remove.
- * @returns {Map} - A new map with the key removed.
- *
- * @example
- * $font-weights: ("regular": 400, "medium": 500, "bold": 700);
- * $newMap: map-deep-remove($font-weights, "regular");
- * Result: ( "medium": 500, "bold": 700 )
+ * Resulting flat map:
+ * $flat-colors: (
+ *   "primary-500": hsl(173, 58%, 39%),
+ *   "primary-dark-700": hsl(173, 58%, 23%),
+ *   "primary-dark-800": hsl(173, 59%, 20%),
+ *   "secondary-500": hsl(10, 58%, 39%),
+ *   "secondary-light-50": hsl(10, 35%, 94%)
+ * );
  */
-@function map-deep-remove($map, $keys...) {
-  @return map.deep-remove($map, $keys...);
+@function flatten-map($map, $prefix: "") {
+    $flat-map: ();
+
+    @each $key, $value in $map {
+        // Combine current key with the prefix
+        $combined-key: if($prefix != "", "#{$prefix}-#{$key}", $key);
+
+        @if meta.type-of($value) == "map" {
+            // Recursively flatten nested maps
+            $flat-map: map.merge($flat-map, flatten-map($value, $combined-key));
+        } @else {
+            // Add the key-value pair to the flat map
+            $flat-map: map.merge($flat-map, ($combined-key: $value));
+        }
+    }
+
+    @return $flat-map;
 }
 
 /** ============ MAP GET WITH ============ //

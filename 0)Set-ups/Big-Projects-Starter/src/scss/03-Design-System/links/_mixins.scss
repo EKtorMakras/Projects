@@ -8,7 +8,7 @@
  * The box-shadow size and color can be customized, and the second shadow is derived based on
  * the first shadow's size using multiplication for proportional effects.
  *
- * @param {String} $color - (Optional) The color of the second box-shadow. Defaults to "primary".
+ * @param {String} $color - (Optional) The color of the second box-shadow. Defaults to "primary-500".
  * @param {Number} $outline-offset - (Optional) The distance between the outline and the element. Defaults to 4px.
  * @param {String} $box-shadow-color - (Optional) The color of the primary box-shadow. Defaults to "white".
  * @param {Number} $box-shadow-size - (Optional) The size of the box-shadow (used for blur and spread radius). Defaults to 3px.
@@ -22,7 +22,7 @@
  * @include focus-state(color("secondary"), 6px, color("gray.50"), 5px);
  */
 @mixin focus-state(
-  $color: color("primary"),
+  $color: color(primary-500),
   $outline-offset: 4px,
   $box-shadow-color: #fff,
   $box-shadow-size: 3px
@@ -53,11 +53,11 @@
  *
  * @example
  * Custom underline with a height of 3px and offset of -2px
- * @include link-underline(color("blue"), center, (height: 3px, offset: -2px), color("teal"));
+ * @include link-underline(color("blue"), center, (height: 3px, offset: -2px), "teal");
  *
  * @example
  * Changing only the hover color
- * @include link-underline(color("black"), center, (offset: -3px), color("#4d1569"));
+ * @include link-underline(color("black"), center, (offset: -3px), "#4d1569");
  */
 
 @mixin link-underline(

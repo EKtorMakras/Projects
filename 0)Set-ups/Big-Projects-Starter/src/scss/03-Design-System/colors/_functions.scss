@@ -7,50 +7,31 @@
 @use "variables" as *;
 
 /** ============ COLOR ============ //
- * Retrieves a value from a deeply nested map based on a key path,
- * which is split into segments using the default delimiter separator.
+ * Retrieves a value from a flat map based on a given key.
  *
- * The function accepts a dot-notated string as the key and an optional map
- * from which to retrieve the value. If no map is provided, it defaults to `$colors`.
- * It uses a helper function `map-deep-get` to retrieve the value from the nested map.
- * If the key refers to a base color (e.g., "primary") and that base color is a map,
- * the function will default to retrieving the "500" shade.
+ * This function accepts a key as a string and an optional flat map from which to retrieve the value.
+ * If the key does not exist in the map, the function returns `null`.
  *
- * @param {String} $key - A dot-notated string representing the path to the value within the map.
- *                        Each segment represents a deeper level in the nested map.
- *                        Example: "gray.blue-5" or "primary".
+ * @param {String} $key - The key representing the color in the map.
+ *                        Example: "primary-500" or "error".
  *
- * @param {Map} $map - (Optional) The map from which to retrieve the value. Defaults to `$colors`.
+ * @param {Map} $map - (Optional) The flat map to retrieve the value from. Defaults to `$colors`.
  *
- * @returns {*} - The value retrieved from the specified path in the map.
- *                The return type depends on the structure of the map and the value found.
- *                If the key refers to a base color (e.g., "primary") and no shade is provided,
- *                it defaults to the "500" shade.
+ * @returns {*} - The value associated with the specified key in the map, or `null` if the key is not found.
  *
  * @example
- * Assuming a nested colors map structure:
+ * Given a flat colors map:
  * $colors: (
- *   "gray": (
- *     "blue-5": #b0c4de
- *   ),
- *   "primary": (
- *     "500": hsl(173, 58%, 39%),
- *     "700": hsl(173, 58%, 23%)
- *   ),
+ *   "primary-500": hsl(173, 58%, 39%),
+ *   "primary-700": hsl(173, 58%, 23%),
  *   "error": #d32752
  * );
  *
- * Retrieving a color from the map:
- * $color-value: color('gray.blue-5'); // Returns #b0c4de
+ * Retrieve a specific color:
+ * $primary-500: color("primary-500"); // Returns hsl(173, 58%, 39%)
  *
- * Retrieving a base color with default shade (usually "500"):
- * $primary-color: color('primary'); // Returns hsl(173, 58%, 39%)
- *
- * Retrieving a specific shade:
- * $primary-color-shade: color('primary.700'); // Returns hsl(173, 58%, 23%)
- *
- * Retrieving a flat color:
- * $error-color: color('error'); // Returns #d32752
+ * Handle a missing key:
+ * $unknown-color: color("unknown"); // Returns null
  */
 @function color($key, $map: $colors) {
   // Early return null as color is null
@@ -58,93 +39,58 @@
     @return null;
   }
 
-  // Separate the keys by default delimiter
-  $default-delimiter: get-default(color-delimiter);
-  $keys: str-explode($key, $default-delimiter);
-
-  // Check if the first part of the key is a map
-  $base-color: map.get($map, list.nth($keys, 1));
-
-  // If the base color is a map and no shade is provided, default to global default shade
-  @if (meta.type-of($base-color) == "map" and list.length($keys) == 1) {
-    $keys: list.append($keys, get-default(color-shade));
-  }
-
-  @return map-deep-get($map, $keys);
+  @return map.get($map, $key);
 }
 
 /** ============ COLOR TEST ============ //
- * Retrieves a color value from the `$colors` map, or returns the CSS variable, or a custom color if valid.
+ * Retrieves a color value from the `$colors` map, a CSS variable, or a valid custom color.
  *
- * @param {String} $color-name - The name or value of the color to retrieve (e.g., "primary", "#334ff").
- * @param {String} $color-variant - (Optional) The variant of the color to retrieve (e.g., "500"). Defaults to "500".
- * @param {Boolean} $css-var - (Optional) Indicates whether to CSS variable or the actual color. Defaults to true.
+ * @param {String} $color-key - The name or value of the color to retrieve (e.g., "primary-500", "#334ff").
+ * @param {Boolean} $css-var - (Optional) Indicates whether to retrieve the CSS variable or the actual color. Defaults to true.
  * @param {Map} $map - (Optional) The map from which to retrieve the value. Defaults to `$colors`.
- * @returns {*} - The CSS variable, the true color value from the nested map, or a valid custom color.
- *
- * @example
- * Retrieve the color variable for "primary"
- * $primaryColor: color-test("primary", null, true); // Returns var(--clr-primary)
- *
- * Retrieve the actual color value for "primary"
- * $primaryColor: color-test("primary", "500"); // Returns hsl(173, 58%, 39%)
- *
- * Retrieve a custom color
- * $customColor: color-test("#334ff", null, true); // Returns #334ff
+ * @returns {*} - The CSS variable, the actual color value from the map, or a valid custom color.
  */
-@function color-test($color-name, $color-variant: null, $css-var: true, $map: $colors) {
-  // Early return null as color is null
-  @if $color-name == null {
+@function color-test($color-key, $css-var: true, $map: $colors) {
+  // Return null if the color key is null
+  @if $color-key == null {
     @return null;
   }
 
-  // Check if the passed value is a valid color using type-of()
-  @if meta.type-of($color-name) == "color" {
-    @return $color-name;
+  // Check if the passed value is a valid color
+  @if meta.type-of($color-key) == "color" {
+    @return $color-key;
   }
 
-  // If $css-var is true, return the CSS variable.
-  // Avoid appending `-` if $color-variant is null
+  // If $css-var is true, return the CSS variable
   @if $css-var == true {
-    @if $color-variant != null {
-      @return get-color("#{$color-name}-#{$color-variant}");
-    } @else {
-      @return get-color($color-name);
-    }
+    @return get-color($color-key);
   }
 
-  // Use the existing color function to retrieve the color value from the map
-   @if $color-variant != null {
-    @return color("#{$color-name}.#{$color-variant}", $map);
-  } @else {
-    @return color($color-name, $map);
-  }
+  // Retrieve the actual value from the map
+  @return color($color-key, $map);
 }
 
 /** ============ RESOLVE COLOR ============ //
- * Resolves a color from either a map or a string and passes it to the color-test function.
+ * Resolves a color by determining whether the input is a map or a direct value
+ * and delegates to `color-test` for actual color resolution.
  *
- * @param {Map|String} $color - The color input, which can either be a map or a string.
- *                              If it's a map, it should contain:
- *                              - name: The color name (e.g., "primary").
- *                              - variant: (Optional) The color variant (e.g., "500", "600").
- *                              - use-css-var: (Optional) A flag to use the css custom prop or the true color.
- *
- * @return {String} - The resolved color from color-test.
- *
- * @example
- * Using a color map
- * $resolved-color: resolve-color((name: "primary", variant: "600"));
- *
- * @example
- * Using a simple color string
- * $resolved-color: resolve-color("primary");
+ * @param {String|Map} $color - The color input, which can either be a string (e.g., "primary-500")
+ *                              or a map containing:
+ *                              - color: The color name (e.g., "primary-500").
+ *                              - css-var: (Optional) A flag to use the CSS variable. Defaults to true.
+ * @param {Map} $map - (Optional) The map from which to resolve the color. Defaults to `$colors`.
+ * @returns {*} - The resolved color value.
  */
 @function resolve-color($color, $map: $colors) {
-  @return if(meta.type-of($color) == "map",
-    color-test(map.get($color, name), map.get($color, variant), map.get($color, use-css-var), $map),
-    color-test($color, $map: $map)
-  );
+  @if meta.type-of($color) == "map" {
+    $color-key: map.get($color, "color");
+    $css-var: map-get-with-default($color, "css-var", true); // Default to true if not specified
+
+    @return color-test($color-key, $css-var, $map);
+  }
+
+  // If not a map, pass the value directly to `color-test`
+  @return color-test($color, $map: $map);
 }
 
 /** ============ IS COLOR DARK ============ //

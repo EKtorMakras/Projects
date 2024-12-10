@@ -89,6 +89,7 @@
 @mixin triangle($size, $direction, $color) {
   // Ensure valid direction
   $valid-directions: ("up", "down", "left", "right");
+
   @if not index($valid-directions, $direction) {
     @error "Invalid direction `#{$direction}`. Expected values: up, down, left, right.";
   }

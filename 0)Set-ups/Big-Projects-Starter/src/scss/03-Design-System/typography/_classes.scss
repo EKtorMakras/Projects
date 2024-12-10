@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "../../01-Globals" as globals;
 @use "../../02-Functions" as *;
 @use "variables" as *;
 
@@ -34,6 +35,14 @@
 
   .l-spacing-#{$i} {
     letter-spacing: $current-l-spacing !important;
+  }
+}
+//& *******  ******* //
+
+//& ******* Casing ******* //
+@each $value in globals.$casing-values {
+  .text-#{$value} {
+    text-transform: #{$value} !important;
   }
 }
 //& *******  ******* //

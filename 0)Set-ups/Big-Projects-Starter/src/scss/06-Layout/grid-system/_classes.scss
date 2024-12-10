@@ -21,7 +21,6 @@
 }
 
 .app {
-  @include dvh(100, "min");
   display: grid;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
@@ -29,6 +28,7 @@
     "header"
     "main"
     "footer";
+  @include dvh(100, "min");
 
   &--sidebar {
     grid-template-columns: auto 1fr;

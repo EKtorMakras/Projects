@@ -3,9 +3,8 @@ $shadow-mapping: (
   defaults: (
     category: "rg",
     color-options: (
-      name: "shadow",
-      variant: null,
-      use-css-var: true
+      color: "shadow",
+      css-var: true
     ),
   ),
 

@@ -7,9 +7,8 @@
  *
  * @param {String} $size - The shadow size, corresponding to predefined shadow categories (e.g., "sm-1", "rg-2").
  * @param {Map} $color-options - (Optional) A map to define the shadow color, with options such as:
- *                               - name: The color name (e.g., "primary", "shadow").
- *                               - variant: (Optional) The color variant (e.g., "500", "600").
- *                               - use-true-color: (Optional) A flag to use the actual color value or CSS variable.
+ *                               - color: The color name (e.g., "primary-500", "shadow").
+ *                               - css-var: (Optional) A flag to use the actual color value or CSS variable.
  *                               Defaults to an empty map.
  * @param {Number|Null} $opacity - (Optional) The opacity of the shadow. Defaults to predefined opacity.
  * @param {String} $type - The shadow type, either "box" or "text". Defaults to "box".
@@ -20,11 +19,11 @@
  *
  * @example
  * Apply a text shadow with custom size and opacity
- * @include shadow(sm-2, (name: "black", opacity: 0.5), null, text);
+ * @include shadow(sm-2, (color: "black", opacity: 0.5), null, text);
  *
  * @example
  * Apply a box shadow with custom color and variant
- * @include shadow(sm-1, (name: "primary", variant: "600"));
+ * @include shadow(sm-1, (color: "primary-600"));
  */
 @mixin shadow($size: sm-1, $color-options: (), $opacity: null, $type: box) {
   $shadow-value: generate-shadow($size, $color-options, $opacity, $type);

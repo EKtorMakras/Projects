@@ -1,12 +1,39 @@
 @use "sass:map";
+@use "sass:color";
+@use "sass:meta";
+@use "../../02-Functions" as *;
 @use "categories" as *;
 
-$colors: ();
+//@ ************ Base Colors  ************ //
+$base-colors: ();
 
-// Populate $colors map
+// Populate $base-colors map
 @each $map in ($generic-colors, $notification-colors, $social-colors, $tailwind-colors, $project-colors) {
-  $colors: map.merge($colors, $map);
+  $base-colors: map.merge($base-colors, $map);
 }
 
-$default-light-text-color-string: "gray.50";
-$default-dark-text-color-string: "gray.900";
+// Flatten $base-colors map
+$base-colors: flatten-map($base-colors);
+//@ ************  ************ //
+
+//@ ************ Default Text Colors  ************ //
+$default-light-text-color: map.get($base-colors, gray-50);
+$default-dark-text-color: map.get($base-colors, gray-900);
+//@ ************  ************ //
+
+//@ ************ Text on Color  ************ //
+$text-on-colors: ();
+
+@each $color-name, $color-value in $base-colors {
+  @if meta.type-of($color-value) == "color" {
+    $text-color: if(color.channel($color-value, "lightness", $space: hsl) > 50, $default-dark-text-color, $default-light-text-color);
+    $new-pair: ("on-#{$color-name}": $text-color);
+    $text-on-colors: map.merge($text-on-colors, $new-pair);
+  }
+}
+//@ ************  ************ //
+
+// Final Merged Colors
+$colors: map.merge($base-colors, $text-on-colors);
+
+

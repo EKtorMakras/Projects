@@ -15,15 +15,15 @@ $font-sizes: (
   "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
 
   // Headings
-  "head-1": clamp(4.5rem, 3rem + 3vw, 6.5rem),
-  "head-2": clamp(3.5rem, 2.5rem + 2vw, 4.7rem),
-  "head-3": clamp(3rem, 2rem + 2vw, 4rem),
-  "head-4": clamp(2.5rem, 1.8rem + 1.5vw, 3.5rem),
-  "head-5": clamp(2rem, 1.5rem + 1vw, 2.8rem),
-  "head-6": clamp(1.8rem, 1.3rem + 0.8vw, 2rem),
+  "h-1": clamp(4.5rem, 3rem + 3vw, 6.5rem),
+  "h-2": clamp(3.5rem, 2.5rem + 2vw, 4.7rem),
+  "h-3": clamp(3rem, 2rem + 2vw, 4rem),
+  "h-4": clamp(2.5rem, 1.8rem + 1.5vw, 3.5rem),
+  "h-5": clamp(2rem, 1.5rem + 1vw, 2.8rem),
+  "h-6": clamp(1.8rem, 1.3rem + 0.8vw, 2rem),
 
-  "head-xl": 9rem,
-  "head-xxl": 12rem
+  "h-xl": 9rem,
+  "h-xxl": 12rem
 );
 //% ***************   *************** //
 

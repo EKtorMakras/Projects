@@ -75,9 +75,9 @@
  * If the name is provided, it appends the name to the prefix. Otherwise, it returns the variable with the prefix only.
  *
  * @param {String} $prefix - The prefix for the CSS variable (e.g., "color", "border-radius").
- * @param {String} $name - (Optional) The name or key for the CSS variable (e.g., "primary", "lg"). If null, the function returns only the prefix.
+ * @param {String} $name - (Optional) The name or key for the CSS variable (e.g., "primary-500", "lg"). If null, the function returns only the prefix.
  *
- * @return {String} - The corresponding CSS variable (e.g., var(--color-primary) or var(--color)).
+ * @return {String} - The corresponding CSS variable (e.g., var(--color-primary-500) or var(--color)).
  *
  * @example
  * Example with a name
@@ -123,15 +123,15 @@
 /** ============ GET COLOR ============ //
  * Retrieves the CSS variable for a given color name.
  *
- * @param {String} $name - The name of the color (e.g., "primary", "secondary").
+ * @param {String} $name - The name of the color (e.g., "primary-500", "secondary-300").
  * @param {String} $prefix - (Optional) The prefix for the CSS variable. Defaults to `global color prefix`.
  *
  * @return {String} - The generated CSS variable string in the format `var(--prefix-color-name)`.
  *
  * @example
  * Retrieve the primary color
- * $color: get-color("primary");
- * Returns: var(--css-prefix-primary)
+ * $color: get-color("primary-500");
+ * Returns: var(--css-prefix-primary-500)
  */
 
 @function get-color($name) {
@@ -140,55 +140,23 @@
 }
 
 /** ============ GET COLOR CLASS ============ //
- * Generates a CSS class string for an element based on the provided prefix, color name, color value, and optional shade.
+ * Generates a CSS class string for an element based on the provided prefix and color name.
  *
- * This function constructs the CSS class for elements by combining the prefix (e.g., "btn", "card"), color name, and
- * optional shade. If the color value is a map (i.e., it has multiple shades), it appends the shade to the class name.
- * If no shade is provided or the color is a direct value (e.g., "error"), the class is generated without a shade.
+ * This function constructs the CSS class for elements by combining the prefix (e.g., "btn", "card") and the color name.
  *
  * @param {String} $prefix - The prefix for the class (e.g., "btn", "card", "badge").
- * @param {String} $color-name - The name of the color (e.g., "primary", "secondary").
- * @param {*} $color-value - The color value, which can be a map (with multiple shades) or a direct value (e.g., "error").
- * @param {String} $shade - (Optional) The shade of the color (e.g., "500", "600"). If not provided, defaults to null.
+ * @param {String} $color-name - The name of the color, including the shade if applicable (e.g., "primary-500").
  *
- * @return {String} - The generated CSS class string in the format `<prefix>-<color>-<shade>` (e.g., "btn-primary-500").
- *                    If the color has no shades or no shade is provided, it returns the class in the format `<prefix>-<color>`.
+ * @return {String} - The generated CSS class string in the format `<prefix>-<color>` (e.g., "btn-primary-500").
  *
  * @example
- * Returns "btn-primary-700" if $color-value is a map and $shade is "700"
- * $color-class: get-color-class("btn", "primary", $color-value, "700");
+ * Returns "btn-primary-500"
+ * $color-class: get-color-class("btn", "primary-500");
  *
  * @example
- * Returns "card-error" if $color-value is a direct value (e.g., "error")
- * $color-class: get-color-class("card", "error", $color-value);
- *
- * @example
- * Returns "badge-primary" if no shade is provided
- * $color-class: get-color-class("badge", "primary", $color-value);
+ * Returns "card-error"
+ * $color-class: get-color-class("card", "error");
  */
-@function get-color-class($prefix, $color-name, $color-value, $shade: null) {
-
-  // Handle map of colors (e.g., "gray": (50, 100, etc.))
-  @if meta.type-of($color-value) == "map" {
-
-    // Return the class with the shade if provided
-    @if $shade != null {
-      @return "#{$prefix}-#{$color-name}-#{$shade}";
-    }
-
-    // Default to the main class without shade
-    @else {
-      @return "#{$prefix}-#{$color-name}";
-    }
-  }
-
-  // Handle direct color values (e.g., "black", "white")
-  @else {
-    @return "#{$prefix}-#{$color-name}";
-  }
+@function get-color-class($prefix, $color-name) {
+  @return "#{$prefix}-#{$color-name}";
 }
-
-
-
-
-
