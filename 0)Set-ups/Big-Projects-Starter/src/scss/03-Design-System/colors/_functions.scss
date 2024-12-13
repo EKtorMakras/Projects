@@ -1,8 +1,5 @@
-@use 'sass:color';
 @use "sass:map";
 @use 'sass:meta';
-@use 'sass:list';
-@use "../../01-Globals" as globals;
 @use "../../02-Functions" as *;
 @use "variables" as *;
 
@@ -56,6 +53,11 @@
     @return null;
   }
 
+  // Check if the color is already a CSS variable
+  @if is-css-var($color-key) {
+    @return $color-key;
+  }
+
   // Check if the passed value is a valid color
   @if meta.type-of($color-key) == "color" {
     @return $color-key;
@@ -93,56 +95,48 @@
   @return color-test($color, $map: $map);
 }
 
-/** ============ IS COLOR DARK ============ //
- * Determines if a color is considered dark based on its blackness value.
+/** ============ RESOLVE FOREGROUND ============ //
+ * Resolves the appropriate text color for a given background color.
+ * This function determines whether the text color should be dark or light by:
+ * 1. Checking if the background color is a CSS variable.
+ * 2. Dynamically calculating the foreground color based on contrast ratios for pure colors.
  *
- * @param {Color} $color - The color to check.
- * @param {Number} $threshold - (Optional) The threshold for blackness. Defaults to a custom brightness threshold.
- * @return {Boolean} - Returns true if the color's blackness is greater than the threshold, otherwise false.
+ * - If the background color is a CSS variable, the corresponding text-on-color is retrieved from the color map.
+ * - For pure color values, the `foreground-test` function is used to calculate the foreground color dynamically.
  *
- * @example
- * @if isColorDark(#000000) {
- * Do something for dark colors
- * }
- */
-@function is-color-dark($color, $threshold: get-threshold(brightness)) {
-  $blackness: color.channel($color, "blackness", $space: hwb);
-  @return $blackness > $threshold;
-}
-
-/** ============ TINT ============ //
- * Creates a tinted version of a given color by mixing it with white.
- * The percentage determines the strength of the tint, with 0% being the original color
- * and 100% being pure white.
+ * @param {Color|CSS Variable} $bg-color - The background color (e.g., HEX, RGB, HSL, or a CSS variable).
  *
- * @param {Color} $color - The base color to tint.
- * @param {Number} $percentage - The percentage of white to mix with the base color (0-100).
- * @returns {Color} - The resulting tinted color.
+ * @return {Color} - Returns the resolved text color:
+ *                   - For CSS variables: Retrieves the value using `get-color`.
+ *                   - For pure colors: Returns the result of `foreground-test` using default dark/light text colors.
  *
  * @example
- * $baseColor: #3498db;
- * $tintedColor: tint($baseColor, 20%);
- * Result: #5bc0de
- */
-@function tint($color, $percentage) {
-  @return color.mix(white, $color, $percentage);
-}
-
-/** ============ SHADE ============ //
- * Creates a shaded version of a given color by mixing it with black.
- * The percentage determines the strength of the shade, with 0% being the original color
- * and 100% being pure black.
- *
- * @param {Color} $color - The base color to shade.
- * @param {Number} $percentage - The percentage of black to mix with the base color (0-100).
- * @returns {Color} - The resulting shaded color.
+ * Resolve the text color for a blue background:
+ * $text-color: resolve-foreground(#3498db); // Returns either $default-dark-text-color or $default-light-text-color
  *
  * @example
- * $baseColor: #3498db;
- * $shadedColor: shade($baseColor, 20%);
- * Result: #2980b9
+ * Resolve the text color for a CSS variable:
+ * $text-color: resolve-foreground(var(--clr-primary-500)); // Returns the mapped "on-primary-500" color
+ *
+ * @note
+ * The function handles both CSS variables and raw color values seamlessly, ensuring proper contrast for text.
  */
-@function shade($color, $percentage) {
-  @return color.mix(black, $color, $percentage);
-}
+@function resolve-foreground($bg-color) {
+  $foreground-color: null;
 
+  @if (is-css-var($bg-color)) {
+    $bg-color-name: get-color-name($bg-color);
+    $foreground-color: get-color("on-#{$bg-color-name}");
+  }
+
+  @else {
+    $luminance-map : (
+      dark: $default-dark-text-color,
+      light: $default-light-text-color
+    );
+
+    $foreground-color: foreground-test($bg-color, $luminance-map);
+  }
+
+  @return $foreground-color;
+}

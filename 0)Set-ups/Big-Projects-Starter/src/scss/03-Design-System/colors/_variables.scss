@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "sass:color";
 @use "sass:meta";
 @use "../../02-Functions" as *;
 @use "categories" as *;
@@ -17,8 +16,13 @@ $base-colors: flatten-map($base-colors);
 //@ ************  ************ //
 
 //@ ************ Default Text Colors  ************ //
-$default-light-text-color: map.get($base-colors, gray-50);
-$default-dark-text-color: map.get($base-colors, gray-900);
+$default-text-colors: (
+  "default-light": map.get($base-colors, grey-50),
+  "default-dark": map.get($base-colors, grey-900)
+);
+
+$default-light-text-color: map.get($default-text-colors, default-light);
+$default-dark-text-color: map.get($default-text-colors, default-dark);
 //@ ************  ************ //
 
 //@ ************ Text on Color  ************ //
@@ -26,14 +30,20 @@ $text-on-colors: ();
 
 @each $color-name, $color-value in $base-colors {
   @if meta.type-of($color-value) == "color" {
-    $text-color: if(color.channel($color-value, "lightness", $space: hsl) > 50, $default-dark-text-color, $default-light-text-color);
-    $new-pair: ("on-#{$color-name}": $text-color);
+
+    $foreground-color: foreground-test($color-value, (
+      light: $default-light-text-color,
+      dark: $default-dark-text-color
+      )
+    );
+
+    $new-pair: ("on-#{$color-name}": $foreground-color);
     $text-on-colors: map.merge($text-on-colors, $new-pair);
   }
 }
 //@ ************  ************ //
 
-// Final Merged Colors
+//@ ************ Final Merged Colors  ************ //
 $colors: map.merge($base-colors, $text-on-colors);
-
-
+$colors: map.merge($colors, $default-text-colors);
+//@ ************  ************ //

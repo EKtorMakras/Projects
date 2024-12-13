@@ -14,10 +14,10 @@
 @mixin generate-color-utilities($color-map) {
   @each $color-name, $color-value in $color-map {
     // Declare utility class names
-    $text-class: get-color-class("text", $color-name);
-    $bg-class: get-color-class("bg", $color-name);
-    $text-hover-class: get-color-class("text-hover", $color-name);
-    $bg-hover-class: get-color-class("bg-hover", $color-name);
+    $text-class: get-class(("text", $color-name));
+    $bg-class: get-class(("bg", $color-name));
+    $text-hover-class: get-class(("text-hover", $color-name));
+    $bg-hover-class: get-class(("bg-hover", $color-name));
 
     // Generate utility classes
     .#{$text-class} {
@@ -37,3 +37,6 @@
     }
   }
 }
+
+
+

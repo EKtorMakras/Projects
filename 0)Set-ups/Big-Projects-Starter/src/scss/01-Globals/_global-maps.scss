@@ -22,8 +22,12 @@ $PREFIXES: (
 
 $DEFAULTS: (
   color-shade: "500",
-  color-delimiter: ".",
+  separator: "-",
   font-size-category: "rg",
+);
+
+$ALLOWED: (
+  bg-adjustments: (lightness, saturation, hue, red, green, blue),
 );
 
 $TOTAL_STEPS: (
@@ -34,5 +38,12 @@ $TOTAL_STEPS: (
 );
 
 $THRESHOLDS: (
-  brightness: 15%
+  brightness: 15%,
 );
+
+$LUMINANCE: (
+  white: 1,
+  black: 0,
+  acceptable-threshold: 4.2,
+  tolerance: 1
+)

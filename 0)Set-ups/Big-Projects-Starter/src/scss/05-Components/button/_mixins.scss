@@ -21,7 +21,7 @@
  *
  * @example
  * Outlined button with a custom background, border color, and hover effects
- * @include btn-outline(color("primary-500"), color("white"), (color: color("secondary"), width: 2px, style: dashed), color("light-gray"));
+ * @include btn-outline(color("primary-500"), color("white"), (color: color("secondary"), width: 2px, style: dashed), color("light-grey"));
  *
  * @example
  * Simple outlined button with default transparent background and primary color
@@ -29,7 +29,7 @@
  *
  * @example
  * Outlined button with a custom background color
- * @include btn-outline(color("primary-500"), color("white"), (), color("gray-light"));
+ * @include btn-outline(color("primary-500"), color("white"), (), color("grey-light"));
  */
 @mixin btn-outline(
   $main-color: map.get($default-btn-styles, bg-color),

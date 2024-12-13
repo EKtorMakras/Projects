@@ -132,13 +132,13 @@
  * @example
  * .button {
  *   @include when-is('.active', '.disabled') {
- *     background: gray;
+ *     background: grey;
  *   }
  * }
  * Resulting CSS:
  * .active .button,
  * .disabled .button {
- *   background: gray;
+ *   background: grey;
  * }
  */
 @mixin when-is($args...) {

@@ -26,7 +26,7 @@
  *
  * @example
  * Apply custom padding and hover background color
- * @include social-icons(false, false, rg, (padding: 0.5rem, hover-bg-color: color("gray-100")));
+ * @include social-icons(false, false, rg, (padding: 0.5rem, hover-bg-color: color("grey-100")));
  */
 @mixin social-icons(
   $official: false,

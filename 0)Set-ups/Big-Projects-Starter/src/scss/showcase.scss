@@ -20,14 +20,18 @@
 
   width: $size * 1.5;
   height: $size;
-  // background-color: rgb(122 31 74);background-color
-  color: #fff;
   margin-bottom: get-spacer(10);
 
   // @include triangle(100px, up, #0e6931);
-  @include transition((opacity, transform), 0.5s, ease-in);
+  @include transition();
   @include border-radius(10px, top-left bottom-right);
   @include border-radius(4px, bottom-left top-right);
-  @include gradient((color: "primary-600", css-var: true), (color: "secondary-300", css-var: true), to right, "10%", "80%");
+  // @include gradient((color: "primary-600", css-var: true), (color: "secondary-200", css-var: true), to right bottom, "20%", "80%");
+    @include adjust-bg-color(color(primary-50));
   @include create-overlay("before", "", rgba(0, 0, 0, 0.1), 0.8, 1, absolute, 0, 10px);
+
+  &::before {
+    @include border-radius(10px, top-left bottom-right);
+    @include border-radius(4px, bottom-left top-right);
+  }
 }

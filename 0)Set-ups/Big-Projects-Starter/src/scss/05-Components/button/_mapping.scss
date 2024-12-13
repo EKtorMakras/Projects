@@ -23,33 +23,33 @@ $button-mapping: (
   types: (normal, outlined),
   colors: flatten-map(map.merge($project-colors, $notification-colors)),
   sizes: (
-    xxs: (
+    2xs: (
       "padding": .4em .8em,
       "font-size": sm-1,
       "letter-spacing": 2
     ),
     xs: (
-      "padding": .65em 1em,
+      "padding": .5em 1em,
       "font-size": sm-1,
       "letter-spacing": 2
     ),
     sm: (
-      "padding": .5em .8em,
+      "padding": .4em .8em,
       "font-size": sm-2,
       "letter-spacing": 2
     ),
     rg: (
-      "padding": .7em 1.3em,
+      "padding": .6em 1.3em,
       "font-size": sm-2,
       "letter-spacing": 3
     ),
     lg: (
-      "padding": .6em 1.3em,
+      "padding": .5em 1.4em,
       "font-size": rg,
       "letter-spacing": 3
     ),
     xl: (
-      "padding": .7em 1.6em,
+      "padding": .6em 1.4em,
       "font-size": lg-1,
       "letter-spacing": 4
     )

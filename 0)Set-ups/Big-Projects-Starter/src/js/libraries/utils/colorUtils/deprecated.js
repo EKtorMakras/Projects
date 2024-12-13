@@ -233,7 +233,7 @@ function hslToRgba(hsl) {
   let r, g, b;
 
   if (s === 0) {
-    // Achromatic case (gray)
+    // Achromatic case (grey)
     r = g = b = l;
   } else {
     const hueToRgb = (p, q, t) => {

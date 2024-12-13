@@ -13,6 +13,7 @@
 
   grid-area: header;
   display: grid;
+  grid-template-columns: auto 1fr auto;
   grid-template-areas: 'logo nav actions';
   width: $width;
   padding: $padding;

@@ -19,7 +19,7 @@
  *
  * @example
  * Custom focus state with larger shadows and different colors
- * @include focus-state(color("secondary"), 6px, color("gray.50"), 5px);
+ * @include focus-state(color("secondary"), 6px, color("grey.50"), 5px);
  */
 @mixin focus-state(
   $color: color(primary-500),

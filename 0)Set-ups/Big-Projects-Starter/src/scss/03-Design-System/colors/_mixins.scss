@@ -1,4 +1,5 @@
 @use 'sass:list';
+@use 'sass:map';
 @use 'sass:meta';
 @use 'sass:color';
 @use 'sass:string';
@@ -49,33 +50,47 @@
 }
 
 /** ============ ADJUST BG COLOR ============ //
- * Mixin for adjusting the background color of an element based on "lightness" or "saturation".
- * Optionally supports applying a custom hover background color and text colors, or dynamically
- * adjusting the hover background and text color based on the background's brightness.
+ * Dynamically adjusts the background and text colors of an element, with support for custom hover states.
+ * This mixin provides robust handling for CSS variables, pure colors, and dynamic adjustments such as lightness or saturation.
  *
- * @param {String} $bg-color - The initial background color of the element.
- * @param {String} $hover-bg-color - (Optional) A specific background color to use on hover.
- *                                   If provided, it overrides the dynamically adjusted hover color.
- * @param {String} $text-color - (Optional) The initial text color. If not provided, the text color
- *                               will be calculated dynamically based on the brightness of the background.
- * @param {String} $hover-text-color - (Optional) The text color on hover. If not provided, the hover text color
- *                                     will be calculated dynamically based on the hover background color.
- * @param {String} $adjustment - The type of adjustment to apply to the background color.
- *                               Accepts "lightness" or "saturation". Defaults to "lightness".
- * @param {Percentage} $amount - The percentage amount to adjust the background color by.
- *                               Defaults to -6% (darkens the background by 6%).
+ * ### Features:
+ * - Dynamically resolves initial and hover background colors.
+ * - Supports custom text colors or dynamically calculates them based on background brightness.
+ * - Handles CSS variables gracefully, applying default behaviors where dynamic calculations are not possible.
+ * - Adjusts background colors based on "lightness," "saturation," or other valid adjustments.
+ *
+ * @param {String|Map} $bg-color - The initial background color of the element. Supports:
+ *                                  - HEX, RGB, or named colors.
+ *                                  - Maps with `color` and `css-var` keys for CSS variable handling.
+ * @param {String|Map|Null} $text-color - (Optional) The initial text color. If null, it is calculated dynamically.
+ * @param {String|Map|Null} $hover-bg-color - (Optional) A specific background color to use on hover. Overrides adjustments.
+ * @param {String|Map|Null} $hover-text-color - (Optional) A specific text color to use on hover. Overrides dynamic calculations.
+ * @param {String} $adjustment - (Optional) The type of adjustment to apply to the background color. Defaults to "lightness."
+ *                                Allowed values include: *see globals ALLOWED map
+
+ * @param {Percentage|Number} $amount - (Optional) The amount to adjust the background color by. Defaults to -6%.
+ *                                      - Sass supports both Percentages and Numbers (e.g., -10%).
+ *                                      - For some values like hue you can also apply degrees (e.g 45deg).
  *
  * @example
- * Adjust background color by darkening it, with custom hover colors
+ * Adjust background color by darkening it, with custom hover colors:
  * @include adjust-bg-color(#3498db, null, #fff, null, lightness, -10%);
  *
  * @example
- * Use a specific hover background and text color
+ * Use a specific hover background and text color:
  * @include adjust-bg-color(#3498db, #2980b9, #fff, #ffcc00);
  *
  * @example
- * Adjust background color using saturation, with dynamic text color based on background brightness
+ * Adjust background color using saturation, with dynamic text color based on background brightness:
  * @include adjust-bg-color(#3498db, null, null, null, saturation, 8%);
+ *
+ * @example
+ * Adjust background color with CSS variable:
+ * @include adjust-bg-color((color: "primary-500", css-var: true), $adjustment:lightness, $amount: -6%);
+ *
+ * @example
+ * Custom hover and text color with adjustments:
+ * @include adjust-bg-color(#2ecc71, ##fff, $adjustment: lightness, $amount: -10%);
  */
 @mixin adjust-bg-color(
   $bg-color,
@@ -85,88 +100,73 @@
   $adjustment: lightness,
   $amount: -6%
 ) {
-  //* 1) Ensure the adjustment channel is valid (lightness or saturation)
-  $valid-adjustments: ("lightness", "saturation");
+  //* Ensure the adjustment channel is valid
+  $allowed-adjustments: map.get(globals.$ALLOWED, bg-adjustments);
 
-  @if not list.index($valid-adjustments, $adjustment) {
-    @error "Unsupported adjustment channel: `#{$adjustment}`. Supported channels are lightness, saturation.";
+  @if not list.index($allowed-adjustments, $adjustment) {
+    @error "Unsupported adjustment type: `#{$adjustment}`. Allowed types are: #{list.join($allowed-adjustments, ', ')}.";
   }
 
-  //* 2) Resolved Colors
+  //* Resolved Colors
   $resolved-bg-color: resolve-color($bg-color);
-  $resolved-hover-bg-color: resolve-color($hover-bg-color);
   $resolved-text-color: resolve-color($text-color);
+  $resolved-hover-bg-color: resolve-color($hover-bg-color);
   $resolved-hover-text-color: resolve-color($hover-text-color);
 
-  //* 3) Apply the initial background color
+  //* Apply the initial background color
   background-color: $resolved-bg-color;
 
-  //* 4) Apply text color
-  // Text color provided
-  @if $text-color != null {
-    color: $resolved-text-color;
+  //* Apply text color
+  $final-text-color: null;
+
+  @if $resolved-text-color != null {
+    $final-text-color: $resolved-text-color;
   }
 
-  // Calculate text color dynamically based on bg color
   @else {
-    $dynamic-text-color: if(
-      is-color-dark($resolved-bg-color),
-      $default-light-text-color,
-      $default-dark-text-color
-    );
-    color: $dynamic-text-color;
+    $final-text-color: resolve-foreground($resolved-bg-color);
   }
 
-  //* 5) Adjust the background color on hover/active or use the provided hover color
+  color: $final-text-color;
+
+  //* Adjust the background/text color on hover/active
   &:hover,
   &:active {
     $adjusted-hover-bg-color: null;
+    $adjusted-hover-text-color: null;
 
-    //& 1. Always use hover bg color if provided
-    @if $hover-bg-color != null {
-      background-color: $resolved-hover-bg-color;
+    //& Case 1: Hover background color is explicitly provided
+    @if $resolved-hover-bg-color != null {
+      $adjusted-hover-bg-color: $resolved-hover-bg-color;
+      $adjusted-hover-text-color: resolve-foreground($resolved-hover-bg-color)
     }
 
-    //& 2. No hover bg color provided
+    //& Case 2: No explicit hover background color, calculate dynamically
     @else {
-      $is-css-var: is-css-var($bg-color);
+      $is-bg-color-css-var: is-css-var($resolved-bg-color);
 
-      //* Css var case
-      @if $is-css-var {
-        // Use the resolved CSS variable without adjustment
-        background-color: $resolved-bg-color;
+      //# Css var case - NOTE: Can't dynamically calculate the hover background color on css vars. Apply the background color.
+      @if $is-bg-color-css-var {
         $adjusted-hover-bg-color: $resolved-bg-color;
+        $adjusted-hover-text-color: resolve-foreground($resolved-bg-color);
       }
 
-      //* NO Css var case
+      //# No Css var case - Adjust based on lightness or saturation
       @else {
-        // Lightness
-        @if $adjustment == lightness {
-          $adjusted-hover-bg-color: color.adjust($resolved-bg-color, $lightness: $amount);
-        }
-
-        // Saturation
-        @else if $adjustment == saturation {
-          $adjusted-hover-bg-color: color.adjust($resolved-bg-color, $saturation: $amount);
-        }
-
-        background-color: $adjusted-hover-bg-color;
+        $adjusted-hover-bg-color: adjust-bg-color($resolved-bg-color, $adjustment, $amount);
+        $adjusted-hover-text-color: resolve-foreground($adjusted-hover-bg-color);
       }
 
-      // Apply hover text color if provided
-      @if $hover-text-color != null {
-        color: $resolved-hover-text-color;
-      }
-
-      // Dynamically calculate hover text color based on the adjusted hover background color
-      @else {
-        $dynamic-hover-text-color: if(
-          is-color-dark($adjusted-hover-bg-color),
-          $default-light-text-color,
-          $default-dark-text-color
-        );
-        color: $dynamic-hover-text-color;
-      }
     }
+
+    //& If hover-text-color is provided always apply it
+    @if $resolved-hover-text-color != null {
+      $adjusted-hover-text-color: $resolved-hover-text-color;
+    }
+
+    background-color: $adjusted-hover-bg-color;
+    color: $adjusted-hover-text-color;
   }
 }
+
+

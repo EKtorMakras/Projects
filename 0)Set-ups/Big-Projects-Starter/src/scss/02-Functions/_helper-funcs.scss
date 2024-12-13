@@ -3,6 +3,7 @@
 @use 'sass:meta';
 @use "sass:string";
 @use 'sass:list';
+@use 'sass:color';
 @use "../01-Globals" as globals;
 
 //% ************************* General ************************* //
@@ -31,11 +32,15 @@
   $list: ();
 
   @each $function in $functions {
-    @if not function-exists($function) {
+    @if not meta.function-exists($function) {
       @error "There is no `#{$function}` function.";
     }
 
-    $list: list.append($list, call($function, $args...));
+    // Get the actual function reference
+    $function-ref: meta.get-function($function);
+
+    // Call the function with the provided arguments
+    $list: list.append($list, meta.call($function-ref, $args...));
   }
 
   @return $list;
@@ -157,12 +162,17 @@
  */
 
 @function map-list($list, $function, $args...) {
-  @if not function-exists($function) {
+  // Ensure the function exists
+  @if not meta.function-exists($function) {
     @error "There is no `#{$function}` function.";
   }
 
-  @for $i from 1 through length($list) {
-    $list: set-nth($list, $i, call($function, nth($list, $i), $args...));
+  // Get the actual function reference
+  $function-ref: meta.get-function($function);
+
+  // Apply the function to each item in the list
+  @for $i from 1 through list.length($list) {
+    $list: list.set-nth($list, $i, meta.call($function-ref, list.nth($list, $i), $args...));
   }
 
   @return $list;
@@ -181,9 +191,14 @@
   $flat-list: ();
 
   @each $item in $list {
+    // If the item is a list, ensure it's properly expanded
     @if meta.type-of($item) == "list" {
-      $flat-list: list.append($flat-list, flatten-list($item)...);
+      $nested-flat: flatten-list($item); // Recursively flatten the nested list
+      @each $nested-item in $nested-flat {
+        $flat-list: list.append($flat-list, $nested-item);
+      }
     } @else {
+      // Append non-list items directly
       $flat-list: list.append($flat-list, $item);
     }
   }
@@ -210,12 +225,16 @@
  * Result: true
  */
 @function some($list, $function, $args...) {
-  @if not function-exists($function) {
+  @if not meta.function-exists($function) {
     @error "There is no `#{$function}` function.";
   }
 
+  // Get the actual function reference
+  $function-ref: meta.get-function($function);
+
+  // Iterate through the list
   @each $item in $list {
-    @if call($function, $item, $args...) {
+    @if meta.call($function-ref, $item, $args...) {
       @return true;
     }
   }
@@ -242,12 +261,16 @@
  * Result: true
   */
 @function every($list, $function, $args...) {
-  @if not function-exists($function) {
+  @if not meta.function-exists($function) {
     @error "There is no `#{$function}` function.";
   }
 
+  // Get the actual function reference
+  $function-ref: meta.get-function($function);
+
+  // Iterate through the list
   @each $item in $list {
-    @if not meta.call($function, $item, $args...) {
+    @if not meta.call($function-ref, $item, $args...) {
       @return false;
     }
   }
@@ -255,44 +278,8 @@
   @return true;
 }
 
-/** ============ QUICK SORT ============ //
- * Implements the Quick Sort algorithm to sort a list of items in ascending order.
- * The function divides the list into three categories: items less than the pivot,
- * items equal to the pivot, and items greater than the pivot. It then recursively
- * sorts the 'less' and 'greater' lists and combines them with the 'equal' list.
- *
- * @param {List} $list - The list of items to be sorted. Must contain comparable items.
- * @returns {List} - A new list containing the sorted items in ascending order.
- *
- * @example
- * $unsortedList: (3, 1, 4, 1, 5, 9, 2);
- * $sortedList: quick-sort($unsortedList); // Result: (1, 1, 2, 3, 4, 5, 9)
- *
- * @note This function assumes that the items in the list can be compared using
- *       the standard comparison operators (<, >, ==).
- */
-@function quick-sort($list) {
-  $less:  ();
-  $equal: ();
-  $large: ();
-
-  @if length($list) > 1 {
-    $seed: nth($list, ceil(length($list) / 2));
-
-    @each $item in $list {
-      @if ($item == $seed) {
-        $equal: list.append($equal, $item);
-      } @else if ($item < $seed) {
-        $less: list.append($less, $item);
-      } @else if ($item > $SEED) {
-        $large: list.append($large, $item);
-      }
-    }
-
-    @return join(join(quick-sort($less, $order), $equal), quick-sort($large, $order));
-  }
-
-  @return $list;
+@function is-type($value, $type) {
+  @return meta.type-of($value) == $type;
 }
 //% *************************  ************************* //
 
@@ -339,22 +326,6 @@
   @return meta.type-of($color) == "string" and string.index($color, "var(--");
 }
 
-/** ============ IS TIME ============ //
- * Checks if a given value is a time value. A value is considered a time value
- * if it is a number and has a unit of either milliseconds (ms) or seconds (s).
- *
- * @param {Number} $value - The value to check.
- * @returns {Boolean} - Returns true if the value is a time value; false otherwise.
- *
- * @example
- * @debug is-time(100ms); // Result: true
- * @debug is-time(2s); // Result: true
- * @debug is-time(10); // Result: false
- */
-@function is-time($value) {
-  @return is-number($value) and index('ms' 's', unit($value)) != null;
-}
-
 /** ============ IS INTEGER ============ //
  * Checks if a given value is an integer. A value is considered an integer
  * if it is a number and is equal to its rounded value.
@@ -368,7 +339,7 @@
  * @debug is-integer(-5); // Result: true
  */
 @function is-integer($value) {
-  @return is-number($value) and round($value) == $value;
+  @return is-numeric($value) and math.round($value) == $value;
 }
 
 /** ============ IS PERCENTAGE ============ //
@@ -384,9 +355,8 @@
  * @debug is-percentage(-20%); // Result: true
  */
 @function is-percentage($value) {
-  @return is-number($value) and unit($value) == '%';
+  @return is-numeric($value) and math.unit($value) == '%';
 }
-
 
 /** ============ IS MAP ============ //
  * Checks if a given value is a map. A value is considered a map if its type
@@ -545,6 +515,32 @@
   @return $result;
 }
 
+/** ============ STRING REMOVE LAST CHARACTER ============ //
+ * Removes the last character from a given string if it has at least one character.
+ * If the string is empty, it returns the string as-is.
+ *
+ * @param {String} $string - The input string from which the last character will be removed.
+ * @return {String} - The string without its last character, or the original string if it's empty.
+ *
+ * @example
+ * Remove the last character from a non-empty string
+ * $result: str-remove-last-ch("example"); // Returns "exampl"
+ *
+ * @example
+ * Remove the last character from a single-character string
+ * $result: str-remove-last-ch("A"); // Returns ""
+ */
+@function str-remove-last-ch($string) {
+  $length: string.length($string);
+
+  @if $length > 0 {
+    @return string.slice($string, 1, $length - 1);
+  }
+  @else {
+    @return $string;
+  }
+}
+
 /** ============ STRIP SUBSTRING ============ //
  * Removes all occurrences of a specific substring from a given string value.
  *
@@ -622,7 +618,7 @@
   }
 
   $pow: math.pow(10, $digits);
-  $rounded: round($float * $pow);
+  $rounded: math.round($float * $pow);
   @return math.div($rounded, $pow);
 }
 //% *************************  ************************* //
@@ -678,51 +674,308 @@
 }
 
 /** ============ SVG URL ============ //
- * Checks if the provided SVG string contains the "xmlns" substring. If not, it chunks
- * the SVG string into smaller segments to avoid exceeding the maximum stack level
- * and encodes special characters to create a valid data URL.
+ * Encodes an SVG string into a valid data URL for embedding into CSS.
+ * If the SVG contains the "xmlns" attribute, the function skips encoding
+ * and returns a warning along with `null`.
+ *
+ * The function chunks the SVG string into smaller segments to avoid
+ * exceeding stack limits and encodes special characters for use
+ * in a valid data URL.
  *
  * @param {String} $svg - The SVG string to be processed and encoded.
- * @returns {String} - A data URL containing the encoded SVG, or the original SVG if
- *                     "xmlns" is present.
+ * @returns {String|Null} - A data URL containing the encoded SVG, or `null`
+ *                          if "xmlns" is present in the SVG string.
  *
  * @example
- * $my-svg: '<svg xmlns="http://www.w3.org/2000/svg">...</svg>';
- * $encoded-svg: encode-svg($my-svg); // Returns the original SVG since it contains "xmlns"
+ * Encode an SVG string without "xmlns":
+ * $my-svg: '<svg><rect width="100%" height="100%" fill="blue" /></svg>';
+ * $encoded-svg: svg-url($my-svg);
+ * Returns: url("data:image/svg+xml,%3Csvg%3E%3Crect%20width='100%25'%20height='100%25'%20fill='blue'%20/%3E%3C/svg%3E")
  *
  * @example
- * $invalid-svg: '<svg>...</svg>'; // Missing "xmlns"
- * $encoded-invalid-svg: encode-svg($invalid-svg); // Returns a data URL for the encoded SVG
- *
- * @note This function is useful for embedding SVGs directly into CSS as data URLs,
- *       especially for scenarios where the SVG might exceed maximum stack levels.
+ * SVG string with "xmlns" attribute:
+ * $svg-with-xmlns: '<svg xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="blue" /></svg>';
+ * $result: svg-url($svg-with-xmlns);
+ * Returns: null with a warning
  */
-@function svg-url($svg){
+@function svg-url($svg) {
   @if not string.index($svg, 'xmlns') {
-    // Chunk up the SVG string to avoid "stack level too deep" error
+    // Initialize variables
     $encoded: '';
-    $slice: 2000; // Define the chunk size
-    $index: 0; // Initialize index for slicing
-    $loops: ceil(string.length($svg) / $slice); // Calculate the number of chunks
+    $slice: 2000; // Chunk size
+    $loops: math.ceil(string.length($svg) / $slice); // Number of chunks
 
     @for $i from 1 through $loops {
-      $chunk: string.slice($svg, $index, $index + $slice - 1); // Get the current chunk
+      // Get the current chunk
+      $chunk: string.slice($svg, ($i - 1) * $slice + 1, $i * $slice);
 
       // Encode special characters
-      $chunk: str-replace($chunk, '"', '\'');
+      $chunk: str-replace($chunk, '"', '\''); // Replace double quotes with single quotes
       $chunk: str-replace($chunk, '%', '%25');
       $chunk: str-replace($chunk, '#', '%23');
       $chunk: str-replace($chunk, '{', '%7B');
       $chunk: str-replace($chunk, '}', '%7D');
       $chunk: str-replace($chunk, '<', '%3C');
       $chunk: str-replace($chunk, '>', '%3E');
+      $chunk: str-replace($chunk, '&', '%26'); // Additional encoding for '&'
 
-      $encoded: #{$encoded}#{$chunk}; // Concatenate encoded chunk to the result
-      $index: $index + $slice; // Update index for the next chunk
+      // Concatenate encoded chunk
+      $encoded: #{$encoded}#{$chunk};
     }
 
-    @return url("data:image/svg+xml,#{$encoded}"); // Return the final data URL
+    // Return encoded SVG as a data URL
+    @return url("data:image/svg+xml,#{$encoded}");
+  } @else {
+    @warn "SVG contains xmlns, skipping encoding.";
+    @return null;
   }
 }
 //% *************************  ************************* //
+
+//% ************************* Colors ************************* //
+/** ============ LINEARIZE CHANNEL ============ //
+ * Converts a color channel value (R, G, or B) from the sRGB color space to a linearized value.
+ * This is part of the relative luminance calculation, based on the WCAG standards
+ * (https://www.w3.org/TR/WCAG20/#relativeluminancedef).
+ *
+ * @param {Number} $channel - A single color channel value (0 to 255).
+ * @returns {Number} - The linearized color channel value (scaled between 0 and 1).
+ *
+ * @example
+ * Scale and linearize a channel value
+ * $linearizedValue: linearize-channel(200); // Returns approximately 0.5271
+ */
+@function linearize-channel($channel) {
+    $channel: math.div($channel, 255); // Scale to 0-1
+
+    // Linear segment
+    @if $channel <= 0.03928 {
+        @return math.div($channel, 12.92);
+    }
+
+    // Nonlinear segment
+    $adjusted-channel: math.div(($channel + 0.055), 1.055);
+
+    @return math.pow($adjusted-channel, 2.4);
+}
+
+/** ============ RELATIVE LUMINANCE ============ //
+ * Calculates the relative luminance of a color based on its red, green, and blue channels.
+ * This calculation adheres to WCAG standards and is used to determine contrast ratios.
+ * (https://www.w3.org/TR/WCAG20/#relativeluminancedef).
+ *
+ * @param {Color} $color - A valid CSS color (e.g., HEX, RGB, or named color).
+ * @returns {Number} - The relative luminance of the color (a value between 0 and 1).
+ *
+ * @example
+ * Calculate the relative luminance of a color
+ * $luminance: relative-luminance(#e8b006); // Returns approximately 0.512
+ */
+@function relative-luminance($color) {
+    $r: linearize-channel(color.channel($color, "red", $space: rgb));
+    $g: linearize-channel(color.channel($color, "green", $space: rgb));
+    $b: linearize-channel(color.channel($color, "blue", $space: rgb));
+
+    // Calculate adjusted values
+    $adjusted-r: 0.2126 * $r;
+    $adjusted-g: 0.7152 * $g;
+    $adjusted-b: 0.0722 * $b;
+
+    // Sum the adjusted values
+    @return $adjusted-r + $adjusted-g + $adjusted-b;
+}
+
+/** ============ CONTRAST RATIO ============ //
+ * Calculates the contrast ratio between two luminance values.
+ * The contrast ratio is determined using the WCAG formula and considers a minimum addition of 0.05 to account for perceptual adjustments and prevent division by zero.
+ *
+ * @param {Number} $luminance1 - The relative luminance of the first color (value between 0 and 1).
+ * @param {Number} $luminance2 - The relative luminance of the second color (value between 0 and 1).
+ * @returns {Number} - The contrast ratio between the two luminance values, a value greater than or equal to 1.0.
+ *
+ * @example
+ * Calculate contrast ratio between two luminance values
+ * $contrast: contrast-ratio(0.5, 0.1); // Returns 5.25
+ */
+@function contrast-ratio($luminance1, $luminance2) {
+    $lighter: math.max($luminance1, $luminance2);
+    $darker: math.min($luminance1, $luminance2);
+
+    @return math.div(($lighter + 0.05), ($darker + 0.05));
+}
+
+/** ============ FOREGROUND TEST ============ //
+ * Determines the most appropriate foreground color (light or dark) for a given background color.
+ * The decision is based on the contrast ratio between the background color's luminance and
+ * the provided foreground colors' luminance values, following WCAG standards.
+ *
+ * The function supports default foreground colors (`black` and `white`) and allows for custom
+ * luminance values for dark and light foregrounds.
+ *
+ * @param {Color} $color - The background color (e.g., HEX, RGB, HSL, or named color).
+ * @param {Map} $foreground-colors - (Optional) A map containing custom colors for "dark" and "light."
+ *                                    Defaults to:
+ *                                    - dark: #000 (black)
+ *                                    - light: #fff (white)
+ *                                    Example: (dark: #333, light: #eee)
+ *
+ * @return {Color} - Returns the resolved foreground color (`light` or `dark`) based on the contrast ratio.
+ *
+ * @example
+ * Determine if the foreground for a primary color background should be light or dark:
+ * $foreground: foreground-test(#3498db); // Returns #fff (white)
+ *
+ * @example
+ * Using custom foreground colors:
+ * $foreground: foreground-test(#3498db, (dark: #333, light: #eee)); // Returns #eee (custom light color)
+ *
+ * @note Contrast ratios are calculated using relative luminance for both background and foreground colors.
+ *       The function includes bias towards light foregrounds in case of close contrast ratios.
+ */
+@function foreground-test($color, $foreground-colors: ()) {
+  //* Resolve Foreground Colors
+  $default-foreground-colors: (
+    dark: #000,
+    light: #fff
+  );
+
+  $merged-foreground-colors: map.merge($default-foreground-colors, $foreground-colors);
+  $dark-foreground: map.get($merged-foreground-colors, dark);
+  $light-foreground: map.get($merged-foreground-colors, light);
+
+  //* Calculate Luminance
+  $dark-luminance: relative-luminance(($dark-foreground));
+  $light-luminance: relative-luminance(($light-foreground));
+  $color-lum: relative-luminance($color);
+
+  //* Calculate Luminance
+  $contrast-with-dark: contrast-ratio($color-lum, $dark-luminance);
+  $contrast-with-light: contrast-ratio($color-lum, $light-luminance);
+
+  //* Get acceptable luminance threshold
+  $acceptable-threshold: map.get(globals.$LUMINANCE, acceptable-threshold);
+
+  //* Check if the contrast ratios are close within the tolerance (bias towards light colors)
+  $tolerance: map.get(globals.$LUMINANCE, tolerance);
+  $close-ratios: math.abs($contrast-with-light - $contrast-with-dark) < $tolerance;
+
+  //* Prefers-light Computed
+  $prefers-light: $contrast-with-light >= $contrast-with-dark or $contrast-with-light >= $acceptable-threshold;
+
+  // * Return the appropriate color
+  @if $prefers-light or $close-ratios {
+    @return $light-foreground;
+  }
+  @else {
+    @return $dark-foreground;
+  }
+}
+
+/** ============ TINT ============ //
+ * Creates a tinted version of a given color by mixing it with white.
+ * The percentage determines the strength of the tint, with 0% being the original color
+ * and 100% being pure white.
+ *
+ * @param {Color} $color - The base color to tint.
+ * @param {Number} $percentage - The percentage of white to mix with the base color (0-100).
+ * @returns {Color} - The resulting tinted color.
+ *
+ * @example
+ * $baseColor: #3498db;
+ * $tintedColor: tint($baseColor, 20%);
+ * Result: #5bc0de
+ */
+@function tint($color, $percentage) {
+  @return color.mix(white, $color, $percentage);
+}
+
+/** ============ SHADE ============ //
+ * Creates a shaded version of a given color by mixing it with black.
+ * The percentage determines the strength of the shade, with 0% being the original color
+ * and 100% being pure black.
+ *
+ * @param {Color} $color - The base color to shade.
+ * @param {Number} $percentage - The percentage of black to mix with the base color (0-100).
+ * @returns {Color} - The resulting shaded color.
+ *
+ * @example
+ * $baseColor: #3498db;
+ * $shadedColor: shade($baseColor, 20%);
+ * Result: #2980b9
+ */
+@function shade($color, $percentage) {
+  @return color.mix(black, $color, $percentage);
+}
+
+/** ============ IS COLOR DARK ============ //
+ * Determines if a color is considered dark based on its blackness value.
+ *
+ * @param {Color} $color - The color to check.
+ * @param {Number} $threshold - (Optional) The threshold for blackness. Defaults to a custom brightness threshold.
+ * @return {Boolean} - Returns true if the color's blackness is greater than the threshold, otherwise false.
+ *
+ * @example
+ * @if isColorDark(#000000) {
+ * Do something for dark colors
+ * }
+ */
+@function is-color-dark($color) {
+  $threshold: map.get(globals.$THRESHOLDS, brightness);
+
+  $blackness: color.channel($color, "blackness", $space: hwb);
+  @return $blackness > $threshold;
+}
+
+/** ============ ADJUST BG COLOR ============ //
+ * Adjusts a color property dynamically based on a specified adjustment type and amount.
+ * The function validates the adjustment type against a predefined list of allowed adjustments.
+ *
+ * @param {Color} $color - The color to be adjusted (e.g., HEX, RGB, HSL, or named color).
+ * @param {String} $adjustment - The type of adjustment to apply (e.g., "lightness", "saturation", "hue", "alpha").
+ *                               The list of allowed adjustments is retrieved from `globals.$ALLOWED.bg-adjustments`.
+ * @param {Number|Percentage} $amount - The amount of adjustment to apply. Units depend on the adjustment type:
+ *                                      - `lightness` and `saturation`: Percentage (e.g., -10%, 20%).
+ *                                      - `hue`: Degrees (e.g., 30deg, -45deg).
+ *                                      - `alpha`: Value between -1 and 1 (e.g., 0.2, -0.5).
+ * @return {Color} - The adjusted color.
+ *
+ * @throws {Error} - Throws an error if the adjustment type is not in the allowed list.
+ *
+ * @example
+ * Adjust lightness:
+ * $adjusted-color: adjust-bg-color(#3498db, "lightness", -10%);
+ *
+ * @example
+ * Adjust saturation:
+ * $adjusted-color: adjust-bg-color(#3498db, "saturation", 20%);
+ *
+ * @note
+ * The allowed adjustment types are configurable via `globals.$ALLOWED.bg-adjustments`.
+ */
+@function adjust-bg-color($color, $adjustment, $amount) {
+  $allowed-adjustments: map.get(globals.$ALLOWED, bg-adjustments);
+
+  // Guard clause for unsupported adjustments
+  @if not list.index($allowed-adjustments, $adjustment) {
+    @error "Unsupported adjustment type: `#{$adjustment}`. Allowed types are: #{list.join($allowed-adjustments, ', ')}.";
+  }
+
+  // Handle valid adjustments
+  @if $adjustment == lightness {
+    @return color.adjust($color, $lightness: $amount);
+  } @else if $adjustment == saturation {
+    @return color.adjust($color, $saturation: $amount);
+  } @else if $adjustment == hue {
+    @return color.adjust($color, $hue: $amount);
+  }@else if $adjustment == red {
+    @return color.adjust($color, $red: $amount);
+  } @else if $adjustment == green {
+    @return color.adjust($color, $green: $amount);
+  } @else if $adjustment == blue {
+    @return color.adjust($color, $blue: $amount);
+  }
+}
+//% *************************  ************************* //
+
+
 

@@ -1,6 +1,8 @@
 @use "sass:map";
 @use "sass:meta";
+@use "sass:string";
 @use "../01-Globals" as globals;
+@use "helper-funcs" as *;
 
 //% *************** Get Value *************** //
 /** ============ GET DEFAULT ============ //
@@ -133,30 +135,63 @@
  * $color: get-color("primary-500");
  * Returns: var(--css-prefix-primary-500)
  */
-
 @function get-color($name) {
   $prefix: get-prefix(color-var);
   @return var(--#{$prefix}-#{$name});
 }
 
-/** ============ GET COLOR CLASS ============ //
- * Generates a CSS class string for an element based on the provided prefix and color name.
- *
- * This function constructs the CSS class for elements by combining the prefix (e.g., "btn", "card") and the color name.
- *
- * @param {String} $prefix - The prefix for the class (e.g., "btn", "card", "badge").
- * @param {String} $color-name - The name of the color, including the shade if applicable (e.g., "primary-500").
- *
- * @return {String} - The generated CSS class string in the format `<prefix>-<color>` (e.g., "btn-primary-500").
- *
- * @example
- * Returns "btn-primary-500"
- * $color-class: get-color-class("btn", "primary-500");
- *
- * @example
- * Returns "card-error"
- * $color-class: get-color-class("card", "error");
- */
-@function get-color-class($prefix, $color-name) {
-  @return "#{$prefix}-#{$color-name}";
+@function get-color-name($color) {
+  $color-name: $color;
+
+  //* Case 1: Css Var
+  @if is-css-var($color) {
+    $prefix: "var(--#{get-prefix(color-var)}-";
+    $color-name: str-remove-last-ch(strip-substring($color, $prefix));
+  }
+
+  //* Case 2: Map
+  @if meta.type-of($color) == 'map' {
+    @if map.has-key($color, color) {
+      $color-name: map.get($color, color);
+    }
+    @else {
+      @warn "Please provide a color map with a key name color."
+    }
+  }
+
+  @return $color-name;
 }
+
+/** ============ GET CLASS ============ //
+ * Generates a CSS class string by concatenating multiple components with a separator.
+ *
+ * This generic function can be used for constructing CSS class names dynamically,
+ * combining multiple elements such as prefix, color, state, or any other identifiers.
+ *
+ * @param {List} $components - A list of components to concatenate (e.g., ["btn", "primary", "500"]).
+ * @param {String} $separator - (Optional) The separator to use between components. Defaults to "-".
+ *
+ * @return {String} - The generated CSS class string (e.g., "btn-primary-500").
+ *
+ * @example
+ * Generates "btn-primary-500"
+ * $class: get-class(("btn", "primary", "500"));
+ *
+ * @example
+ * Generates "text-primary-hover" with a custom separator
+ * $class: get-class(("text", "primary", "hover"), "_");
+ */
+@function get-class($components, $separator: get-default(separator)) {
+  @if meta.type-of($components) != list {
+    @error "The first argument must be a list.";
+  }
+
+  // Join the components with the specified separator
+  $result: "";
+  @each $component in $components {
+    $result: if($result == "", $component, "#{$result}#{$separator}#{$component}");
+  }
+
+  @return $result;
+}
+
