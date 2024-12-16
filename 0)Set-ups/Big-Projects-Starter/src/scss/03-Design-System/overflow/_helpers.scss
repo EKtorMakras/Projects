@@ -1,3 +1,5 @@
+@use "variables" as *;
+
 /** ============ GENERATE OVERFLOW UTILITIES ============ //
  * Generates overflow utility classes based on the provided prefix and value.
  * Allows creating utility classes for `overflow`, `overflow-x`, and `overflow-y` properties.
@@ -19,11 +21,11 @@
  */
 @mixin generate-overflow-utilities($prefix: "", $value) {
   @if $prefix == "" {
-    .overflow-#{$value} {
+    .#{$overflow-prefix}-#{$value} {
       overflow: $value;
     }
   } @else {
-    .overflow-#{$prefix}-#{$value} {
+    .#{$overflow-prefix}-#{$prefix}-#{$value} {
       overflow-#{$prefix}: $value;
     }
   }

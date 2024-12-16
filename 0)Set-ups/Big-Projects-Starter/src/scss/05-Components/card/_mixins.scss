@@ -26,7 +26,7 @@
 @mixin card(
   $bg-color: get-color(card),
   $min-height: 40rem,
-  $radius: get-css-var(get-prefix(radius), 3),
+  $radius: get-css-var($radius-prefix, 3),
   $shadow: generate-shadow(lg-1),
   $padding: 2rem 3rem
   ) {

@@ -97,7 +97,7 @@
   $shadow-string: null;
 
   // Handle multiple shadows
-  @if meta.type-of($shadow-value) == "list" {
+  @if is-list($shadow-value) {
     $shadow-length: list.length($shadow-value);
     $shadow-list: ();
 

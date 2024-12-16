@@ -3,6 +3,8 @@
 @use "../../02-Functions" as *;
 @use "categories" as *;
 
+$color-prefix: get-prefix(color);
+
 //@ ************ Base Colors  ************ //
 $base-colors: ();
 
@@ -29,7 +31,7 @@ $default-dark-text-color: map.get($default-text-colors, default-dark);
 $text-on-colors: ();
 
 @each $color-name, $color-value in $base-colors {
-  @if meta.type-of($color-value) == "color" {
+  @if is-color($color-value) {
 
     $foreground-color: foreground-test($color-value, (
       light: $default-light-text-color,

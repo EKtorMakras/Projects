@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../01-Globals" as globals;
 @use "../../02-Functions" as *;
+@use "../../03-Design-System" as *;
 @use "mapping" as *;
 
 $default_social_icon_size: map.get($social-icon-mapping, "defaults", "size");
@@ -10,7 +11,7 @@ $default-social-icon-styles: (
   hover-color: get-color(socials-hover),
   font-size: map.get($social-icon-mapping, "sizes", $default_social_icon_size, "font-size"),
   size: map.get($social-icon-mapping, "sizes", $default_social_icon_size, "size"),
-  border-radius: get-css-var(get-prefix(radius), circle),
+  border-radius: get-css-var($radius-prefix, circle),
   transition: globals.$transition,
   bg-color: null,
   hover-bg-color: null,

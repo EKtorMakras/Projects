@@ -1,4 +1,5 @@
 @use "../../02-Functions" as *;
+@use "variables" as *;
 
 /** ============ GENERATE POSITION UTILITIES ============ //
  * Generates position utility classes based on the provided value.
@@ -9,7 +10,7 @@
  * @include position-utilities("static");
  */
 @mixin generate-position-utilities($value) {
-  .position-#{$value} {
+  .#{$position-prefix}-#{$value} {
     position: $value;
   }
 }

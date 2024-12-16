@@ -17,13 +17,13 @@ figcaption {
   max-width: globals.$para_max-width;
 }
 
-a{
+a {
   color: get-color(text);
 }
 
 p {
   font-size: fs(rg);
-  letter-spacing: get-css-var(get-prefix(letter-spacing), 2);
+  letter-spacing: get-css-var($letter-spacing-prefix, 2);
 }
 
 //^ ---------  Headings ---------  //
@@ -33,7 +33,7 @@ h3,
 h4,
 h5,
 h6 {
-  letter-spacing: get-css-var(get-prefix(letter-spacing), 5);
+  letter-spacing: get-css-var($letter-spacing-prefix, 5);
   text-transform: capitalize;
   margin-bottom: get-spacer(3);
   text-align: center;

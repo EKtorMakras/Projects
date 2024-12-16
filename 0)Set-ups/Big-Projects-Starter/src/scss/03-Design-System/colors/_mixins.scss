@@ -37,16 +37,40 @@
  * Specifying color positions
  * @include gradient(#ff3344, #3344ff, to right, "10%", "80%");
  */
-@mixin gradient($color1, $color2, $direction: to right bottom, $color1-pos: null, $color2-pos: null) {
-  $color1-value: resolve-color($color1);
-  $color2-value: resolve-color($color2);
+@mixin gradient(
+  $colors,
+  $positions: (),
+  $direction: to right bottom,
+  $type: linear
+) {
+  // Validate the gradient type
+  $valid-types: ("linear", "radial", "conic");
 
-  // Append the position to the color if it's provided and string.unquote the final value
-  $color1-final: if($color1-pos != null, string.unquote($color1-value + " " + $color1-pos), $color1-value);
-  $color2-final: if($color2-pos != null, string.unquote($color2-value + " " + $color2-pos), $color2-value);
+  @if not list.index($valid-types, $type) {
+    @error "Unsupported gradient type: `#{$type}`. Allowed types are: #{list.join($valid-types, ', ')}.";
+  }
 
-  // Apply the gradient
-  background-image: linear-gradient($direction, $color1-final, $color2-final);
+  // Ensure the lengths of $colors and $positions match, if positions are provided
+  @if list.length($positions) > 0 and list.length($colors) != list.length($positions) {
+    @error "The number of colors and positions must match.";
+  }
+
+  $gradient-parts: ();
+
+  // Loop through the colors and positions
+  @for $i from 1 through list.length($colors) {
+    $color: resolve-color(list.nth($colors, $i));
+    $position: if(list.length($positions) > 0, list.nth($positions, $i), null);
+
+    // Combine color and position
+    $part: if($position != null, "#{$color} #{$position}", $color);
+
+    $gradient-parts: list.append($gradient-parts, $part);
+  }
+
+  // Generate the final gradient string without trailing commas
+  $gradient-string: join-list($gradient-parts);
+  background-image: #{$type}-gradient(#{$direction}, #{$gradient-string});
 }
 
 /** ============ ADJUST BG COLOR ============ //
@@ -168,5 +192,3 @@
     color: $adjusted-hover-text-color;
   }
 }
-
-

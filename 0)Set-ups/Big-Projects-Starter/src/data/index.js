@@ -1,6 +1,8 @@
+import { config } from "@/common/config";
+
 // App Name/Title
-export const AppName = import.meta.env.VITE_APP_NAME;
-export const pageTitle = import.meta.env.VITE_APP_PAGE_TITLE;
+export const AppName = config.APP_NAME;
+export const pageTitle = config.PAGE_TITLE;
 
 // Social Links
 export const socialLinks = {

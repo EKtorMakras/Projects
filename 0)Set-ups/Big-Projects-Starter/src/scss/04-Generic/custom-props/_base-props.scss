@@ -28,7 +28,7 @@
   //@ ********* Letter Spacing  *********//
   @for $i from 1 through $l-spacing-total-steps {
     $current-l-spacing: globals.$base_letter-spacing * $i;
-    --#{$l-spacing-prefix}-#{$i}: #{$current-l-spacing};
+    --#{$letter-spacing-prefix}-#{$i}: #{$current-l-spacing};
   }
 
   //@ ********* Shadows  *********//

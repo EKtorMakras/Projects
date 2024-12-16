@@ -10,14 +10,20 @@ $CORNER_MAP: (
 );
 
 $PREFIXES: (
-  color-var: "clr",
-  spacer: "spacer",
+  color: "clr",
+  button: "btn",
+  font-family: "ff",
+  font-size: "fs",
+  font-weight: "fw",
   letter-spacing: "letter-spacing",
   radius: "radius",
-  button: "btn",
   opacity: "opacity",
+  overflow: "overflow",
+  position: "position",
   shadow: "shadow",
-  transition: "transition"
+  spacer: "spacer",
+  transition: "transition",
+  z-index: "z-index"
 );
 
 $DEFAULTS: (

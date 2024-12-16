@@ -15,7 +15,7 @@
  * @include generate-color-custom-props($colors);
  */
 @mixin generate-color-custom-props($map) {
-  $prefix: get-prefix(color-var);
+  $prefix: get-prefix(color);
 
   @each $key, $value in $map {
     --#{$prefix}-#{$key}: #{$value};

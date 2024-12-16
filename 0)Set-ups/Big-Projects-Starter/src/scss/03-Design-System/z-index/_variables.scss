@@ -1,3 +1,7 @@
+@use "../../02-Functions" as *;
+
+$z-index-prefix: get-prefix(z-index);
+
 $z-indexes: (
   modal: 999,
   nav: 100,

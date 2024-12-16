@@ -8,7 +8,6 @@ export function initTheme() {
   loadTheme(theme);
 }
 
-// Toggle Theme
 export function toggleTheme() {
   let theme = getCurrentTheme();
 

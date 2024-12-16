@@ -1,10 +1,8 @@
 @use "../../02-Functions" as *;
 
-//& ******* Other ******* //
 .error {
   color: get-color(slate-50);
   background-color: get-color(error);
   padding: 4px 8px;
   border-radius: var(--radius-2);
 }
-//& *******  ******* //

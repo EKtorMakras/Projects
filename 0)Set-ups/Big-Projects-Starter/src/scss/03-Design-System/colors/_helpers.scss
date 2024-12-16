@@ -13,6 +13,7 @@
  */
 @mixin generate-color-utilities($color-map) {
   @each $color-name, $color-value in $color-map {
+
     // Declare utility class names
     $text-class: get-class(("text", $color-name));
     $bg-class: get-class(("bg", $color-name));

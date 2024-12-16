@@ -206,6 +206,37 @@
   @return $flat-list;
 }
 
+/** ============ JOIN LIST ============ //
+ * Joins the elements of a list into a single string, separated by a specified delimiter.
+ *
+ * This function takes a list of items and concatenates them into a single string,
+ * using the specified separator. If the list is empty, it returns an empty string.
+ *
+ * @param {List} $list - The list of items to be joined.
+ * @param {String} $separator - (Optional) The separator to use between list items. Defaults to ", ".
+ *
+ * @return {String} - A single string containing all the list items, separated by the specified delimiter.
+ *
+ * @example
+ * Join a list of numbers with a custom separator:
+ * $result: join-list((1, 2, 3), " - ");
+ * Returns: "1 - 2 - 3"
+ *
+ * @example
+ * Join a single-item list:
+ * $result: join-list(("single"));
+ * Returns: "single"
+ */
+@function join-list($list, $separator: ", ") {
+  $result: "";
+
+  @each $item in $list {
+    $result: if($result == "", $item, $result + $separator + $item);
+  }
+
+  @return $result;
+}
+
 /** ============ SOME ============ //
  * Checks if at least one element in a list satisfies a given condition defined by a specified function.
  * If any element meets the condition, the function returns true. Otherwise, it returns false.
@@ -277,27 +308,9 @@
 
   @return true;
 }
-
-@function is-type($value, $type) {
-  @return meta.type-of($value) == $type;
-}
 //% *************************  ************************* //
 
 //% ************************* Booleans ************************* //
-/** ============ IS NUMERIC ============ //
- * Determines if a value is numeric.
- *
- * @param {*} $value - The value to check.
- * @returns {Boolean} - True if the value is a number, false otherwise.
- *
- * @example
- * $isNumeric: is-numeric(5); // Returns true
- * $isNumeric: is-numeric("text"); // Returns false
- */
-@function is-numeric($value) {
-  @return meta.type-of($value) == "number";
-}
-
 /** ============ IS BOOLEAN ============ //
  * Determines if a value is a boolean.
  *
@@ -312,18 +325,35 @@
   @return $value == true or $value == false;
 }
 
-/** ============ IS CSS VARIABLE ============ //
- * Determines if a value is a CSS variable.
+/** ============ IS STRING ============ //
+ * Checks if a given value is a string. A value is considered a string
+ * if its type is "string".
  *
- * @param {String} $color - The color value to check.
- * @returns {Boolean} - True if the value is a CSS variable, false otherwise.
+ * @param {Any} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is a string; false otherwise.
  *
  * @example
- * $isCssVar: is-css-var("var(--clr-primary)"); // Returns true
- * $isCssVar: is-css-var("#ffffff"); // Returns false
+ * Check if a value is a string
+ * @debug is-string("hello"); // Result: true
+ * @debug is-string(123); // Result: false
+ * @debug is-string(#3498db); // Result: false
  */
-@function is-css-var($color) {
-  @return meta.type-of($color) == "string" and string.index($color, "var(--");
+@function is-string($value) {
+  @return meta.type-of($value) == "string";
+}
+
+/** ============ IS NUMERIC ============ //
+ * Determines if a value is numeric.
+ *
+ * @param {*} $value - The value to check.
+ * @returns {Boolean} - True if the value is a number, false otherwise.
+ *
+ * @example
+ * $isNumeric: is-numeric(5); // Returns true
+ * $isNumeric: is-numeric("text"); // Returns false
+ */
+@function is-numeric($value) {
+  @return meta.type-of($value) == "number";
 }
 
 /** ============ IS INTEGER ============ //
@@ -389,6 +419,37 @@
 @function is-list($value) {
   @return meta.type-of($value) == "list";
 }
+
+/** ============ IS COLOR ============ //
+ * Checks if a given value is a valid color. A value is considered a color
+ * if its type is "color".
+ *
+ * @param {Any} $value - The value to check.
+ * @returns {Boolean} - Returns true if the value is a color; false otherwise.
+ *
+ * @example
+ * Check if a value is a color
+ * @debug is-color(#3498db); // Result: true
+ * @debug is-color("primary"); // Result: false
+ * @debug is-color(12345); // Result: false
+ */
+@function is-color($value) {
+  @return meta.type-of($value) == "color";
+}
+
+/** ============ IS CSS VARIABLE ============ //
+ * Determines if a value is a CSS variable.
+ *
+ * @param {String} $color - The color value to check.
+ * @returns {Boolean} - True if the value is a CSS variable, false otherwise.
+ *
+ * @example
+ * $isCssVar: is-css-var("var(--clr-primary)"); // Returns true
+ * $isCssVar: is-css-var("#ffffff"); // Returns false
+ */
+@function is-css-var($color) {
+  @return meta.type-of($color) == "string" and string.index($color, "var(--");
+}
 //% *************************  ************************* //
 
 //% ************************* Conversions ************************* //
@@ -441,7 +502,7 @@
 //% *************************  ************************* //
 
 //% ************************* Strings ************************* //
-/** ============ STR REPLACE ============ //
+/** ============ STRING REPLACE ============ //
  * Replaces all occurrences of a substring within a string with another substring.
  *
  * This function is useful when you want to replace any occurrence of a specific substring
@@ -583,7 +644,7 @@
  * Result: 5
  */
 @function strip-unit($number) {
-  @if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+  @if is-numeric($number) and not math.is-unitless($number) {
     @return math.div($number, ($number * 0 + 1));
   }
 

@@ -22,16 +22,25 @@
   height: $size;
   margin-bottom: get-spacer(10);
 
-  // @include triangle(100px, up, #0e6931);
   @include transition();
   @include border-radius(10px, top-left bottom-right);
   @include border-radius(4px, bottom-left top-right);
-  // @include gradient((color: "primary-600", css-var: true), (color: "secondary-200", css-var: true), to right bottom, "20%", "80%");
-    @include adjust-bg-color(color(primary-50));
+  @include gradient(
+  (primary-500, red-400, violet-300),
+  (0%, 10%, 40%),
+  from 4rad at 50% 50%,
+  conic
+);
+  @include adjust-bg-color(color(primary-50));
+
   @include create-overlay("before", "", rgba(0, 0, 0, 0.1), 0.8, 1, absolute, 0, 10px);
 
   &::before {
     @include border-radius(10px, top-left bottom-right);
     @include border-radius(4px, bottom-left top-right);
+    @include triangle(30px, up, #0e6931);
   }
+// background: conic-gradient(from 3.1416rad at 10% 50%, #e66465, #9198e5);
+    // background-image: radial-gradient(from 3.1416rad at 10% 50%, rgb(2, 0, 36), var(--clr-secondary-400));
+
 }

@@ -5,7 +5,7 @@
 
 //& ******* Font Size ******* //
 @each $size, $value in $font-sizes {
-  .fs-#{$size} {
+  .#{$font-size-prefix}-#{$size} {
     font-size: #{$value} !important;
   }
 }
@@ -13,27 +13,27 @@
 
 //& ******* Font Weight ******* //
 @each $weight, $value in $font-weights {
-  .fw-#{$weight} {
+  .#{$font-weight-prefix}-#{$weight} {
     font-weight: #{$value} !important;
   }
 }
 //& *******  ******* //
 
 //& ******* Font Family ******* //
-.ff-primary {
+.#{$font-family-prefix}-primary {
   font-family: #{$ff-primary} !important;
 }
 
-.ff-secondary {
+.#{$font-family-prefix}-secondary {
   font-family: #{$ff-secondary} !important;
 }
 //& *******  ******* //
 
 //& ******* Letter Spacing ******* //
 @for $i from 1 through $l-spacing-total-steps {
-  $current-l-spacing: get-css-var(get-prefix(letter-spacing), $i);
+  $current-l-spacing: get-css-var(#{$letter-spacing-prefix}, $i);
 
-  .l-spacing-#{$i} {
+  .#{$letter-spacing-prefix}-spacing-#{$i} {
     letter-spacing: $current-l-spacing !important;
   }
 }

@@ -2,7 +2,7 @@
 @use "variables" as *;
 
 @each $speed, $transition-value in $transitions {
-  .transition-#{$speed} {
-    transition: get-css-var(get-prefix(transition), $speed);
+  .#{$transition-prefix}-#{$speed} {
+    transition: get-css-var(#{$transition-prefix}, $speed);
   }
 }

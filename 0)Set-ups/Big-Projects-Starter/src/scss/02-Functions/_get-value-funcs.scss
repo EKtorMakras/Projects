@@ -29,11 +29,11 @@
 /** ============ GET PREFIX ============ //
  * Retrieves a prefix from the $PREFIXES map based on the provided key.
  *
- * @param {String} $key - The key for the prefix to retrieve (e.g., "color-var", "spacer").
+ * @param {String} $key - The key for the prefix to retrieve (e.g., "color", "spacer").
  * @return {*} - The corresponding prefix from the $PREFIXES map.
  *
  * @example
- * $css-var-prefix: get-prefix("color-var"); // Returns "clr"
+ * $css-var-prefix: get-prefix("color"); // Returns "clr"
  * $button-prefix: get-prefix("button"); // Returns "btn"
  */
 @function get-prefix($key) {
@@ -136,21 +136,51 @@
  * Returns: var(--css-prefix-primary-500)
  */
 @function get-color($name) {
-  $prefix: get-prefix(color-var);
+  $prefix: get-prefix(color);
   @return var(--#{$prefix}-#{$name});
 }
 
+/** ============ GET COLOR NAME ============ //
+ * Extracts the name of a color from a CSS variable, a map, or a direct color value.
+ * - For CSS variables, it removes the variable prefix and any trailing characters.
+ * - For maps, it retrieves the value of the `color` key.
+ * - If the input is neither a CSS variable nor a map, it assumes the input is already a color name.
+ *
+ * @param {String|Map} $color - The input color, which can be:
+ *                              - A CSS variable (e.g., "var(--clr-primary-500)").
+ *                              - A map containing a `color` key (e.g., (color: "primary-500")).
+ *                              - A direct color value or name (e.g., "primary-500").
+ *
+ * @return {String} - The extracted color name or the original value if no transformation is applied.
+ *
+ * @example
+ * Extract the name from a CSS variable
+ * $color: get-color-name("var(--clr-primary-500)");
+ * Returns: "primary-500"
+ *
+ * @example
+ * Extract the name from a map
+ * $color-map: (color: "primary-500", css-var: true);
+ * $color: get-color-name($color-map);
+ * Returns: "primary-500"
+ *
+ * @example
+ * Warn if a map does not contain a `color` key
+ * $invalid-map: (css-var: true);
+ * $color: get-color-name($invalid-map);
+ * Warning: "Please provide a color map with a key name color."
+ */
 @function get-color-name($color) {
   $color-name: $color;
 
   //* Case 1: Css Var
   @if is-css-var($color) {
-    $prefix: "var(--#{get-prefix(color-var)}-";
+    $prefix: "var(--#{get-prefix(color)}-";
     $color-name: str-remove-last-ch(strip-substring($color, $prefix));
   }
 
   //* Case 2: Map
-  @if meta.type-of($color) == 'map' {
+  @if is-map($color) {
     @if map.has-key($color, color) {
       $color-name: map.get($color, color);
     }
@@ -188,6 +218,7 @@
 
   // Join the components with the specified separator
   $result: "";
+
   @each $component in $components {
     $result: if($result == "", $component, "#{$result}#{$separator}#{$component}");
   }

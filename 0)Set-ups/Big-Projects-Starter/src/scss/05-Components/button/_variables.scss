@@ -4,6 +4,8 @@
 @use "../../03-Design-System" as *;
 @use "mapping" as *;
 
+$btn-prefix: get-prefix(button);
+
 // Retrieve all necessary default button values using map deep get
 $default-btn-size: map.get($button-mapping, defaults, size);
 $default-btn-bg-color: map.get($button-mapping, defaults, bg-color);
@@ -30,10 +32,10 @@ $default-btn-styles: (
   text-color: color($default-btn-text-color),
   hover-text-color: color($default-btn-hover-text-color),
   font-size: fs($default-btn-font-size-number),
-  letter-spacing: get-css-var(get-prefix(letter-spacing), $default-btn-letter-spacing-number),
+  letter-spacing: get-css-var($letter-spacing-prefix, $default-btn-letter-spacing-number),
   padding: $default-btn-padding,
   text-transform: $default-btn-text-transform,
-  border-radius: get-css-var(get-prefix(radius), $default-btn-radius),
+  border-radius: get-css-var($radius-prefix, $default-btn-radius),
   box-shadow: shadow-black($default-btn-shadow),
   adjustment-props: $default-btn-adjustment-props,
   border-props: $default-btn-border-props,

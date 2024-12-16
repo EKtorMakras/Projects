@@ -6,6 +6,7 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%; //1rem = 10px //
+  interpolate-size: allow-keywords;
 
   //# ---- Media ---- //
   @include respond(xxl, min) {

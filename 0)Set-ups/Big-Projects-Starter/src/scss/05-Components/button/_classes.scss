@@ -23,7 +23,7 @@
 //& ******* Colored Btns ******* //
 @each $color-name, $color-value in $btn-available-colors {
   // Generate the button class name
-  $color-class: get-class((get-prefix(button), $color-name));
+  $color-class: get-class(($btn-prefix, $color-name));
 
   // Generate styles for the button using the color value
   @include generate-button-styles($color-class, $color-value);
@@ -39,7 +39,7 @@
   .btn-#{$size-name} {
     padding: $padding;
     font-size: fs($font-size);
-    letter-spacing: get-css-var(get-prefix(letter-spacing), $letter-spacing);
+    letter-spacing: get-css-var($letter-spacing-prefix, $letter-spacing);
   }
 }
 //& *******  ******* //

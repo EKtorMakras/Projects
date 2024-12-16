@@ -17,7 +17,7 @@
  * @include transition((opacity, transform), 0.4s, ease);
  */
 @mixin transition($property: all, $time: 0.3s, $function: ease-in-out) {
-  @if meta.type-of($property) == "list" {
+  @if is-list($property) {
     // Create an empty list for the transitions
     $transitions: ();
 

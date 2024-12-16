@@ -59,7 +59,7 @@
   }
 
   // Check if the passed value is a valid color
-  @if meta.type-of($color-key) == "color" {
+  @if is-color($color-key) {
     @return $color-key;
   }
 
@@ -84,7 +84,7 @@
  * @returns {*} - The resolved color value.
  */
 @function resolve-color($color, $map: $colors) {
-  @if meta.type-of($color) == "map" {
+  @if is-map($color) {
     $color-key: map.get($color, "color");
     $css-var: map-get-with-default($color, "css-var", true); // Default to true if not specified
 

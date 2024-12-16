@@ -2,6 +2,13 @@
 @use "../../01-Globals" as globals;
 @use "../../02-Functions" as *;
 
+//% ***************  Prefixes  *************** //
+$font-family-prefix: get-prefix(font-family);
+$font-size-prefix: get-prefix(font-size);
+$font-weight-prefix: get-prefix(font-weight);
+$letter-spacing-prefix: get-prefix(letter-spacing);
+//% ***************   *************** //
+
 //% ***************  Font-Size  *************** //
 $font-sizes: (
   // Text
@@ -45,6 +52,5 @@ $ff-secondary: Arial, Helvetica, sans-serif;
 //% ***************   *************** //
 
 //% *************** Letter Spacing  *************** //
-$l-spacing-prefix: get-prefix(letter-spacing);
 $l-spacing-total-steps: map.get(globals.$TOTAL_STEPS, letter-spacing);
 //% ***************  *************** //
