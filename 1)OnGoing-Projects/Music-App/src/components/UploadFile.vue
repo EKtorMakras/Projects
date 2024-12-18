@@ -53,6 +53,8 @@ import { storage, auth, songsCollection } from "@/includes/firebase";
 export default {
   name: "UploadFile",
 
+  props: ["addSong"],
+
   data() {
     return {
       is_dragover: false,
@@ -62,61 +64,95 @@ export default {
 
   methods: {
     upload(evt) {
+      // Step 1: Reset the dragover state
       this.is_dragover = false;
 
-      const files = evt.dataTransfer
-        ? [...evt.dataTransfer.files]
-        : [...evt.target.files];
+      // Step 2: Retrieve the files from the event
+      const files = this.getFiles(evt);
 
+      // Step 3: Process each file
       files.forEach((file) => {
-        if (file.type !== "audio/mpeg") return;
-
-        const storageRef = storage.ref();
-        const songsRef = storageRef.child(`songs/${file.name}`);
-        const task = songsRef.put(file);
-
-        const uploadIndex =
-          this.uploads.push({
-            task,
-            currentProgress: 0,
-            name: file.name,
-            variance: "bg-blue-400",
-            icon: "fas fa-spinner fa-spin",
-            text_class: "",
-          }) - 1;
-
-        task.on(
-          "state_changed",
-          (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            this.uploads[uploadIndex].currentProgress = progress;
-          },
-          (error) => {
-            this.uploads[uploadIndex].variant = "bg-red-400";
-            this.uploads[uploadIndex].icon = "fas fa-times";
-            this.uploads[uploadIndex].text_class = "text-red-400";
-            console.log(error);
-          },
-          async () => {
-            const song = {
-              uid: auth.currentUser.uid,
-              display_name: auth.currentUser.displayName,
-              original_name: task.snapshot.ref.name,
-              modified_name: task.snapshot.ref.name,
-              genre: "",
-              comment_count: 0,
-            };
-
-            song.url = await task.snapshot.ref.getDownloadURL();
-            await songsCollection.add(song);
-
-            this.uploads[uploadIndex].variant = "bg-green-400";
-            this.uploads[uploadIndex].icon = "fas fa-check";
-            this.uploads[uploadIndex].text_class = "text-green-400";
-          }
-        );
+        if (file.type === "audio/mpeg") {
+          this.startUpload(file);
+        }
       });
+    },
+
+    getFiles(evt) {
+      return evt.dataTransfer
+        ? [...evt.dataTransfer.files] // Drag-and-drop files
+        : [...evt.target.files]; // Input field files
+    },
+
+    startUpload(file) {
+      const storageRef = storage.ref();
+      const songsRef = storageRef.child(`songs/${file.name}`);
+      const task = songsRef.put(file);
+
+      // Add to uploads array and get the index
+      const newUpload = {
+        task,
+        currentProgress: 0,
+        name: file.name,
+        variance: "bg-blue-400",
+        icon: "fas fa-spinner fa-spin",
+        text_class: "",
+      };
+
+      // Step 3.4: Add the new upload object to the uploads array
+      this.uploads.push(newUpload);
+
+      // Step 3.5: Get the index of the newly added upload
+      const uploadIndex = this.uploads.length - 1;
+
+      // Monitor upload task
+      task.on(
+        "state_changed",
+        (snapshot) => this.updateProgress(snapshot, uploadIndex),
+        (error) => this.handleUploadError(error, uploadIndex),
+        () => this.finalizeUpload(task, uploadIndex)
+      );
+    },
+
+    async finalizeUpload(task, uploadIndex) {
+      const song = await this.createSongObject(task);
+
+      const songRef = await songsCollection.add(song);
+      const songSnapshot = await songRef.get();
+
+      // Add the song to the local state
+      this.addSong(songSnapshot);
+
+      // Update the upload object to reflect success
+      this.uploads[uploadIndex].variant = "bg-green-400";
+      this.uploads[uploadIndex].icon = "fas fa-check";
+      this.uploads[uploadIndex].text_class = "text-green-400";
+    },
+
+    async createSongObject(task) {
+      const url = await task.snapshot.ref.getDownloadURL();
+
+      return {
+        uid: auth.currentUser.uid,
+        display_name: auth.currentUser.displayName,
+        original_name: task.snapshot.ref.name,
+        modified_name: task.snapshot.ref.name,
+        genre: "",
+        comment_count: 0,
+        url,
+      };
+    },
+
+    handleUploadError(error, uploadIndex) {
+      this.uploads[uploadIndex].variant = "bg-red-400";
+      this.uploads[uploadIndex].icon = "fas fa-times";
+      this.uploads[uploadIndex].text_class = "text-red-400";
+      console.error(error);
+    },
+
+    updateProgress(snapshot, uploadIndex) {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      this.uploads[uploadIndex].currentProgress = progress;
     },
 
     cancelUploads() {

@@ -9,13 +9,13 @@
 @use "variables" as *;
 
 //& ******* Base btn ******* //
-.btn {
+.#{$btn-prefix} {
   @include btn();
 }
 //& *******  ******* //
 
 //& ******* Outline btn ******* //
-.btn-outline {
+.#{$btn-prefix}-outline {
   @include btn-outline();
 }
 //& *******  ******* //
@@ -36,7 +36,7 @@
   $font-size: map.get($size-values, "font-size");
   $letter-spacing: map.get($size-values, "letter-spacing");
 
-  .btn-#{$size-name} {
+  .#{$btn-prefix}-#{$size-name} {
     padding: $padding;
     font-size: fs($font-size);
     letter-spacing: get-css-var($letter-spacing-prefix, $letter-spacing);

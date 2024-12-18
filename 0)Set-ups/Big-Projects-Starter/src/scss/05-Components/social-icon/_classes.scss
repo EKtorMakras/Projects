@@ -9,9 +9,17 @@
 
 .social-icon {
   @include focus-state(color(primary-500));
-  @include social-icons($official: false, $official-on-hover: true);
+  @include social-icons($official: true);
 
   &:hover {
     transform: scale(1.1);
+  }
+
+  &.official {
+    @include social-icons($official: true);
+  }
+
+  &.official-on-hover {
+    @include social-icons($official-on-hover: true);
   }
 }
