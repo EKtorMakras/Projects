@@ -7,7 +7,7 @@ body {
   font-size: fs(rg);
   font-weight: fw(regular);
   line-height: globals.$line-height_text;
-  color: get-color(text);
+  color: get-color(on-surface);
 }
 
 p,
@@ -18,7 +18,7 @@ figcaption {
 }
 
 a {
-  color: get-color(text);
+  color: get-color(on-surface);
 }
 
 p {
@@ -43,32 +43,32 @@ h6 {
 }
 
 h1 {
-  font-size: fs(head-1);
+  font-size: fs(h1);
   font-weight: fw(thin);
 }
 
 h2 {
-  font-size: fs(head-2);
+  font-size: fs(h2);
   font-weight: fw(light);
 }
 
 h3 {
-  font-size: fs(head-3);
+  font-size: fs(h3);
   font-weight: fw(light);
 }
 
 h4 {
-  font-size: fs(head-4);
+  font-size: fs(h4);
   font-weight: fw(light);
 }
 
 h5 {
-  font-size: fs(head-5);
+  font-size: fs(h5);
   font-weight: fw(semibold);
 }
 
 h6 {
-  font-size: fs(head-6);
+  font-size: fs(h6);
   font-weight: fw(bold);
 }
 //^ ---------  --------- //

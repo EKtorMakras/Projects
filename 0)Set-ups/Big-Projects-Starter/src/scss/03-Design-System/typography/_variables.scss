@@ -12,25 +12,25 @@ $letter-spacing-prefix: get-prefix(letter-spacing);
 //% ***************  Font-Size  *************** //
 $font-sizes: (
   // Text
-  "sm-1": clamp(1.1rem, .9rem + 0.26vw, 1.5rem),
-  "sm-2": clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem),
-  "sm-3": clamp(1.6rem, 1.4rem + 0.4vw, 2rem),
+  "2xs": clamp(1.1rem, .9rem + 0.26vw, 1.5rem),
+  "xs": clamp(1.45rem, 1.2rem + 0.3vw, 1.8rem),
+  "sm": clamp(1.6rem, 1.4rem + 0.4vw, 2rem),
   "rg": clamp(1.8rem, 1.6rem + 0.5vw, 2.2rem),
-  "lg-1": clamp(2rem, 1.8rem + 0.6vw, 2.5rem),
-  "lg-2": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
-  "lg-3": clamp(2.5rem, 2.2rem + 1vw, 3rem),
-  "lg-4": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
+  "lg": clamp(2rem, 1.8rem + 0.6vw, 2.5rem),
+  "xl": clamp(2.3rem, 2rem + 0.7vw, 2.7rem),
+  "2xl": clamp(2.5rem, 2.2rem + 1vw, 3rem),
+  "3xl": clamp(2.8rem, 2.3rem + 1.3vw, 3.4rem),
 
   // Headings
-  "h-1": clamp(4.5rem, 3rem + 3vw, 6.5rem),
-  "h-2": clamp(3.5rem, 2.5rem + 2vw, 4.7rem),
-  "h-3": clamp(3rem, 2rem + 2vw, 4rem),
-  "h-4": clamp(2.5rem, 1.8rem + 1.5vw, 3.5rem),
-  "h-5": clamp(2rem, 1.5rem + 1vw, 2.8rem),
-  "h-6": clamp(1.8rem, 1.3rem + 0.8vw, 2rem),
+  "h1": clamp(4.5rem, 3rem + 3vw, 6.5rem),
+  "h2": clamp(3.5rem, 2.5rem + 2vw, 4.7rem),
+  "h3": clamp(3rem, 2rem + 2vw, 4rem),
+  "h4": clamp(2.5rem, 1.8rem + 1.5vw, 3.5rem),
+  "h5": clamp(2rem, 1.5rem + 1vw, 2.8rem),
+  "h6": clamp(1.8rem, 1.3rem + 0.8vw, 2rem),
 
-  "h-xl": 9rem,
-  "h-xxl": 12rem
+  "hxl": 9rem,
+  "h2xl": 12rem
 );
 //% ***************   *************** //
 

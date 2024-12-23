@@ -37,7 +37,7 @@ html {
 
 body {
   overflow-x: hidden;
-  background-color: get-color(body);
+  background-color: get-color(surface);
 
   @include transition($property: background-color);
   @include dvh(100, min);

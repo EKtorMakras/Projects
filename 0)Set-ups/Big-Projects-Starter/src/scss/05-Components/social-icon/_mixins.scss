@@ -8,27 +8,163 @@
 @use "variables" as *;
 
 /** ============ SOCIAL ICONS ============ //
- * A mixin for applying social media icon styles, including hover effects and support for gradient icons.
+ * A mixin to apply the base styles for social icons, including size, structure,
+ * and delegating color and hover logic to the `social-icon-colors` mixin.
  *
- * @param {Boolean} $official - (Optional) If true, use official colors for the icons.
- * @param {Boolean} $official-on-hover - (Optional) If true, apply official colors on hover only.
- * @param {String} $category - (Optional) The size category of the icon (e.g., "xs", "rg", "lg"). Defaults to `rg`.
- * @param {Map} $custom-styles - (Optional) A map containing custom styles (e.g., padding, background-color).
- *                               Defaults include color, hover-color, font-size, size, border-radius, and box-shadow.
- *
- * @example
- * Apply default social icon styles
- * @include social-icons();
+ * @param {String} $icon-name - The name of the icon (e.g., `facebook`, `instagram`).
+ * @param {Boolean} $official - If true, use official colors for the icon.
+ * @param {Boolean} $official-on-hover - If true, use official colors only on hover.
+ * @param {String} $category - (Optional) The size category (e.g., "xs", "rg"). Defaults to `rg`.
+ * @param {Map} $custom-styles - (Optional) Custom styles to override defaults.
  *
  * @example
- * Apply official styles with gradient for Instagram
- * @include social-icons(true, true);
+ * Apply base styles for Facebook
+ * @include social-icons(facebook);
  *
  * @example
- * Apply custom padding and hover background color
- * @include social-icons(false, false, rg, (padding: 0.5rem, hover-bg-color: color("grey-100")));
+ * Apply official colors for Instagram
+ * @include social-icons(instagram, true, false);
  */
-@mixin social-icons(
+@mixin social-icon(
+  $icon-name,
+  $official: false,
+  $official-on-hover: false,
+  $category: map.get($social-icon-mapping, defaults, size),
+  $custom-styles: ()
+) {
+  // Validate the icon
+  @if not list.index(map.get($social-icon-mapping, available), $icon-name) {
+    @error "Invalid icon '#{$icon-name}'. Available icons: #{map.get($social-icon-mapping, available)}.";
+  }
+
+  // Base styles
+  $default-styles: map.merge($default-social-icon-styles, $custom-styles);
+
+  // Extract styles
+  $bg-color: map.get($default-styles, bg-color);
+  $hover-bg-color: map.get($default-styles, hover-bg-color);
+  $border-radius: map.get($default-styles, border-radius);
+  $box-shadow: map.get($default-styles, box-shadow);
+  $transition: map.get($default-styles, transition);
+
+  // Apply size using `social-icon-size`
+  @include social-icon-size($category);
+
+  // Apply base structural styles
+  background-color: $bg-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  transition: $transition;
+  cursor: pointer;
+
+  // Delegate color and hover logic to `social-icon-colors`
+  @include social-icon-colors($official, $official-on-hover, $icon-name);
+}
+
+/** ============ SOCIAL ICON COLOR VARIATION ============ //
+ * A mixin to apply color styles for social icons, including official colors, hover states,
+ * and gradient styles for icons that support gradients (e.g., Instagram).
+ *
+ * @param {Boolean} $official - If true, use official colors for the icon.
+ * @param {Boolean} $official-on-hover - If true, use official colors only on hover.
+ * @param {String} $icon - The name of the social icon (e.g., `facebook`, `instagram`).
+ *                         Used to determine the appropriate colors.
+ *
+ * @example
+ * Apply official colors directly
+ * @include social-icon-colors(true, false, facebook);
+ *
+ * @example
+ * Apply official colors only on hover
+ * @include social-icon-colors(false, true, instagram);
+ */
+@mixin social-icon-colors($official: false, $official-on-hover: false, $icon: null) {
+  @if $icon == null {
+    @warn "No icon provided. Please specify an icon name.";
+  }
+
+  // Error handling for invalid icons
+  @if not list.index(map.get($social-icon-mapping, available), $icon) {
+    @error "Invalid icon '#{$icon}'. Available icons: #{map.get($social-icon-mapping, available)}.";
+  }
+
+  // Determine colors
+  $official-color: get-color(#{$icon});
+  $default-color: map.get($default-social-icon-styles, color);
+  $hover-color: map.get($default-social-icon-styles, hover-color);
+
+  // Check if the icon uses a gradient
+  $is-gradient: list.index(map.get($social-icon-mapping, gradient), $icon);
+
+  i {
+    @if $official {
+      // Apply official color or gradient for the base state
+      @if $is-gradient {
+        @include generate-icon-gradient-style($icon, true);
+      } @else {
+        color: $official-color;
+      }
+    } @else {
+      // Apply default color for the base state
+      color: $default-color;
+    }
+  }
+
+  &:hover {
+    i {
+      @if $official or $official-on-hover {
+        // Apply official color or gradient
+        @if $is-gradient {
+          @include generate-icon-gradient-style($icon, true);
+        } @else {
+          color: $official-color;
+        }
+      }
+
+      @else {
+        // Apply default hover color
+        color: $hover-color;
+      }
+    }
+  }
+}
+
+/** ============ SOCIAL ICON SIZE ============ //
+ * A mixin to apply size-specific styles for social icons, including font size and dimensions.
+ *
+ * @param {String} $size - The size category of the icon (e.g., "xs", "rg", "lg").
+ *                         Defaults to the `rg` size defined in the mapping.
+ *
+ * @example
+ * Apply size styles directly
+ * @include social-icon-size(rg);
+ *
+ * @example
+ * Generate utility classes for sizes
+ * @each $size-name, $size-values in map.get($social-icon-mapping, sizes) {
+ *   .social-icon--$size-name {
+ *     @include social-icon-size($size-name);
+ *   }
+ * }
+ */
+@mixin social-icon-size($size: map.get($social-icon-mapping, defaults, size)) {
+  // Retrieve size values
+  $size-values: map.get($social-icon-mapping, sizes, $size);
+
+  @if $size-values == null {
+    @warn "Size '#{$size}' is not defined in the social icon mapping.";
+  }
+
+  $font-size: map.get($size-values, "font-size");
+  $dimensions: map.get($size-values, "size");
+
+  font-size: $font-size;
+  width: $dimensions;
+  height: $dimensions;
+}
+
+
+@mixin social-icons2(
   $official: false,
   $official-on-hover: false,
   $category: map.get($social-icon-mapping,"defaults", size),
@@ -95,7 +231,7 @@
           }
         }
 
-        // Apply hover styles on the parent, affecting the `i` element inside
+        // Apply hover styles on the parent, affecting the i element inside
         &:hover {
           i {
             @if list.index(map.get($social-icon-mapping, gradient), $icon) {
@@ -113,5 +249,3 @@
     }
   }
 }
-
-

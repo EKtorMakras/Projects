@@ -25,22 +25,22 @@ $button-mapping: (
   sizes: (
     2xs: (
       "padding": .4em .8em,
-      "font-size": sm-1,
+      "font-size": 2xs,
       "letter-spacing": 2
     ),
     xs: (
       "padding": .5em 1em,
-      "font-size": sm-1,
+      "font-size": 2xs,
       "letter-spacing": 2
     ),
     sm: (
       "padding": .4em .8em,
-      "font-size": sm-2,
+      "font-size": xs,
       "letter-spacing": 2
     ),
     rg: (
       "padding": .6em 1.3em,
-      "font-size": sm-2,
+      "font-size": xs,
       "letter-spacing": 3
     ),
     lg: (
@@ -50,7 +50,7 @@ $button-mapping: (
     ),
     xl: (
       "padding": .6em 1.4em,
-      "font-size": lg-1,
+      "font-size": lg,
       "letter-spacing": 4
     )
   ),

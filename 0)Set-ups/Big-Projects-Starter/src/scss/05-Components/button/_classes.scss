@@ -3,7 +3,6 @@
 @use "sass:meta";
 @use "../../02-Functions" as *;
 @use "../../03-Design-System" as *;
-@use "mapping" as *;
 @use "helpers" as *;
 @use "mixins" as *;
 @use "variables" as *;
@@ -31,15 +30,9 @@
 //& *******  ******* //
 
 //& ******* Sized Btns ******* //
-@each $size-name, $size-values in map.get($button-mapping, sizes) {
-  $padding: map.get($size-values, "padding");
-  $font-size: map.get($size-values, "font-size");
-  $letter-spacing: map.get($size-values, "letter-spacing");
-
+@each $size-name, $size-values in $btn-available-sizes {
   .btn-#{$size-name} {
-    padding: $padding;
-    font-size: fs($font-size);
-    letter-spacing: get-css-var($letter-spacing-prefix, $letter-spacing);
+    @include btn-size($size-name);
   }
 }
 //& *******  ******* //

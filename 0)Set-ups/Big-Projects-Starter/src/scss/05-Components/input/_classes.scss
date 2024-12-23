@@ -5,11 +5,11 @@
   padding: 0.5rem 1rem;
   border-radius: get-radius(1);
   color: get-color(slate-600);
-  font-size: fs(sm-3);
+  font-size: fs(sm);
   @include focus-state();
 
   &::placeholder {
-    font-size: fs(sm-1);
+    font-size: fs("2xs");
     color: get-color(slate-400);
   }
 
@@ -25,6 +25,6 @@
 
   &-label {
     color: get-color(slate-500);
-    font-size: fs(sm-3);
+    font-size: fs(sm);
   }
 }

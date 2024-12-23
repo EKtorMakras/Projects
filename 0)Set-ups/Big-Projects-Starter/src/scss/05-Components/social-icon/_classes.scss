@@ -2,16 +2,51 @@
 @use "../../03-Design-System" as *;
 @use "../../04-Generic/" as *;
 @use "mixins" as *;
+@use "mapping" as *;
+@use "sass:map";
 
+// General
 .socials-wrapper {
-  @include flex($gap: 3rem, $wrap: wrap);
+  @include flex($gap: 1.5rem, $wrap: wrap, $align: center);
 }
 
 .social-icon {
   @include focus-state(color(primary-500));
-  @include social-icons($official: false, $official-on-hover: true);
+  @include flex;
 
   &:hover {
     transform: scale(1.1);
   }
 }
+
+// Colors
+@each $icon in map.get($social-icon-mapping, available) {
+  .social-icon-#{$icon} {
+    // Apply the base styles for the icon
+    @include social-icon($icon);
+  }
+
+  .social-icon-#{$icon}.official {
+    // Apply official colors for the icon
+    @include social-icon-colors(true, false, $icon);
+  }
+
+  .social-icon-#{$icon}.official-on-hover {
+    // Apply official colors only on hover
+    @include social-icon-colors(false, true, $icon);
+  }
+
+  // .social-icon--#{$icon}.official.official-on-hover {
+  //   // Apply both official and hover colors
+  //   @include social-icon-colors(true, true, $icon);
+  // }
+}
+
+// Sizing
+@each $size-name, $size-values in map.get($social-icon-mapping, sizes) {
+  .social-icon-#{$size-name} {
+    @include social-icon-size($size-name);
+  }
+}
+
+

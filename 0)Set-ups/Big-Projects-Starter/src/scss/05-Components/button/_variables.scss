@@ -6,6 +6,8 @@
 
 $btn-prefix: get-prefix(button);
 
+$btn-available-sizes: map.get($button-mapping, sizes);
+
 // Retrieve all necessary default button values using map deep get
 $default-btn-size: map.get($button-mapping, defaults, size);
 $default-btn-bg-color: map.get($button-mapping, defaults, bg-color);

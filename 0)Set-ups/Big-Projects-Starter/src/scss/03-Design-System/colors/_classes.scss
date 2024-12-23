@@ -1,5 +1,8 @@
 @use "helpers" as *;
 @use "variables" as *;
+@use "themes" as *;
 
 @include generate-color-utilities($colors);
+  @include generate-color-utilities($colors-light);
+
 

@@ -1,11 +1,25 @@
+@use "sass:map";
 @use "functions" as *;
+@use "../opacity" as *;
 
 //% ***************  Light Theme  *************** //
+$theme-light-surface: color(slate-50);
+$theme-light-on-surface: color(slate-600);
+
 $colors-light: (
-  "text": color(slate-600),
+  "surface": $theme-light-surface,
+  "surface-subtle": rgba($theme-light-surface, map.get($opacities, subtle-bg)),
+
+  "on-surface": $theme-light-on-surface,
+  "on-surface-high-contrast": color(slate-900),
+
+  "disabled": rgba($theme-light-on-surface, map.get($opacities, disabled)),
+  "low-emphasis": rgba($theme-light-on-surface, map.get($opacities, low-emphasis)),
+  "medium-emphasis": rgba($theme-light-on-surface, map.get($opacities, medium-emphasis)),
+  "high-emphasis": rgba($theme-light-on-surface, map.get($opacities, high-emphasis)),
   "title": color(grey-blue-500),
+
   "header": color(slate-100),
-  "body": color(slate-50),
   "card": color("white"),
   "socials": color(slate-500),
   "socials-hover": color(slate-700),
@@ -13,11 +27,23 @@ $colors-light: (
 );
 
 //% ***************  Dark Theme  *************** //
+$theme-dark-surface: color(grey-blue-600);
+$theme-dark-on-surface: color(slate-50);
+
 $colors-dark: (
-  "text": color(slate-50),
+  "surface": $theme-dark-surface,
+  "surface-subtle": rgba($theme-dark-surface, map.get($opacities, subtle-bg)),
+
+  "on-surface": $theme-dark-on-surface,
+  "on-surface-high-contrast": color("white"),
+
+  "disabled": rgba($theme-dark-on-surface, map.get($opacities, disabled)),
+  "low-emphasis": rgba($theme-dark-on-surface, map.get($opacities, low-emphasis)),
+  "medium-emphasis": rgba($theme-dark-on-surface, map.get($opacities, medium-emphasis)),
+  "high-emphasis": rgba($theme-dark-on-surface, map.get($opacities, high-emphasis)),
   "title": color(slate-100),
+
   "header": color(slate-600),
-  "body": color(grey-blue-600),
   "card": color(grey-blue-500),
   "socials": color(slate-100),
   "socials-hover": color(slate-300),

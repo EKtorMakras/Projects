@@ -191,3 +191,34 @@
     border: $border-width $border-style $border-color;
   }
 }
+
+/** ============ BTN SIZE ============ //
+ * Mixin for applying size-specific styles to buttons, such as padding, font size, and letter spacing.
+ * This mixin retrieves size-related properties from the `$button-mapping` and applies them dynamically.
+ *
+ * @param {String} $size-name - The size of the button: `2xs`, `xs`, `sm`, `rg`, `lg`, `xl`.
+ *                              The size determines padding, font size, and letter spacing.
+ *
+ * @example
+ * Applying size styles directly to a button
+ * .custom-button {
+ *   @include btn-size(rg);
+ * }
+ */
+@mixin btn-size($size-name) {
+  // Retrieve size values from the mapping
+  $size-values: map.get($btn-available-sizes, $size-name);
+
+  @if $size-values == null {
+    @warn "Size '#{$size-name}' is not defined in the button mapping.";
+  }
+
+  $padding: map.get($size-values, "padding");
+  $font-size: map.get($size-values, "font-size");
+  $letter-spacing: map.get($size-values, "letter-spacing");
+
+  // Apply size-related styles
+  padding: $padding;
+  font-size: fs("#{$font-size}");
+  letter-spacing: get-css-var($letter-spacing-prefix, $letter-spacing);
+}
