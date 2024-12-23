@@ -1,5 +1,6 @@
 @use "../../03-Design-System" as *;
 @use "mixins" as *;
+@use "variables" as *;
 
 /** ============ GENERATE BUTTON STYLES ============ //
  * Generates button styles for both filled and outlined variants.
@@ -22,13 +23,13 @@
   }
 
   // Apply outlined version
-  .#{$base-class}.btn-outline {
+  .#{$base-class}.#{$btn-prefix}-outline {
     @include btn-outline($main-color: $bg-color);
   }
 
   // Apply focus state for both filled and outlined buttons
   .#{$base-class},
-  .#{$base-class}.btn-outline {
+  .#{$base-class}.#{$btn-prefix}-outline {
     @include focus-state($bg-color);
   }
 }

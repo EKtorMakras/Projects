@@ -8,13 +8,13 @@
 @use "variables" as *;
 
 //& ******* Base btn ******* //
-.btn {
+.#{$btn-prefix} {
   @include btn();
 }
 //& *******  ******* //
 
 //& ******* Outline btn ******* //
-.btn-outline {
+.#{$btn-prefix}-outline {
   @include btn-outline();
 }
 //& *******  ******* //

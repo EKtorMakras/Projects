@@ -76,14 +76,18 @@
 //% ***************  Selectors  *************** //
 /** ============ THEMED CONTENT ============ //
  * A mixin that applies styles within a specific theme context based on the provided
- * data attribute. This mixin targets elements with a specific `data-theme` attribute
- * in the HTML and allows you to easily manage theme-based styles.
+ * `data-theme` attribute in the HTML. It ensures the theme is valid (e.g., 'light', 'dark'),
+ * and optionally allows scoping styles to a specific selector.
  *
- * @param {String} $theme - The theme to target (e.g., 'light', 'dark').
+ * @param {String} $theme - The theme to target (must be 'light' or 'dark').
+ * @param {String} $selector (optional) - A custom selector to scope the styles under the theme.
+ *
+ * @throws Error if $theme is not 'light' or 'dark'.
  *
  * @example
- * .my-element {
- *   @include themed-content('dark') {
+ * Without a selector
+ * @include themed-content('dark') {
+ *   .my-element {
  *     color: white;
  *   }
  * }
@@ -91,58 +95,75 @@
  * html[data-theme="dark"] .my-element {
  *   color: white;
  * }
+ *
+ * @example
+ * With a custom selector
+ * @include themed-content('light', '.my-element') {
+ *   color: black;
+ * }
+ * Resulting CSS:
+ * html[data-theme="light"] .my-element {
+ *   color: black;
+ * }
  */
-@mixin themed-content($theme) {
-  html[data-theme="#{$theme}"] {
-    @content;
+@mixin themed-content($theme, $selector: null) {
+  // Validation for allowed themes
+  $allowed-themes: (dark, light);
+
+  @if not index($allowed-themes, $theme) {
+    @error "Invalid theme: `#{$theme}`. Allowed themes are: #{join($allowed-themes, ', ')}.";
+  }
+
+  // Conditional logic for the selector
+  @if $selector {
+    html[data-theme="#{$theme}"] #{$selector} {
+      @content;
+    }
+  } @else {
+    html[data-theme="#{$theme}"] {
+      @content;
+    }
   }
 }
 
-/** ============ QUALIFY ============ //
- * A mixin that qualifies a selector by combining it with the current selector
- * using the `@at-root` directive. This is useful for creating nested styles
- * that apply to a specific element selector in a more modular way.
+/** ============ WHEN-IS ============ //
+ * A mixin that qualifies one or more selectors by appending them to the current
+ * selector using the `@at-root` directive. This is useful for creating modular
+ * and reusable styles that apply conditionally, such as state-based or modifier classes.
  *
- * @param {String} $element-selector - The selector to qualify with the current selector.
+ * @param {String...} $selectors - One or more selectors to append to the current selector.
  *
  * @example
- * .parent {
- *   @include qualify('.child') {
- *     color: teal;
+ * Single selector
+ * .button {
+ *   @include when-is('.active') {
+ *     background: grey;
  *   }
  * }
  * Resulting CSS:
- * .child .parent {
- *   color: teal;
+ * .button.active {
+ *   background: grey;
  * }
- */
-@mixin qualify($element-selector) {
-  @at-root #{$element-selector + &} {
-    @content;
-  }
-}
-
-/** ============ WHEN IS ============ //
- * A mixin that qualifies the current selector by calling the qualify mixin
- * with the provided element selectors. It allows you to create styles that
- * apply to specific conditions or elements while maintaining the current context.
- *
- * @param {...String} $args - One or more element selectors to qualify.
  *
  * @example
+ * Multiple selectors
  * .button {
  *   @include when-is('.active', '.disabled') {
  *     background: grey;
  *   }
  * }
  * Resulting CSS:
- * .active .button,
- * .disabled .button {
+ * .button.active {
+ *   background: grey;
+ * }
+ * .button.disabled {
  *   background: grey;
  * }
  */
-@mixin when-is($args...) {
-  @include qualify($args...) {
-    @content;
+@mixin when-is($selectors...) {
+  @each $selector in $selectors {
+    @at-root #{& + $selector} {
+      @content;
+    }
   }
 }
