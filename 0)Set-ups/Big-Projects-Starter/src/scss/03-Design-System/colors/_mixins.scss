@@ -169,9 +169,9 @@
     @else {
       $is-bg-color-css-var: is-css-var($resolved-bg-color);
 
-      //# Css var case - NOTE: Can't dynamically calculate the hover background color on css vars. Apply the background color.
+      //# Css var case - NOTE: Can't dynamically calculate the hover text color. Use the bg color for the text color calculation.
       @if $is-bg-color-css-var {
-        $adjusted-hover-bg-color: $resolved-bg-color;
+        $adjusted-hover-bg-color: hsl(from #{$resolved-bg-color} h s calc(l + #{strip-unit($amount)}));
         $adjusted-hover-text-color: resolve-foreground($resolved-bg-color);
       }
 
