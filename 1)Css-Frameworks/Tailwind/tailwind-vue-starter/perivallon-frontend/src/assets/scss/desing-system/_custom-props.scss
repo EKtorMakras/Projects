@@ -1,0 +1,17 @@
+@use "./vars" as vars;
+@use "./mixins" as mixins;
+
+/* === Common custom properties === */
+:root {
+    @include mixins.generate-opacity-props(vars.$opacities);
+}
+
+/* === Light theme custom properties === */
+:root.light {
+    @include mixins.generate-color-props(vars.$light-theme-colors);
+}
+
+/* === Dark theme custom properties === */
+:root.dark {
+    @include mixins.generate-color-props(vars.$dark-theme-colors);
+}

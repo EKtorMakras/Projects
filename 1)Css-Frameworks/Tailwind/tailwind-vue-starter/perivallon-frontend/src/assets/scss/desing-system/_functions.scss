@@ -1,0 +1,70 @@
+@use "sass:color";
+@use "sass:math";
+@use "sass:map";
+
+$ACCEPTABLE_CONTRAST_THRESHOLD: 4.5;
+
+/* ========== LINEARIZE CHANNEL ========== */
+@function linearize-channel($channel) {
+    $channel: math.div($channel, 255);
+    @if $channel <= 0.03928 {
+        @return math.div($channel, 12.92);
+    }
+    $adjusted: math.div(($channel + 0.055), 1.055);
+    @return math.pow($adjusted, 2.4);
+}
+
+/* ========== RELATIVE LUMINANCE ========== */
+@function relative-luminance($color) {
+    $r: linearize-channel(color.channel($color, "red", $space: rgb));
+    $g: linearize-channel(color.channel($color, "green", $space: rgb));
+    $b: linearize-channel(color.channel($color, "blue", $space: rgb));
+
+    @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+}
+
+/* ========== CONTRAST RATIO ========== */
+@function contrast-ratio($lum1, $lum2) {
+    $lighter: math.max($lum1, $lum2);
+    $darker: math.min($lum1, $lum2);
+    @return math.div(($lighter + 0.05), ($darker + 0.05));
+}
+
+/* ========== GET FOREGROUND COLOR ========== */
+@function get-foreground-color($bg-color, $foregrounds) {
+    $dark: map.get($foregrounds, dark);
+    $light: map.get($foregrounds, light);
+
+    $bg-lum: relative-luminance($bg-color);
+    $dark-lum: relative-luminance($dark);
+    $light-lum: relative-luminance($light);
+
+    $contrast-dark: contrast-ratio($bg-lum, $dark-lum);
+    $contrast-light: contrast-ratio($bg-lum, $light-lum);
+
+    $prefer-light: ($contrast-light >= $contrast-dark) or $contrast-light >= $ACCEPTABLE_CONTRAST_THRESHOLD;
+
+    @return if($prefer-light, $light, $dark);
+}
+
+/**
+ * Generates Tailwind-style 10-step color scale for a base color.
+ *
+ * @param {String} $name - The base name (e.g. "primary")
+ * @param {Color} $base - The base color (used as 500)
+ * @returns {Map} - Map of keys (e.g. primary-50 → color)
+ */
+@function generate-shades($name, $base) {
+    @return (
+        "#{$name}-50": color.mix(white, $base, 95%),
+        "#{$name}-100": color.mix(white, $base, 90%),
+        "#{$name}-200": color.mix(white, $base, 75%),
+        "#{$name}-300": color.mix(white, $base, 60%),
+        "#{$name}-400": color.mix(white, $base, 45%),
+        "#{$name}-500": $base,
+        "#{$name}-600": color.mix(black, $base, 10%),
+        "#{$name}-700": color.mix(black, $base, 25%),
+        "#{$name}-800": color.mix(black, $base, 40%),
+        "#{$name}-900": color.mix(black, $base, 60%)
+    );
+}

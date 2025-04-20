@@ -1,0 +1,44 @@
+@use "sass:map";
+@use "sass:color";
+@use "sass:string";
+@use "./functions.scss" as funcs;
+@use "./vars" as vars;
+
+/**
+ * Outputs CSS custom properties for each color and its optimal foreground color.
+ *
+ * Expected usage inside a `:root` or `:root.dark` block.
+ *
+ * Example output:
+ *   --primary-500: 23 73 162;
+ *   --on-primary-500: 255 255 255;
+ */
+@mixin generate-color-props($colors) {
+    @each $key, $value in $colors {
+        // Extract RGB values
+        $r: color.channel($value, "red", $space: rgb);
+        $g: color.channel($value, "green", $space: rgb);
+        $b: color.channel($value, "blue", $space: rgb);
+
+        // Output base color as custom property
+        --#{"" + $key}: #{$r} #{$g} #{$b};
+
+        // Only generate foreground colors if the key doesn't start with 'on-'
+        @if not string.index("#{$key}", "on-") {
+            $fg-color: funcs.get-foreground-color($value, vars.$foreground-colors);
+
+            $fr: color.channel($fg-color, "red", $space: rgb);
+            $fg: color.channel($fg-color, "green", $space: rgb);
+            $fb: color.channel($fg-color, "blue", $space: rgb);
+
+            // Output foreground custom property
+            --on-#{"" + $key}: #{$fr} #{$fg} #{$fb};
+        }
+    }
+}
+
+@mixin generate-opacity-props($map) {
+    @each $key, $value in $map {
+        --opacity-#{"" + $key}: #{$value};
+    }
+}

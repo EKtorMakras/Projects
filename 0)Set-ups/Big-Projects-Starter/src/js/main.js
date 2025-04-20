@@ -2,7 +2,7 @@
 import "@/scss/style.scss";
 
 // Module Imports
-import { initTheme, toggleTheme } from "./libraries/darkMode";
+import themeManager from "./libraries/darkMode";
 import { initStartingData } from "./fillStartingData";
 
 // Init App
@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", initApp);
 // Functions
 function initApp() {
   initStartingData();
-  initTheme();
+  themeManager.initTheme();
 }
 
-document.querySelector("#btn").addEventListener("click", toggleTheme);
+document.querySelector("#btn").addEventListener("click", () => {
+  themeManager.toggleTheme();
+});

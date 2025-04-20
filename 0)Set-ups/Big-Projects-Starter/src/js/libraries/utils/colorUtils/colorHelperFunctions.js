@@ -3,7 +3,7 @@ import { log } from "@/plugins/roarr";
 import { config } from "@/common/config";
 import { patterns, cssVariableCache } from "./colorConstants";
 
-// ================================ CSS Variable Helpers =============================== //
+// ======================= CSS Variable Helpers =============================== //
 /**
  * Checks if a string is a CSS variable reference.
  *
@@ -133,7 +133,7 @@ function clearCssVariableCache() {
   Object.keys(cssVariableCache).forEach((key) => delete cssVariableCache[key]);
 }
 
-// ================================ General =============================== //
+// =======================General =============================== //
 /**
  * Safely processes a color value using a provided function, with error handling.
  *

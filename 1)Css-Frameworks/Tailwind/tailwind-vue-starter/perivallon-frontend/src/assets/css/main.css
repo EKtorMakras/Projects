@@ -1,0 +1,25 @@
+/* stylelint-disable-next-line at-rule-no-unknown */
+@config "../../../tailwind.config.mjs";
+@import "tailwindcss";
+
+@layer base {
+    body {
+        @apply bg-surface text-on-surface;
+    }
+}
+
+@layer utilities {
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
+
+    .focus-ring {
+        @apply shadow-[0_0_3px_2.1px_white,0_0_3px_4.2px_white] ring-1 ring-primary-500 ring-offset-2 outline-none;
+    }
+
+    .focus-state {
+        &:focus-visible {
+            @apply shadow-[0_0_3px_2.1px_white,0_0_3px_4.2px_white] ring-1 ring-primary-500 ring-offset-2 outline-none;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "sass:list";
+@use "../functions.scss" as funcs;
+
+$foreground-colors: (
+    light: #f8fafc,
+    dark: #0f172a,
+);
+
+$base-common-colors: (
+    primary: #0e7490,
+    error: #b91c1c,
+    success: #15803d,
+    white: #ffffff,
+    black: #000000,
+);
+
+$colors-with-shades: (primary);
+
+/* Common colors map */
+$common-colors: ();
+
+// Generate shades for the selected ones
+@each $name in $colors-with-shades {
+    $color: map.get($base-common-colors, $name);
+    $common-colors: map.merge($common-colors, funcs.generate-shades($name, $color));
+}
+
+// Add the rest as-is
+@each $name, $color in $base-common-colors {
+    @if not list.index($colors-with-shades, $name) {
+        $common-colors: map.set($common-colors, $name, $color);
+    }
+}
+
+/* Light theme map */
+$light-theme-colors: map.merge(
+    $common-colors,
+    (
+        surface: map.get($foreground-colors, light),
+        surface-variant: #e2e8f0,
+        surface-variant-light: #f1f5f9,
+        surface-variant-dark: #cbd5e1,
+
+        on-surface: map.get($foreground-colors, dark),
+        on-surface-low-emphasis: #334155,
+        on-surface-high-emphasis: #020617,
+    )
+);
+
+/* Dark theme map */
+$dark-theme-colors: map.merge(
+    $common-colors,
+    (
+        surface: map.get($foreground-colors, dark),
+        surface-variant: #334155,
+        surface-variant-light: #64748b,
+        surface-variant-dark: #1e293b,
+
+        on-surface: map.get($foreground-colors, light),
+        on-surface-high-emphasis: #fff,
+        on-surface-low-emphasis: #cbd5e1,
+    )
+);
