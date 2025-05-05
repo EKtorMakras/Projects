@@ -1,6 +1,7 @@
 <template>
   <div class="col-span-1">
     <div class="bg-white rounded border border-gray-200 relative flex flex-col">
+      <!-- Header -->
       <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
         <span class="card-title">Upload</span>
         <i class="fas fa-upload float-right text-green-400 text-2xl"></i>
@@ -26,15 +27,16 @@
 
         <hr class="my-6" />
 
-        <!-- Progess Bars -->
+        <!-- Progress Bars -->
         <div class="mb-4" v-for="upload in uploads" :key="upload.name">
           <!-- File Name -->
           <div class="font-bold text-sm" :class="upload.text_class">
             <i :class="upload.icon"></i>
             {{ upload.name }}
           </div>
+
+          <!-- Inner Progress Bar -->
           <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-            <!-- Inner Progress Bar -->
             <div
               class="transition-all progress-bar bg-blue-400"
               :class="upload.variant"

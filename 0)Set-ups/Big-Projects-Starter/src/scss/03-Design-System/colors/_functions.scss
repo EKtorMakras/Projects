@@ -25,12 +25,12 @@
  * );
  *
  * Retrieve a specific color:
- * $primary-500: color("primary-500"); // Returns hsl(173, 58%, 39%)
+ * $primary-500: color-val("primary-500"); // Returns hsl(173, 58%, 39%)
  *
  * Handle a missing key:
- * $unknown-color: color("unknown"); // Returns null
+ * $unknown-color: color-val("unknown"); // Returns null
  */
-@function color($key, $map: $colors) {
+@function color-val($key, $map: $colors) {
   // Early return null as color is null
   @if $key == null {
     @return null;
@@ -69,7 +69,7 @@
   }
 
   // Retrieve the actual value from the map
-  @return color($color-key, $map);
+  @return color-val($color-key, $map);
 }
 
 /** ============ RESOLVE COLOR ============ //

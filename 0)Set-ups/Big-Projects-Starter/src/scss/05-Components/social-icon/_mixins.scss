@@ -3,11 +3,10 @@
 @use "../../01-Globals" as globals;
 @use "../../02-Functions" as *;
 @use "../../03-Design-System" as *;
-@use "mapping" as *;
 @use "helpers" as *;
 @use "variables" as *;
 
-/** ============ SOCIAL ICONS ============ //
+/** ============ SOCIAL ICON ============ //
  * A mixin to apply the base styles for social icons, including size, structure,
  * and delegating color and hover logic to the `social-icon-colors` mixin.
  *
@@ -29,12 +28,12 @@
   $icon-name,
   $official: false,
   $official-on-hover: false,
-  $category: map.get($social-icon-mapping, defaults, size),
+  $category: map.get($social-icon-defaults, size),
   $custom-styles: ()
 ) {
   // Validate the icon
-  @if not list.index(map.get($social-icon-mapping, available), $icon-name) {
-    @error "Invalid icon '#{$icon-name}'. Available icons: #{map.get($social-icon-mapping, available)}.";
+  @if not list.index($available-social-icons, $icon-name) {
+    @error "Invalid icon '#{$icon-name}'. Available icons: #{$available-social-icons}.";
   }
 
   // Base styles
@@ -61,7 +60,7 @@
   @include social-icon-colors($official, $official-on-hover, $icon-name);
 }
 
-/** ============ SOCIAL ICON COLOR VARIATION ============ //
+/** ============ SOCIAL ICON COLOR ============ //
  * A mixin to apply color styles for social icons, including official colors, hover states,
  * and gradient styles for icons that support gradients (e.g., Instagram).
  *
@@ -84,8 +83,8 @@
   }
 
   // Error handling for invalid icons
-  @if not list.index(map.get($social-icon-mapping, available), $icon) {
-    @error "Invalid icon '#{$icon}'. Available icons: #{map.get($social-icon-mapping, available)}.";
+  @if not list.index($available-social-icons, $icon) {
+    @error "Invalid icon '#{$icon}'. Available icons: #{$available-social-icons}.";
   }
 
   // Determine colors
@@ -94,7 +93,7 @@
   $hover-color: map.get($default-social-icon-styles, hover-color);
 
   // Check if the icon uses a gradient
-  $is-gradient: list.index(map.get($social-icon-mapping, gradient), $icon);
+  $is-gradient: list.index($gradient-social-icons, $icon);
 
   i {
     @if $official {
@@ -147,9 +146,9 @@
  *   }
  * }
  */
-@mixin social-icon-size($size: map.get($social-icon-mapping, defaults, size)) {
+@mixin social-icon-size($size: map.get($social-icon-defaults, size)) {
   // Retrieve size values
-  $size-values: map.get($social-icon-mapping, sizes, $size);
+  $size-values: map.get($social-icon-sizes, $size);
 
   @if $size-values == null {
     @warn "Size '#{$size}' is not defined in the social icon mapping.";
@@ -161,91 +160,4 @@
   font-size: $font-size;
   width: $dimensions;
   height: $dimensions;
-}
-
-
-@mixin social-icons2(
-  $official: false,
-  $official-on-hover: false,
-  $category: map.get($social-icon-mapping,"defaults", size),
-  $custom-styles: ()
-) {
-    $dynamic-social-icon-styles: (
-      font-size: map.get($social-icon-mapping, "sizes", $category, "font-size"),
-      size: map.get($social-icon-mapping, "sizes", $category, "size"),
-    );
-
-    $default-styles: map.merge($default-social-icon-styles, $dynamic-social-icon-styles);
-    $merged-styles: map.merge($default-styles, $custom-styles);
-
-    $color: map.get($merged-styles, color);
-    $hover-color: map.get($merged-styles, hover-color);
-    $font-size: map.get($merged-styles, font-size);
-    $size: map.get($merged-styles, size);
-    $bg-color: map.get($merged-styles, bg-color);
-    $hover-bg-color: map.get($merged-styles, hover-bg-color);
-    $padding: map.get($merged-styles, padding);
-    $border-radius: map.get($merged-styles, border-radius);
-    $box-shadow: map.get($merged-styles, box-shadow);
-    $transition: map.get($merged-styles, transition);
-
-    @include center-flex();
-    font-size: $font-size;
-    padding: $padding;
-    width: $size;
-    height: $size;
-    background-color: $bg-color;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    transition: $transition;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $hover-bg-color;
-    }
-
-    @each $icon, $default-color in $social-icon-colors {
-       // Error Handling: Ensure $icon exists in the available icons map
-      @if not list.index(map.get($social-icon-mapping, available), $icon) {
-        @error "Invalid icon '#{$icon}' passed. Please use one of: #{map.get($social-icon-mapping, available)}}.";
-      }
-
-      // Determine base/hover colors
-      $final-color: if($official, get-color(#{$icon}), $color);
-      $final-hover-color: if($official-on-hover, get-color(#{$icon}), $hover-color);
-
-    &--#{$icon} {
-        i {
-          // Gradient Icon
-          @if list.index(map.get($social-icon-mapping, gradient), $icon) {
-            @if $official {
-              @include generate-icon-gradient-style($icon, true);
-            } @else {
-              color: $final-color;
-            }
-          }
-
-          // Single Color Icon
-          @else {
-            color: $final-color;
-          }
-        }
-
-        // Apply hover styles on the parent, affecting the i element inside
-        &:hover {
-          i {
-            @if list.index(map.get($social-icon-mapping, gradient), $icon) {
-              @if $official-on-hover {
-                @include generate-icon-gradient-style($icon, true);
-              } @else {
-                @include generate-icon-gradient-style($icon, false);
-                color: $final-hover-color;
-              }
-            } @else {
-              color: $final-hover-color;
-            }
-          }
-        }
-    }
-  }
 }

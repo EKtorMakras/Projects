@@ -4,13 +4,21 @@
 @use "../../03-Design-System" as *;
 @use "mapping" as *;
 
-$default_social_icon_size: map.get($social-icon-mapping, "defaults", "size");
+$default-social-icon-size: map.get($social-icon-mapping, "defaults", "size");
+
+$available-social-icons: map.get($social-icon-mapping, "available");
+$gradient-social-icons: map.get($social-icon-mapping, "gradient");
+
+$social-icon-sizes: map.get($social-icon-mapping, "sizes");
+$social-icon-defaults: map.get($social-icon-mapping, "defaults");
+
+$social-icon-scale: map.get($social-icon-mapping, "transform", "scale");
 
 $default-social-icon-styles: (
   color: get-color(socials),
   hover-color: get-color(socials-hover),
-  font-size: map.get($social-icon-mapping, "sizes", $default_social_icon_size, "font-size"),
-  size: map.get($social-icon-mapping, "sizes", $default_social_icon_size, "size"),
+  font-size: map.get($social-icon-sizes, $default-social-icon-size, "font-size"),
+  size: map.get($social-icon-sizes, $default-social-icon-size, "size"),
   border-radius: get-css-var($radius-prefix, circle),
   transition: globals.$transition,
   bg-color: null,
@@ -21,9 +29,8 @@ $default-social-icon-styles: (
 
 $social-icon-colors: ();
 
-@each $icon in map.get($social-icon-mapping, available) {
+@each $icon in $available-social-icons {
   $social-icon-colors: map.merge($social-icon-colors, (
     $icon: get-color(#{$icon})
   ));
 }
-

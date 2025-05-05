@@ -19,10 +19,10 @@
  *
  * @example
  * Custom focus state with larger shadows and different colors
- * @include focus-state(color("secondary"), 6px, color("grey.50"), 5px);
+ * @include focus-state(color-val("secondary"), 6px, color-val("grey.50"), 5px);
  */
 @mixin focus-state(
-  $color: color(primary-500),
+  $color: color-val(primary-500),
   $outline-offset: 4px,
   $box-shadow-color: #fff,
   $box-shadow-size: 3px
@@ -53,11 +53,11 @@
  *
  * @example
  * Custom underline with a height of 3px and offset of -2px
- * @include link-underline(color("blue"), center, (height: 3px, offset: -2px), "teal");
+ * @include link-underline(color-val("blue"), center, (height: 3px, offset: -2px), "teal");
  *
  * @example
  * Changing only the hover color
- * @include link-underline(color("black"), center, (offset: -3px), "#4d1569");
+ * @include link-underline(color-val("black"), center, (offset: -3px), "#4d1569");
  */
 
 @mixin link-underline(

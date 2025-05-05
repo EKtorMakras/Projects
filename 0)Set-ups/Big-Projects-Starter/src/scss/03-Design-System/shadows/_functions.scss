@@ -28,17 +28,25 @@
  *
  * The function accepts a size and a color options map (e.g., color and css var flag),
  * and merges the passed color options with default shadow options. It can output either a
- * CSS variable or the actual color value based on the `css-var` flag.
+ * CSS variable with dynamically adjusted alpha or the actual color value based on the `css-var` flag.
+ *
+ * ### Key Features:
+ * - Dynamically adjusts alpha (opacity) for CSS variables using `hsl(from ...)`.
+ * - Supports multiple shadow layers for enhanced effects.
+ * - Allows customization of shadow size, color, opacity, and type (box or text shadows).
  *
  * @param {String} $size - The shadow size (e.g., "sm-1", "rg-2", etc.), which corresponds to predefined shadow sizes.
  * @param {Map} $passed-color-options - (Optional) A map containing color options, such as:
- *                                        - color: The color name (e.g., "primary-500", "shadow") or an actual color (e,g                                                  "#3300ff").
+ *                                        - color: The color name (e.g., "primary-500", "shadow") or an actual color (e.g., "#3300ff").
  *                                        - css-var: (Optional) A flag to use the true color value or a CSS variable.
  *                                      If no options are passed, defaults will be used.
  * @param {Number} $opacity - (Optional) The opacity value for the shadow. If not provided, it uses predefined opacity.
  * @param {String} $type - The shadow type (e.g., "box" for box shadows or "text" for text shadows).
  *
- * @return {String} - The generated shadow string, either as an rgba() string with true color or a CSS variable.
+ * @return {String} - The generated shadow string, either as an `hsl(from ...)` string with dynamically adjusted alpha for CSS variables
+ *                    or as an `rgba()` string with true color values.
+ *
+ * ### Examples:
  *
  * @example
  * Generate a shadow with default shadow color
@@ -52,13 +60,18 @@
  *
  * @example
  * Generate a shadow using true color value for primary 600
- * $true-primary-shadow: generate-shadow(sm-2, (color: "primary-600",, css-var: false));
- * Output: "0 2px 4px rgba(hsl(173, 58%, 35%), 0.1)"
+ * $true-primary-shadow: generate-shadow(sm-2, (color: "primary-600", css-var: false));
+ * Output: "0 2px 4px rgba(173, 58%, 35%, 0.1)"
  *
  * @example
  * Generate a custom shadow using #334ff with 0.3 opacity
  * $custom-shadow: generate-shadow(lg-3, (color: "#334ff"), 0.3);
- * Output: "0 4px 6px rgba(#334ff, 0.3)"
+ * Output: "0 4px 6px rgba(51, 68, 255, 0.3)"
+ *
+ * @example
+ * Generate a multi-layered shadow with a secondary color and reduced opacity
+ * $multi-layer-shadow: generate-shadow(lg-3, (color: "secondary-600", css-var: true), -0.1);
+ * Output: "0 6px 8px hsl(from var(--clr-secondary-600) h s l / -0.1), 0 10px 20px hsl(from var(--clr-secondary-600) h s l / -0.1)"
  */
 @function generate-shadow(
   $size: sm-1,
@@ -66,13 +79,19 @@
   $opacity: null,
   $type: box
 ) {
-  // 1. Retrieve default shadow color options from the mapping
+  // Retrieve default shadow color options from the mapping
   $default-color-options: map.get($shadow-mapping, "defaults", "color-options");
 
-  // 2. Merge passed options with the default options
+  // Merge passed options with the default options
   $color-options: map.merge($default-color-options, $passed-color-options);
 
-  // 3. Determine the shadow value based on type
+  // Use resolve-color to get either a CSS variable or the actual color value
+  $color: resolve-color($color-options);
+
+  // Determine if we use css var or not
+  $is-css-var: is-css-var($color);
+
+  // Determine the shadow value based on type
   $shadow-value: null;
 
   @if $type == box {
@@ -83,17 +102,24 @@
     $shadow-value: map.get($shadow-mapping,"text", $size);
   }
 
-  // 4. Determine the size category using the helper function
+  // Determine the size category using the helper function
   $category: get-shadow-category($size);
 
-  // 5. Get the corresponding opacity from the opacity map or use custom if provided
+  // Get the corresponding opacity from the opacity map or use custom if provided
   $default-opacity: map.get($shadow-mapping,"categories", $category, "opacity");
   $final-opacity: if($opacity != null, $opacity, $default-opacity);
 
-  // 6. Use resolve-color to get either a CSS variable or the actual color value
-  $color: resolve-color($color-options);
+  // Adjust the color if we have passed opacity
+  @if($is-css-var){
+    @if ($opacity != null){
+      $color: hsl(from #{$color} h s l / #{$final-opacity});
+    }
+  }
+  @else {
+    $color: rgba($color, $final-opacity)
+  }
 
-  // 7. Construct the final shadow string
+  // Construct the final shadow string
   $shadow-string: null;
 
   // Handle multiple shadows
@@ -111,12 +137,8 @@
 
   // Handle single shadow
   @else {
-    $shadow-string: if($use-css-var, #{$shadow-value} #{$color}, #{$shadow-value} rgba(#{$color}, $final-opacity));
+    $shadow-string: #{$shadow-value} #{$color};
   }
 
   @return $shadow-string;
 }
-
-
-
-

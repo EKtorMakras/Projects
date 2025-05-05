@@ -268,7 +268,7 @@
  *
  * @param {String} $type - (Optional) The type of pseudo-element, either "before" or "after". Defaults to "after".
  * @param {String} $content - (Optional) The content for the pseudo-element. Defaults to an empty string.
- * @param {String} $bgColor - (Optional) The background color of the overlay. Defaults to `rgba(color("black"), 0.3)`.
+ * @param {String} $bgColor - (Optional) The background color of the overlay. Defaults to `rgba(color-val("black"), 0.3)`.
  * @param {Number} $opacity - (Optional) The opacity of the overlay. Defaults to 1.
  * @param {Number} $zIndex - (Optional) The z-index of the overlay. Defaults to -1.
  * @param {String} $position - (Optional) The position of the overlay. Defaults to "absolute".
@@ -286,7 +286,7 @@
 @mixin create-overlay(
   $type: after,
   $content: "",
-  $bg-color: rgba(color("black"), 0.3),
+  $bg-color: rgba(color-val("black"), 0.3),
   $opacity: 1,
   $z-index: -1,
   $position: absolute,
