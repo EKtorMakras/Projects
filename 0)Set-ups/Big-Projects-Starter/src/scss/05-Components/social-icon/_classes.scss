@@ -1,6 +1,6 @@
-@use "../../01-Globals" as globals;
-@use "../../03-Design-System" as *;
-@use "../../04-Generic/" as *;
+@use "~/01-Globals" as globals;
+@use "~/03-Design-System" as *;
+@use "~/04-Generic/" as *;
 @use "mixins" as *;
 @use "variables" as *;
 @use "sass:map";

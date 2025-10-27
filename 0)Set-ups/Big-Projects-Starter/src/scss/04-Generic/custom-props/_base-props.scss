@@ -1,7 +1,7 @@
 @use "sass:map";
-@use "../../01-Globals" as globals;
-@use "../../02-Functions" as *;
-@use "../../03-Design-System/" as *;
+@use "~/01-Globals" as globals;
+@use "~/02-Functions" as *;
+@use "~/03-Design-System/" as *;
 @use "helpers" as *;
 
 :root {
@@ -57,5 +57,3 @@
     --max-width: calc(#{globals.$max-width} * 1.2);
   }
 }
-
-

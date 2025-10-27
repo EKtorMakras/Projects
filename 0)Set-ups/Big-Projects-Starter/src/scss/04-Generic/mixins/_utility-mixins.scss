@@ -1,7 +1,7 @@
 @use 'sass:list';
 @use 'sass:meta';
-@use "../../01-Globals" as globals;
-@use "../../02-Functions" as *;
+@use "~/01-Globals" as globals;
+@use "~/02-Functions" as *;
 
 //% ***************  Units  *************** //
 /** ============ DYNAMIC VIEWPORT WIDTH (DVW) ============ //

@@ -1,4 +1,4 @@
-@use "../../01-Globals" as globals;
+@use "~/01-Globals" as globals;
 
 $spacing-mapping: (
   base-gutter: globals.$base_gutter,

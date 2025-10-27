@@ -4,7 +4,7 @@
 @use "sass:string";
 @use 'sass:list';
 @use 'sass:color';
-@use "../01-Globals" as globals;
+@use "~/01-Globals" as globals;
 
 //% ************************* General ************************* //
 /** ============ CALL FUNCTIONS ============ //
@@ -1037,6 +1037,3 @@
   }
 }
 //% *************************  ************************* //
-
-
-

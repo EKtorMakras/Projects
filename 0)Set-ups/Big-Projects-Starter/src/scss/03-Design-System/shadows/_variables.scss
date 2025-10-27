@@ -2,7 +2,7 @@
 @use "sass:meta";
 @use "sass:string";
 @use "sass:list";
-@use "../../02-Functions" as *;
+@use "~/02-Functions" as *;
 @use "mapping" as *;
 
 $shadow-prefix: get-prefix(shadow);

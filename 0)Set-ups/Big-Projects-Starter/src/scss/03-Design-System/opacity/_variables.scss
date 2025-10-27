@@ -1,4 +1,4 @@
-@use "../../02-Functions" as *;
+@use "~/02-Functions" as *;
 @use "sass:map";
 
 $opacity-prefix: get-prefix(opacity);
@@ -28,4 +28,3 @@ $numeric-opacities: ();
 
 // Merge the two maps into a final opacities map
 $opacities: map.merge($named-opacities, $numeric-opacities);
-

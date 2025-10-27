@@ -2,7 +2,7 @@
 @use "sass:meta";
 @use 'sass:list';
 @use "sass:string";
-@use "../../02-Functions" as *;
+@use "~/02-Functions" as *;
 @use "../colors/functions" as *;
 @use "mapping" as *;
 @use "helpers" as *;

@@ -1,4 +1,4 @@
-@use "../../02-Functions" as *;
+@use "~/02-Functions" as *;
 
 $z-index-prefix: get-prefix(z-index);
 

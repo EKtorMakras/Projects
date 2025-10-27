@@ -1,5 +1,5 @@
 @use "sass:map";
-@use "../../01-Globals" as globals;
+@use "~/01-Globals" as globals;
 
 $grid-mapping: (
   total-columns: 12,

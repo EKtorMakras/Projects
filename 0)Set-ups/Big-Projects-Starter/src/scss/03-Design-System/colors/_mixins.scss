@@ -3,8 +3,8 @@
 @use 'sass:meta';
 @use 'sass:color';
 @use 'sass:string';
-@use "../../01-Globals" as globals;
-@use "../../02-Functions" as *;
+@use "~/01-Globals" as globals;
+@use "~/02-Functions" as *;
 @use "functions" as *;
 @use "variables" as *;
 

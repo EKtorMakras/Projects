@@ -1,5 +1,5 @@
-@use "../../01-Globals" as globals;
-@use "../../03-Design-System" as *;
+@use "~/01-Globals" as globals;
+@use "~/03-Design-System" as *;
 
 // center text
 @each $val in globals.$text-align-values {

@@ -1,0 +1,19 @@
+
+$footer-mapping: (
+  default-category: "main",
+  position: fixed,
+  z-index: 10,
+  width: 100%,
+  bg-color: "footer-bg",
+  sizes: (
+    sm: (
+      padding: "0.8rem 1.5rem",
+    ),
+    rg: (
+      padding: "1.2rem 2.5rem",
+    ),
+    lg: (
+      padding: "1.6rem 3rem",
+    ),
+  )
+);

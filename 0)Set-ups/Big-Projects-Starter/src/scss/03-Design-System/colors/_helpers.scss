@@ -1,4 +1,4 @@
-@use "../../02-Functions" as *;
+@use "~/02-Functions" as *;
 
 /** ============ GENERATE COLOR UTILITIES ============ //
  * Generates utility classes for text color, background color, and their hover states
@@ -41,6 +41,3 @@
     }
   }
 }
-
-
-

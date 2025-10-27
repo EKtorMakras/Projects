@@ -1,6 +1,6 @@
-@use "../01-Globals" as globals;
-@use "../02-Functions" as *;
-@use "../03-Design-System/" as *;
+@use "~/01-Globals" as globals;
+@use "~/02-Functions" as *;
+@use "~/03-Design-System/" as *;
 
 body {
   font-family: $ff-primary;

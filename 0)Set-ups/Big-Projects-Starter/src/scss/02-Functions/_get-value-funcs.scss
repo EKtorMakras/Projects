@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "sass:meta";
 @use "sass:string";
-@use "../01-Globals" as globals;
+@use "~/01-Globals" as globals;
 @use "helper-funcs" as *;
 
 //% *************** Get Value *************** //
@@ -225,4 +225,3 @@
 
   @return $result;
 }
-

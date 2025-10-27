@@ -1,6 +1,6 @@
 @use "sass:map";
-@use "../../01-Globals" as globals;
-@use "../../02-Functions" as *;
+@use "~/01-Globals" as globals;
+@use "~/02-Functions" as *;
 @use "mapping" as *;
 
 $spacer-prefix: get-prefix(spacer);

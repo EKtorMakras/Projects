@@ -1,7 +1,7 @@
 @use "sass:math";
-@use "../../01-Globals" as globals;
-@use "../../04-Generic" as *;
-@use "../../03-Design-System" as *;
+@use "~/01-Globals" as globals;
+@use "~/04-Generic" as *;
+@use "~/03-Design-System" as *;
 @use "helpers" as *;
 
 .row {

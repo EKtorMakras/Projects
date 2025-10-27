@@ -2,9 +2,9 @@
 @use "sass:map";
 @use "sass:string";
 @use "sass:list";
-@use "../../01-Globals" as globals;
-@use "../../02-Functions" as *;
-@use "../../03-Design-System" as *;
+@use "~/01-Globals" as globals;
+@use "~/02-Functions" as *;
+@use "~/03-Design-System" as *;
 
 /** ============ BORDER ============ //
  * Mixin to apply a border with customizable width, style, and color.

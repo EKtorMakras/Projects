@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "sass:string";
-@use "../../01-Globals" as globals;
-@use "../../03-Design-System" as *;
+@use "~/01-Globals" as globals;
+@use "~/03-Design-System" as *;
 @use "mapping" as *;
 
 $default-header-category: map.get($header-mapping, default-category);
@@ -14,4 +14,3 @@ $default-header-styles: (
   shadow: shadow-black(sm-3),
   padding: string.unquote(map.get($header-mapping, sizes, $default-header-category, padding)),
 );
-

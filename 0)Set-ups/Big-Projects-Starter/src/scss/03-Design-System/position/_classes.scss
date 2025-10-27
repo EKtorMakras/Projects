@@ -1,4 +1,4 @@
-@use "../../01-Globals" as globals;
+@use "~/01-Globals" as globals;
 @use "helpers" as *;
 
 @each $value in globals.$position-values {
