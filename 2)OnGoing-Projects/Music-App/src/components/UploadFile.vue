@@ -3,7 +3,7 @@
     <div class="bg-white rounded border border-gray-200 relative flex flex-col">
       <!-- Header -->
       <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-        <span class="card-title">Upload</span>
+        <span class="card-title">{{ t("upload.upload") }}</span>
         <i class="fas fa-upload float-right text-green-400 text-2xl"></i>
       </div>
 
@@ -20,7 +20,7 @@
           @dragleave.prevent.stop="is_dragover = false"
           @drop.prevent="upload"
         >
-          <h5>Drop your files here</h5>
+          <h5>{{ t("upload.dropHere") }}</h5>
         </div>
 
         <input type="file" multiple @change="upload($event)" />
@@ -51,11 +51,17 @@
 
 <script>
 import { storage, auth, songsCollection } from "@/includes/firebase";
+import { useI18n } from "vue-i18n";
 
 export default {
   name: "UploadFile",
 
   props: ["addSong"],
+
+  setup() {
+    const { t } = useI18n();
+    return { t };
+  },
 
   data() {
     return {
@@ -76,6 +82,18 @@ export default {
       files.forEach((file) => {
         if (file.type === "audio/mpeg") {
           this.startUpload(file);
+        }
+        if (!navigator.onLine) {
+          this.uploads.push({
+            task: {},
+            currentProgress: 100,
+            name: file.name,
+            variance: "bg-red-400",
+            icon: "fas fa-times",
+            text_class: "text-red-400",
+          });
+
+          return;
         }
       });
     },
@@ -136,7 +154,6 @@ export default {
 
       return {
         uid: auth.currentUser.uid,
-        display_name: auth.currentUser.displayName,
         original_name: task.snapshot.ref.name,
         modified_name: task.snapshot.ref.name,
         genre: "",

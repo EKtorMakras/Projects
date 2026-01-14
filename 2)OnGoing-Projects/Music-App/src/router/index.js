@@ -1,40 +1,62 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import AboutView from "@/views/AboutView.vue";
-import ManageView from "@/views/ManageView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 import useUserStore from "@/stores/user.js";
+
+const Home = () => import("@/views/HomeView.vue");
+const Manage = () => import("@/views/ManageView.vue");
+const About = () => import("@/views/AboutView.vue");
+const Song = () => import("@/views/SongView.vue");
+const Settings = () => import("@/views/SettingsView.vue");
+const NotFound = () => import("@/views/NotFoundView.vue");
 
 const routes = [
   {
     name: "home",
     path: "/",
-    component: HomeView,
+    component: Home,
   },
   {
     name: "about",
     path: "/about",
-    component: AboutView,
+    component: About,
   },
   {
     name: "manage",
     path: "/manage-music",
-    component: ManageView,
+    component: Manage,
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    name: "settings",
+    path: "/settings",
+    component: Settings,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    name: "song",
+    path: "/song/:id",
+    component: Song,
   },
   {
     path: "/manage",
     redirect: { name: "manage" },
   },
   {
+    name: "notfound",
+    path: "/404/:title?/:message?",
+    component: NotFound,
+  },
+  {
     path: "/:pathMatch(.*)*",
-    redirect: { name: "home" },
+    component: NotFound,
   },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   linkExactActiveClass: "text-yellow-500",
 });

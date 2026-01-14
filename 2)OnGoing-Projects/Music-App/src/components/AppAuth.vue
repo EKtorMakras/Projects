@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-10 inset-0 overflow-y-auto"
+    class="fixed z-[999] inset-0 overflow-y-auto isolate"
     id="modal"
     :class="hiddenClass"
   >
@@ -23,7 +23,7 @@
         <div class="py-4 text-left px-6">
           <!--Title-->
           <div class="flex justify-between items-center pb-4">
-            <p class="text-2xl font-bold">Your Account</p>
+            <p class="text-2xl font-bold">{{ $t("auth.yourAccount") }}</p>
             <!-- Modal Close Button -->
             <div class="modal-close cursor-pointer z-50" @click="closeModal">
               <i class="fas fa-times"></i>
@@ -41,7 +41,7 @@
                 }"
                 href="#"
                 @click="changeTab('login')"
-                >Login</a
+                >{{ $t("auth.login") }}</a
               >
             </li>
             <li class="flex-auto text-center">
@@ -54,7 +54,7 @@
                 href="#"
                 @click="changeTab('register')"
               >
-                Register</a
+                {{ $t("auth.register") }}</a
               >
             </li>
           </ul>

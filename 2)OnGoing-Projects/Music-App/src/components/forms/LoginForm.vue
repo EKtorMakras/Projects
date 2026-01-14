@@ -13,24 +13,24 @@
     <vee-form :validation-schema="loginSchema" @submit="login">
       <!-- Email -->
       <div class="mb-3">
-        <label class="inline-block mb-2">Email</label>
+        <label class="inline-block mb-2">{{ $t("auth.email") }}</label>
         <vee-field
           name="email"
           type="email"
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="Enter Email"
+          :placeholder="$t('auth.enterEmail')"
         />
         <ErrorMessage name="email" class="text-red-600" />
       </div>
 
       <!-- Password -->
       <div class="mb-3">
-        <label class="inline-block mb-2">Password</label>
+        <label class="inline-block mb-2">{{ $t("auth.password") }}</label>
         <vee-field
           name="password"
           type="password"
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="Password"
+          :placeholder="$t('auth.enterPassword')"
         />
         <ErrorMessage name="password" class="text-red-600" />
       </div>
@@ -41,7 +41,7 @@
         class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
         :disabled="loginInSubmission"
       >
-        Submit
+        {{ $t("auth.submit") }}
       </button>
     </vee-form>
   </div>

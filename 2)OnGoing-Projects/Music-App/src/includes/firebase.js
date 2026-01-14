@@ -4,12 +4,11 @@ import "firebase/firestore";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDKixPHjBl0dRet5LP3YWbKJLQPt_UFvGs",
-  authDomain: "music-app-88aaf.firebaseapp.com",
-  projectId: "music-app-88aaf",
-  storageBucket: "music-app-88aaf.appspot.com",
-  // messagingSenderId: "759236057471",
-  appId: "1:759236057471:web:c3ad7770313606188a224a",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -18,7 +17,19 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
+db.enablePersistence().catch((err) => {
+  console.log("Firebase persistence error", err.code);
+});
+
 const usersCollection = db.collection("users");
 const songsCollection = db.collection("songs");
+const commentsCollection = db.collection("comments");
 
-export { auth, db, usersCollection, songsCollection, storage };
+export {
+  auth,
+  db,
+  usersCollection,
+  songsCollection,
+  commentsCollection,
+  storage,
+};
