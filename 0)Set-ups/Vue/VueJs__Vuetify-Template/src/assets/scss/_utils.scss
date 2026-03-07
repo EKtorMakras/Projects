@@ -1,0 +1,118 @@
+// ========= General ========= //
+
+// ========= Sizing ========= //
+.min-h-screen {
+    min-height: 100dvh !important;
+}
+
+// ========= Shadows ========= //
+.shadow-light {
+    box-shadow: var(--shadow-light) !important;
+}
+.shadow-dark {
+    box-shadow: var(--shadow-dark) !important;
+}
+
+// ======== Transitions ========= //
+.transition-base {
+    transition: var(--transition-base) !important;
+}
+.transition-fast {
+    transition: var(--transition-fast) !important;
+}
+.transition-slow {
+    transition: var(--transition-slow) !important;
+}
+
+// ========= Text Utilities ========= //
+// Text clamp utilities for multiline text truncation
+// Generates .text-clamp-1 through .text-clamp-10
+@for $i from 1 through 10 {
+    .text-clamp-#{$i} {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $i;
+        line-clamp: $i;
+        overflow: hidden;
+    }
+}
+
+// ========= Spacing ========= //
+// Generate margin and padding utilities from 16 to 32, incrementing by 2
+// This extends beyond typical framework limits for more granular control
+@for $i from 8 through 16 {
+    $value: $i * 2; // This creates 16, 18, 20, 22, 24, 26, 28, 30, 32
+    $spacing: #{$value * 4}px; // Convert to pixels (16*4=64px, 18*4=72px, etc.)
+
+    // Margin Utilities
+    // ----------------
+    // All sides margin
+    .ma-#{$value} {
+        margin: $spacing !important;
+    }
+
+    // Horizontal margin (left + right)
+    .mx-#{$value} {
+        margin-left: $spacing !important;
+        margin-right: $spacing !important;
+    }
+
+    // Vertical margin (top + bottom)
+    .my-#{$value} {
+        margin-top: $spacing !important;
+        margin-bottom: $spacing !important;
+    }
+
+    // Individual sides
+    .mt-#{$value} {
+        margin-top: $spacing !important;
+    }
+
+    .mr-#{$value} {
+        margin-right: $spacing !important;
+    }
+
+    .mb-#{$value} {
+        margin-bottom: $spacing !important;
+    }
+
+    .ml-#{$value} {
+        margin-left: $spacing !important;
+    }
+
+    // Padding Utilities
+    // -----------------
+    // All sides padding
+    .pa-#{$value} {
+        padding: $spacing !important;
+    }
+
+    // Horizontal padding (left + right)
+    .px-#{$value} {
+        padding-left: $spacing !important;
+        padding-right: $spacing !important;
+    }
+
+    // Vertical padding (top + bottom)
+    .py-#{$value} {
+        padding-top: $spacing !important;
+        padding-bottom: $spacing !important;
+    }
+
+    // Individual sides
+    .pt-#{$value} {
+        padding-top: $spacing !important;
+    }
+
+    .pr-#{$value} {
+        padding-right: $spacing !important;
+    }
+
+    .pb-#{$value} {
+        padding-bottom: $spacing !important;
+    }
+
+    .pl-#{$value} {
+        padding-left: $spacing !important;
+    }
+}

@@ -1,0 +1,21 @@
+
+$nav-mapping: (
+  default-category: "rg",
+  sizes: (
+    sm: (
+      gap: "1rem",
+      padding: "0.5rem 0.8rem",
+      font-size: "xs",
+    ),
+    rg: (
+      gap: "1.5rem",
+      padding: "0.6rem 1rem",
+      font-size: "sm",
+    ),
+    lg: (
+      gap: "2rem",
+      padding: "0.8rem 1.2rem",
+      font-size: "rg",
+    ),
+  )
+);

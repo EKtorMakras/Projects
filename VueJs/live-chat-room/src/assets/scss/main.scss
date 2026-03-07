@@ -1,0 +1,45 @@
+@use "sass:color";
+
+$primary-color: #40c3ab;
+
+:root {
+    --color-primary: #40c3ab;
+}
+
+body {
+    background: #e3e1ff;
+    color: #444;
+}
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 80px auto;
+    border-radius: 20px;
+    box-shadow: 2px 4px 6px rgba(28, 6, 49, 0.1);
+    background: white;
+}
+.error {
+    color: #ff3f80;
+    font-size: 14px;
+}
+
+button {
+    text-decoration: none;
+    font-weight: bold;
+    border: 0;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn {
+    &--primary {
+        background: $primary-color;
+        color: white;
+
+        &:hover {
+            background: color.adjust($primary-color, $lightness: -10%);
+        }
+    }
+}

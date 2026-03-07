@@ -1,0 +1,42 @@
+{
+    "name": "nuxt-app",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "ds:build": "node scripts/build-theme-css.js",
+        "ds:watch": "node scripts/watch-tokens.js",
+        "build": "npm run ds:build && nuxt build",
+        "dev": "npm run ds:build && concurrently \"npm run ds:watch\" \"nuxt dev\" --kill-others",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix",
+        "start": "node .output/server/index.mjs"
+    },
+    "dependencies": {
+        "@nuxt/eslint": "^1.7.1",
+        "@pinia/nuxt": "^0.11.3",
+        "dayjs": "^1.11.19",
+        "eslint": "^9.32.0",
+        "nuxt": "^4.0.1",
+        "pinia": "^3.0.4",
+        "vue": "^3.5.18",
+        "vue-i18n": "^11.2.8",
+        "vue-router": "^4.5.1"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.2.0",
+        "@typescript-eslint/eslint-plugin": "^8.56.0",
+        "@typescript-eslint/parser": "^8.56.0",
+        "autoprefixer": "^10.4.21",
+        "chroma-js": "^3.2.0",
+        "concurrently": "^9.2.1",
+        "eslint-plugin-vue": "^10.4.0",
+        "sass": "^1.89.2",
+        "tailwindcss": "^4.2.0",
+        "vite": "^7.3.1"
+    },
+    "engines": {
+        "node": ">=20.x"
+    }
+}

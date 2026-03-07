@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <!-- Font-awesome -->
+    <script
+      src="https://kit.fontawesome.com/a9c97bd30a.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700;800&family=Indie+Flower&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Js -->
+    <script
+      src="./src/js/main.js"
+      type="module"
+    ></script>
+
+    <title>Showcase - Components & Design System</title>
+  </head>
+
+  <body>
+    <div class="app">
+      <!--* ***************************************  Header  *************************************** -->
+      <header class="header">
+        <div
+          class="logo-wrapper"
+          style="grid-area: logo"
+        >
+          <a href="index.html">
+            <img
+              src="./src/assets/images/logo-example.png"
+              alt="logo"
+              class="logo"
+              style="height: 50px"
+            />
+          </a>
+        </div>
+
+        <nav
+          class="nav ml-8"
+          style="grid-area: nav"
+        >
+          <li class="nav-item">
+            <a
+              href="index.html"
+              class="nav-link"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              href="showcase.html"
+              class="nav-link nav-link--active"
+              >Showcase</a
+            >
+          </li>
+        </nav>
+
+        <div
+          class="header-actions"
+          style="grid-area: actions; display: flex; gap: 1rem; align-items: center"
+        >
+          <button
+            id="hamburger-btn"
+            class="hamburger-btn"
+            aria-label="Toggle menu"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <button
+            id="btn"
+            class="btn d-xl-grid btn-rg flex-sm-1-1-fill ma-2 radius-3 l-spacing-4"
+          >
+            Change Theme
+          </button>
+        </div>
+      </header>
+      <!--* ***************************************  End Of Header  *************************************** -->
+
+      <!--* ***************************************  Sidebar  *************************************** -->
+      <aside
+        id="sidebar"
+        class="sidebar"
+      >
+        <nav class="sidebar-nav">
+          <ul class="sidebar-menu">
+            <li class="sidebar-item">
+              <a
+                href="index.html"
+                class="sidebar-link"
+                >Home</a
+              >
+            </li>
+            <li class="sidebar-item">
+              <a
+                href="showcase.html"
+                class="sidebar-link"
+                >Showcase</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <!--* ***************************************  End Of Sidebar  *************************************** -->
+
+      <!--* ***************************************  Overlay  *************************************** -->
+      <div
+        id="overlay"
+        class="overlay"
+      ></div>
+      <!--* ***************************************  End Of Overlay  *************************************** -->
+
+      <!--* ***************************************  Main  *************************************** -->
+      <main class="main">
+        <div class="container">
+          <!-- % ***************  Typography  ***************  -->
+          <div class="showcase-section showcase-section--typography">
+            <h2 class="mb-8 opacity-60 text-uppercase">typography</h2>
+
+            <!-- Titles -->
+            <div id="titles">
+              <p class="gs-h-6 text-uppercase text-primary-700 mb-1">Titles</p>
+
+              <h1 class="fs-h2xl text-left">XXL Header</h1>
+              <h1 class="fs-hxl text-left">XL Header</h1>
+
+              <div class="row col-gap-xl-5 my-3 align-center mt-3">
+                <h1 class="fs-h1">H1</h1>
+                <h2 class="fs-h2">H2</h2>
+                <h3 class="fs-h3">H3</h3>
+                <h4 class="fs-h4">H4</h4>
+                <h5 class="fs-h5">H5</h5>
+                <h6 class="fs-h6">H6</h6>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="mt-6">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Body</p>
+
+              <div class="row col-gap-5 align-center">
+                <span class="fs-3xl">3xl</span>
+                <span class="fs-2xl">2xl</span>
+                <span class="fs-xl">xl</span>
+                <span class="fs-lg">lg</span>
+                <span class="fs-rg">rg</span>
+                <span class="fs-sm">sm</span>
+                <span class="fs-xs">xs</span>
+                <span class="fs-2xs">2xs</span>
+              </div>
+            </div>
+
+            <!-- Variants -->
+            <div class="mt-6">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">variants</p>
+
+              <div class="row col-gap-5 align-center">
+                <span class="text-disabled">Text Disabled</span>
+                <span class="text-low-emphasis">Text Low Emphasis</span>
+                <span class="text-medium-emphasis">Text Medium Emphasis</span>
+                <span class="text-high-emphasis">Text High Emphasis</span>
+                <span class="text-on-surface">Text Default</span>
+              </div>
+            </div>
+          </div>
+          <!-- % ***************  End Of Typography  ***************  -->
+
+          <!-- % ***************  Colors  ***************  -->
+          <div class="showcase-section showcase-section--colors">
+            <h2 class="mb-8 opacity-60 text-uppercase">colors</h2>
+
+            <!-- Primary -->
+            <div>
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Primary</p>
+
+              <div class="row col-gap-10 row-gap-10">
+                <div class="box bg-primary-50 transition-base">
+                  <p class="text-on-primary-50">Primary-50</p>
+                </div>
+                <div class="box bg-primary-100 transition-base">
+                  <p class="text-on-primary-100">Primary-100</p>
+                </div>
+                <div class="box bg-primary-200 transition-base">
+                  <p class="text-on-primary-200">Primary-200</p>
+                </div>
+                <div class="box bg-primary-300 transition-base">
+                  <p class="text-on-primary-300">Primary-300</p>
+                </div>
+                <div class="box bg-primary-400 transition-base">
+                  <p class="text-on-primary-400">Primary-400</p>
+                </div>
+                <div class="box bg-primary-500 transition-base">
+                  <p class="text-on-primary-500">Primary-500</p>
+                </div>
+                <div class="box bg-primary-600 transition-base">
+                  <p class="text-on-primary-600">Primary-600</p>
+                </div>
+                <div class="box bg-primary-700 transition-base">
+                  <p class="text-on-primary-700">Primary-700</p>
+                </div>
+                <div class="box bg-primary-800 transition-base">
+                  <p class="text-on-primary-800">Primary-800</p>
+                </div>
+                <div class="box bg-primary-900 transition-base">
+                  <p class="text-on-primary-900">Primary-900</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Secondary -->
+            <div class="mt-15">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Secondary</p>
+
+              <div class="row col-gap-10 row-gap-10">
+                <div class="box bg-secondary-50 transition-base">
+                  <p class="text-on-secondary-50">Secondary-50</p>
+                </div>
+                <div class="box bg-secondary-100 transition-base">
+                  <p class="text-on-secondary-100">Secondary-100</p>
+                </div>
+                <div class="box bg-secondary-200 transition-base">
+                  <p class="text-on-secondary-200">Secondary-200</p>
+                </div>
+                <div class="box bg-secondary-300 transition-base">
+                  <p class="text-on-secondary-300">Secondary-300</p>
+                </div>
+                <div class="box bg-secondary-400 transition-base">
+                  <p class="text-on-secondary-400">Secondary-400</p>
+                </div>
+                <div class="box bg-secondary-500 transition-base">
+                  <p class="text-on-secondary-500">Secondary-500</p>
+                </div>
+                <div class="box bg-secondary-600 transition-base">
+                  <p class="text-on-secondary-600">Secondary-600</p>
+                </div>
+                <div class="box bg-secondary-700 transition-base">
+                  <p class="text-on-secondary-700">Secondary-700</p>
+                </div>
+                <div class="box bg-secondary-800 transition-base">
+                  <p class="text-on-secondary-800">Secondary-800</p>
+                </div>
+                <div class="box bg-secondary-900 transition-base">
+                  <p class="text-on-secondary-900">Secondary-900</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grey -->
+            <div class="mt-15">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">grey</p>
+
+              <div class="row col-gap-10 row-gap-10">
+                <div class="box bg-grey-50 transition-base">
+                  <p class="text-on-grey-50">grey-50</p>
+                </div>
+                <div class="box bg-grey-100 transition-base">
+                  <p class="text-on-grey-100">grey-100</p>
+                </div>
+                <div class="box bg-grey-200 transition-base">
+                  <p class="text-on-grey-200">grey-200</p>
+                </div>
+                <div class="box bg-grey-300 transition-base">
+                  <p class="text-on-grey-300">grey-300</p>
+                </div>
+                <div class="box bg-grey-400 transition-base">
+                  <p class="text-on-grey-400">grey-400</p>
+                </div>
+                <div class="box bg-grey-500 transition-base">
+                  <p class="text-on-grey-500">grey-500</p>
+                </div>
+                <div class="box bg-grey-600 transition-base">
+                  <p class="text-on-grey-600">grey-600</p>
+                </div>
+                <div class="box bg-grey-700 transition-base">
+                  <p class="text-on-grey-700">grey-700</p>
+                </div>
+                <div class="box bg-grey-800 transition-base">
+                  <p class="text-on-grey-800">grey-800</p>
+                </div>
+                <div class="box bg-grey-900 transition-base">
+                  <p class="text-on-grey-900">grey-900</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grey-blue -->
+            <div class="mt-15">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">grey-blue</p>
+
+              <div class="row col-gap-10 row-gap-10">
+                <div class="box bg-grey-blue-50 transition-base">
+                  <p class="text-on-grey-blue-50">grey-blue-50</p>
+                </div>
+                <div class="box bg-grey-blue-100 transition-base">
+                  <p class="text-on-grey-blue-100">grey-blue-100</p>
+                </div>
+                <div class="box bg-grey-blue-200 transition-base">
+                  <p class="text-on-grey-blue-200">grey-blue-200</p>
+                </div>
+                <div class="box bg-grey-blue-300 transition-base">
+                  <p class="text-on-grey-blue-300">grey-blue-300</p>
+                </div>
+                <div class="box bg-grey-blue-400 transition-base">
+                  <p class="text-on-grey-blue-400">grey-blue-400</p>
+                </div>
+                <div class="box bg-grey-blue-500 transition-base">
+                  <p class="text-on-grey-blue-500">grey-blue-500</p>
+                </div>
+                <div class="box bg-grey-blue-600 transition-base">
+                  <p class="text-on-grey-blue-600">grey-blue-600</p>
+                </div>
+                <div class="box bg-grey-blue-700 transition-base">
+                  <p class="text-on-grey-blue-700">grey-blue-700</p>
+                </div>
+                <div class="box bg-grey-blue-800 transition-base">
+                  <p class="text-on-grey-blue-800">grey-blue-800</p>
+                </div>
+                <div class="box bg-grey-blue-900 transition-base">
+                  <p class="text-on-grey-blue-900">grey-blue-900</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other -->
+            <div class="mt-15">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Other</p>
+
+              <div class="row col-gap-10 row-gap-10">
+                <div class="box bg-error transition-base">
+                  <p class="text-on-error">Error</p>
+                </div>
+                <div class="box bg-warning transition-base">
+                  <p class="text-on-warning">Warning</p>
+                </div>
+                <div class="box bg-success transition-base">
+                  <p class="text-on-success">Success</p>
+                </div>
+                <div class="box bg-info transition-base">
+                  <p class="text-on-info">Info</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- % ***************  End Of Colors  ***************  -->
+
+          <!-- % ***************  Components  ***************  -->
+          <div class="showcase-section">
+            <h2 class="mb-8 opacity-60 text-uppercase">components</h2>
+
+            <!-- Buttons -->
+            <div>
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-2">Buttons</p>
+
+              <div class="row col-gap-10 row-gap-10 align-start">
+                <button class="btn btn-2xs">2x small</button>
+                <button class="btn btn-xs">X small</button>
+                <button class="btn btn-sm">Small</button>
+                <button class="btn btn-rg">Regular</button>
+                <button class="btn btn-lg">Large</button>
+                <button class="btn btn-xl">X large</button>
+              </div>
+
+              <div class="row col-gap-10 row-gap-10 align-start my-8">
+                <button class="btn btn-secondary-700">Secondary 700</button>
+                <button class="btn btn-secondary-200 btn-outline">Outline</button>
+                <button class="btn btn-error">Error</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-success">Success</button>
+              </div>
+            </div>
+
+            <!-- Social Icons -->
+            <div class="mt-15">
+              <p class="fs-h-6 text-uppercase text-primary-700 mb-2">Social Icons</p>
+
+              <div class="row col-gap-20 row-gap-10">
+                <!-- Sizing -->
+                <div class="socials-wrapper align-center">
+                  <p class="fs-xs text-primary-600">Sizing:</p>
+
+                  <a
+                    class="social-icon social-icon-xs social-icon-facebook"
+                    href="#"
+                  >
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-sm social-icon-instagram"
+                    href="#"
+                  >
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-rg social-icon-linkedin"
+                    href="#"
+                  >
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-lg social-icon-twitter"
+                    href="#"
+                  >
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-xl social-icon-youtube"
+                    href="#"
+                  >
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </div>
+
+                <!-- Official Color -->
+                <div class="socials-wrapper align-center">
+                  <p class="fs-xs text-primary-600">Official Colors:</p>
+
+                  <a
+                    class="social-icon social-icon-facebook official"
+                    href="#"
+                  >
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-instagram official"
+                    href="#"
+                  >
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-linkedin official"
+                    href="#"
+                  >
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-twitter official"
+                    href="#"
+                  >
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-youtube official"
+                    href="#"
+                  >
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </div>
+
+                <!-- Official Color On Hover -->
+                <div class="socials-wrapper align-center">
+                  <p class="fs-xs text-primary-600">Official Colors On Hover:</p>
+
+                  <a
+                    class="social-icon social-icon-facebook official-on-hover"
+                    href="#"
+                  >
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-instagram official-on-hover"
+                    href="#"
+                  >
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-linkedin official-on-hover"
+                    href="#"
+                  >
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-twitter official-on-hover"
+                    href="#"
+                  >
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    class="social-icon social-icon-youtube official-on-hover"
+                    href="#"
+                  >
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- % ***************  End Of Components  ***************  -->
+
+          <div
+            class="test active shadow-9"
+            tabindex="0"
+          >
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+
+          <div>
+            <div class="mt-15">
+              <p
+                class="mb-10 pa-3 radius-5 bg-teal-900 text-grey-300 bg-hover-teal-700 transition-base opacity-high-emphasis shadow-medium"
+              >
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, obcaecati.
+              </p>
+
+              <div class="card d-grid">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing Lorem ipsum dolor sit amet consectetur adipisicing
+                  elit. Facere alias obcaecati sapiente doloribus explicabo laudantium repellat magni quia veritatis a.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!--* ***************************************  End Of Main  *************************************** -->
+
+      <!--* ***************************************  Footer  *************************************** -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">About</h3>
+            <p class="footer-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="showcase.html">Showcase</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3 class="footer-title">Follow Us</h3>
+            <div class="socials-wrapper">
+              <a
+                class="social-icon social-icon-facebook official-on-hover"
+                href="#"
+              >
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a
+                class="social-icon social-icon-instagram official-on-hover"
+                href="#"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                class="social-icon social-icon-linkedin official-on-hover"
+                href="#"
+              >
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a
+                class="social-icon social-icon-twitter official-on-hover"
+                href="#"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Your Company. All rights reserved.</p>
+        </div>
+      </footer>
+      <!--* ***************************************  End Of Footer  *************************************** -->
+    </div>
+  </body>
+</html>

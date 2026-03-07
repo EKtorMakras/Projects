@@ -1,0 +1,53 @@
+// Common mixins
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/** ============ RESPONSIVE GRID ============ //
+ * Responsive grid layout mixin for adjusting the number of columns based on the container size.
+ * Allows customization of the grid's column size, gap, and maximum number of columns.
+ *
+ * @param {String} $size - (Optional) The minimum column size. Defaults to "35rem".
+ * @param {String|Null} $gap - (Optional) The gap between grid items. Defaults to "2rem". If null, no gap is applied.
+ * @param {Number|Null} $max-columns - (Optional) The maximum number of columns. Defaults to null, which allows unlimited columns.
+ *
+ * @example
+ * Responsive grid with default settings
+ * @include responsive-grid();
+ *
+ * @example
+ * Responsive grid with a custom column size, gap, and maximum number of columns
+ * @include responsive-grid(30rem, 1rem, 4);
+ *
+ * @example
+ * Responsive grid with no gap
+ * @include responsive-grid(30rem, null, 4);
+ */
+@mixin responsive-grid($size: 35rem, $gap: 2rem, $max-columns: null) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(#{$size}, 100%), 1fr));
+
+    // If $max-columns is provided, limit the number of columns
+    @if $max-columns != null {
+        max-width: calc(#{$max-columns} * #{$size});
+    }
+
+    @if $gap != null {
+        gap: $gap;
+    }
+}

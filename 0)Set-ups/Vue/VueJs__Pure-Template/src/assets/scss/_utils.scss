@@ -1,0 +1,25 @@
+// ========= General ========= //
+
+// ========= Sizing ========= //
+.min-h-screen {
+    min-height: 100dvh !important;
+}
+
+// ========= Shadows ========= //
+.shadow-light {
+    box-shadow: var(--shadow-light) !important;
+}
+.shadow-dark {
+    box-shadow: var(--shadow-dark) !important;
+}
+
+// ======== Transitions ========= //
+.transition-base {
+    transition: var(--transition-base) !important;
+}
+.transition-fast {
+    transition: var(--transition-fast) !important;
+}
+.transition-slow {
+    transition: var(--transition-slow) !important;
+}

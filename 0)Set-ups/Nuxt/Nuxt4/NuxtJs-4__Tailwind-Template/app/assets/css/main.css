@@ -1,0 +1,16 @@
+/**
+ * Design tokens are now defined in tokens.css using @theme directive.
+ * This automatically creates both CSS variables and Tailwind utilities.
+ */
+@import "./tokens.css";
+
+@layer base {
+    body {
+        height: 100dvh;
+        background-color: var(--color-surface);
+        color: var(--color-surface-fg);
+        transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+    }
+}

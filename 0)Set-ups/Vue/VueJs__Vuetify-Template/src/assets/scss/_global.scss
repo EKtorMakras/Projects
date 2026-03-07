@@ -1,0 +1,6 @@
+// Global SCSS - automatically imported in all component <style> blocks via Vite
+// This file should NOT produce any CSS output, only variables/mixins/functions
+
+@forward "variables";
+@forward "functions";
+@forward "mixins";

@@ -1,0 +1,5 @@
+@use "variables" as vars;
+
+@use "vuetify/settings" with (
+    $body-font-family: vars.$font-family
+);
