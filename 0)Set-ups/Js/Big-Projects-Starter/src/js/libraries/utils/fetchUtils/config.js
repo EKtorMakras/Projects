@@ -1,3 +1,0 @@
-const TIMEOUT_SECONDS = 10;
-
-export { TIMEOUT_SECONDS };

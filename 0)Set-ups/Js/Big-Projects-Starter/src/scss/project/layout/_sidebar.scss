@@ -1,0 +1,54 @@
+@use "settings" as kit;
+
+// Off-canvas menu for small screens, opened by js/components/sidebar.js.
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: kit.z(modal);
+  width: min(18rem, 80vw);
+  padding: kit.space(6);
+  background: kit.color(sidebar);
+  box-shadow: kit.shadow(xl);
+  translate: -100% 0;
+
+  @include kit.transition(translate, kit.duration(slow), kit.ease(out-expo));
+  @include kit.reduced-motion {
+    transition: none;
+  }
+
+  &--open {
+    translate: 0 0;
+  }
+
+  &-menu {
+    @include kit.stack(kit.space(1));
+  }
+
+  &-link {
+    display: block;
+    padding: kit.space(2) kit.space(3);
+    border-radius: kit.radius(md);
+    color: kit.color(surface-fg);
+    text-decoration: none;
+
+    @include kit.hover {
+      background: kit.color(surface);
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: kit.z(overlay);
+  background: kit.color(overlay);
+  opacity: 0;
+  pointer-events: none;
+
+  @include kit.transition(opacity);
+
+  &--active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

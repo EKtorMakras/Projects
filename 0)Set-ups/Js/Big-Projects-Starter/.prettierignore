@@ -2,4 +2,4 @@ android
 node_modules
 public
 resources
-*.scss
+pnpm-lock.yaml

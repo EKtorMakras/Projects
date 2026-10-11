@@ -1,0 +1,57 @@
+/// Themes, registered as the kit's $themes in settings/_index.scss.
+/// - light is the default (:root); the others apply with [data-theme="<name>"] (see js/libraries/darkMode.js).
+/// - A value is a color, a palette token from _colors.scss (neutral-50, primary-500-fg) or any CSS value.
+/// - A palette name (primary, success…) re-tints that whole 50–950 scale for the theme only.
+/// - color-scheme matches native controls and scrollbars; it is automatic for themes named light and dark.
+/// - Read them in styles with kit.color(name): kit.color(surface) → var(--clr-surface).
+@use "sass:map";
+@use "@kit/palettes/tailwind" as tailwind;
+
+$themes: (
+  light: (
+    surface: neutral-50,
+    surface-fg: neutral-700,
+    title: neutral-900,
+    muted: neutral-500,
+    line: neutral-200,
+    header: #fff,
+    sidebar: #fff,
+    card: #fff,
+    footer: neutral-100,
+    overlay: rgb(15 23 42 / 50%),
+  ),
+
+  dark: (
+    // Lighter brand and status colors read better on dark surfaces.
+    primary: hsl(173, 50%, 50%),
+    success: #66bb6a,
+    error: #ef5350,
+    surface: neutral-900,
+    surface-fg: neutral-300,
+    title: neutral-50,
+    muted: neutral-400,
+    line: neutral-700,
+    header: neutral-800,
+    sidebar: neutral-800,
+    card: neutral-800,
+    footer: neutral-800,
+    overlay: rgb(2 6 23 / 70%),
+  ),
+
+  sepia: (
+    color-scheme: light,
+    // A whole Tailwind scale as the primary of this theme only.
+    primary: map.get(tailwind.$colors, amber),
+    error: #b3261e,
+    surface: #f4ecd8,
+    surface-fg: #5b4636,
+    title: #3b2f2f,
+    muted: #8a7560,
+    line: #e0d2b4,
+    header: #faf4e6,
+    sidebar: #faf4e6,
+    card: #fbf6ea,
+    footer: #efe4c9,
+    overlay: rgb(59 47 47 / 50%),
+  ),
+);

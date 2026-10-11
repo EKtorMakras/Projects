@@ -1,0 +1,68 @@
+@use "settings" as kit;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: kit.z(header);
+  display: grid;
+  grid-template-areas: "logo nav actions";
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: kit.space(6);
+  padding: kit.space(3) kit.$gutter;
+  background: kit.color(header);
+  box-shadow: kit.shadow(sm);
+
+  &-actions {
+    grid-area: actions;
+
+    @include kit.cluster(kit.space(3));
+  }
+}
+
+.logo {
+  height: 3rem;
+  width: auto;
+
+  &-wrapper {
+    grid-area: logo;
+  }
+}
+
+// ======== Navigation ======== //
+.nav {
+  grid-area: nav;
+
+  // Below md the sidebar takes over the navigation.
+  @include kit.respond-below(md) {
+    display: none;
+  }
+
+  &-list {
+    @include kit.cluster(kit.space(6));
+  }
+
+  &-link {
+    color: kit.color(surface-fg);
+    font-weight: kit.fw(medium);
+
+    @include kit.link-underline($color: primary-500);
+
+    &--active {
+      color: kit.color(primary-600);
+    }
+  }
+}
+
+// ======== Actions ======== //
+.theme-btn {
+  @include kit.btn(primary-500, $size: sm);
+}
+
+.hamburger-btn {
+  @include kit.btn(surface-fg, outlined, $size: sm, $hover-text: surface);
+
+  @include kit.respond(md) {
+    display: none;
+  }
+}

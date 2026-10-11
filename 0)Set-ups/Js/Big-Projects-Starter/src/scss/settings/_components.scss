@@ -1,0 +1,9 @@
+/// Component settings, registered in settings/_index.scss.
+
+// The kit's sm / md / lg stay; this adds an "xl" button.
+$button-sizes: (
+  xl: (
+    padding: 0.9em 2em,
+    font-size: xl,
+  ),
+);

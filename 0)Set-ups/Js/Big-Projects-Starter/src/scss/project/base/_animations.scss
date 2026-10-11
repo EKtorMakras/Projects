@@ -1,0 +1,5 @@
+/// The kit's @keyframes (kit-fade-in, kit-spin…), emitted once so kit.animate() works on any page.
+/// Pass names to emit only some: `@include kit.keyframes(fade-in, spin);`.
+@use "settings" as kit;
+
+@include kit.keyframes;

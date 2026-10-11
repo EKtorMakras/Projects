@@ -1,8 +1,26 @@
-@forward "01-Globals";
-@forward "02-Functions";
-@forward "03-Design-System";
-@forward "04-Generic";
-@forward "05-Components";
-@forward "06-Layout";
-@forward "07-Pages";
-@forward "showcase";
+/// Application styles. The kit itself emits nothing; every rule comes from here.
+/// - Each project folder is a cascade layer. A later layer wins over an earlier one whatever the
+///   selector specificity, so page styles override components without !important.
+/// - Styles outside any layer beat every layer; keep project styles inside one.
+@use "sass:meta";
+@use "settings" as kit;
+
+@layer reset, base, layout, components, pages;
+
+@include kit.reset;
+
+@layer base {
+  @include meta.load-css("project/base");
+}
+
+@layer layout {
+  @include meta.load-css("project/layout");
+}
+
+@layer components {
+  @include meta.load-css("project/components");
+}
+
+@layer pages {
+  @include meta.load-css("project/pages");
+}

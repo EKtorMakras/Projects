@@ -1,0 +1,43 @@
+@use "settings" as kit;
+
+.footer {
+  padding-top: kit.space(12);
+  background: kit.color(footer);
+
+  &-content {
+    @include kit.container;
+    @include kit.grid(14rem, kit.space(8), $max-columns: 3);
+  }
+
+  &-section {
+    @include kit.stack(kit.space(3));
+  }
+
+  &-text,
+  &-links a {
+    color: kit.color(muted);
+  }
+
+  &-links {
+    @include kit.stack(kit.space(2));
+
+    a {
+      text-decoration: none;
+
+      @include kit.link-underline;
+    }
+  }
+
+  &-bottom {
+    margin-top: kit.space(12);
+    padding-block: kit.space(4);
+    border-top: 1px solid kit.color(line);
+    color: kit.color(muted);
+    font-size: kit.fs(sm);
+    text-align: center;
+  }
+}
+
+.socials-wrapper {
+  @include kit.cluster(kit.space(2));
+}

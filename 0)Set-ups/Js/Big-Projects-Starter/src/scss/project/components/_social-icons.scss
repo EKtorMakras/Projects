@@ -1,0 +1,12 @@
+@use "settings" as kit;
+
+// One modifier per network: muted at rest, official brand color on hover.
+$-networks: facebook, instagram, linkedin, twitter;
+
+.social-icon {
+  @each $network in $-networks {
+    &--#{$network} {
+      @include kit.social-icon($network, $size: sm, $official-on-hover: true, $color: muted, $background: card);
+    }
+  }
+}

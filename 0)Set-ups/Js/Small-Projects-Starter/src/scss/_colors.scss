@@ -1,0 +1,25 @@
+/// Palette and themes, registered in _settings.scss.
+/// - $palette: each color becomes --clr-<name>-50…950, --clr-<name> and readable -fg colors.
+/// - $themes: light is the default (:root); dark applies with [data-theme="dark"] (see js/theme.js).
+///   A value is a color, a palette token (neutral-50) or any CSS value.
+$palette: (
+  primary: hsl(173, 58%, 39%),
+  neutral: #64748b,
+);
+
+$themes: (
+  light: (
+    surface: neutral-50,
+    surface-fg: neutral-700,
+    title: neutral-900,
+    muted: neutral-500,
+    line: neutral-200,
+  ),
+  dark: (
+    surface: neutral-900,
+    surface-fg: neutral-300,
+    title: neutral-50,
+    muted: neutral-400,
+    line: neutral-700,
+  ),
+);

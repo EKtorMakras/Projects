@@ -1,0 +1,9 @@
+/// Font stacks, registered as the kit's $font-families in settings/_index.scss.
+/// - Merged into the kit's defaults: heading and mono keep the kit's system stacks.
+/// - Baloo Tamma 2 is self-hosted in project/base/_fonts.scss; read a stack with kit.ff(body).
+
+$body: ("Baloo Tamma 2", system-ui, sans-serif);
+
+$families: (
+  body: $body,
+);

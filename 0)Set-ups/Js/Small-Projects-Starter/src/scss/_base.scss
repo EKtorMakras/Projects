@@ -1,0 +1,23 @@
+// Tokens, palette and themes as CSS variables, then base typography. The reset comes from kit.reset.
+@use "settings" as kit;
+
+@include kit.theme;
+
+body {
+  background: kit.color(surface);
+  color: kit.color(surface-fg);
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  color: kit.color(title);
+  line-height: 1.15;
+}
+
+a {
+  color: kit.color(primary-600);
+
+  @include kit.focus-ring;
+}

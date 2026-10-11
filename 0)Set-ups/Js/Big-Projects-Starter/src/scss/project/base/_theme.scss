@@ -1,0 +1,4 @@
+/// Tokens, palettes and themes as CSS variables, from settings/_colors.scss and settings/_themes.scss.
+@use "settings" as kit;
+
+@include kit.theme;

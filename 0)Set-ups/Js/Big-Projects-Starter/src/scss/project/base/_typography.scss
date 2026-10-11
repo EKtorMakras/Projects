@@ -1,0 +1,37 @@
+@use "settings" as kit;
+
+body {
+  min-height: 100dvh;
+  background: kit.color(surface);
+  color: kit.color(surface-fg);
+  font-family: kit.ff(body);
+  font-size: kit.fs(md);
+  line-height: 1.6;
+  transition: background-color kit.duration() kit.ease();
+}
+
+h1,
+h2,
+h3 {
+  color: kit.color(title);
+  line-height: 1.15;
+  font-weight: kit.fw(bold);
+}
+
+h1 {
+  font-size: kit.fs(display);
+}
+
+h2 {
+  font-size: kit.fs(xxl);
+}
+
+h3 {
+  font-size: kit.fs(lg);
+}
+
+a {
+  color: kit.color(primary-600);
+
+  @include kit.focus-ring;
+}

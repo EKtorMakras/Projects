@@ -1,0 +1,19 @@
+/// Self-hosted Baloo Tamma 2 (latin subset) from @fontsource/baloo-tamma-2.
+/// - The font reserves descent space for Kannada (0.67em), which pushes Latin text up inside
+///   buttons, tags and any box centered around its text. line-height cannot fix that.
+/// - The overrides keep room for accented capitals (0.84em) and Latin descenders (0.2em) and
+///   center the cap height (0.625em) on the line box: ascent - descent = cap height.
+$-weights: 400, 500, 600, 700;
+
+@each $weight in $-weights {
+  @font-face {
+    font-family: "Baloo Tamma 2";
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url("@fonts/baloo-tamma-2-latin-#{$weight}-normal.woff2") format("woff2");
+    ascent-override: 87.5%;
+    descent-override: 25%;
+    line-gap-override: 0%;
+  }
+}

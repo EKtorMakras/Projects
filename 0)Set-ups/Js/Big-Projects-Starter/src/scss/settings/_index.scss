@@ -1,0 +1,30 @@
+/// Project configuration for @emakras/vanilla-kit, Vuetify-style.
+/// - Every SCSS file loads the kit through this file: `@use "settings" as kit;` (src/scss is a Sass load path).
+/// - It must be the first place the kit is loaded, otherwise Sass rejects the `with (…)` configuration.
+/// - Large maps live in their own files (colors, themes, fonts, components) and are registered here.
+/// - Map settings merge into the kit's defaults: list only what changes; `null` removes a key.
+@use "colors";
+@use "fonts";
+@use "themes";
+@use "components";
+
+@forward "@kit" with (
+  // Wider phones get the "sm" layout from 40rem instead of the kit's 36rem; md...xxl stay.
+  $breakpoints: (sm: 40rem),
+
+  // The original starter's 1170px content width.
+  $container: 73.125rem,
+  $gutter: 1.25rem,
+
+  // Focus rings follow the brand instead of currentColor; hovers darken a little less than the kit's -12%.
+  $focus-color: primary-500,
+  $hover-shift: -10%,
+
+  $font-families: fonts.$families,
+
+  $colors: colors.$palette,
+  $themes: themes.$themes,
+  $button-sizes: components.$button-sizes,
+
+  $asset-base-path: "/src/assets"
+);

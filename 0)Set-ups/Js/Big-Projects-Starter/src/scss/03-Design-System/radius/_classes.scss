@@ -1,9 +1,0 @@
-@use "~/02-Functions" as *;
-@use "variables" as *;
-
-// Loop over the $radii map and create utility classes
-@each $radius-key, $radius-value in $radius {
-  .#{$radius-prefix}-#{$radius-key} {
-    border-radius: get-css-var($radius-prefix, $radius-key) !important;
-  }
-}

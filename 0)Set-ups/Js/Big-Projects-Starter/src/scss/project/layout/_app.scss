@@ -1,0 +1,15 @@
+@use "settings" as kit;
+
+// Header, main and footer; main grows so the footer stays at the bottom.
+// minmax(0, 1fr): a grid column otherwise grows to its widest content (a long code line), and phones
+// then zoom the whole page out to fit it.
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+.container {
+  @include kit.container;
+}

@@ -13,12 +13,18 @@ export function useNotifications() {
      * @param {string} options.type - Type: 'success', 'error', 'warning', 'info'
      * @param {number} options.duration - Duration in ms (0 = no auto-dismiss)
      */
-    function showNotification({ title = "", message = "", type = "info", duration = 5000 }) {
+    function showNotification({
+        title = "",
+        message = "",
+        type = "info",
+        duration = 5000,
+    }) {
         const id = ++notificationId;
         const notification = {
             id,
             title,
             message,
+            duration,
             type,
             visible: true,
         };
@@ -60,7 +66,12 @@ export function useNotifications() {
     }
 
     function showError(message, title = "Error") {
-        return showNotification({ title, message, type: "error", duration: 7000 });
+        return showNotification({
+            title,
+            message,
+            type: "error",
+            duration: 7000,
+        });
     }
 
     function showWarning(message, title = "Warning") {

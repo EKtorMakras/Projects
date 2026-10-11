@@ -1,8 +1,0 @@
-@use "~/02-Functions" as *;
-@use "variables" as *;
-
-@each $opacity-key, $opacity-value in $opacities {
-  .#{$opacity-prefix}-#{$opacity-key} {
-    opacity: get-css-var($opacity-prefix, $opacity-key) !important;
-  }
-}

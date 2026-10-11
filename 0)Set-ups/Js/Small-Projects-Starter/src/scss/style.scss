@@ -1,6 +1,15 @@
-@forward "01-Abstracts";
-@forward "02-Vendors";
-@forward "03-Base";
-@forward "04-Components";
-@forward "05-Layout";
-@forward "06-Pages";
+/// Page styles. Later cascade layers win over earlier ones whatever the selector specificity.
+@use "sass:meta";
+@use "settings" as kit;
+
+@layer reset, base, page;
+
+@include kit.reset;
+
+@layer base {
+  @include meta.load-css("base");
+}
+
+@layer page {
+  @include meta.load-css("page");
+}

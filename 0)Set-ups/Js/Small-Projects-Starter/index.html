@@ -6,105 +6,45 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-
-    <!-- Font-awesome -->
-    <script
-      src="https://kit.fontawesome.com/a9c97bd30a.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- Google Fonts -->
+    <!-- Styles linked here, not imported from JS, so the page never renders unstyled -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700;800&family=Indie+Flower&display=swap"
       rel="stylesheet"
+      href="./src/scss/style.scss"
     />
 
-    <!-- Js -->
     <script
       src="./src/js/main.js"
       type="module"
-      defer
     ></script>
-
-    <title></title>
+    <title>Starting Project</title>
   </head>
 
   <body>
-    <!--* ***************************************  Header  *************************************** -->
-    <header class="header">
-      <!-- $ *******************  Comment  ******************* $ -->
-      <div class="">
-        <h1 class="shadow-light rounded ma-10">Header</h1>
+    <div class="page">
+      <header class="header">
+        <strong>Starting Project</strong>
         <button
-          id="btn"
-          class="btn ma-2 sharp"
+          id="theme-btn"
+          class="theme-btn"
+          type="button"
         >
-          Change Theme
+          Change theme
         </button>
-        <button class="btn-outlined ma-2 sharp pa-10">Outline</button>
+      </header>
 
-        <p class="test">Lorem ipsum dolor sit amet.</p>
-        <div>
-          <div class="test-img">
-            <p>hey there</p>
-            <img
-              src="./src/assets/images/placeholder.jpg"
-              alt=""
-            />
-          </div>
+      <main class="main">
+        <section class="intro">
+          <h1>Start here</h1>
+          <p class="intro__lead">
+            Write your styles in <code>src/scss</code> with the kit (<code>@use "settings" as kit;</code>) and your
+            scripts in <code>src/js</code>.
+          </p>
+        </section>
+      </main>
 
-          <div class="mt-15">
-            <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, obcaecati.</p>
-            <p class="mb-15">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-            <p class="mb-35">
-              Lorem ipsum dolor sit amet consectetur adipisicing Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Facere alias obcaecati sapiente doloribus explicabo laudantium repellat magni quia veritatis a.
-            </p>
-            <p>hey</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- $ *******************  End Of Comment  ******************* $ -->
-    </header>
-    <!--* ***************************************  End Of Header  *************************************** -->
-
-    <!--* ***************************************  Main  *************************************** -->
-
-    <main class="main">
-      <!-- $ *******************  Comment  ******************* $ -->
-      <!-- $ *******************  End Of Comment  ******************* $ -->
-    </main>
-
-    <!--* ***************************************  End Of Main  *************************************** -->
-
-    <!--* ***************************************  Footer  *************************************** -->
-
-    <footer class="footer"></footer>
-
-    <!--* ***************************************  End Of Footer  *************************************** -->
+      <footer class="footer">
+        <p>&copy; 2026 Your Company</p>
+      </footer>
+    </div>
   </body>
 </html>
-
-<!-- ------------------------------------------------- Comments -------------------------------------------------- -->
-
-<!--* ***************************************   Comment  *************************************** -->
-<!--* ***************************************  End Of Comment  *************************************** -->
-
-<!-- & ********************************  Comment  ********************************  -->
-<!-- & ********************************  End Of Comment  ********************************  -->
-
-<!-- $ *******************  Comment  ******************* $ -->
-<!-- $ *******************  End Of Comment  ******************* $ -->
-
-<!-- % ***************  Comment  ***************  -->
-<!-- % ***************  End Of Comment  ***************  -->
-
-<!-- @ ************  Comment  ************  -->
-<!-- @ ************  End Of Comment  ************  -->
-
-<!-- # ********  Comment  ********  -->
-<!-- # ********  End Of Comment  ********  -->
-
-<!-- ^ *****  Comment  *****  -->
-<!-- ^ *****  End Of Comment  *****  -->

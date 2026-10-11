@@ -1,0 +1,22 @@
+/// Palettes, registered as the kit's $colors in settings/_index.scss.
+/// - Each entry becomes --clr-<name>, --clr-<name>-50…950 and readable -fg text colors.
+/// - The kit adds success, warning, error and info; an entry with the same name replaces it.
+/// - The maps are merged in order; a name defined twice is a compile error.
+@use "sass:map";
+@use "@kit/palettes/tailwind" as tailwind;
+
+// Brand colors: one base color each; the kit generates the 50–950 scale.
+$brand: (
+  primary: hsl(173, 58%, 39%),
+  secondary: hsl(10, 58%, 39%),
+);
+
+// Extra colors beyond the brand: any color or ready-made scale (here from the Tailwind palette).
+// - neutral is Tailwind slate.
+// - info is Tailwind sky and replaces the kit's default info color.
+$extras: (
+  neutral: map.get(tailwind.$colors, slate),
+  info: map.get(tailwind.$colors, sky),
+);
+
+$palette: ($brand, $extras);

@@ -1,8 +1,0 @@
-@use "helpers" as *;
-
-// Generate margin and padding classes
-@include generate-spacing-classes(margin, m);
-@include generate-spacing-classes(padding, p);
-
-// Generate auto classes for individual sides and block/inline
-@include generate-margin-auto-classes();

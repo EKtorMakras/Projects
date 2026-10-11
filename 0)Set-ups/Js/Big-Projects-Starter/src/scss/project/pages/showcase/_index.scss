@@ -1,0 +1,431 @@
+/// Showcase page styles: kit examples in the shared pages layer. Delete this folder together with showcase.html.
+/// - Each block demonstrates one part of the kit; read it next to the page.
+@use "settings" as kit;
+
+// ======== Page ======== //
+.showcase {
+  @include kit.section;
+  @include kit.stack(kit.space(16));
+
+  &-intro {
+    @include kit.stack(kit.space(3));
+    max-width: 65ch;
+  }
+
+  &-section {
+    @include kit.card($background: card);
+    @include kit.stack(kit.space(5));
+  }
+
+  &-note {
+    color: kit.color(muted);
+  }
+
+  pre {
+    @include kit.scrollbar;
+    overflow-x: auto;
+    padding: kit.space(4);
+    border-radius: kit.radius(md);
+    background: kit.color(surface);
+    font-size: kit.fs(sm);
+  }
+
+  h3 small {
+    color: kit.color(muted);
+    font-size: kit.fs(sm);
+    font-weight: kit.fw(regular);
+  }
+}
+
+.demo-row {
+  @include kit.cluster(kit.space(3));
+}
+
+// ======== Tokens ======== //
+.spacing-scale {
+  @include kit.stack(kit.space(2));
+}
+
+.spacing-bar {
+  height: kit.space(4);
+  border-radius: kit.radius(sm);
+  background: kit.color(primary-200);
+  color: kit.color(primary-200-fg);
+  font-size: kit.fs(xs);
+  padding-inline: kit.space(1);
+
+  // The bar width is the spacing token itself, scaled up so small steps stay visible.
+  @each $step in (1, 2, 4, 8, 12, 16) {
+    &--#{$step} {
+      width: calc(#{kit.space($step)} * 4);
+    }
+  }
+}
+
+.token-grid {
+  @include kit.grid(9rem, kit.space(5));
+}
+
+.demo-tiles {
+  @include kit.grid(14rem, kit.space(5));
+}
+
+// A demo with its source underneath; long lines wrap instead of scrolling.
+.demo-tile {
+  @include kit.stack(kit.space(2));
+  margin: 0;
+
+  pre {
+    margin: 0;
+    padding: kit.space(2) kit.space(3);
+    border-radius: kit.radius(sm);
+    color: kit.color(muted);
+    font-size: kit.fs(xs);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+.token-box {
+  @include kit.center;
+  height: 6rem;
+  background: kit.color(card);
+  border: 1px solid kit.color(line);
+
+  @each $size in (sm, md, lg, xl) {
+    &--#{$size} {
+      border-radius: kit.radius($size);
+      box-shadow: kit.shadow($size);
+    }
+  }
+}
+
+// ======== Themes ======== //
+.theme-picker {
+  @include kit.cluster(kit.space(2));
+}
+
+.theme-option {
+  @include kit.btn(primary, outlined, $size: sm);
+
+  &[aria-pressed="true"] {
+    background: kit.color(primary);
+    color: kit.color(primary-fg);
+  }
+}
+
+// Native controls take their look from color-scheme and accent-color.
+.native-controls {
+  @include kit.cluster(kit.space(5));
+  accent-color: kit.color(primary);
+
+  label {
+    @include kit.cluster(kit.space(2));
+  }
+}
+
+// ======== Palettes ======== //
+.palette {
+  @include kit.grid(5.5rem, kit.space(1));
+}
+
+.swatch {
+  padding: kit.space(3) kit.space(2);
+  border-radius: kit.radius(sm);
+  font-size: kit.fs(xs);
+}
+
+// ======== Status colors ======== //
+$-statuses: (success, warning, error, info);
+
+.alerts {
+  @include kit.stack(kit.space(3));
+}
+
+// The status color as an accent on the card; color-mix() keeps the tint right in every theme.
+.alert {
+  margin: 0;
+  padding: kit.space(3) kit.space(4);
+  border-inline-start: 4px solid var(--alert);
+  border-radius: kit.radius(sm);
+  background: color-mix(in srgb, var(--alert) 12%, #{kit.color(card)});
+  color: kit.color(title);
+
+  @each $status in $-statuses {
+    &--#{$status} {
+      --alert: #{kit.color($status)};
+    }
+  }
+}
+
+// ======== Buttons ======== //
+.demo-btn {
+  &--primary {
+    @include kit.btn(primary-500);
+  }
+
+  // A CSS value outside the palette: used as given, so the text color is passed explicitly.
+  &--custom {
+    --partner-brand: #7357e8;
+
+    @include kit.btn(var(--partner-brand), $text: #fff);
+  }
+
+  &--secondary {
+    @include kit.btn(secondary);
+  }
+
+  &--outlined {
+    @include kit.btn(secondary-500, outlined);
+  }
+
+  @each $size in (sm, md, lg, xl) {
+    &--#{$size} {
+      @include kit.btn(primary-600, $size: $size);
+    }
+  }
+
+  // A palette name: background var(--clr-<status>), text var(--clr-<status>-fg), hover with color-mix().
+  @each $status in $-statuses {
+    &--#{$status} {
+      @include kit.btn($status);
+    }
+  }
+}
+
+// ======== Layout ======== //
+.demo-grid {
+  @include kit.grid(10rem, kit.space(4), $max-columns: 3);
+}
+
+.demo-card {
+  @include kit.center;
+  @include kit.surface($background: primary-50, $color: primary-50-fg, $padding: kit.space(6));
+}
+
+.demo-cluster {
+  @include kit.cluster(kit.space(2));
+}
+
+.tag {
+  padding: kit.space(1) kit.space(3);
+  border: 1px solid kit.color(line);
+  border-radius: kit.radius(full);
+  font-size: kit.fs(sm);
+}
+
+.demo-center {
+  position: relative;
+  height: 8rem;
+  border: 1px dashed kit.color(line);
+  border-radius: kit.radius(md);
+
+  span {
+    @include kit.center(absolute);
+  }
+}
+
+// ======== Columns ======== //
+.demo-columns {
+  @include kit.columns($gap: kit.space(3));
+}
+
+// Each cell is full width on small screens and takes its share of the 12 columns from md.
+$-cell-spans: (
+  side: 3,
+  main: 9,
+  third: 4,
+);
+
+.demo-cell {
+  @include kit.span(12);
+  padding: kit.space(3);
+  border-radius: kit.radius(sm);
+  background: kit.color(primary-100);
+  color: kit.color(primary-100-fg);
+  font-family: monospace;
+  font-size: kit.fs(xs);
+
+  &--full {
+    @include kit.span(full);
+    background: kit.color(primary-500);
+    color: kit.color(primary-500-fg);
+  }
+
+  @each $name, $count in $-cell-spans {
+    &--#{$name} {
+      @include kit.respond(md) {
+        @include kit.span($count);
+      }
+    }
+  }
+
+  &--centered {
+    background: kit.color(primary-300);
+    color: kit.color(primary-300-fg);
+
+    @include kit.respond(md) {
+      @include kit.span(6, $start: 4);
+    }
+  }
+}
+
+// ======== Typography & decoration ======== //
+.demo-truncate {
+  @include kit.truncate;
+}
+
+.demo-clamp {
+  @include kit.truncate(2);
+  max-width: 50ch;
+}
+
+.demo-link {
+  @include kit.link-underline($color: secondary-500, $origin: center);
+}
+
+%demo-tile {
+  @include kit.center;
+  height: 7rem;
+  border-radius: kit.radius(md);
+  color: #fff;
+  font-weight: kit.fw(bold);
+}
+
+.demo-gradient {
+  @extend %demo-tile;
+  @include kit.gradient((primary-400, secondary-500), 135deg);
+}
+
+.demo-stripes {
+  @extend %demo-tile;
+  @include kit.stripes((primary-700, primary-500, primary-300), 90deg);
+}
+
+// A speech bubble: triangle() draws the tail.
+.demo-bubble {
+  @extend %demo-tile;
+  position: relative;
+  background: kit.color(secondary-500);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: kit.space(6);
+    @include kit.triangle(0.6rem, down, $color: secondary-500);
+  }
+}
+
+// Text over a photo: bg-image() reads from $asset-base-path, overlay() darkens it.
+.demo-overlay {
+  @extend %demo-tile;
+  @include kit.bg-image("placeholder.jpg");
+  @include kit.overlay($background: rgb(0 0 0 / 45%));
+}
+
+// ======== Animations ======== //
+$-play-once: (fade-in, fade-out, slide-up, slide-down, scale-in, shake);
+$-loops: (spin, pulse);
+
+.anim-grid {
+  @include kit.grid(7rem, kit.space(4));
+}
+
+.anim-tile {
+  @include kit.stack(kit.space(2));
+  align-items: center;
+  margin: 0;
+  font-size: kit.fs(xs);
+}
+
+.anim-box {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: kit.radius(md);
+  background: kit.color(primary-500);
+
+  // Slowed down so each one is easy to follow; spin and pulse keep their own looping defaults.
+  @each $name in $-play-once {
+    &--#{$name} {
+      @include kit.animate($name, $duration: 1.2s);
+    }
+  }
+
+  @each $name in $-loops {
+    &--#{$name} {
+      @include kit.animate($name);
+    }
+  }
+}
+
+// ======== Social icons ======== //
+// A white background in both themes, because some brand colors (GitHub, X) are near-black.
+.demo-social {
+  @each $network in (facebook, instagram, linkedin, youtube, github) {
+    &--#{$network} {
+      @include kit.social-icon($network, lg, $official: true, $background: #fff);
+    }
+  }
+}
+
+// ======== Media queries ======== //
+.demo-breakpoint {
+  padding: kit.space(4);
+  border-radius: kit.radius(md);
+  background: kit.color(primary-100);
+  color: kit.color(primary-100-fg);
+  font-weight: kit.fw(semibold);
+
+  &::after {
+    content: "below sm";
+  }
+
+  @include kit.respond(sm) {
+    &::after {
+      content: "sm and up (≥ 40rem, overridden)";
+    }
+  }
+
+  @include kit.respond(md) {
+    background: kit.color(primary-300);
+    color: kit.color(primary-300-fg);
+
+    &::after {
+      content: "md and up (≥ 48rem)";
+    }
+  }
+
+  @include kit.respond(lg) {
+    background: kit.color(primary-500);
+    color: kit.color(primary-500-fg);
+
+    &::after {
+      content: "lg and up (≥ 64rem)";
+    }
+  }
+}
+
+// ======== JavaScript ======== //
+// Call and result stack on phones and sit side by side from md.
+.js-demo {
+  display: grid;
+  gap: kit.space(1) kit.space(6);
+  margin: 0;
+
+  @include kit.respond(md) {
+    grid-template-columns: max-content 1fr;
+    row-gap: kit.space(2);
+  }
+
+  dt {
+    font-family: monospace;
+    overflow-wrap: anywhere;
+  }
+
+  dd {
+    margin: 0;
+    color: kit.color(muted);
+  }
+}

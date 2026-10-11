@@ -1,5 +1,6 @@
-android
+dist
 node_modules
 public
-resources
-*.scss
+pnpm-lock.yaml
+# Copied as is from node_modules/@emakras/vanilla-kit/docs/API.md on every kit upgrade.
+.claude/context/VANILLA_KIT_API.md

@@ -7,82 +7,80 @@
       content="width=device-width, initial-scale=1.0"
     />
 
-    <!-- Font-awesome -->
+    <!-- Font Awesome: icon font used by the social icons and the menu button -->
     <script
       src="https://kit.fontawesome.com/a9c97bd30a.js"
       crossorigin="anonymous"
     ></script>
 
-    <!-- Google Fonts -->
+    <!-- Styles linked here, not imported from JS, so the page never renders unstyled -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700;800&family=Indie+Flower&display=swap"
       rel="stylesheet"
+      href="./src/scss/style.scss"
     />
 
-    <!-- Js -->
     <script
-      src="./src/js/main.js"
+      src="./src/js/showcase.js"
       type="module"
     ></script>
 
-    <title>Showcase - Components & Design System</title>
+    <title>Showcase - vanilla-kit</title>
   </head>
 
   <body>
     <div class="app">
       <!--* ***************************************  Header  *************************************** -->
       <header class="header">
-        <div
-          class="logo-wrapper"
-          style="grid-area: logo"
-        >
-          <a href="index.html">
-            <img
+        <div class="logo-wrapper">
+          <a href="index.html"
+            ><img
               src="./src/assets/images/logo-example.png"
               alt="logo"
               class="logo"
-              style="height: 50px"
-            />
-          </a>
+          /></a>
         </div>
 
         <nav
-          class="nav ml-8"
-          style="grid-area: nav"
+          class="nav"
+          aria-label="Main"
         >
-          <li class="nav-item">
-            <a
-              href="index.html"
-              class="nav-link"
-              >Home</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              href="showcase.html"
-              class="nav-link nav-link--active"
-              >Showcase</a
-            >
-          </li>
+          <ul
+            class="nav-list"
+            role="list"
+          >
+            <li>
+              <a
+                href="index.html"
+                class="nav-link"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="showcase.html"
+                class="nav-link nav-link--active"
+                aria-current="page"
+                >Showcase</a
+              >
+            </li>
+          </ul>
         </nav>
 
-        <div
-          class="header-actions"
-          style="grid-area: actions; display: flex; gap: 1rem; align-items: center"
-        >
+        <div class="header-actions">
           <button
             id="hamburger-btn"
             class="hamburger-btn"
+            type="button"
             aria-label="Toggle menu"
           >
             <i class="fas fa-bars"></i>
           </button>
-
           <button
-            id="btn"
-            class="btn d-xl-grid btn-rg flex-sm-1-1-fill ma-2 radius-3 l-spacing-4"
+            id="theme-btn"
+            class="theme-btn"
+            type="button"
           >
-            Change Theme
+            Change theme
           </button>
         </div>
       </header>
@@ -93,433 +91,588 @@
         id="sidebar"
         class="sidebar"
       >
-        <nav class="sidebar-nav">
-          <ul class="sidebar-menu">
-            <li class="sidebar-item">
+        <nav aria-label="Mobile">
+          <ul
+            class="sidebar-menu"
+            role="list"
+          >
+            <li>
               <a
                 href="index.html"
                 class="sidebar-link"
                 >Home</a
               >
             </li>
-            <li class="sidebar-item">
+            <li>
               <a
                 href="showcase.html"
                 class="sidebar-link"
+                aria-current="page"
                 >Showcase</a
               >
             </li>
           </ul>
         </nav>
       </aside>
-      <!--* ***************************************  End Of Sidebar  *************************************** -->
-
-      <!--* ***************************************  Overlay  *************************************** -->
       <div
         id="overlay"
         class="overlay"
       ></div>
-      <!--* ***************************************  End Of Overlay  *************************************** -->
+      <!--* ***************************************  End Of Sidebar  *************************************** -->
 
       <!--* ***************************************  Main  *************************************** -->
       <main class="main">
-        <div class="container">
-          <!-- % ***************  Typography  ***************  -->
-          <div class="showcase-section showcase-section--typography">
-            <h2 class="mb-8 opacity-60 text-uppercase">typography</h2>
+        <div class="container showcase">
+          <header class="showcase-intro">
+            <h1>Showcase</h1>
+            <p>
+              Every example is ordinary project CSS built with kit mixins and tokens. Read it next to
+              <code>src/scss/project/pages/showcase</code>; the overrides live in <code>src/scss/settings</code>.
+            </p>
+          </header>
 
-            <!-- Titles -->
-            <div id="titles">
-              <p class="gs-h-6 text-uppercase text-primary-700 mb-1">Titles</p>
-
-              <h1 class="fs-h2xl text-left">XXL Header</h1>
-              <h1 class="fs-hxl text-left">XL Header</h1>
-
-              <div class="row col-gap-xl-5 my-3 align-center mt-3">
-                <h1 class="fs-h1">H1</h1>
-                <h2 class="fs-h2">H2</h2>
-                <h3 class="fs-h3">H3</h3>
-                <h4 class="fs-h4">H4</h4>
-                <h5 class="fs-h5">H5</h5>
-                <h6 class="fs-h6">H6</h6>
-              </div>
-            </div>
-
-            <!-- Body -->
-            <div class="mt-6">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Body</p>
-
-              <div class="row col-gap-5 align-center">
-                <span class="fs-3xl">3xl</span>
-                <span class="fs-2xl">2xl</span>
-                <span class="fs-xl">xl</span>
-                <span class="fs-lg">lg</span>
-                <span class="fs-rg">rg</span>
-                <span class="fs-sm">sm</span>
-                <span class="fs-xs">xs</span>
-                <span class="fs-2xs">2xs</span>
-              </div>
-            </div>
-
-            <!-- Variants -->
-            <div class="mt-6">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">variants</p>
-
-              <div class="row col-gap-5 align-center">
-                <span class="text-disabled">Text Disabled</span>
-                <span class="text-low-emphasis">Text Low Emphasis</span>
-                <span class="text-medium-emphasis">Text Medium Emphasis</span>
-                <span class="text-high-emphasis">Text High Emphasis</span>
-                <span class="text-on-surface">Text Default</span>
-              </div>
-            </div>
-          </div>
-          <!-- % ***************  End Of Typography  ***************  -->
-
-          <!-- % ***************  Colors  ***************  -->
-          <div class="showcase-section showcase-section--colors">
-            <h2 class="mb-8 opacity-60 text-uppercase">colors</h2>
-
-            <!-- Primary -->
-            <div>
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Primary</p>
-
-              <div class="row col-gap-10 row-gap-10">
-                <div class="box bg-primary-50 transition-base">
-                  <p class="text-on-primary-50">Primary-50</p>
-                </div>
-                <div class="box bg-primary-100 transition-base">
-                  <p class="text-on-primary-100">Primary-100</p>
-                </div>
-                <div class="box bg-primary-200 transition-base">
-                  <p class="text-on-primary-200">Primary-200</p>
-                </div>
-                <div class="box bg-primary-300 transition-base">
-                  <p class="text-on-primary-300">Primary-300</p>
-                </div>
-                <div class="box bg-primary-400 transition-base">
-                  <p class="text-on-primary-400">Primary-400</p>
-                </div>
-                <div class="box bg-primary-500 transition-base">
-                  <p class="text-on-primary-500">Primary-500</p>
-                </div>
-                <div class="box bg-primary-600 transition-base">
-                  <p class="text-on-primary-600">Primary-600</p>
-                </div>
-                <div class="box bg-primary-700 transition-base">
-                  <p class="text-on-primary-700">Primary-700</p>
-                </div>
-                <div class="box bg-primary-800 transition-base">
-                  <p class="text-on-primary-800">Primary-800</p>
-                </div>
-                <div class="box bg-primary-900 transition-base">
-                  <p class="text-on-primary-900">Primary-900</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Secondary -->
-            <div class="mt-15">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Secondary</p>
-
-              <div class="row col-gap-10 row-gap-10">
-                <div class="box bg-secondary-50 transition-base">
-                  <p class="text-on-secondary-50">Secondary-50</p>
-                </div>
-                <div class="box bg-secondary-100 transition-base">
-                  <p class="text-on-secondary-100">Secondary-100</p>
-                </div>
-                <div class="box bg-secondary-200 transition-base">
-                  <p class="text-on-secondary-200">Secondary-200</p>
-                </div>
-                <div class="box bg-secondary-300 transition-base">
-                  <p class="text-on-secondary-300">Secondary-300</p>
-                </div>
-                <div class="box bg-secondary-400 transition-base">
-                  <p class="text-on-secondary-400">Secondary-400</p>
-                </div>
-                <div class="box bg-secondary-500 transition-base">
-                  <p class="text-on-secondary-500">Secondary-500</p>
-                </div>
-                <div class="box bg-secondary-600 transition-base">
-                  <p class="text-on-secondary-600">Secondary-600</p>
-                </div>
-                <div class="box bg-secondary-700 transition-base">
-                  <p class="text-on-secondary-700">Secondary-700</p>
-                </div>
-                <div class="box bg-secondary-800 transition-base">
-                  <p class="text-on-secondary-800">Secondary-800</p>
-                </div>
-                <div class="box bg-secondary-900 transition-base">
-                  <p class="text-on-secondary-900">Secondary-900</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Grey -->
-            <div class="mt-15">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">grey</p>
-
-              <div class="row col-gap-10 row-gap-10">
-                <div class="box bg-grey-50 transition-base">
-                  <p class="text-on-grey-50">grey-50</p>
-                </div>
-                <div class="box bg-grey-100 transition-base">
-                  <p class="text-on-grey-100">grey-100</p>
-                </div>
-                <div class="box bg-grey-200 transition-base">
-                  <p class="text-on-grey-200">grey-200</p>
-                </div>
-                <div class="box bg-grey-300 transition-base">
-                  <p class="text-on-grey-300">grey-300</p>
-                </div>
-                <div class="box bg-grey-400 transition-base">
-                  <p class="text-on-grey-400">grey-400</p>
-                </div>
-                <div class="box bg-grey-500 transition-base">
-                  <p class="text-on-grey-500">grey-500</p>
-                </div>
-                <div class="box bg-grey-600 transition-base">
-                  <p class="text-on-grey-600">grey-600</p>
-                </div>
-                <div class="box bg-grey-700 transition-base">
-                  <p class="text-on-grey-700">grey-700</p>
-                </div>
-                <div class="box bg-grey-800 transition-base">
-                  <p class="text-on-grey-800">grey-800</p>
-                </div>
-                <div class="box bg-grey-900 transition-base">
-                  <p class="text-on-grey-900">grey-900</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Grey-blue -->
-            <div class="mt-15">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">grey-blue</p>
-
-              <div class="row col-gap-10 row-gap-10">
-                <div class="box bg-grey-blue-50 transition-base">
-                  <p class="text-on-grey-blue-50">grey-blue-50</p>
-                </div>
-                <div class="box bg-grey-blue-100 transition-base">
-                  <p class="text-on-grey-blue-100">grey-blue-100</p>
-                </div>
-                <div class="box bg-grey-blue-200 transition-base">
-                  <p class="text-on-grey-blue-200">grey-blue-200</p>
-                </div>
-                <div class="box bg-grey-blue-300 transition-base">
-                  <p class="text-on-grey-blue-300">grey-blue-300</p>
-                </div>
-                <div class="box bg-grey-blue-400 transition-base">
-                  <p class="text-on-grey-blue-400">grey-blue-400</p>
-                </div>
-                <div class="box bg-grey-blue-500 transition-base">
-                  <p class="text-on-grey-blue-500">grey-blue-500</p>
-                </div>
-                <div class="box bg-grey-blue-600 transition-base">
-                  <p class="text-on-grey-blue-600">grey-blue-600</p>
-                </div>
-                <div class="box bg-grey-blue-700 transition-base">
-                  <p class="text-on-grey-blue-700">grey-blue-700</p>
-                </div>
-                <div class="box bg-grey-blue-800 transition-base">
-                  <p class="text-on-grey-blue-800">grey-blue-800</p>
-                </div>
-                <div class="box bg-grey-blue-900 transition-base">
-                  <p class="text-on-grey-blue-900">grey-blue-900</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Other -->
-            <div class="mt-15">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-1">Other</p>
-
-              <div class="row col-gap-10 row-gap-10">
-                <div class="box bg-error transition-base">
-                  <p class="text-on-error">Error</p>
-                </div>
-                <div class="box bg-warning transition-base">
-                  <p class="text-on-warning">Warning</p>
-                </div>
-                <div class="box bg-success transition-base">
-                  <p class="text-on-success">Success</p>
-                </div>
-                <div class="box bg-info transition-base">
-                  <p class="text-on-info">Info</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- % ***************  End Of Colors  ***************  -->
-
-          <!-- % ***************  Components  ***************  -->
-          <div class="showcase-section">
-            <h2 class="mb-8 opacity-60 text-uppercase">components</h2>
-
-            <!-- Buttons -->
-            <div>
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-2">Buttons</p>
-
-              <div class="row col-gap-10 row-gap-10 align-start">
-                <button class="btn btn-2xs">2x small</button>
-                <button class="btn btn-xs">X small</button>
-                <button class="btn btn-sm">Small</button>
-                <button class="btn btn-rg">Regular</button>
-                <button class="btn btn-lg">Large</button>
-                <button class="btn btn-xl">X large</button>
-              </div>
-
-              <div class="row col-gap-10 row-gap-10 align-start my-8">
-                <button class="btn btn-secondary-700">Secondary 700</button>
-                <button class="btn btn-secondary-200 btn-outline">Outline</button>
-                <button class="btn btn-error">Error</button>
-                <button class="btn btn-warning">Warning</button>
-                <button class="btn btn-success">Success</button>
-              </div>
-            </div>
-
-            <!-- Social Icons -->
-            <div class="mt-15">
-              <p class="fs-h-6 text-uppercase text-primary-700 mb-2">Social Icons</p>
-
-              <div class="row col-gap-20 row-gap-10">
-                <!-- Sizing -->
-                <div class="socials-wrapper align-center">
-                  <p class="fs-xs text-primary-600">Sizing:</p>
-
-                  <a
-                    class="social-icon social-icon-xs social-icon-facebook"
-                    href="#"
-                  >
-                    <i class="fab fa-facebook"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-sm social-icon-instagram"
-                    href="#"
-                  >
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-rg social-icon-linkedin"
-                    href="#"
-                  >
-                    <i class="fab fa-linkedin"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-lg social-icon-twitter"
-                    href="#"
-                  >
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-xl social-icon-youtube"
-                    href="#"
-                  >
-                    <i class="fab fa-youtube"></i>
-                  </a>
-                </div>
-
-                <!-- Official Color -->
-                <div class="socials-wrapper align-center">
-                  <p class="fs-xs text-primary-600">Official Colors:</p>
-
-                  <a
-                    class="social-icon social-icon-facebook official"
-                    href="#"
-                  >
-                    <i class="fab fa-facebook"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-instagram official"
-                    href="#"
-                  >
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-linkedin official"
-                    href="#"
-                  >
-                    <i class="fab fa-linkedin"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-twitter official"
-                    href="#"
-                  >
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-youtube official"
-                    href="#"
-                  >
-                    <i class="fab fa-youtube"></i>
-                  </a>
-                </div>
-
-                <!-- Official Color On Hover -->
-                <div class="socials-wrapper align-center">
-                  <p class="fs-xs text-primary-600">Official Colors On Hover:</p>
-
-                  <a
-                    class="social-icon social-icon-facebook official-on-hover"
-                    href="#"
-                  >
-                    <i class="fab fa-facebook"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-instagram official-on-hover"
-                    href="#"
-                  >
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-linkedin official-on-hover"
-                    href="#"
-                  >
-                    <i class="fab fa-linkedin"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-twitter official-on-hover"
-                    href="#"
-                  >
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a
-                    class="social-icon social-icon-youtube official-on-hover"
-                    href="#"
-                  >
-                    <i class="fab fa-youtube"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- % ***************  End Of Components  ***************  -->
-
-          <div
-            class="test active shadow-9"
-            tabindex="0"
+          <!-- # ********  Tokens  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="tokens-title"
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </div>
+            <h2 id="tokens-title">Tokens</h2>
+            <p class="showcase-note">
+              <code>kit.theme</code> emits them as CSS variables; <code>kit.space()</code>,
+              <code>kit.radius()</code> and <code>kit.shadow()</code> read them.
+            </p>
 
-          <div>
-            <div class="mt-15">
-              <p
-                class="mb-10 pa-3 radius-5 bg-teal-900 text-grey-300 bg-hover-teal-700 transition-base opacity-high-emphasis shadow-medium"
-              >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, obcaecati.
-              </p>
-
-              <div class="card d-grid">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing Lorem ipsum dolor sit amet consectetur adipisicing
-                  elit. Facere alias obcaecati sapiente doloribus explicabo laudantium repellat magni quia veritatis a.
-                </p>
-              </div>
+            <h3>Spacing</h3>
+            <div class="spacing-scale">
+              <span class="spacing-bar spacing-bar--1">1</span>
+              <span class="spacing-bar spacing-bar--2">2</span>
+              <span class="spacing-bar spacing-bar--4">4</span>
+              <span class="spacing-bar spacing-bar--8">8</span>
+              <span class="spacing-bar spacing-bar--12">12</span>
+              <span class="spacing-bar spacing-bar--16">16</span>
             </div>
-          </div>
+
+            <h3>Radius &amp; shadow</h3>
+            <div class="token-grid">
+              <figure class="demo-tile">
+                <div class="token-box token-box--sm">sm</div>
+                <figcaption>
+                  <pre><code>border-radius: kit.radius(sm);
+box-shadow: kit.shadow(sm);</code></pre>
+                </figcaption>
+              </figure>
+              <figure class="demo-tile">
+                <div class="token-box token-box--md">md</div>
+                <figcaption>
+                  <pre><code>border-radius: kit.radius(md);
+box-shadow: kit.shadow(md);</code></pre>
+                </figcaption>
+              </figure>
+              <figure class="demo-tile">
+                <div class="token-box token-box--lg">lg</div>
+                <figcaption>
+                  <pre><code>border-radius: kit.radius(lg);
+box-shadow: kit.shadow(lg);</code></pre>
+                </figcaption>
+              </figure>
+              <figure class="demo-tile">
+                <div class="token-box token-box--xl">xl</div>
+                <figcaption>
+                  <pre><code>border-radius: kit.radius(xl);
+box-shadow: kit.shadow(xl);</code></pre>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <!-- # ********  Themes  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="themes-title"
+          >
+            <h2 id="themes-title">Themes</h2>
+            <p class="showcase-note">
+              Three themes from <code>src/scss/settings/_themes.scss</code>. Each one can re-tint a whole palette: dark
+              lightens primary, success and error; sepia uses the Tailwind amber scale as its primary.
+            </p>
+            <div
+              class="theme-picker"
+              role="group"
+              aria-label="Theme"
+            >
+              <button
+                class="theme-option"
+                type="button"
+                data-set-theme="light"
+              >
+                light
+              </button>
+              <button
+                class="theme-option"
+                type="button"
+                data-set-theme="dark"
+              >
+                dark
+              </button>
+              <button
+                class="theme-option"
+                type="button"
+                data-set-theme="sepia"
+              >
+                sepia
+              </button>
+            </div>
+            <div class="native-controls">
+              <label
+                ><input
+                  type="checkbox"
+                  checked
+                />
+                checkbox</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="demo-radio"
+                  checked
+                />
+                radio</label
+              >
+              <label><input type="range" /> range</label>
+              <select aria-label="Select">
+                <option>select</option>
+              </select>
+            </div>
+            <p class="showcase-note">
+              The native controls follow <code>color-scheme</code> (automatic for light/dark, a theme key for sepia) and
+              <code>accent-color: kit.color(primary)</code>.
+            </p>
+            <pre><code>$themes: (
+  light: (surface: neutral-50, title: neutral-900, …),
+  dark: (primary: hsl(173, 50%, 50%), success: #66bb6a, error: #ef5350, surface: neutral-900, …),
+  sepia: (color-scheme: light, primary: map.get(tailwind.$colors, amber), surface: #f4ecd8, …),
+);
+
+document.documentElement.dataset.theme = "sepia"; // themeManager.setTheme("sepia")</code></pre>
+          </section>
+
+          <!-- # ********  Colors  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="colors-title"
+          >
+            <h2 id="colors-title">Palettes</h2>
+            <p class="showcase-note">
+              <code>$colors</code> is a list of maps: brand colors as one base color (→ a generated 50–950 scale) and
+              Tailwind hues with their exact values. Every step has a readable <code>-fg</code> color. Switch the theme:
+              the scales change with it. The hex values are read back with <code>getHexColor()</code>.
+            </p>
+            <h3>primary <small>(generated; Tailwind amber in sepia)</small></h3>
+            <div
+              class="palette"
+              data-palette="primary"
+              aria-label="Primary scale"
+            ></div>
+            <h3>neutral <small>(Tailwind slate)</small></h3>
+            <div
+              class="palette"
+              data-palette="neutral"
+              aria-label="Neutral scale"
+            ></div>
+            <pre><code>@use "@kit/palettes/tailwind" as tailwind; // @kit = @emakras/vanilla-kit/scss
+
+$brand: (primary: hsl(173, 58%, 39%), secondary: hsl(10, 58%, 39%));
+$extras: (neutral: map.get(tailwind.$colors, slate), info: map.get(tailwind.$colors, sky));
+$palette: ($brand, $extras); // merged in order, duplicates are an error</code></pre>
+          </section>
+
+          <!-- # ********  Status colors  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="status-title"
+          >
+            <h2 id="status-title">Status colors</h2>
+            <p class="showcase-note">
+              <code>success</code>, <code>warning</code>, <code>error</code> and <code>info</code> are palettes too:
+              <code>--clr-success-50…950</code> with <code>-fg</code> colors. Here info is replaced by Tailwind sky, and
+              the dark theme lightens success and error.
+            </p>
+            <div class="alerts">
+              <p class="alert alert--success"><strong>Saved.</strong> Your changes are live.</p>
+              <p class="alert alert--warning"><strong>Heads up.</strong> Your trial ends in 3 days.</p>
+              <p class="alert alert--error"><strong>Failed.</strong> The file is larger than 10 MB.</p>
+              <p class="alert alert--info"><strong>Tip.</strong> Press / to search.</p>
+            </div>
+            <div class="demo-row">
+              <button
+                class="demo-btn demo-btn--success"
+                type="button"
+              >
+                success
+              </button>
+              <button
+                class="demo-btn demo-btn--warning"
+                type="button"
+              >
+                warning
+              </button>
+              <button
+                class="demo-btn demo-btn--error"
+                type="button"
+              >
+                error
+              </button>
+              <button
+                class="demo-btn demo-btn--info"
+                type="button"
+              >
+                info
+              </button>
+            </div>
+            <div
+              class="palette"
+              data-palette="success"
+              aria-label="Success scale"
+            ></div>
+            <pre><code>.alert--error {
+  border-inline-start: 4px solid kit.color(error);
+  background: color-mix(in srgb, kit.color(error) 12%, kit.color(card));
+}
+.save { @include kit.btn(success); } // text: var(--clr-success-fg)</code></pre>
+          </section>
+
+          <!-- # ********  Buttons  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="buttons-title"
+          >
+            <h2 id="buttons-title">Buttons</h2>
+            <p class="showcase-note">One mixin: <code>kit.btn($color, $variant, $size)</code>.</p>
+            <div class="demo-row">
+              <button
+                class="demo-btn demo-btn--primary"
+                type="button"
+              >
+                Token
+              </button>
+              <button
+                class="demo-btn demo-btn--custom"
+                type="button"
+              >
+                CSS value
+              </button>
+              <button
+                class="demo-btn demo-btn--secondary"
+                type="button"
+              >
+                Secondary
+              </button>
+              <button
+                class="demo-btn demo-btn--outlined"
+                type="button"
+              >
+                Outlined
+              </button>
+              <button
+                class="demo-btn demo-btn--primary"
+                type="button"
+                disabled
+              >
+                Disabled
+              </button>
+            </div>
+            <div class="demo-row">
+              <button
+                class="demo-btn demo-btn--sm"
+                type="button"
+              >
+                sm
+              </button>
+              <button
+                class="demo-btn demo-btn--md"
+                type="button"
+              >
+                md
+              </button>
+              <button
+                class="demo-btn demo-btn--lg"
+                type="button"
+              >
+                lg
+              </button>
+              <button
+                class="demo-btn demo-btn--xl"
+                type="button"
+              >
+                xl (override)
+              </button>
+            </div>
+            <pre><code>.cta { @include kit.btn(primary-500, $size: lg); }
+.secondary { @include kit.btn(secondary-500, outlined); }
+.save { @include kit.btn(success, $size: sm); }
+.partner { @include kit.btn(var(--partner-brand), $text: #fff); } // not in the palette: pass the text</code></pre>
+          </section>
+
+          <!-- # ********  Layout  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="layout-title"
+          >
+            <h2 id="layout-title">Layout</h2>
+            <p class="showcase-note">Responsive grid without breakpoints, capped at three columns.</p>
+            <div class="demo-grid">
+              <div class="demo-card">grid</div>
+              <div class="demo-card">grid</div>
+              <div class="demo-card">grid</div>
+              <div class="demo-card">grid</div>
+              <div class="demo-card">grid</div>
+              <div class="demo-card">grid</div>
+            </div>
+            <div class="demo-cluster">
+              <span class="tag">cluster</span><span class="tag">wraps</span><span class="tag">tags</span>
+              <span class="tag">and</span><span class="tag">buttons</span>
+            </div>
+            <div class="demo-center"><span>center()</span></div>
+            <pre><code>.cards { @include kit.grid(14rem, kit.space(4), $max-columns: 3); }</code></pre>
+          </section>
+
+          <!-- # ********  Columns  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="columns-title"
+          >
+            <h2 id="columns-title">Columns</h2>
+            <p class="showcase-note">
+              A 12-column grid; each cell sets its width with span(). Below md every cell is full width.
+            </p>
+            <div class="demo-columns">
+              <div class="demo-cell demo-cell--full">span(full)</div>
+              <div class="demo-cell demo-cell--side">md: span(3)</div>
+              <div class="demo-cell demo-cell--main">md: span(9)</div>
+              <div class="demo-cell demo-cell--third">md: span(4)</div>
+              <div class="demo-cell demo-cell--third">md: span(4)</div>
+              <div class="demo-cell demo-cell--third">md: span(4)</div>
+              <div class="demo-cell demo-cell--centered">md: span(6, $start: 4)</div>
+            </div>
+            <pre><code>.layout { @include kit.columns($gap: kit.space(3)); }
+.sidebar {
+  @include kit.span(12);
+  @include kit.respond(md) { @include kit.span(3); }
+}</code></pre>
+          </section>
+
+          <!-- # ********  Typography & decoration  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="text-title"
+          >
+            <h2 id="text-title">Typography &amp; decoration</h2>
+            <p class="demo-truncate">
+              truncate(): this single line is far too long for its box, so it ends with an ellipsis instead of wrapping
+              onto the next line.
+            </p>
+            <p class="demo-clamp">
+              truncate(2): longer text is clamped to two lines. Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Quaerat, voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, voluptatum.
+            </p>
+            <p>
+              <a
+                class="demo-link"
+                href="#"
+                >link-underline() grows on hover</a
+              >
+            </p>
+
+            <div class="demo-tiles">
+              <figure class="demo-tile">
+                <div class="demo-gradient">gradient</div>
+                <figcaption>
+                  <pre><code>@include kit.gradient(
+  (primary-400, secondary-500),
+  135deg
+);</code></pre>
+                </figcaption>
+              </figure>
+              <figure class="demo-tile">
+                <div class="demo-stripes">stripes</div>
+                <figcaption>
+                  <pre><code>@include kit.stripes(
+  (primary-700, primary-500, primary-300),
+  90deg
+);</code></pre>
+                </figcaption>
+              </figure>
+              <figure class="demo-tile">
+                <div class="demo-bubble">triangle</div>
+                <figcaption>
+                  <pre><code>&amp;::after {
+  @include kit.triangle(0.6rem, down, $color: secondary-500);
+}</code></pre>
+                </figcaption>
+              </figure>
+              <figure class="demo-tile">
+                <div class="demo-overlay">overlay</div>
+                <figcaption>
+                  <pre><code>@include kit.bg-image("placeholder.jpg");
+@include kit.overlay($background: rgb(0 0 0 / 45%));</code></pre>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <!-- # ********  Animations  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="animations-title"
+          >
+            <h2 id="animations-title">Animations</h2>
+            <p class="showcase-note">
+              <code>kit.keyframes</code> emits the @keyframes once (project/base/_animations.scss);
+              <code>kit.animate(name)</code> plays one, timed with the kit's duration and easing tokens. spin and pulse
+              loop; the others play once. They stop for users who prefer reduced motion.
+            </p>
+            <div class="anim-grid">
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--fade-in"></div>
+                <figcaption><code>fade-in</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--fade-out"></div>
+                <figcaption><code>fade-out</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--slide-up"></div>
+                <figcaption><code>slide-up</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--slide-down"></div>
+                <figcaption><code>slide-down</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--scale-in"></div>
+                <figcaption><code>scale-in</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--spin"></div>
+                <figcaption><code>spin</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--pulse"></div>
+                <figcaption><code>pulse</code></figcaption>
+              </figure>
+              <figure class="anim-tile">
+                <div class="anim-box anim-box--shake"></div>
+                <figcaption><code>shake</code></figcaption>
+              </figure>
+            </div>
+            <div class="demo-row">
+              <button
+                id="replay-animations"
+                class="demo-btn demo-btn--primary"
+                type="button"
+              >
+                Play again
+              </button>
+            </div>
+            <pre><code>@include kit.keyframes; // once, at the root
+
+.toast { @include kit.animate(slide-up); }
+.loader { @include kit.animate(spin); } // 1s linear infinite
+.field--invalid { @include kit.animate(shake, $duration: kit.duration(slow)); }</code></pre>
+          </section>
+
+          <!-- # ********  Social icons  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="social-title"
+          >
+            <h2 id="social-title">Social icons</h2>
+            <p class="showcase-note">Official colors always (top) or on hover only (bottom, like the footer).</p>
+            <div class="demo-row">
+              <a
+                class="demo-social demo-social--facebook"
+                href="#"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                class="demo-social demo-social--instagram"
+                href="#"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                class="demo-social demo-social--linkedin"
+                href="#"
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a
+                class="demo-social demo-social--youtube"
+                href="#"
+                aria-label="YouTube"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                class="demo-social demo-social--github"
+                href="#"
+                aria-label="GitHub"
+                ><i class="fab fa-github"></i
+              ></a>
+            </div>
+            <div class="demo-row">
+              <a
+                class="social-icon--facebook"
+                href="#"
+                aria-label="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                class="social-icon--instagram"
+                href="#"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                class="social-icon--linkedin"
+                href="#"
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a
+                class="social-icon--twitter"
+                href="#"
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+            <pre><code>.instagram { @include kit.social-icon(instagram, lg, $official: true); }</code></pre>
+          </section>
+
+          <!-- # ********  Media queries  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="media-title"
+          >
+            <h2 id="media-title">Media queries</h2>
+            <p class="showcase-note">Resize the window: the label follows the overridden breakpoints (sm = 40rem).</p>
+            <div class="demo-breakpoint"></div>
+          </section>
+
+          <!-- # ********  JavaScript  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="js-title"
+          >
+            <h2 id="js-title">JavaScript utilities</h2>
+            <p class="showcase-note">
+              Imported from the kit's barrel: <code>import { … } from "@emakras/vanilla-kit"</code>.
+            </p>
+            <dl
+              id="js-demo"
+              class="js-demo"
+            ></dl>
+          </section>
         </div>
       </main>
       <!--* ***************************************  End Of Main  *************************************** -->
@@ -528,45 +681,50 @@
       <footer class="footer">
         <div class="footer-content">
           <div class="footer-section">
-            <h3 class="footer-title">About</h3>
+            <h3>About</h3>
             <p class="footer-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
 
           <div class="footer-section">
-            <h3 class="footer-title">Quick Links</h3>
-            <ul class="footer-links">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="showcase.html">Showcase</a></li>
+            <h3>Quick Links</h3>
+            <ul
+              class="footer-links"
+              role="list"
+            >
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Contact</a></li>
             </ul>
           </div>
 
           <div class="footer-section">
-            <h3 class="footer-title">Follow Us</h3>
+            <h3>Follow Us</h3>
             <div class="socials-wrapper">
               <a
-                class="social-icon social-icon-facebook official-on-hover"
+                class="social-icon--facebook"
                 href="#"
-              >
-                <i class="fab fa-facebook"></i>
-              </a>
+                aria-label="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
               <a
-                class="social-icon social-icon-instagram official-on-hover"
+                class="social-icon--instagram"
                 href="#"
-              >
-                <i class="fab fa-instagram"></i>
-              </a>
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
               <a
-                class="social-icon social-icon-linkedin official-on-hover"
+                class="social-icon--linkedin"
                 href="#"
-              >
-                <i class="fab fa-linkedin"></i>
-              </a>
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
               <a
-                class="social-icon social-icon-twitter official-on-hover"
+                class="social-icon--twitter"
                 href="#"
-              >
-                <i class="fab fa-twitter"></i>
-              </a>
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
             </div>
           </div>
         </div>

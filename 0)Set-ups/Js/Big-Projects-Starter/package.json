@@ -3,27 +3,36 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --fix",
-    "format": "prettier .  --write"
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "test": "node --test",
+    "lint:fix": "eslint . --fix",
+    "check": "pnpm test && pnpm lint && pnpm format:scss:check && pnpm build",
+    "format:scss": "prettier src/scss --write",
+    "format:scss:check": "prettier src/scss --check"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.7.2",
-    "eslint": "^8.48.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-html": "^7.1.0",
-    "eslint-plugin-json": "^3.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "3.2.5",
-    "sass": "^1.79.5",
-    "vite": "^4.1.0"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsonc": "^3.4.2",
+    "globals": "^17.13.0",
+    "prettier": "3.9.10",
+    "sass": "^1.105.1",
+    "vite": "^8.3.4"
   },
   "dependencies": {
-    "chroma-js": "^3.1.1",
-    "dayjs": "^1.11.13",
-    "roarr": "^7.21.1"
+    "@emakras/vanilla-kit": "github:EKtorMakras/vanilla-kit#v0.4.0",
+    "@fontsource/baloo-tamma-2": "5.3.0",
+    "dayjs": "^1.11.23",
+    "roarr": "^7.21.7"
   }
 }

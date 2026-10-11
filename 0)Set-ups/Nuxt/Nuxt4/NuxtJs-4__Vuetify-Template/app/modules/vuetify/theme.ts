@@ -46,21 +46,23 @@ const darkTheme: ThemeDefinition = {
     },
 };
 
+const variations = {
+    colors: [
+        "primary",
+        "secondary",
+        "error",
+        "success",
+        "warning",
+        "info",
+        "accent",
+    ],
+    lighten: 4,
+    darken: 4,
+};
+
 export const theme = {
     defaultTheme: "light",
-    variations: {
-        colors: [
-            "primary",
-            "secondary",
-            "error",
-            "success",
-            "warning",
-            "info",
-            "accent",
-        ],
-        lighten: 4,
-        darken: 4,
-    },
+    variations,
     themes: {
         light: lightTheme,
         dark: darkTheme,

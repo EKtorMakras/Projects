@@ -1,17 +1,7 @@
-// Import Css
-import "@/scss/style.scss";
+import { initTheme, toggleTheme } from "./theme.js";
+import { AppName } from "@/data";
 
-// Module Imports
-import { initTheme, toggleTheme } from "./libraries/darkMode";
-import { initStartingData } from "./fillStartingData";
+document.title = AppName;
+initTheme();
 
-// Init App
-document.addEventListener("DOMContentLoaded", initApp);
-
-// Functions
-function initApp() {
-  initStartingData();
-  initTheme();
-}
-
-document.querySelector("#btn").addEventListener("click", toggleTheme);
+document.getElementById("theme-btn")?.addEventListener("click", toggleTheme);

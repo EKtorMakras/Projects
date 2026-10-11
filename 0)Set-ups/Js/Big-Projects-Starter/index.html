@@ -7,19 +7,18 @@
       content="width=device-width, initial-scale=1.0"
     />
 
-    <!-- Font-awesome -->
+    <!-- Font Awesome: icon font used by the social icons and the menu button -->
     <script
       src="https://kit.fontawesome.com/a9c97bd30a.js"
       crossorigin="anonymous"
     ></script>
 
-    <!-- Google Fonts -->
+    <!-- Styles linked here, not imported from JS, so the page never renders unstyled -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700;800&family=Indie+Flower&display=swap"
       rel="stylesheet"
+      href="./src/scss/style.scss"
     />
 
-    <!-- Js -->
     <script
       src="./src/js/main.js"
       type="module"
@@ -32,57 +31,56 @@
     <div class="app">
       <!--* ***************************************  Header  *************************************** -->
       <header class="header">
-        <div
-          class="logo-wrapper"
-          style="grid-area: logo"
-        >
-          <a href="#">
-            <img
+        <div class="logo-wrapper">
+          <a href="index.html"
+            ><img
               src="./src/assets/images/logo-example.png"
               alt="logo"
               class="logo"
-              style="height: 50px"
-            />
-          </a>
+          /></a>
         </div>
 
         <nav
-          class="nav ml-8"
-          style="grid-area: nav"
+          class="nav"
+          aria-label="Main"
         >
-          <li class="nav-item">
-            <a
-              href="index.html"
-              class="nav-link nav-link--active"
-              >Home</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              href="showcase.html"
-              class="nav-link"
-              >Showcase</a
-            >
-          </li>
+          <ul
+            class="nav-list"
+            role="list"
+          >
+            <li>
+              <a
+                href="index.html"
+                class="nav-link nav-link--active"
+                aria-current="page"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="showcase.html"
+                class="nav-link"
+                >Showcase</a
+              >
+            </li>
+          </ul>
         </nav>
 
-        <div
-          class="header-actions"
-          style="grid-area: actions; display: flex; gap: 1rem; align-items: center"
-        >
+        <div class="header-actions">
           <button
             id="hamburger-btn"
             class="hamburger-btn"
+            type="button"
             aria-label="Toggle menu"
           >
             <i class="fas fa-bars"></i>
           </button>
-
           <button
-            id="btn"
-            class="btn d-xl-grid btn-rg flex-sm-1-1-fill ma-2 radius-3 l-spacing-4"
+            id="theme-btn"
+            class="theme-btn"
+            type="button"
           >
-            Change Theme
+            Change theme
           </button>
         </div>
       </header>
@@ -93,16 +91,20 @@
         id="sidebar"
         class="sidebar"
       >
-        <nav class="sidebar-nav">
-          <ul class="sidebar-menu">
-            <li class="sidebar-item">
+        <nav aria-label="Mobile">
+          <ul
+            class="sidebar-menu"
+            role="list"
+          >
+            <li>
               <a
                 href="index.html"
                 class="sidebar-link"
+                aria-current="page"
                 >Home</a
               >
             </li>
-            <li class="sidebar-item">
+            <li>
               <a
                 href="showcase.html"
                 class="sidebar-link"
@@ -112,23 +114,33 @@
           </ul>
         </nav>
       </aside>
-      <!--* ***************************************  End Of Sidebar  *************************************** -->
-
-      <!--* ***************************************  Overlay  **************** *********************** -->
       <div
         id="overlay"
         class="overlay"
       ></div>
-      <!--* ***************************************  End Of Overlay  *************************************** -->
+      <!--* ***************************************  End Of Sidebar  *************************************** -->
 
       <!--* ***************************************  Main  *************************************** -->
       <main class="main">
-        <div class="container">
+        <section class="hero container">
           <h1>Welcome to the Project</h1>
-          <p class="text-center mx-auto">
-            This is the home page. Visit the <a href="showcase.html">Showcase</a> to see all components.
+          <p class="hero__lead">
+            A vanilla JS + SCSS starter styled with <code>@emakras/vanilla-kit</code>. Configure the kit in
+            <code>src/scss/settings</code> and write your styles in <code>src/scss/project</code>.
           </p>
-        </div>
+          <div class="hero__actions">
+            <a
+              class="hero__primary"
+              href="showcase.html"
+              >Open the showcase</a
+            >
+            <a
+              class="hero__secondary"
+              href="https://github.com/EKtorMakras/vanilla-kit"
+              >Kit on GitHub</a
+            >
+          </div>
+        </section>
       </main>
       <!--* ***************************************  End Of Main  *************************************** -->
 
@@ -136,13 +148,16 @@
       <footer class="footer">
         <div class="footer-content">
           <div class="footer-section">
-            <h3 class="footer-title">About</h3>
+            <h3>About</h3>
             <p class="footer-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
           </div>
 
           <div class="footer-section">
-            <h3 class="footer-title">Quick Links</h3>
-            <ul class="footer-links">
+            <h3>Quick Links</h3>
+            <ul
+              class="footer-links"
+              role="list"
+            >
               <li><a href="#">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Services</a></li>
@@ -151,32 +166,32 @@
           </div>
 
           <div class="footer-section">
-            <h3 class="footer-title">Follow Us</h3>
+            <h3>Follow Us</h3>
             <div class="socials-wrapper">
               <a
-                class="social-icon social-icon-facebook official-on-hover"
+                class="social-icon--facebook"
                 href="#"
-              >
-                <i class="fab fa-facebook"></i>
-              </a>
+                aria-label="Facebook"
+                ><i class="fab fa-facebook"></i
+              ></a>
               <a
-                class="social-icon social-icon-instagram official-on-hover"
+                class="social-icon--instagram"
                 href="#"
-              >
-                <i class="fab fa-instagram"></i>
-              </a>
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
               <a
-                class="social-icon social-icon-linkedin official-on-hover"
+                class="social-icon--linkedin"
                 href="#"
-              >
-                <i class="fab fa-linkedin"></i>
-              </a>
+                aria-label="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
               <a
-                class="social-icon social-icon-twitter official-on-hover"
+                class="social-icon--twitter"
                 href="#"
-              >
-                <i class="fab fa-twitter"></i>
-              </a>
+                aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -189,26 +204,3 @@
     </div>
   </body>
 </html>
-
-<!-- ------------------------------------------------- Comments -------------------------------------------------- -->
-
-<!--* ***************************************   Comment  *************************************** -->
-<!--* ***************************************  End Of Comment  *************************************** -->
-
-<!-- & ********************************  Comment  ********************************  -->
-<!-- & ********************************  End Of Comment  ********************************  -->
-
-<!-- $ *******************  Comment  ******************* $ -->
-<!-- $ *******************  End Of Comment  ******************* $ -->
-
-<!-- % ***************  Comment  ***************  -->
-<!-- % ***************  End Of Comment  ***************  -->
-
-<!-- @ ************  Comment  ************  -->
-<!-- @ ************  End Of Comment  ************  -->
-
-<!-- # ********  Comment  ********  -->
-<!-- # ********  End Of Comment  ********  -->
-
-<!-- ^ *****  Comment  *****  -->
-<!-- ^ *****  End Of Comment  *****  -->

@@ -1,6 +1,3 @@
-// Import Css
-import "@/scss/style.scss";
-
 // Module Imports
 import themeManager from "./libraries/darkMode";
 import { initStartingData } from "./fillStartingData";

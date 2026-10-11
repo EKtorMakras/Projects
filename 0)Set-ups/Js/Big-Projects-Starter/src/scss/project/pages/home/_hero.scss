@@ -1,0 +1,26 @@
+@use "settings" as kit;
+
+.hero {
+  @include kit.section;
+  @include kit.stack(kit.space(6));
+  align-items: center;
+  text-align: center;
+
+  &__lead {
+    max-width: 60ch;
+    color: kit.color(muted);
+    font-size: kit.fs(lg);
+  }
+
+  &__actions {
+    @include kit.cluster(kit.space(3), $justify: center);
+  }
+
+  &__primary {
+    @include kit.btn(primary-500, $size: lg);
+  }
+
+  &__secondary {
+    @include kit.btn(primary-500, outlined, $size: lg);
+  }
+}

@@ -1,6 +1,9 @@
 import { AppName } from "@/data";
 import { dom } from "./DOM";
-import { getItemLs, updateItemLs, clearCssVariableCache } from "./utils";
+import { getItemLs, updateItemLs, clearCssVariableCache } from "@emakras/vanilla-kit";
+
+// The names of $themes in src/scss/settings/_themes.scss; the first one is the default.
+export const THEMES = ["light", "dark", "sepia"];
 
 class ThemeManager {
   constructor(appName) {
@@ -8,28 +11,37 @@ class ThemeManager {
   }
 
   initTheme() {
-    const theme = this.getCurrentTheme();
-    this.loadTheme(theme);
+    this.loadTheme(this.getCurrentTheme());
   }
 
+  /** Moves to the next theme of THEMES. */
   toggleTheme() {
-    let theme = this.getCurrentTheme();
-    theme = theme === "light" ? "dark" : "light";
+    const next = THEMES[(THEMES.indexOf(this.getCurrentTheme()) + 1) % THEMES.length];
 
+    this.setTheme(next);
+  }
+
+  setTheme(theme) {
     updateItemLs(this.appName, "theme", theme);
     this.loadTheme(theme);
-    clearCssVariableCache();
   }
 
   getCurrentTheme() {
     const storedTheme = getItemLs(this.appName)?.theme;
-    if (storedTheme) return storedTheme;
+
+    if (THEMES.includes(storedTheme)) return storedTheme;
 
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
+  /** Applies the theme and announces it with a "themechange" event on document. */
   loadTheme(theme) {
     dom.root.dataset.theme = theme;
+    clearCssVariableCache();
+
+    if (dom.themeBtn) dom.themeBtn.textContent = `Theme: ${theme}`;
+
+    document.dispatchEvent(new CustomEvent("themechange", { detail: { theme } }));
   }
 }
 

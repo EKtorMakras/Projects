@@ -99,10 +99,10 @@ export function createConsoleWriter(apps = null) {
 
     // In development mode print all messages. In any other case print only
     // from INFO level and above.
-    const showMessage = process.env.NODE_ENV == "development" || record.context.logLevel >= 30;
+    const showMessage = import.meta.env.DEV || record.context.logLevel >= 30;
 
     // Show caller link only in development mode
-    const showCaller = process.env.NODE_ENV == "development";
+    const showCaller = import.meta.env.DEV;
 
     if (showMessage) {
       const logLevel = getLogLevelName(record.context.logLevel);

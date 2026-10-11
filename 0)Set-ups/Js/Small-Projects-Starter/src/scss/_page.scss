@@ -1,0 +1,43 @@
+// Page layout. Replace the example section with the project's own styles.
+@use "settings" as kit;
+
+// minmax(0, 1fr): a grid column otherwise grows to its widest content, and phones then zoom the page out.
+.page {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+.header {
+  @include kit.cluster(kit.space(4), $justify: space-between);
+  padding: kit.space(4) kit.$gutter;
+  border-bottom: 1px solid kit.color(line);
+}
+
+.theme-btn {
+  @include kit.btn(primary-500, outlined, $size: sm);
+}
+
+.main {
+  @include kit.container;
+  @include kit.section;
+}
+
+.intro {
+  @include kit.stack(kit.space(4));
+  max-width: 60ch;
+}
+
+.intro__lead {
+  color: kit.color(muted);
+  font-size: kit.fs(lg);
+}
+
+.footer {
+  padding: kit.space(6) kit.$gutter;
+  border-top: 1px solid kit.color(line);
+  color: kit.color(muted);
+  font-size: kit.fs(sm);
+  text-align: center;
+}
