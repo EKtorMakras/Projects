@@ -1,0 +1,29 @@
+/// Form controls for every page: the kit's field, select, checkbox, radio and switch on the native elements.
+/// - In the base layer, so a component or page can restyle a control without fighting specificity.
+/// - A checkbox with role="switch" becomes a toggle switch.
+@use "settings" as kit;
+
+input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]),
+textarea {
+  @include kit.field($focus-color: primary);
+}
+
+select {
+  @include kit.select($focus-color: primary);
+}
+
+input[type="checkbox"]:not([role="switch"]) {
+  @include kit.checkbox($color: primary);
+}
+
+input[type="radio"] {
+  @include kit.radio($color: primary);
+}
+
+input[role="switch"] {
+  @include kit.switch($color: primary);
+}
+
+input[type="range"] {
+  accent-color: kit.color(primary);
+}

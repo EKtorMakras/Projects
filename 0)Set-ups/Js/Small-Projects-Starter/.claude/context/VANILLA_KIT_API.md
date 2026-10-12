@@ -1,11 +1,11 @@
-# @emakras/vanilla-kit API — v0.4.0
+# @emakras/vanilla-kit API — v0.5.1
 
 Everything the package exports to consumers. Copy this file into a consumer project so tools and people know
 the API of the installed version. Anything not listed here is internal and cannot be imported.
 
-- SCSS ships as source: `@use "@emakras/vanilla-kit/scss" as kit;`. No `@use` emits CSS rules; only `@include` does. The docs are `/** */` comments: they appear in dev CSS and minifiers remove them.
+- SCSS ships as source: `@use "@emakras/vanilla-kit/scss" as kit;`. No `@use` emits CSS; only `@include` does. Every member has SassDoc `///` docs, shown on hover by editors such as Some Sass.
 - JS is one barrel: `import { … } from "@emakras/vanilla-kit";`. Imports are DOM-free; browser helpers need a DOM when called.
-- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.4.0"`.
+- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.5.1"`.
 
 ## SCSS
 
@@ -55,37 +55,38 @@ included: list only what changes, e.g. `$breakpoints: (sm: 40rem)`; `null` remov
 
 ### Configuration (`config`, all `!default`)
 
-| Variable             | Default                                                                                                                                               | Meaning                                                              |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `$breakpoints`       | `sm 36rem, md 48rem, lg 64rem, xl 80rem, xxl 96rem`                                                                                                   | Keys for `respond()`                                                 |
-| `$space-unit`        | `0.25rem`                                                                                                                                             | `space(n)` = n × unit                                                |
-| `$space-steps`       | `16`                                                                                                                                                  | Highest `space()` step                                               |
-| `$container`         | `72rem`                                                                                                                                               | `container` max width, `--container`                                 |
-| `$gutter`            | `1.5rem`                                                                                                                                              | `container` side padding, `--gutter`                                 |
-| `$columns`           | `12`                                                                                                                                                  | Default `columns()` count                                            |
-| `$radius-scale`      | `sm, md, lg, xl, full`                                                                                                                                | `radius()` keys                                                      |
-| `$shadows`           | `sm, md, lg, xl`                                                                                                                                      | `shadow()` keys                                                      |
-| `$font-sizes`        | `xs, sm, md, lg, xl, xxl, xxxl, display` (fluid from lg)                                                                                              | `fs()` keys                                                          |
-| `$font-weights`      | `light 300, regular 400, medium 500, semibold 600, bold 700`                                                                                          | `fw()` keys                                                          |
-| `$font-families`     | `body`, `heading`: `system-ui, sans-serif`; `mono`: `ui-monospace, …, monospace`                                                                      | `ff()` keys; quote names with spaces                                 |
-| `$durations`         | `fast 150ms, base 250ms, slow 400ms`                                                                                                                  | `duration()` keys                                                    |
-| `$easings`           | `in, out, in-out, out-expo, out-back`                                                                                                                 | `ease()` keys                                                        |
-| `$z-indexes`         | `content 1, header 100, dropdown 200, overlay 900, modal 1000, toast 1100`                                                                            | `z()` keys                                                           |
-| `$prefixes`          | `color: clr, space, radius, shadow, font-size: fs, font-weight: fw, font-family: ff, duration, ease, z-index: z, animation: kit`                      | CSS variable and @keyframes prefixes                                 |
-| `$colors`            | `()`                                                                                                                                                  | Palette: a map, or a list of maps merged in order (duplicates error) |
-| `$status-colors`     | `success #2e7d32, warning #f5a623, error #d32752, info #1976d2`                                                                                       | Joined to the palette; a `$colors` entry with the same name wins     |
-| `$color-steps`       | `50: 95% … 500: 0% … 950: -75%`                                                                                                                       | Tint (+) / shade (−) per generated step                              |
-| `$themes`            | `()`                                                                                                                                                  | Semantic colors per theme; the first is the default                  |
-| `$theme-attribute`   | `data-theme`                                                                                                                                          | `:root[data-theme="<name>"]` selects a theme                         |
-| `$focus-color`       | `currentColor`                                                                                                                                        | `focus-ring` and button focus                                        |
-| `$hover-shift`       | `-12%`                                                                                                                                                | Hover background change: negative mixes black, positive white        |
-| `$disabled-opacity`  | `0.5`                                                                                                                                                 | Disabled buttons                                                     |
-| `$button-sizes`      | `sm, md, lg: (padding, font-size: <$font-sizes key>)`                                                                                                 | `btn($size)`, `btn-size()`                                           |
-| `$social-colors`     | 19 brands (facebook, instagram, x, threads, bluesky, linkedin, youtube, tiktok, twitch, spotify, github, gitlab, whatsapp, viber, telegram, discord…) | `social-color()`                                                     |
-| `$social-gradients`  | `instagram`                                                                                                                                           | Gradient on icon fonts                                               |
-| `$social-icon-box`   | `1.7em`                                                                                                                                               | Round box size relative to the icon                                  |
-| `$social-icon-sizes` | `sm 1rem, md 1.5rem, lg 2rem, xl 2.5rem`                                                                                                              | `social-icon($size)`                                                 |
-| `$asset-base-path`   | `/assets`                                                                                                                                             | Root of `asset()` paths                                              |
+| Variable             | Default                                                                                                                                               | Meaning                                                                  |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `$breakpoints`       | `sm 36rem, md 48rem, lg 64rem, xl 80rem, xxl 96rem`                                                                                                   | Keys for `respond()`                                                     |
+| `$space-unit`        | `0.25rem`                                                                                                                                             | `space(n)` = n × unit                                                    |
+| `$space-steps`       | `16`                                                                                                                                                  | Highest `space()` step                                                   |
+| `$container`         | `72rem`                                                                                                                                               | `container` max width, `--container`                                     |
+| `$gutter`            | `1.5rem`                                                                                                                                              | `container` side padding, `--gutter`                                     |
+| `$columns`           | `12`                                                                                                                                                  | Default `columns()` count                                                |
+| `$radius-scale`      | `sm, md, lg, xl, full`                                                                                                                                | `radius()` keys                                                          |
+| `$shadows`           | `sm, md, lg, xl`                                                                                                                                      | `shadow()` keys                                                          |
+| `$font-sizes`        | `xs, sm, md, lg, xl, xxl, xxxl, display` (fluid from lg)                                                                                              | `fs()` keys                                                              |
+| `$font-weights`      | `light 300, regular 400, medium 500, semibold 600, bold 700`                                                                                          | `fw()` keys                                                              |
+| `$font-families`     | `body`, `heading`: `system-ui, sans-serif`; `mono`: `ui-monospace, …, monospace`                                                                      | `ff()` keys; quote names with spaces                                     |
+| `$durations`         | `fast 150ms, base 250ms, slow 400ms`                                                                                                                  | `duration()` keys                                                        |
+| `$easings`           | `in, out, in-out, out-expo, out-back`                                                                                                                 | `ease()` keys                                                            |
+| `$z-indexes`         | `content 1, header 100, dropdown 200, overlay 900, modal 1000, toast 1100`                                                                            | `z()` keys                                                               |
+| `$prefixes`          | `color: clr, space, radius, shadow, font-size: fs, font-weight: fw, font-family: ff, duration, ease, z-index: z, animation: kit`                      | CSS variable and @keyframes prefixes                                     |
+| `$colors`            | `()`                                                                                                                                                  | Palette: a map, or a list of maps merged in order (duplicates error)     |
+| `$status-colors`     | `success #2e7d32, warning #f5a623, error #d32752, info #1976d2`                                                                                       | Joined to the palette; a `$colors` entry with the same name wins         |
+| `$color-steps`       | `50: 95% … 500: 0% … 950: -75%`                                                                                                                       | Tint (+) / shade (−) per generated step                                  |
+| `$fg-colors`         | `dark #000, light #fff`                                                                                                                               | Text colors of every `-fg` token; pure black/white where they miss 4.5:1 |
+| `$themes`            | `()`                                                                                                                                                  | Semantic colors per theme; the first is the default                      |
+| `$theme-attribute`   | `data-theme`                                                                                                                                          | `:root[data-theme="<name>"]` selects a theme                             |
+| `$focus-color`       | `currentColor`                                                                                                                                        | `focus-ring` and button focus                                            |
+| `$hover-shift`       | `-12%`                                                                                                                                                | Hover background change: negative mixes black, positive white            |
+| `$disabled-opacity`  | `0.5`                                                                                                                                                 | Disabled buttons                                                         |
+| `$button-sizes`      | `sm, md, lg: (padding, font-size: <$font-sizes key>)`                                                                                                 | `btn($size)`, `btn-size()`                                               |
+| `$social-colors`     | 19 brands (facebook, instagram, x, threads, bluesky, linkedin, youtube, tiktok, twitch, spotify, github, gitlab, whatsapp, viber, telegram, discord…) | `social-color()`                                                         |
+| `$social-gradients`  | `instagram`                                                                                                                                           | Gradient on icon fonts                                                   |
+| `$social-icon-box`   | `1.7em`                                                                                                                                               | Round box size relative to the icon                                      |
+| `$social-icon-sizes` | `sm 1rem, md 1.5rem, lg 2rem, xl 2.5rem`                                                                                                              | `social-icon($size)`                                                     |
+| `$asset-base-path`   | `/assets`                                                                                                                                             | Root of `asset()` paths                                                  |
 
 ### Colors and themes
 
@@ -94,7 +95,7 @@ names become their CSS variable and unknown names fail the build. Use `color(nam
 
 - `$colors` entry: a base color → generated `50…950` scale; a map of steps (a Tailwind hue) → used as given.
 - Every palette name emits `--clr-<name>`, `--clr-<name>-fg`, `--clr-<name>-<step>` and `--clr-<name>-<step>-fg`
-  (readable text color, WCAG 4.5 where possible). Status colors are palettes too.
+  (readable text color from `$fg-colors`, WCAG 4.5 where possible). Status colors are palettes too.
 - `$themes` values: a color, a palette token (`primary-500`, `primary-500-fg`) or any CSS value. A token that does not
   exist is a compile error.
 - A theme key that is a palette name (`dark: (primary: #a594f9)`) re-tints that whole scale for the theme.
@@ -175,6 +176,19 @@ hover, following the theme; an unknown name or a name without `-fg` (and no `$te
 value (`var(--brand)`, `#7357e8`) → used as given with a `color-mix()` hover; pass `$text`.
 Without `$color` only layout, size, focus and disabled styles are emitted.
 
+### Forms
+
+Native inputs without the browser's default look; they stay real inputs for keyboard, forms and screen readers.
+Sizes are in `em`; colors accept names (`primary`) or any CSS value.
+
+| Mixin      | Signature                                                                                                                                        | Output                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `field`    | `field($border-color, $focus-color: $focus-color, $invalid-color: error, $background: transparent, $radius: radius(md), $padding: 0.5em 0.75em)` | Input/textarea: border, placeholder, focus glow, invalid, disabled |
+| `select`   | `select($field-options...)`                                                                                                                      | `field()` + `appearance: none` + a gradient arrow                  |
+| `checkbox` | `checkbox($color: currentColor, $mark-color: #fff, $border-color, $size: 1.15em, $radius: 0.25em)`                                               | Box with a scaled-in check; dash on `:indeterminate`               |
+| `radio`    | `radio($color: currentColor, $border-color, $size: 1.15em)`                                                                                      | Ring with a scaled-in dot                                          |
+| `switch`   | `switch($color: currentColor, $knob-color: #fff, $track-color, $size: 1.25em)`; add `role="switch"`                                              | Pill track, sliding knob                                           |
+
 ### Accessibility, typography, reset
 
 | Mixin             | Signature                                                                               | Output                                              |
@@ -225,56 +239,60 @@ Defaults: `duration()` and `ease()`, played once; `spin` is 1s linear infinite, 
 
 ## JavaScript
 
-| Function                   | Arguments                                                                         | Returns                                                  |
-| -------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| `arrFirst`                 | `(array, count = 1)`                                                              | First element, or first `count` as an array              |
-| `arrLast`                  | `(array, count = 1)`                                                              | Last element, or last `count` as an array                |
-| `arrRandom`                | `(array)`                                                                         | A random element                                         |
-| `arrGetUniqueObjectValues` | `(array, key)`                                                                    | Unique values of `key`, first-seen order                 |
-| `arrGroupBy`               | `(array, key)`                                                                    | `{ [value]: objects[] }`                                 |
-| `arrIsNotEmpty`            | `(value)`                                                                         | `true` for a non-empty array                             |
-| `arrShuffle`               | `(array)`                                                                         | Shuffled copy                                            |
-| `arrFindMinMaxByKey`       | `(array, key)`                                                                    | `{ min, max }`                                           |
-| `arrChunk`                 | `(array, size)`                                                                   | Array of chunks                                          |
-| `arrCompact`               | `(array)`                                                                         | Without falsy values                                     |
-| `arrFlatten`               | `(array)`                                                                         | Flattened one level                                      |
-| `getCssColorVariable`      | `(colorName)` without `--clr-`                                                    | Raw value of `--clr-<name>`, or `null`                   |
-| `clearCssVariableCache`    | `()`                                                                              | Empties the lookup cache; call after a theme change      |
-| `resolveCssVariableColor`  | `(color)`                                                                         | Value of a `var(--clr-*)`, other colors unchanged        |
-| `getColor`                 | `(colorName)`                                                                     | `"var(--clr-<name>)"` if defined, else `null`            |
-| `getHexColor`              | `(colorName)`                                                                     | Hex string (charts, canvas), or `null`                   |
-| `getRgbColor`              | `(colorName)`                                                                     | `rgb()`/`rgba()` string, or `null`                       |
-| `getNextDay`               | `(offset, length = 7)`                                                            | Day abbreviation (`"MON"`) `offset` days after tomorrow  |
-| `formatDate`               | `(date = new Date())`                                                             | `"YYYY-MM-DD"`; throws on invalid dates                  |
-| `formatRelativeDate`       | `(toDate, fromDate = new Date(), locale = "en")`                                  | `"2 days ago"`; locales `en`, `el` loaded                |
-| `isSameDay`                | `(firstDate, secondDate)`                                                         | `boolean`                                                |
-| `getStartOfWeek`           | `(date = new Date(), weekStart = 0)`                                              | `Date` at midnight of the week's first day               |
-| `addDays`                  | `(date, days)`                                                                    | New `Date`; negative subtracts                           |
-| `addGlobalEventListener`   | `(type = "click", selector, callback(event, target), parent = document, options)` | Delegated listener; returns a remover function           |
-| `getDomElement`            | `(selector, multiple = false, parent = document)`                                 | Element, or array of all matches                         |
-| `createHtmlElement`        | `(html)` trusted markup, one root                                                 | `Element`                                                |
-| `createElement`            | `(options = {}, type = "div")`; options `class`, `dataset`, `text`, any attribute | `Element`                                                |
-| `deleteChildElements`      | `(parent)`                                                                        | Removes child elements, keeps text nodes                 |
-| `elementExists`            | `(selector, parent = document)`                                                   | `boolean`                                                |
-| `timeout`                  | `(seconds)`                                                                       | Promise that rejects after the delay                     |
-| `getJSON`                  | `(url, { timeoutMs = 10000, ...fetchOptions })`                                   | `Promise<{ data, error }>`; never throws                 |
-| `sanitizeInput`            | `(text)`                                                                          | HTML-escaped text for text nodes (not an HTML sanitizer) |
-| `copyToClipboard`          | `(text)`                                                                          | `Promise<void>`                                          |
-| `getParameterValue`        | `(name, url = location.href)`                                                     | Decoded value, `""` without value, `null` when missing   |
-| `isNumber`                 | `(value)`                                                                         | `true` for finite numbers                                |
-| `padTo2Digits`             | `(number)`                                                                        | `"05"`                                                   |
-| `formatDecimals`           | `(number, digits = 2)`                                                            | Fixed decimals; integers unchanged                       |
-| `randomNumberBetween`      | `(min, max)`                                                                      | Integer, both inclusive                                  |
-| `numberIsEven`             | `(number)`                                                                        | `boolean`                                                |
-| `getAverage`               | `(...numbers)`                                                                    | Mean; throws without numbers                             |
-| `formatNumber`             | `(number, "compact" \| "scientific", locale)`                                     | `"1K"`                                                   |
-| `clampNumber`              | `(value, min, max)`                                                               | Number within the range                                  |
-| `formatCurrency`           | `(number, currency = "USD", locale = "en-US")`                                    | `"$1,234.56"`                                            |
-| `getItemLs`                | `(key)`                                                                           | Parsed localStorage value, or `null`                     |
-| `setItemLs`                | `(key, value)`                                                                    | Stores JSON                                              |
-| `updateItemLs`             | `(key, property, value)`                                                          | Sets one property of a stored object                     |
-| `toProperCase`             | `(text)`                                                                          | `"Hello"`                                                |
-| `cleanUppercaseText`       | `(text)`                                                                          | Text without accents                                     |
-| `truncateString`           | `(text, maxLength, suffix = "...")`                                               | Text cut to `maxLength`, suffix included                 |
+| Function                   | Arguments                                                                         | Returns                                                                                            |
+| -------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `arrFirst`                 | `(array, count = 1)`                                                              | First element, or first `count` as an array                                                        |
+| `arrLast`                  | `(array, count = 1)`                                                              | Last element, or last `count` as an array                                                          |
+| `arrRandom`                | `(array)`                                                                         | A random element                                                                                   |
+| `arrGetUniqueObjectValues` | `(array, key)`                                                                    | Unique values of `key`, first-seen order                                                           |
+| `arrGroupBy`               | `(array, key)`                                                                    | `{ [value]: objects[] }`                                                                           |
+| `arrIsNotEmpty`            | `(value)`                                                                         | `true` for a non-empty array                                                                       |
+| `arrShuffle`               | `(array)`                                                                         | Shuffled copy                                                                                      |
+| `arrFindMinMaxByKey`       | `(array, key)`                                                                    | `{ min, max }`                                                                                     |
+| `arrChunk`                 | `(array, size)`                                                                   | Array of chunks                                                                                    |
+| `arrCompact`               | `(array)`                                                                         | Without falsy values                                                                               |
+| `arrFlatten`               | `(array)`                                                                         | Flattened one level                                                                                |
+| `getCssColorVariable`      | `(colorName)` without `--clr-`                                                    | Raw value of `--clr-<name>`, or `null`                                                             |
+| `clearCssVariableCache`    | `()`                                                                              | Empties the lookup cache; call after a theme change                                                |
+| `resolveCssVariableColor`  | `(color)`                                                                         | Value of a `var(--clr-*)`, other colors unchanged                                                  |
+| `getColor`                 | `(colorName)`                                                                     | `"var(--clr-<name>)"` if defined, else `null`                                                      |
+| `getHexColor`              | `(colorName)`                                                                     | Hex string (charts, canvas), or `null`                                                             |
+| `getRgbColor`              | `(colorName)`                                                                     | `rgb()`/`rgba()` string, or `null`                                                                 |
+| `getNextDay`               | `(offset, length = 7)`                                                            | Day abbreviation (`"MON"`) `offset` days after tomorrow                                            |
+| `formatDate`               | `(date = new Date())`                                                             | `"YYYY-MM-DD"`; throws on invalid dates                                                            |
+| `formatRelativeDate`       | `(toDate, fromDate = new Date(), locale = "en")`                                  | `"2 days ago"`; locales `en`, `el` loaded                                                          |
+| `isSameDay`                | `(firstDate, secondDate)`                                                         | `boolean`                                                                                          |
+| `getStartOfWeek`           | `(date = new Date(), weekStart = 0)`                                              | `Date` at midnight of the week's first day                                                         |
+| `addDays`                  | `(date, days)`                                                                    | New `Date`; negative subtracts                                                                     |
+| `addGlobalEventListener`   | `(type = "click", selector, callback(event, target), parent = document, options)` | Delegated listener; returns a remover function                                                     |
+| `getDomElement`            | `(selector, multiple = false, parent = document)`                                 | Element, or array of all matches                                                                   |
+| `createHtmlElement`        | `(html)` trusted markup, one root                                                 | `Element`                                                                                          |
+| `createElement`            | `(options = {}, type = "div")`; options `class`, `dataset`, `text`, any attribute | `Element`                                                                                          |
+| `deleteChildElements`      | `(parent)`                                                                        | Removes child elements, keeps text nodes                                                           |
+| `elementExists`            | `(selector, parent = document)`                                                   | `boolean`                                                                                          |
+| `timeout`                  | `(seconds)`                                                                       | Promise that rejects after the delay                                                               |
+| `getJSON`                  | `(url, { timeoutMs = 10000, ...fetchOptions })`                                   | `Promise<{ data, error }>`; never throws                                                           |
+| `sanitizeInput`            | `(text)`                                                                          | HTML-escaped text for text nodes (not an HTML sanitizer)                                           |
+| `copyToClipboard`          | `(text)`                                                                          | `Promise<void>`                                                                                    |
+| `getParameterValue`        | `(name, url = location.href)`                                                     | Decoded value, `""` without value, `null` when missing                                             |
+| `createLogger`             | `(app = "", { level, catchErrors = false })`                                      | `{ trace, debug, info, warn, error, fatal, stopCatchingErrors }`; colored labels, real caller line |
+| `isNumber`                 | `(value)`                                                                         | `true` for finite numbers                                                                          |
+| `padTo2Digits`             | `(number)`                                                                        | `"05"`                                                                                             |
+| `formatDecimals`           | `(number, digits = 2)`                                                            | Fixed decimals; integers unchanged                                                                 |
+| `randomNumberBetween`      | `(min, max)`                                                                      | Integer, both inclusive                                                                            |
+| `numberIsEven`             | `(number)`                                                                        | `boolean`                                                                                          |
+| `getAverage`               | `(...numbers)`                                                                    | Mean; throws without numbers                                                                       |
+| `formatNumber`             | `(number, "compact" \| "scientific", locale)`                                     | `"1K"`                                                                                             |
+| `clampNumber`              | `(value, min, max)`                                                               | Number within the range                                                                            |
+| `formatCurrency`           | `(number, currency = "USD", locale = "en-US")`                                    | `"$1,234.56"`                                                                                      |
+| `getItemLs`                | `(key)`                                                                           | Parsed localStorage value, or `null`                                                               |
+| `setItemLs`                | `(key, value)`                                                                    | Stores JSON                                                                                        |
+| `updateItemLs`             | `(key, property, value)`                                                          | Sets one property of a stored object                                                               |
+| `toProperCase`             | `(text)`                                                                          | `"Hello"`                                                                                          |
+| `cleanUppercaseText`       | `(text)`                                                                          | Text without accents                                                                               |
+| `truncateString`           | `(text, maxLength, suffix = "...")`                                               | Text cut to `maxLength`, suffix included                                                           |
 
 Validation errors throw with the function name; storage and browser errors reach the caller.
+
+`createLogger`: each method takes `console.log` arguments. Default level is `trace` in development (Vite
+`import.meta.env.DEV`) and `info` otherwise. `catchErrors: true` also logs uncaught errors and unhandled rejections.

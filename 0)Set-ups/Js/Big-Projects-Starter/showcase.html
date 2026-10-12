@@ -20,14 +20,14 @@
     />
 
     <script
-      src="./src/js/showcase.js"
+      src="./src/js/app.js"
       type="module"
     ></script>
 
     <title>Showcase - vanilla-kit</title>
   </head>
 
-  <body>
+  <body data-page="showcase">
     <div class="app">
       <!--* ***************************************  Header  *************************************** -->
       <header class="header">
@@ -71,6 +71,8 @@
             id="hamburger-btn"
             class="hamburger-btn"
             type="button"
+            aria-controls="sidebar"
+            aria-expanded="false"
             aria-label="Toggle menu"
           >
             <i class="fas fa-bars"></i>
@@ -222,31 +224,6 @@ box-shadow: kit.shadow(xl);</code></pre>
                 sepia
               </button>
             </div>
-            <div class="native-controls">
-              <label
-                ><input
-                  type="checkbox"
-                  checked
-                />
-                checkbox</label
-              >
-              <label
-                ><input
-                  type="radio"
-                  name="demo-radio"
-                  checked
-                />
-                radio</label
-              >
-              <label><input type="range" /> range</label>
-              <select aria-label="Select">
-                <option>select</option>
-              </select>
-            </div>
-            <p class="showcase-note">
-              The native controls follow <code>color-scheme</code> (automatic for light/dark, a theme key for sepia) and
-              <code>accent-color: kit.color(primary)</code>.
-            </p>
             <pre><code>$themes: (
   light: (surface: neutral-50, title: neutral-900, …),
   dark: (primary: hsl(173, 50%, 50%), success: #66bb6a, error: #ef5350, surface: neutral-900, …),
@@ -518,6 +495,94 @@ $palette: ($brand, $extras); // merged in order, duplicates are an error</code><
                 </figcaption>
               </figure>
             </div>
+          </section>
+
+          <!-- # ********  Forms  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="forms-title"
+          >
+            <h2 id="forms-title">Forms</h2>
+            <p class="showcase-note">
+              Every native control gets the kit's look in <code>project/base/_forms.scss</code>. They stay real inputs,
+              follow the theme and keep keyboard focus.
+            </p>
+            <div class="form-demo">
+              <div class="form-demo__fields">
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  aria-label="Name"
+                />
+                <input
+                  type="email"
+                  value="not-an-email"
+                  aria-label="Email"
+                  aria-invalid="true"
+                />
+                <select aria-label="Plan">
+                  <option>Free</option>
+                  <option>Pro</option>
+                </select>
+                <textarea
+                  rows="2"
+                  placeholder="Message"
+                  aria-label="Message"
+                ></textarea>
+              </div>
+              <div class="form-demo__choices">
+                <label
+                  ><input
+                    type="checkbox"
+                    checked
+                  />
+                  Checkbox</label
+                >
+                <label
+                  ><input
+                    id="indeterminate-demo"
+                    type="checkbox"
+                  />
+                  Indeterminate</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="demo-plan"
+                    checked
+                  />
+                  Radio one</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="demo-plan"
+                  />
+                  Radio two</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    role="switch"
+                    checked
+                  />
+                  Switch</label
+                >
+                <label><input type="range" /> Range</label>
+                <label
+                  ><input
+                    type="checkbox"
+                    disabled
+                  />
+                  Disabled</label
+                >
+              </div>
+            </div>
+            <pre><code>input:not([type="checkbox"], [type="radio"]), textarea { @include kit.field($focus-color: primary); }
+select { @include kit.select($focus-color: primary); }
+input[type="checkbox"]:not([role="switch"]) { @include kit.checkbox($color: primary); }
+input[type="radio"] { @include kit.radio($color: primary); }
+input[role="switch"] { @include kit.switch($color: primary); }</code></pre>
           </section>
 
           <!-- # ********  Animations  ******** -->

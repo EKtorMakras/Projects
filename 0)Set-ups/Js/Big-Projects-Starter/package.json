@@ -30,9 +30,7 @@
     "vite": "^8.3.4"
   },
   "dependencies": {
-    "@emakras/vanilla-kit": "github:EKtorMakras/vanilla-kit#v0.4.0",
-    "@fontsource/baloo-tamma-2": "5.3.0",
-    "dayjs": "^1.11.23",
-    "roarr": "^7.21.7"
+    "@emakras/vanilla-kit": "github:EKtorMakras/vanilla-kit#v0.5.1",
+    "@fontsource/baloo-tamma-2": "5.3.0"
   }
 }

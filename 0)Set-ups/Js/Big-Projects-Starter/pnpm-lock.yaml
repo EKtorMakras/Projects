@@ -9,17 +9,11 @@ importers:
   .:
     dependencies:
       '@emakras/vanilla-kit':
-        specifier: github:EKtorMakras/vanilla-kit#v0.4.0
-        version: git+https://git@github.com:EKtorMakras/vanilla-kit.git#bdc82d9ef0f03505028357b9a8014508e31e93f1
+        specifier: github:EKtorMakras/vanilla-kit#v0.5.1
+        version: git+https://git@github.com:EKtorMakras/vanilla-kit.git#1f359beb5e583f5677a7d0f6c3a4f04bf59371f6
       '@fontsource/baloo-tamma-2':
         specifier: 5.3.0
         version: 5.3.0
-      dayjs:
-        specifier: ^1.11.23
-        version: 1.11.23
-      roarr:
-        specifier: ^7.21.7
-        version: 7.21.7
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -54,9 +48,9 @@ packages:
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
 
-  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#bdc82d9ef0f03505028357b9a8014508e31e93f1':
-    resolution: {commit: bdc82d9ef0f03505028357b9a8014508e31e93f1, repo: git@github.com:EKtorMakras/vanilla-kit.git, type: git}
-    version: 0.4.0
+  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#1f359beb5e583f5677a7d0f6c3a4f04bf59371f6':
+    resolution: {commit: 1f359beb5e583f5677a7d0f6c3a4f04bf59371f6, repo: git@github.com:EKtorMakras/vanilla-kit.git, type: git}
+    version: 0.5.1
     engines: {node: '>=24'}
 
   '@eslint-community/eslint-utils@4.10.1':
@@ -484,10 +478,6 @@ packages:
   fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
 
-  fast-printf@1.6.10:
-    resolution: {integrity: sha512-GwTgG9O4FVIdShhbVF3JxOgSBY2+ePGsu2V/UONgoCPzF9VY6ZdBMKsHKCYQHZwNk3qNouUolRDsgVxcVA5G1w==}
-    engines: {node: '>=10.0'}
-
   fdir@6.5.0:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
     engines: {node: '>=12.0.0'}
@@ -736,26 +726,15 @@ packages:
     resolution: {integrity: sha512-Kko+Y5XQ6fM+Ce3dq3m9YGxnacYZYl9cA1wZjaF3Vbry2L3i1qVg8+CAgNPsXRArPMUMCaOR7oa9Nqntc43JKA==}
     engines: {node: '>= 20.19.0'}
 
-  roarr@7.21.7:
-    resolution: {integrity: sha512-6X9ID9jb83kPkDxm5xLb9rZdGm6ksdDjpeL0iW5weKelJFi+NVBSowRpEuH8CdpX2x+7RW0TZaezibE7yQB7pg==}
-    engines: {node: '>=18.0'}
-
   rolldown@1.2.13:
     resolution: {integrity: sha512-/5apOkwWxtACcQtZ5WlrAsKS4JwXVThQPJZ3RqIruRY9UG9M8e0VlXN068xum/JRKA4aIUoJ13ghe/kGCvidiQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  safe-stable-stringify@2.5.0:
-    resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
-    engines: {node: '>=10'}
-
   sass@1.105.1:
     resolution: {integrity: sha512-1CnAWPyrrnVQzXGB/DUep1vYCKCm1CIBr+YxjjiW6wk9qtzemnGP4qicH56T2F9S4Hjtv/Ne3jDz8JqfdDU4oA==}
     engines: {node: '>=20.19.0'}
     hasBin: true
-
-  semver-compare@1.0.0:
-    resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
 
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -866,7 +845,7 @@ snapshots:
       hashery: 1.5.1
       keyv: 5.6.0
 
-  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#bdc82d9ef0f03505028357b9a8014508e31e93f1':
+  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#1f359beb5e583f5677a7d0f6c3a4f04bf59371f6':
     dependencies:
       chroma-js: 3.1.2
       dayjs: 1.11.23
@@ -1209,8 +1188,6 @@ snapshots:
 
   fast-levenshtein@2.0.6: {}
 
-  fast-printf@1.6.10: {}
-
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
       picomatch: 4.0.7
@@ -1408,12 +1385,6 @@ snapshots:
 
   readdirp@5.1.1: {}
 
-  roarr@7.21.7:
-    dependencies:
-      fast-printf: 1.6.10
-      safe-stable-stringify: 2.5.0
-      semver-compare: 1.0.0
-
   rolldown@1.2.13:
     dependencies:
       '@oxc-project/types': 0.153.0
@@ -1435,8 +1406,6 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.2.13
       '@rolldown/binding-win32-x64-msvc': 1.2.13
 
-  safe-stable-stringify@2.5.0: {}
-
   sass@1.105.1:
     dependencies:
       chokidar: 5.0.0
@@ -1444,8 +1413,6 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.4.1
-
-  semver-compare@1.0.0: {}
 
   shebang-command@2.0.0:
     dependencies:

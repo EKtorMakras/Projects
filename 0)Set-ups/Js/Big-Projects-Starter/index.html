@@ -20,14 +20,14 @@
     />
 
     <script
-      src="./src/js/main.js"
+      src="./src/js/app.js"
       type="module"
     ></script>
 
     <title>Project</title>
   </head>
 
-  <body>
+  <body data-page="home">
     <div class="app">
       <!--* ***************************************  Header  *************************************** -->
       <header class="header">
@@ -71,6 +71,8 @@
             id="hamburger-btn"
             class="hamburger-btn"
             type="button"
+            aria-controls="sidebar"
+            aria-expanded="false"
             aria-label="Toggle menu"
           >
             <i class="fas fa-bars"></i>

@@ -5,22 +5,26 @@ Vanilla JavaScript + SCSS, built with Vite. Shared SCSS tools and JS utilities c
 
 ## Where to work
 
-| Task                                               | File or folder                                      |
-| -------------------------------------------------- | --------------------------------------------------- |
-| Configure the kit (breakpoints, container, focus…) | `src/scss/settings/_index.scss`                     |
-| Palettes (brand, Tailwind hues, status overrides)  | `src/scss/settings/_colors.scss`                    |
-| Themes light/dark/sepia (per-theme palettes)       | `src/scss/settings/_themes.scss`                    |
-| Theme names and switching                          | `src/js/libraries/darkMode.js`                      |
-| The kit's API (every export)                       | `.claude/context/VANILLA_KIT_API.md`                |
-| Font stacks (body, heading, mono)                  | `src/scss/settings/_fonts.scss`                     |
-| Button sizes                                       | `src/scss/settings/_components.scss`                |
-| Cascade layer order                                | `src/scss/style.scss`                               |
-| Fonts (self-hosted, metric overrides), typography  | `src/scss/project/base/`                            |
-| App shell: header, sidebar, footer                 | `src/scss/project/layout/`                          |
-| Your own components                                | `src/scss/project/components/`                      |
-| Page styles                                        | `src/scss/project/pages/`                           |
-| Kit examples                                       | `showcase.html`, `src/scss/project/pages/showcase/` |
-| Aliases (`@`, `~`, `*`, `@fonts`, `@kit`)          | `vite.config.js`                                    |
+| Task                                                         | File or folder                                      |
+| ------------------------------------------------------------ | --------------------------------------------------- |
+| Configure the kit (breakpoints, container, focus…)           | `src/scss/settings/_index.scss`                     |
+| Palettes (brand, Tailwind hues, status overrides)            | `src/scss/settings/_colors.scss`                    |
+| Themes light/dark/sepia (per-theme palettes)                 | `src/scss/settings/_themes.scss`                    |
+| Theme names and switching                                    | `src/js/core/theme.js`                              |
+| The script every page loads (shared code, then the page)     | `src/js/app.js`                                     |
+| Code of one page (`<body data-page="…">`, listed in `PAGES`) | `src/js/pages/`                                     |
+| App name and other `.env` values                             | `src/js/core/config.js`, `.env.example`             |
+| Console logger                                               | `src/js/core/logger.js` (`log.info(…)`)             |
+| The kit's API (every export)                                 | `.claude/context/VANILLA_KIT_API.md`                |
+| Font stacks (body, heading, mono)                            | `src/scss/settings/_fonts.scss`                     |
+| Button sizes                                                 | `src/scss/settings/_components.scss`                |
+| Cascade layer order                                          | `src/scss/style.scss`                               |
+| Fonts (self-hosted, metric overrides), typography            | `src/scss/project/base/`                            |
+| App shell: header, sidebar, footer                           | `src/scss/project/layout/`                          |
+| Your own components                                          | `src/scss/project/components/`                      |
+| Page styles                                                  | `src/scss/project/pages/`                           |
+| Kit examples                                                 | `showcase.html`, `src/scss/project/pages/showcase/` |
+| Aliases (`@`, `~`, `*`, `@fonts`, `@kit`)                    | `vite.config.js`                                    |
 
 ## Run and check
 

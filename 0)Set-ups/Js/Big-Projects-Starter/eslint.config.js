@@ -8,7 +8,7 @@ const production = process.env.NODE_ENV === "production";
 
 // Prettier owns formatting; ESLint only checks correctness.
 export default defineConfig([
-  globalIgnores(["**/node_modules/**", "**/dist/**", "**/coverage/**", "common/**", "lib/templates/**"]),
+  globalIgnores(["**/node_modules/**", "**/dist/**", "**/coverage/**", "lib/templates/**"]),
   ...jsonc.configs["flat/recommended-with-jsonc"],
   {
     files: ["**/*.{js,mjs,cjs}"],

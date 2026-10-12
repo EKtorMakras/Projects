@@ -115,16 +115,6 @@
   }
 }
 
-// Native controls take their look from color-scheme and accent-color.
-.native-controls {
-  @include kit.cluster(kit.space(5));
-  accent-color: kit.color(primary);
-
-  label {
-    @include kit.cluster(kit.space(2));
-  }
-}
-
 // ======== Palettes ======== //
 .palette {
   @include kit.grid(5.5rem, kit.space(1));
@@ -323,6 +313,24 @@ $-cell-spans: (
   @extend %demo-tile;
   @include kit.bg-image("placeholder.jpg");
   @include kit.overlay($background: rgb(0 0 0 / 45%));
+}
+
+// ======== Forms ======== //
+.form-demo {
+  @include kit.grid(14rem, kit.space(6));
+  align-items: start;
+
+  &__fields {
+    @include kit.stack(kit.space(3));
+  }
+
+  &__choices {
+    @include kit.stack(kit.space(3));
+
+    label {
+      @include kit.cluster(kit.space(2));
+    }
+  }
 }
 
 // ======== Animations ======== //

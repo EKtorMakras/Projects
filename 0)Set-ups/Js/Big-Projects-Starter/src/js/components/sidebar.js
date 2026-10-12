@@ -1,58 +1,32 @@
-/**
- * Sidebar Toggle Functionality
- */
-import { dom } from "../libraries/DOM";
+/** Off-canvas menu for small screens: the menu button opens it; the overlay and Escape close it. */
+import { SELECTORS } from "../core/selectors.js";
 
+// ======== Private ======== //
+function setOpen(elements, open) {
+  const { button, sidebar, overlay } = elements;
+
+  sidebar.classList.toggle("sidebar--open", open);
+  overlay.classList.toggle("overlay--active", open);
+  button.setAttribute("aria-expanded", String(open));
+}
+
+// ======== Public ======== //
 export function initSidebar() {
-  const { hamburgerBtn, sidebar, overlay, app } = dom;
+  const elements = {
+    button: document.querySelector(SELECTORS.menuButton),
+    sidebar: document.querySelector(SELECTORS.sidebar),
+    overlay: document.querySelector(SELECTORS.overlay),
+  };
 
-  if (!hamburgerBtn || !sidebar || !overlay) {
-    console.warn("Sidebar elements not found");
-    return;
-  }
+  if (!elements.button || !elements.sidebar || !elements.overlay) return;
 
-  // Toggle sidebar visibility
-  hamburgerBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("sidebar--open");
-    overlay.classList.toggle("overlay--active");
-    hamburgerBtn.classList.toggle("hamburger-btn--active");
-    app.classList.toggle("app--sidebar-open");
+  elements.button.addEventListener("click", () => {
+    setOpen(elements, !elements.sidebar.classList.contains("sidebar--open"));
   });
 
-  // Close sidebar when clicking on overlay
-  overlay.addEventListener("click", () => {
-    sidebar.classList.remove("sidebar--open");
-    overlay.classList.remove("overlay--active");
-    hamburgerBtn.classList.remove("hamburger-btn--active");
-    app.classList.remove("app--sidebar-open");
-  });
+  elements.overlay.addEventListener("click", () => setOpen(elements, false));
 
-  // Close sidebar when clicking outside
-  document.addEventListener("click", (e) => {
-    const isClickInsideSidebar = sidebar.contains(e.target);
-    const isClickOnHamburger = hamburgerBtn.contains(e.target);
-    const isClickOnOverlay = overlay.contains(e.target);
-
-    if (
-      !isClickInsideSidebar &&
-      !isClickOnHamburger &&
-      !isClickOnOverlay &&
-      sidebar.classList.contains("sidebar--open")
-    ) {
-      sidebar.classList.remove("sidebar--open");
-      overlay.classList.remove("overlay--active");
-      hamburgerBtn.classList.remove("hamburger-btn--active");
-      app.classList.remove("app--sidebar-open");
-    }
-  });
-
-  // Close sidebar on ESC key
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sidebar.classList.contains("sidebar--open")) {
-      sidebar.classList.remove("sidebar--open");
-      overlay.classList.remove("overlay--active");
-      hamburgerBtn.classList.remove("hamburger-btn--active");
-      app.classList.remove("app--sidebar-open");
-    }
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setOpen(elements, false);
   });
 }

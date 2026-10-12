@@ -1,6 +1,4 @@
-/** Showcase page: shared app behavior plus demos of the kit's JavaScript utilities. */
-import "./main.js";
-import themeManager from "./libraries/darkMode";
+/** Code that only showcase.html needs (<body data-page="showcase">): demos of the kit. Started by src/js/app.js. */
 import {
   arrChunk,
   formatCurrency,
@@ -9,6 +7,17 @@ import {
   getHexColor,
   truncateString,
 } from "@emakras/vanilla-kit";
+import { log } from "../core/logger.js";
+import { getTheme, setTheme } from "../core/theme.js";
+
+const SELECTORS = {
+  palettes: "[data-palette]",
+  themeOptions: "[data-set-theme]",
+  jsDemo: "#js-demo",
+  replayButton: "#replay-animations",
+  animatedBoxes: ".anim-box",
+  indeterminate: "#indeterminate-demo",
+};
 
 const PALETTE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 const DAYS_AGO = 3;
@@ -27,7 +36,7 @@ function createSwatch(palette, step) {
 }
 
 function renderPalettes() {
-  for (const container of document.querySelectorAll("[data-palette]")) {
+  for (const container of document.querySelectorAll(SELECTORS.palettes)) {
     const swatches = PALETTE_STEPS.map((step) => createSwatch(container.dataset.palette, step));
 
     container.replaceChildren(...swatches);
@@ -35,19 +44,19 @@ function renderPalettes() {
 }
 
 function markCurrentTheme(theme) {
-  for (const button of document.querySelectorAll("[data-set-theme]")) {
+  for (const button of document.querySelectorAll(SELECTORS.themeOptions)) {
     button.setAttribute("aria-pressed", String(button.dataset.setTheme === theme));
   }
 }
 
 function initThemePicker() {
-  for (const button of document.querySelectorAll("[data-set-theme]")) {
-    button.addEventListener("click", () => themeManager.setTheme(button.dataset.setTheme));
+  for (const button of document.querySelectorAll(SELECTORS.themeOptions)) {
+    button.addEventListener("click", () => setTheme(button.dataset.setTheme));
   }
 }
 
 function renderJsDemo() {
-  const list = document.getElementById("js-demo");
+  const list = document.querySelector(SELECTORS.jsDemo);
 
   if (!list) return;
 
@@ -59,6 +68,7 @@ function renderJsDemo() {
     'truncateString("Vanilla kit utilities", 12)': truncateString("Vanilla kit utilities", 12),
     "arrChunk([1, 2, 3, 4, 5], 2)": JSON.stringify(arrChunk([1, 2, 3, 4, 5], 2)),
     'getHexColor("primary-500")': getHexColor("primary-500"),
+    'log.info("Showcase ready")': "printed in the browser console, labelled with the app name",
   };
 
   for (const [call, result] of Object.entries(examples)) {
@@ -73,12 +83,12 @@ function renderJsDemo() {
 
 /** Restarts the play-once animations: removing the class and adding it back after a reflow replays them. */
 function initAnimationReplay() {
-  const button = document.getElementById("replay-animations");
+  const button = document.querySelector(SELECTORS.replayButton);
 
   if (!button) return;
 
   button.addEventListener("click", () => {
-    for (const box of document.querySelectorAll(".anim-box")) {
+    for (const box of document.querySelectorAll(SELECTORS.animatedBoxes)) {
       const animated = box.className;
 
       box.className = "anim-box";
@@ -88,15 +98,26 @@ function initAnimationReplay() {
   });
 }
 
-// ======== Public ======== //
-// The swatches show hex values of the current theme, so they render again on every change.
-document.addEventListener("themechange", (event) => {
+/** The swatches show hex values of the current theme, so they render now and again on every change. */
+function initPalettes() {
   renderPalettes();
-  markCurrentTheme(event.detail.theme);
-});
+  markCurrentTheme(getTheme());
 
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("themechange", (event) => {
+    renderPalettes();
+    markCurrentTheme(event.detail.theme);
+  });
+}
+
+// ======== Public ======== //
+export function init() {
+  initPalettes();
   initThemePicker();
   initAnimationReplay();
   renderJsDemo();
-});
+
+  // The indeterminate state exists only in JavaScript, not as an HTML attribute.
+  document.querySelector(SELECTORS.indeterminate).indeterminate = true;
+
+  log.info("Showcase ready");
+}

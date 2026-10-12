@@ -25,7 +25,10 @@ Link page stylesheets in the HTML `<head>` (`<link rel="stylesheet" href="./src/
 an unstyled flash on every page load.
 
 Keep JavaScript modules scoped to their page/component and import utilities from
-`@emakras/vanilla-kit`. Use textContent for plain text and handle optional DOM elements and rejected
+`@emakras/vanilla-kit`. Every HTML page loads only src/js/app.js and names itself with `<body data-page="…">`; app.js starts the
+shared code, then imports that page's module from src/js/pages/ (listed in PAGES) and calls its init();
+app-wide modules without UI (config, logger, theme) live in src/js/core/, UI pieces with their own HTML in
+src/js/components/. Log with `log` from src/js/core/logger.js, not console.*. Use textContent for plain text and handle optional DOM elements and rejected
 promises explicitly.
 
 Files with private helpers put them first under `// ======== Private ======== //`, followed by
