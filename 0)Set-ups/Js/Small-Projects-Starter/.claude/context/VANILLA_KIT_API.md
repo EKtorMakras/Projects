@@ -1,11 +1,11 @@
-# @emakras/vanilla-kit API — v0.5.1
+# @emakras/vanilla-kit API — v0.5.2
 
 Everything the package exports to consumers. Copy this file into a consumer project so tools and people know
 the API of the installed version. Anything not listed here is internal and cannot be imported.
 
 - SCSS ships as source: `@use "@emakras/vanilla-kit/scss" as kit;`. No `@use` emits CSS; only `@include` does. Every member has SassDoc `///` docs, shown on hover by editors such as Some Sass.
 - JS is one barrel: `import { … } from "@emakras/vanilla-kit";`. Imports are DOM-free; browser helpers need a DOM when called.
-- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.5.1"`.
+- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.5.2"`.
 
 ## SCSS
 
@@ -91,7 +91,8 @@ included: list only what changes, e.g. `$breakpoints: (sm: 40rem)`; `null` remov
 ### Colors and themes
 
 Every mixin argument that takes a color accepts a color name (`primary-500`, `surface`) as well as any CSS value;
-names become their CSS variable and unknown names fail the build. Use `color(name)` for plain properties.
+names become their CSS variable and unknown names fail the build. Use `color(name)` for plain properties and
+inside shorthands (`$border: 1px solid kit.color(line)`).
 
 - `$colors` entry: a base color → generated `50…950` scale; a map of steps (a Tailwind hue) → used as given.
 - Every palette name emits `--clr-<name>`, `--clr-<name>-fg`, `--clr-<name>-<step>` and `--clr-<name>-<step>-fg`
