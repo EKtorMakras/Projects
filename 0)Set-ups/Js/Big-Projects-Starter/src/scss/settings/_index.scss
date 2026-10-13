@@ -9,12 +9,12 @@
 @use "components";
 
 @forward "@kit" with (
-  // Wider phones get the "sm" layout from 40rem instead of the kit's 36rem; md...xxl stay.
-  $breakpoints: (sm: 40rem),
+  // Wider phones get the "sm" layout from 640px instead of the kit's 576px; md...xxl stay.
+  $breakpoints: (sm: 640px),
 
   // The original starter's 1170px content width.
-  $container: 73.125rem,
-  $gutter: 1.25rem,
+  $container: 1170px,
+  $gutter: 20px,
 
   // Focus rings follow the brand instead of currentColor; hovers darken a little less than the kit's -12%.
   $focus-color: primary-500,

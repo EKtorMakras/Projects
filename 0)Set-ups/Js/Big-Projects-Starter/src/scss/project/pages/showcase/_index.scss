@@ -63,11 +63,11 @@
 }
 
 .token-grid {
-  @include kit.grid(9rem, kit.space(5));
+  @include kit.grid(14.4rem, kit.space(5));
 }
 
 .demo-tiles {
-  @include kit.grid(14rem, kit.space(5));
+  @include kit.grid(22.4rem, kit.space(5));
 }
 
 // A demo with its source underneath; long lines wrap instead of scrolling.
@@ -89,7 +89,7 @@
 
 .token-box {
   @include kit.center;
-  height: 6rem;
+  height: 9.6rem;
   background: kit.color(card);
   border: 1px solid kit.color(line);
 
@@ -117,7 +117,7 @@
 
 // ======== Palettes ======== //
 .palette {
-  @include kit.grid(5.5rem, kit.space(1));
+  @include kit.grid(8.8rem, kit.space(1));
 }
 
 .swatch {
@@ -186,7 +186,7 @@ $-statuses: (success, warning, error, info);
 
 // ======== Layout ======== //
 .demo-grid {
-  @include kit.grid(10rem, kit.space(4), $max-columns: 3);
+  @include kit.grid(16rem, kit.space(4), $max-columns: 3);
 }
 
 .demo-card {
@@ -207,7 +207,7 @@ $-statuses: (success, warning, error, info);
 
 .demo-center {
   position: relative;
-  height: 8rem;
+  height: 12.8rem;
   border: 1px dashed kit.color(line);
   border-radius: kit.radius(md);
 
@@ -277,7 +277,7 @@ $-cell-spans: (
 
 %demo-tile {
   @include kit.center;
-  height: 7rem;
+  height: 11.2rem;
   border-radius: kit.radius(md);
   color: #fff;
   font-weight: kit.fw(bold);
@@ -304,7 +304,7 @@ $-cell-spans: (
     position: absolute;
     top: 100%;
     left: kit.space(6);
-    @include kit.triangle(0.6rem, down, $color: secondary-500);
+    @include kit.triangle(0.96rem, down, $color: secondary-500);
   }
 }
 
@@ -317,7 +317,7 @@ $-cell-spans: (
 
 // ======== Forms ======== //
 .form-demo {
-  @include kit.grid(14rem, kit.space(6));
+  @include kit.grid(22.4rem, kit.space(6));
   align-items: start;
 
   &__fields {
@@ -338,7 +338,7 @@ $-play-once: (fade-in, fade-out, slide-up, slide-down, scale-in, shake);
 $-loops: (spin, pulse);
 
 .anim-grid {
-  @include kit.grid(7rem, kit.space(4));
+  @include kit.grid(11.2rem, kit.space(4));
 }
 
 .anim-tile {
@@ -349,8 +349,8 @@ $-loops: (spin, pulse);
 }
 
 .anim-box {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 5.6rem;
+  height: 5.6rem;
   border-radius: kit.radius(md);
   background: kit.color(primary-500);
 
@@ -392,7 +392,7 @@ $-loops: (spin, pulse);
 
   @include kit.respond(sm) {
     &::after {
-      content: "sm and up (≥ 40rem, overridden)";
+      content: "sm and up (≥ 640px, overridden)";
     }
   }
 
@@ -401,7 +401,7 @@ $-loops: (spin, pulse);
     color: kit.color(primary-300-fg);
 
     &::after {
-      content: "md and up (≥ 48rem)";
+      content: "md and up (≥ 768px)";
     }
   }
 
@@ -410,7 +410,7 @@ $-loops: (spin, pulse);
     color: kit.color(primary-500-fg);
 
     &::after {
-      content: "lg and up (≥ 64rem)";
+      content: "lg and up (≥ 1024px)";
     }
   }
 }

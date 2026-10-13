@@ -35,7 +35,8 @@ test("the app entry declares the layer order and emits reset, tokens, palettes a
 
   assert.match(css, /@layer reset, base, layout, components, pages;/);
   assert.match(css, /@layer reset \{/);
-  assert.match(css, /--space-1: 0\.25rem/);
+  assert.match(css, /html \{\s*font-size: 62\.5%;/, "10px root");
+  assert.match(css, /--space-1: 0\.4rem/);
   assert.match(css, /--clr-primary-500: hsl\(173, 58%, 39%\)/);
   assert.match(css, /--clr-surface: var\(--clr-neutral-50\)/);
   assert.match(css, /:root\[data-theme=dark\] \{[^}]*--clr-primary: hsl\(173, 50%, 50%\)/);
@@ -57,7 +58,7 @@ test("settings overrides reach the stylesheet, showcase included", () => {
   const css = entry("style");
 
   assert.match(css, /\.showcase-section/, "showcase styles are in the shared pages layer");
-  assert.match(css, /width >= 40rem/, "sm breakpoint override");
+  assert.match(css, /width >= 40em/, "sm breakpoint override (640px)");
   assert.match(css, /padding: 0\.9em 2em/, "xl button size override");
-  assert.match(css, /73\.125rem/, "container override");
+  assert.match(css, /--container: 117rem/, "container override (1170px)");
 });

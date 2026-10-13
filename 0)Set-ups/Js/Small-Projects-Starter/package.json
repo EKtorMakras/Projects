@@ -28,6 +28,6 @@
     "vite": "^8.3.4"
   },
   "dependencies": {
-    "@emakras/vanilla-kit": "github:EKtorMakras/vanilla-kit#v0.5.2"
+    "@emakras/vanilla-kit": "github:EKtorMakras/vanilla-kit#v0.6.1"
   }
 }

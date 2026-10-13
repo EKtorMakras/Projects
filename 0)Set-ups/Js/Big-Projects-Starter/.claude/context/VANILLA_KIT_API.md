@@ -1,11 +1,11 @@
-# @emakras/vanilla-kit API — v0.5.2
+# @emakras/vanilla-kit API — v0.6.1
 
 Everything the package exports to consumers. Copy this file into a consumer project so tools and people know
 the API of the installed version. Anything not listed here is internal and cannot be imported.
 
 - SCSS ships as source: `@use "@emakras/vanilla-kit/scss" as kit;`. No `@use` emits CSS; only `@include` does. Every member has SassDoc `///` docs, shown on hover by editors such as Some Sass.
 - JS is one barrel: `import { … } from "@emakras/vanilla-kit";`. Imports are DOM-free; browser helpers need a DOM when called.
-- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.5.2"`.
+- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.6.1"`.
 
 ## SCSS
 
@@ -40,8 +40,9 @@ the API of the installed version. Anything not listed here is internal and canno
 @include kit.theme; // tokens, palettes and themes as CSS variables
 ```
 
-The settings file must be the first place the kit is loaded. Map settings merge into the defaults, nested maps
-included: list only what changes, e.g. `$breakpoints: (sm: 40rem)`; `null` removes a key. `$colors`, `$themes` and
+Sizes are designed in px and emitted in rem of `$root-font-size` (default 10px: 1rem = 10px, set by `reset` as
+`html { font-size: 62.5% }`); media queries use em. The settings file must be the first place the kit is loaded. Map settings merge into the defaults, nested maps
+included: list only what changes, e.g. `$breakpoints: (sm: 640px)`; `null` removes a key. `$colors`, `$themes` and
 `$color-steps` replace the default as a whole.
 
 ### Imports
@@ -55,38 +56,39 @@ included: list only what changes, e.g. `$breakpoints: (sm: 40rem)`; `null` remov
 
 ### Configuration (`config`, all `!default`)
 
-| Variable             | Default                                                                                                                                               | Meaning                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `$breakpoints`       | `sm 36rem, md 48rem, lg 64rem, xl 80rem, xxl 96rem`                                                                                                   | Keys for `respond()`                                                     |
-| `$space-unit`        | `0.25rem`                                                                                                                                             | `space(n)` = n × unit                                                    |
-| `$space-steps`       | `16`                                                                                                                                                  | Highest `space()` step                                                   |
-| `$container`         | `72rem`                                                                                                                                               | `container` max width, `--container`                                     |
-| `$gutter`            | `1.5rem`                                                                                                                                              | `container` side padding, `--gutter`                                     |
-| `$columns`           | `12`                                                                                                                                                  | Default `columns()` count                                                |
-| `$radius-scale`      | `sm, md, lg, xl, full`                                                                                                                                | `radius()` keys                                                          |
-| `$shadows`           | `sm, md, lg, xl`                                                                                                                                      | `shadow()` keys                                                          |
-| `$font-sizes`        | `xs, sm, md, lg, xl, xxl, xxxl, display` (fluid from lg)                                                                                              | `fs()` keys                                                              |
-| `$font-weights`      | `light 300, regular 400, medium 500, semibold 600, bold 700`                                                                                          | `fw()` keys                                                              |
-| `$font-families`     | `body`, `heading`: `system-ui, sans-serif`; `mono`: `ui-monospace, …, monospace`                                                                      | `ff()` keys; quote names with spaces                                     |
-| `$durations`         | `fast 150ms, base 250ms, slow 400ms`                                                                                                                  | `duration()` keys                                                        |
-| `$easings`           | `in, out, in-out, out-expo, out-back`                                                                                                                 | `ease()` keys                                                            |
-| `$z-indexes`         | `content 1, header 100, dropdown 200, overlay 900, modal 1000, toast 1100`                                                                            | `z()` keys                                                               |
-| `$prefixes`          | `color: clr, space, radius, shadow, font-size: fs, font-weight: fw, font-family: ff, duration, ease, z-index: z, animation: kit`                      | CSS variable and @keyframes prefixes                                     |
-| `$colors`            | `()`                                                                                                                                                  | Palette: a map, or a list of maps merged in order (duplicates error)     |
-| `$status-colors`     | `success #2e7d32, warning #f5a623, error #d32752, info #1976d2`                                                                                       | Joined to the palette; a `$colors` entry with the same name wins         |
-| `$color-steps`       | `50: 95% … 500: 0% … 950: -75%`                                                                                                                       | Tint (+) / shade (−) per generated step                                  |
-| `$fg-colors`         | `dark #000, light #fff`                                                                                                                               | Text colors of every `-fg` token; pure black/white where they miss 4.5:1 |
-| `$themes`            | `()`                                                                                                                                                  | Semantic colors per theme; the first is the default                      |
-| `$theme-attribute`   | `data-theme`                                                                                                                                          | `:root[data-theme="<name>"]` selects a theme                             |
-| `$focus-color`       | `currentColor`                                                                                                                                        | `focus-ring` and button focus                                            |
-| `$hover-shift`       | `-12%`                                                                                                                                                | Hover background change: negative mixes black, positive white            |
-| `$disabled-opacity`  | `0.5`                                                                                                                                                 | Disabled buttons                                                         |
-| `$button-sizes`      | `sm, md, lg: (padding, font-size: <$font-sizes key>)`                                                                                                 | `btn($size)`, `btn-size()`                                               |
-| `$social-colors`     | 19 brands (facebook, instagram, x, threads, bluesky, linkedin, youtube, tiktok, twitch, spotify, github, gitlab, whatsapp, viber, telegram, discord…) | `social-color()`                                                         |
-| `$social-gradients`  | `instagram`                                                                                                                                           | Gradient on icon fonts                                                   |
-| `$social-icon-box`   | `1.7em`                                                                                                                                               | Round box size relative to the icon                                      |
-| `$social-icon-sizes` | `sm 1rem, md 1.5rem, lg 2rem, xl 2.5rem`                                                                                                              | `social-icon($size)`                                                     |
-| `$asset-base-path`   | `/assets`                                                                                                                                             | Root of `asset()` paths                                                  |
+| Variable             | Default                                                                                                                                               | Meaning                                                                               |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `$breakpoints`       | `sm 576px, md 768px, lg 1024px, xl 1280px, xxl 1536px`                                                                                                | Keys for `respond()`; emitted in `em`                                                 |
+| `$root-font-size`    | `10px`                                                                                                                                                | `<html>` font size (1rem); `reset` sets `62.5%`. Defaults are px designs in rem of it |
+| `$space-unit`        | `4px` (`0.4rem`)                                                                                                                                      | `space(n)` = n × unit                                                                 |
+| `$space-steps`       | `16`                                                                                                                                                  | Highest `space()` step                                                                |
+| `$container`         | `1152px` (`115.2rem`)                                                                                                                                 | `container` max width, `--container`                                                  |
+| `$gutter`            | `24px` (`2.4rem`)                                                                                                                                     | `container` side padding, `--gutter`                                                  |
+| `$columns`           | `12`                                                                                                                                                  | Default `columns()` count                                                             |
+| `$radius-scale`      | `sm, md, lg, xl, full`                                                                                                                                | `radius()` keys                                                                       |
+| `$shadows`           | `sm, md, lg, xl`                                                                                                                                      | `shadow()` keys                                                                       |
+| `$font-sizes`        | `xs, sm, md, lg, xl, xxl, xxxl, display` (fluid from lg)                                                                                              | `fs()` keys                                                                           |
+| `$font-weights`      | `light 300, regular 400, medium 500, semibold 600, bold 700`                                                                                          | `fw()` keys                                                                           |
+| `$font-families`     | `body`, `heading`: `system-ui, sans-serif`; `mono`: `ui-monospace, …, monospace`                                                                      | `ff()` keys; quote names with spaces                                                  |
+| `$durations`         | `fast 150ms, base 250ms, slow 400ms`                                                                                                                  | `duration()` keys                                                                     |
+| `$easings`           | `in, out, in-out, out-expo, out-back`                                                                                                                 | `ease()` keys                                                                         |
+| `$z-indexes`         | `content 1, header 100, dropdown 200, overlay 900, modal 1000, toast 1100`                                                                            | `z()` keys                                                                            |
+| `$prefixes`          | `color: clr, space, radius, shadow, font-size: fs, font-weight: fw, font-family: ff, duration, ease, z-index: z, animation: kit`                      | CSS variable and @keyframes prefixes                                                  |
+| `$colors`            | `()`                                                                                                                                                  | Palette: a map, or a list of maps merged in order (duplicates error)                  |
+| `$status-colors`     | `success #2e7d32, warning #f5a623, error #d32752, info #1976d2`                                                                                       | Joined to the palette; a `$colors` entry with the same name wins                      |
+| `$color-steps`       | `50: 95% … 500: 0% … 950: -75%`                                                                                                                       | Tint (+) / shade (−) per generated step                                               |
+| `$fg-colors`         | `dark #000, light #fff`                                                                                                                               | Text colors of every `-fg` token; pure black/white where they miss 4.5:1              |
+| `$themes`            | `()`                                                                                                                                                  | Semantic colors per theme; the first is the default                                   |
+| `$theme-attribute`   | `data-theme`                                                                                                                                          | `:root[data-theme="<name>"]` selects a theme                                          |
+| `$focus-color`       | `currentColor`                                                                                                                                        | `focus-ring` and button focus                                                         |
+| `$hover-shift`       | `-12%`                                                                                                                                                | Hover background change: negative mixes black, positive white                         |
+| `$disabled-opacity`  | `0.5`                                                                                                                                                 | Disabled buttons                                                                      |
+| `$button-sizes`      | `sm, md, lg: (padding, font-size: <$font-sizes key>)`                                                                                                 | `btn($size)`, `btn-size()`                                                            |
+| `$social-colors`     | 19 brands (facebook, instagram, x, threads, bluesky, linkedin, youtube, tiktok, twitch, spotify, github, gitlab, whatsapp, viber, telegram, discord…) | `social-color()`                                                                      |
+| `$social-gradients`  | `instagram`                                                                                                                                           | Gradient on icon fonts                                                                |
+| `$social-icon-box`   | `1.7em`                                                                                                                                               | Round box size relative to the icon                                                   |
+| `$social-icon-sizes` | `sm 16px, md 24px, lg 32px, xl 40px` (in rem)                                                                                                         | `social-icon($size)`                                                                  |
+| `$asset-base-path`   | `/assets`                                                                                                                                             | Root of `asset()` paths                                                               |
 
 ### Colors and themes
 
@@ -114,10 +116,10 @@ inside shorthands (`$border: 1px solid kit.color(line)`).
 | ------------------- | ------------------------------- | --------------------------------------------------- |
 | `properties`        | mixin, no arguments             | Every token as a CSS variable (`theme` includes it) |
 | `custom-properties` | mixin `($values, $prefix: "")`  | `--<prefix><key>: <value>` per map entry            |
-| `space`             | `space($step)` 0…`$space-steps` | `var(--space-4, 1rem)`; `space(0)` → `0`            |
-| `radius`            | `radius($key: md)`              | `var(--radius-md, 0.5rem)`                          |
+| `space`             | `space($step)` 0…`$space-steps` | `var(--space-4, 1.6rem)`; `space(0)` → `0`          |
+| `radius`            | `radius($key: md)`              | `var(--radius-md, 0.8rem)`                          |
 | `shadow`            | `shadow($key: md)`              | `var(--shadow-md, …)`                               |
-| `fs`                | `fs($key: md)`                  | `var(--fs-md, 1rem)`                                |
+| `fs`                | `fs($key: md)`                  | `var(--fs-md, 1.6rem)`                              |
 | `fw`                | `fw($key: regular)`             | `var(--fw-regular, 400)`                            |
 | `ff`                | `ff($key: body)`                | `var(--ff-body, system-ui, sans-serif)`             |
 | `duration`          | `duration($key: base)`          | `var(--duration-base, 250ms)`                       |
@@ -140,28 +142,28 @@ Unknown keys are a compile error listing the available keys. `properties` also e
 
 ### Media
 
-| Mixin             | Signature                     | Output                                    |
-| ----------------- | ----------------------------- | ----------------------------------------- |
-| `respond`         | `respond($breakpoint) { … }`  | `@media (width >= 48rem)`; key or length  |
-| `respond-below`   | `respond-below($breakpoint)`  | `@media (width < 48rem)`                  |
-| `respond-between` | `respond-between($from, $to)` | `@media (36rem <= width < 64rem)`         |
-| `reduced-motion`  | `reduced-motion { … }`        | `@media (prefers-reduced-motion: reduce)` |
-| `hover`           | `hover { … }`                 | `:hover` only on devices that can hover   |
+| Mixin             | Signature                     | Output                                                |
+| ----------------- | ----------------------------- | ----------------------------------------------------- |
+| `respond`         | `respond($breakpoint) { … }`  | `@media (width >= 48em)`; key or length (px, rem, em) |
+| `respond-below`   | `respond-below($breakpoint)`  | `@media (width < 48em)`                               |
+| `respond-between` | `respond-between($from, $to)` | `@media (36em <= width < 64em)`                       |
+| `reduced-motion`  | `reduced-motion { … }`        | `@media (prefers-reduced-motion: reduce)`             |
+| `hover`           | `hover { … }`                 | `:hover` only on devices that can hover               |
 
 ### Layout
 
 | Mixin        | Signature                                                                          | Output                                               |
 | ------------ | ---------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | `flex`       | `flex($direction: row, $justify: flex-start, $align: center, $gap, $wrap: nowrap)` | Flex container                                       |
-| `stack`      | `stack($gap: 1rem)`                                                                | Vertical flow with a constant gap                    |
-| `cluster`    | `cluster($gap: 1rem, $align: center, $justify: flex-start)`                        | Wrapping row (tags, buttons, nav)                    |
-| `grid`       | `grid($min: 16rem, $gap: 1rem, $max-columns: null)`                                | Auto-fit columns ≥ `$min`, no breakpoints            |
-| `columns`    | `columns($count: $columns, $gap: 1rem)`                                            | `$count` equal grid columns                          |
+| `stack`      | `stack($gap: 16px)`                                                                | Vertical flow with a constant gap                    |
+| `cluster`    | `cluster($gap: 16px, $align: center, $justify: flex-start)`                        | Wrapping row (tags, buttons, nav)                    |
+| `grid`       | `grid($min: 256px, $gap: 16px, $max-columns: null)`                                | Auto-fit columns ≥ `$min`, no breakpoints            |
+| `columns`    | `columns($count: $columns, $gap: 16px)`                                            | `$count` equal grid columns                          |
 | `span`       | `span($count, $start: null)`; `span(full)`                                         | Child covering columns                               |
 | `container`  | `container($max: $container, $gutter: $gutter)`                                    | Centered column with side gutters                    |
 | `center`     | `center($method: grid \| flex \| absolute)`                                        | Centers children, or the element itself (`absolute`) |
 | `full-bleed` | `full-bleed`                                                                       | Breaks out of a container to full viewport width     |
-| `section`    | `section($padding: clamp(3rem, 8vw, 6rem))`                                        | Vertical section padding                             |
+| `section`    | `section($padding: clamp(48px, 8vw, 96px))`                                        | Vertical section padding                             |
 
 ### Components
 
@@ -207,7 +209,7 @@ Sizes are in `em`; colors accept names (`primary`) or any CSS value.
 | `gradient`   | `gradient($colors, $direction: to right, $type: linear \| radial \| conic)` | `background-image` gradient                      |
 | `stripes`    | `stripes($colors, $direction: to right)`                                    | Equal hard-edged bands                           |
 | `triangle`   | `triangle($size, $direction, $color)`                                       | CSS border triangle                              |
-| `scrollbar`  | `scrollbar($thumb, $thumb-hover, $track, $size: 0.5rem, $radius: 0.25rem)`  | Styled scrollbar (WebKit + standard)             |
+| `scrollbar`  | `scrollbar($thumb, $thumb-hover, $track, $size: 8px, $radius: 4px)`         | Styled scrollbar (WebKit + standard)             |
 | `bg-image`   | `bg-image($image, $size: cover, $position: center)`                         | Background from `image-path()` or a url/gradient |
 | `overlay`    | `overlay($background: rgb(0 0 0 / 30%), $pseudo: after)`                    | Tinted layer between background and content      |
 | `transition` | `transition($properties: all, $duration: duration(), $easing: ease())`      | Same timing for each property                    |
@@ -232,7 +234,7 @@ Defaults: `duration()` and `ease()`, played once; `spin` is 1s linear infinite, 
 | `image-path`   | `image-path($file)`                                                                                                                         | `url(".../images/<file>")`                |
 | `icon-path`    | `icon-path($file)`                                                                                                                          | `url(".../icons/<file>")`                 |
 | `svg-url`      | `svg-url($svg)`                                                                                                                             | `url("data:image/svg+xml,…")`             |
-| `rem`          | `rem($pixels, $base: 16px)`                                                                                                                 | `rem(24px)` → `1.5rem`                    |
+| `rem`          | `rem($pixels, $base: $root-font-size)`                                                                                                      | `rem(24px)` → `2.4rem`                    |
 | `em`           | `em($pixels, $base: 16px)`                                                                                                                  | `em(24px, 12px)` → `2em`                  |
 | `strip-unit`   | `strip-unit($number)`                                                                                                                       | `24px` → `24`                             |
 | `social-color` | `social-color($name)`                                                                                                                       | Brand color                               |

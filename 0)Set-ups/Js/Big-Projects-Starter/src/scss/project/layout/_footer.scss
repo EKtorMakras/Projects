@@ -6,7 +6,7 @@
 
   &-content {
     @include kit.container;
-    @include kit.grid(14rem, kit.space(8), $max-columns: 3);
+    @include kit.grid(22.4rem, kit.space(8), $max-columns: 3);
   }
 
   &-section {

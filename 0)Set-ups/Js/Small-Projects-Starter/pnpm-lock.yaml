@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@emakras/vanilla-kit':
-        specifier: github:EKtorMakras/vanilla-kit#v0.5.2
-        version: git+https://git@github.com:EKtorMakras/vanilla-kit.git#a8398f106a2a959ceee8a4a29842f519068c1f8b
+        specifier: github:EKtorMakras/vanilla-kit#v0.6.1
+        version: git+https://git@github.com:EKtorMakras/vanilla-kit.git#3dc6ce54f08d14cea4658c4234d0e04b5e445b7f
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -45,9 +45,9 @@ packages:
   '@cacheable/utils@2.5.0':
     resolution: {integrity: sha512-buipgOVDkkPXNR5+xBpDw7Zk2n1EvU7qBJCNUcL7rhQ//kfpOXPAvQ511Os0vpLYJ1pZnvudNytkQt2hst3wqA==}
 
-  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#a8398f106a2a959ceee8a4a29842f519068c1f8b':
-    resolution: {commit: a8398f106a2a959ceee8a4a29842f519068c1f8b, repo: git@github.com:EKtorMakras/vanilla-kit.git, type: git}
-    version: 0.5.2
+  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#3dc6ce54f08d14cea4658c4234d0e04b5e445b7f':
+    resolution: {commit: 3dc6ce54f08d14cea4658c4234d0e04b5e445b7f, repo: git@github.com:EKtorMakras/vanilla-kit.git, type: git}
+    version: 0.6.1
     engines: {node: '>=24'}
 
   '@eslint-community/eslint-utils@4.9.1':
@@ -812,7 +812,7 @@ snapshots:
       hashery: 1.5.1
       keyv: 5.6.0
 
-  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#a8398f106a2a959ceee8a4a29842f519068c1f8b':
+  '@emakras/vanilla-kit@git+https://git@github.com:EKtorMakras/vanilla-kit.git#3dc6ce54f08d14cea4658c4234d0e04b5e445b7f':
     dependencies:
       chroma-js: 3.2.0
       dayjs: 1.11.23

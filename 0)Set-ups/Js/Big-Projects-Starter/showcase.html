@@ -410,7 +410,7 @@ $palette: ($brand, $extras); // merged in order, duplicates are an error</code><
               <span class="tag">and</span><span class="tag">buttons</span>
             </div>
             <div class="demo-center"><span>center()</span></div>
-            <pre><code>.cards { @include kit.grid(14rem, kit.space(4), $max-columns: 3); }</code></pre>
+            <pre><code>.cards { @include kit.grid(16rem, kit.space(4), $max-columns: 3); } // 160px</code></pre>
           </section>
 
           <!-- # ********  Columns  ******** -->
@@ -483,7 +483,7 @@ $palette: ($brand, $extras); // merged in order, duplicates are an error</code><
                 <div class="demo-bubble">triangle</div>
                 <figcaption>
                   <pre><code>&amp;::after {
-  @include kit.triangle(0.6rem, down, $color: secondary-500);
+  @include kit.triangle(0.96rem, down, $color: secondary-500);
 }</code></pre>
                 </figcaption>
               </figure>
@@ -720,7 +720,7 @@ input[role="switch"] { @include kit.switch($color: primary); }</code></pre>
             aria-labelledby="media-title"
           >
             <h2 id="media-title">Media queries</h2>
-            <p class="showcase-note">Resize the window: the label follows the overridden breakpoints (sm = 40rem).</p>
+            <p class="showcase-note">Resize the window: the label follows the overridden breakpoints (sm = 640px).</p>
             <div class="demo-breakpoint"></div>
           </section>
 

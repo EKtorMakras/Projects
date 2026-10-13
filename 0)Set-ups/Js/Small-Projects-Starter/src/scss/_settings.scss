@@ -1,6 +1,6 @@
 /// Kit configuration. Every SCSS file loads the kit through this file: `@use "settings" as kit;`.
 /// Add overrides inside `with (…)`. Map settings merge into the kit's defaults: list only what changes,
-/// e.g. `$breakpoints: (sm: 40rem)`; `null` removes a key. The kit's API: .claude/context/VANILLA_KIT_API.md.
+/// e.g. `$breakpoints: (sm: 640px)`; `null` removes a key. The kit's API: .claude/context/VANILLA_KIT_API.md.
 @use "colors";
 
 @forward "@kit" with (
