@@ -10,10 +10,10 @@ const { t } = useI18n();
 
 <template>
     <div class="p-8">
-        <h1 class="mb-4 text-primary-600">{{ t('aboutPage.title') }}</h1>
-        <p>{{ t('aboutPage.description') }}</p>
+        <h1 class="mb-4 text-primary-600">{{ t("aboutPage.title") }}</h1>
+        <p>{{ t("aboutPage.description") }}</p>
 
-        <h2 class="mt-8 mb-4">{{ t('aboutPage.features') }}</h2>
+        <h2 class="mt-8 mb-4">{{ t("aboutPage.features") }}</h2>
         <ul class="list-disc pl-8 mb-8">
             <li class="mb-2">Nuxt 4</li>
             <li class="mb-2">Vue 3</li>
@@ -23,8 +23,11 @@ const { t } = useI18n();
             <li class="mb-2">SCSS</li>
         </ul>
 
-        <NuxtLink to="/" class="text-primary-600 underline font-medium hover:text-primary-700">
-            {{ t('home') }}
+        <NuxtLink
+            to="/"
+            class="text-primary-600 underline font-medium hover:text-primary-700"
+        >
+            {{ t("home") }}
         </NuxtLink>
     </div>
 </template>

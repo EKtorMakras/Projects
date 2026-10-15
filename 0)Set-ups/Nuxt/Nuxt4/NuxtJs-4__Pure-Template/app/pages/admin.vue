@@ -1,23 +1,23 @@
 <script setup>
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
 // Protected route - requires authentication
 definePageMeta({
     requiresAuth: true,
-    middleware: 'auth'
+    middleware: "auth",
 });
 </script>
 
 <template>
     <div class="admin-page">
-        <h1>{{ t('admin.title') }}</h1>
-        <p>{{ t('admin.description') }}</p>
+        <h1>{{ t("admin.title") }}</h1>
+        <p>{{ t("admin.description") }}</p>
 
         <div class="admin-content">
-            <h2>{{ t('admin.protectedContent') }}</h2>
-            <p>{{ t('admin.message') }}</p>
+            <h2>{{ t("admin.protectedContent") }}</h2>
+            <p>{{ t("admin.message") }}</p>
         </div>
     </div>
 </template>

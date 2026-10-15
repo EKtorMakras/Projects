@@ -13,7 +13,7 @@ async function handleLogin() {
 
     if (success) {
         showSuccess("Login successful!");
-        await navigateTo('/admin');
+        await navigateTo("/admin");
     } else {
         showError("Invalid credentials. Try admin/password");
     }
@@ -55,9 +55,7 @@ async function handleLogin() {
                 </button>
             </form>
 
-            <p class="hint">
-                Hint: Use <strong>admin</strong> / <strong>password</strong>
-            </p>
+            <p class="hint">Hint: Use <strong>admin</strong> / <strong>password</strong></p>
         </div>
     </div>
 </template>

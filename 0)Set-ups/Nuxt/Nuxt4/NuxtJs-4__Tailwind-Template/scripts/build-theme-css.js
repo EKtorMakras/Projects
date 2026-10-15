@@ -12,11 +12,7 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import tokens from "../app/design-system/tokens.js";
 import { hexToOklch } from "./helpers/color-utils.js";
-import {
-    generateBaseThemeCss,
-    generateThemeOverrides,
-    generateOpacityCss,
-} from "./helpers/theme-builder.js";
+import { generateBaseThemeCss, generateThemeOverrides, generateOpacityCss } from "./helpers/theme-builder.js";
 import { generateSourceDirectives } from "./generate-safelist.js";
 
 const __filename = fileURLToPath(import.meta.url);

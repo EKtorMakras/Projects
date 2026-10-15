@@ -1,0 +1,20 @@
+# Build output / dependencies
+node_modules
+dist
+.output
+.nuxt
+.nitro
+coverage
+public
+
+# Lockfiles / generated
+pnpm-lock.yaml
+pnpm-workspace.yaml
+app/assets/scss/_breakpoints.scss
+**/tokens.css
+
+# Docs & AI tooling (not formatted by Prettier)
+.claude
+.github
+CLAUDE.md
+NOTES.md

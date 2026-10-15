@@ -10,10 +10,10 @@ const { t } = useI18n();
 
 <template>
     <div class="about-page">
-        <h1>{{ t('aboutPage.title') }}</h1>
-        <p>{{ t('aboutPage.description') }}</p>
+        <h1>{{ t("aboutPage.title") }}</h1>
+        <p>{{ t("aboutPage.description") }}</p>
 
-        <h2>{{ t('aboutPage.features') }}</h2>
+        <h2>{{ t("aboutPage.features") }}</h2>
         <ul>
             <li>Nuxt 4</li>
             <li>Vue 3</li>
@@ -24,7 +24,7 @@ const { t } = useI18n();
         </ul>
 
         <NuxtLink to="/">
-            {{ t('home') }}
+            {{ t("home") }}
         </NuxtLink>
     </div>
 </template>

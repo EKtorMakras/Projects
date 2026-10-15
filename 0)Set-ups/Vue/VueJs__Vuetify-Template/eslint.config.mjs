@@ -3,8 +3,7 @@ import vueParser from "vue-eslint-parser";
 import eslintPluginJsonc from "eslint-plugin-jsonc";
 import js from "@eslint/js";
 import globals from "globals";
-
-const indentSize = 4;
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
     ...vue.configs["flat/essential"],
@@ -13,7 +12,7 @@ export default [
 
     js.configs.recommended,
 
-    { ignores: ["node_modules", "dist", "coverage", "lib/templates", "*.css", "*.bat"] },
+    { ignores: ["node_modules", "dist", "coverage", "*.css"] },
 
     {
         files: ["**/*.{js,ts,vue,cjs,mjs}"],
@@ -23,40 +22,26 @@ export default [
             ecmaVersion: "latest",
             sourceType: "module",
             globals: {
-                process: "readonly",
-                require: "readonly",
-                module: "readonly",
                 ...globals.browser,
                 ...globals.node,
             },
         },
         rules: {
-            // ===== General ===== //
-            indent: ["warn", indentSize, { SwitchCase: 1 }],
-            "linebreak-style": ["warn", "unix"],
-            quotes: ["warn", "double"],
-            semi: ["warn", "always"],
+            // Code quality — formatting is owned by Prettier (eslint-config-prettier, applied last)
             "no-empty": "warn",
-            "no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+            "no-unused-vars": ["warn", { varsIgnorePattern: "^_", argsIgnorePattern: "^_" }],
             "no-cond-assign": ["warn", "always"],
-            "no-multiple-empty-lines": ["warn", { max: 2, maxEOF: 0, maxBOF: 0 }],
+            // Allow console/debugger during local dev; flag them only in production builds (NODE_ENV=production)
             "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
             "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
             "init-declarations": "off",
             "no-inline-comments": "off",
             camelcase: "off",
 
-            // ===== Vue ===== //
-            "vue/script-indent": ["warn", indentSize],
-            "vue/html-indent": [
-                "warn",
-                indentSize,
-                { attribute: 1, baseIndent: 1, closeBracket: 0, alignAttributesVertically: true, ignores: [] },
-            ],
+            // Vue — code quality
             "vue/comment-directive": "off",
             "vue/no-v-model-argument": "off",
             "vue/no-v-html": "off",
-            "vue/html-self-closing": ["warn", { html: { void: "always", normal: "never" }, svg: "never" }],
             "vue/require-default-prop": "off",
             "vue/component-name-in-template-casing": ["warn", "PascalCase"],
             "vue/multi-word-component-names": ["warn", { ignores: ["index", "default", "[id]"] }],
@@ -82,4 +67,6 @@ export default [
             ],
         },
     },
+
+    eslintConfigPrettier,
 ];

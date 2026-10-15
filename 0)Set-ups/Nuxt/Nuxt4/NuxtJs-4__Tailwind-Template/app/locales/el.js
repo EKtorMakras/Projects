@@ -4,8 +4,7 @@ export default {
     about: "Σχετικά",
     aboutPage: {
         title: "Σχετικά με αυτό το Template",
-        description:
-            "Αυτό είναι ένα καθαρό Nuxt.js starter template με υποστήριξη i18n.",
+        description: "Αυτό είναι ένα καθαρό Nuxt.js starter template με υποστήριξη i18n.",
         features: "Χαρακτηριστικά",
         selectLanguage: "Επιλέξτε Γλώσσα",
     },

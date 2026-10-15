@@ -29,7 +29,9 @@ const goHome = () => {
 
 <template>
     <NuxtLayout name="empty">
-        <div class="min-h-screen flex items-center justify-center bg-linear-to-br from-surface-variant-light to-surface-variant p-8">
+        <div
+            class="min-h-screen flex items-center justify-center bg-linear-to-br from-surface-variant-light to-surface-variant p-8"
+        >
             <div class="text-center max-w-2xl p-12 bg-card rounded-xl shadow-2xl">
                 <h1 class="text-6xl font-bold text-primary-600 mb-4">
                     {{ errorTitle }}

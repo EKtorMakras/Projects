@@ -1,3 +1,61 @@
+@use "sass:map";
+@use "breakpoints" as bp;
+
+// ============ BREAKPOINTS ============ //
+// Wrappers over the shared `$breakpoints` map (see _breakpoints.scss).
+// That same map is also passed to Vuetify as `$grid-breakpoints`, so these
+// helpers and Vuetify's own grid/display logic agree on every threshold.
+//
+// Usage:
+//   @include breakpoint-down("md") { ... }    // < md
+//   @include breakpoint-up("sidebar") { ... } // >= sidebar
+@mixin breakpoint-up($key) {
+    @media (min-width: #{map.get(bp.$breakpoints, $key)}) {
+        @content;
+    }
+}
+
+@mixin breakpoint-down($key) {
+    @media (max-width: #{map.get(bp.$breakpoints, $key) - 0.02}) {
+        @content;
+    }
+}
+
+// ============ VUE TRANSITIONS ============ //
+// Vue's `<Transition name="foo">` expects `.foo-enter-active`, `.foo-leave-active`,
+// `.foo-enter-from`, `.foo-leave-to`. This mixin writes all four from the
+// parent selector so a fade becomes a 1-liner.
+//
+// Usage:
+//   .fade-chips {
+//       @include fade-transition(0.15s);
+//   }
+//   <Transition name="fade-chips">…</Transition>
+@mixin fade-transition($duration: 0.2s, $easing: ease) {
+    &-enter-active,
+    &-leave-active {
+        transition: opacity $duration $easing;
+    }
+
+    &-enter-from,
+    &-leave-to {
+        opacity: 0;
+    }
+}
+
+// Asymmetric fade: smooth on enter, instant on leave. Use when a disappearing
+// element shouldn't linger (e.g. a card going empty) but its return should
+// feel gentle rather than pop in.
+@mixin fade-in-transition($duration: 0.6s, $easing: ease) {
+    &-enter-active {
+        transition: opacity $duration $easing;
+    }
+
+    &-enter-from {
+        opacity: 0;
+    }
+}
+
 // ============ FLEX ============ //
 @mixin flex-center {
     display: flex;

@@ -29,9 +29,7 @@ export function useColor() {
             return null;
         }
 
-        const value = getComputedStyle(document.documentElement)
-            .getPropertyValue(`${prefix}-${variableName}`)
-            .trim();
+        const value = getComputedStyle(document.documentElement).getPropertyValue(`${prefix}-${variableName}`).trim();
 
         return value || null;
     }
@@ -53,10 +51,7 @@ export function useColor() {
 
         if (!rgb) return fallback;
 
-        return (
-            convertColorToHex(`rgba(${rgb}, ${opacity})`, { sixDigit }) ||
-            fallback
-        );
+        return convertColorToHex(`rgba(${rgb}, ${opacity})`, { sixDigit }) || fallback;
     }
 
     /**
@@ -120,9 +115,7 @@ export function useColor() {
      */
     function adjustAlpha(color, alpha) {
         if (typeof alpha !== "number" || alpha < 0 || alpha > 1) {
-            console.warn(
-                `adjustAlpha: The alpha value ${alpha} is not valid. It should be between 0 and 1.`,
-            );
+            console.warn(`adjustAlpha: The alpha value ${alpha} is not valid. It should be between 0 and 1.`);
             return null;
         }
 
@@ -142,7 +135,7 @@ export function useColor() {
     function lightenColor(color, percent) {
         if (typeof percent !== "number" || percent < 0 || percent > 100) {
             console.warn(
-                `lightenColor: The percentage argument ${percent} is not valid. Please provide a number between 0 and 100.`,
+                `lightenColor: The percentage argument ${percent} is not valid. Please provide a number between 0 and 100.`
             );
             return color;
         }
@@ -164,7 +157,7 @@ export function useColor() {
     function darkenColor(color, percent) {
         if (typeof percent !== "number" || percent < 0 || percent > 100) {
             console.warn(
-                `darkenColor: The percentage argument ${percent} is not valid. Please provide a number between 0 and 100.`,
+                `darkenColor: The percentage argument ${percent} is not valid. Please provide a number between 0 and 100.`
             );
             return color;
         }

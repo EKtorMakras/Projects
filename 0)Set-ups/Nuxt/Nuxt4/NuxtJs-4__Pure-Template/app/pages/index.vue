@@ -36,11 +36,11 @@ function testNotification(type) {
 <template>
     <div class="home-page">
         <div class="locale-selector-wrapper">
-            <label>{{ t('welcome') }}! Select Language:</label>
+            <label>{{ t("welcome") }}! Select Language:</label>
             <LocaleSelector />
         </div>
 
-        <h1>{{ t('welcome') }} to Nuxt</h1>
+        <h1>{{ t("welcome") }} to Nuxt</h1>
         <p>This is your starting template.</p>
 
         <button
@@ -69,22 +69,14 @@ function testNotification(type) {
         </div>
 
         <div class="test-buttons">
-            <button @click="testNotification('success')">
-                Success
-            </button>
-            <button @click="testNotification('error')">
-                Error
-            </button>
-            <button @click="testNotification('warning')">
-                Warning
-            </button>
-            <button @click="testNotification('info')">
-                Info
-            </button>
+            <button @click="testNotification('success')">Success</button>
+            <button @click="testNotification('error')">Error</button>
+            <button @click="testNotification('warning')">Warning</button>
+            <button @click="testNotification('info')">Info</button>
         </div>
 
         <NuxtLink to="/about">
-            {{ t('about') }}
+            {{ t("about") }}
         </NuxtLink>
     </div>
 </template>

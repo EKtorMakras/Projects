@@ -27,7 +27,7 @@ const themeLabels = {
                 'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
                 themeStore.currentTheme === theme
                     ? 'bg-card shadow-sm text-surface-fg-high-emphasis'
-                    : 'text-surface-fg-low-emphasis'
+                    : 'text-surface-fg-low-emphasis',
             ]"
             @click="themeStore.setTheme(theme)"
         >

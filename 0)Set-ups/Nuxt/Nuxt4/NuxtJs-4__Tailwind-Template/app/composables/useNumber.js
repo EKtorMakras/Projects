@@ -18,12 +18,7 @@ export function useNumber() {
      * @returns {string} Formatted number string
      */
     function formatNumber(value, options = {}) {
-        const {
-            maxDecimals = 4,
-            significantDigits = null,
-            removeTrailingZeros = true,
-            fallback = "-",
-        } = options;
+        const { maxDecimals = 4, significantDigits = null, removeTrailingZeros = true, fallback = "-" } = options;
 
         // Handle null, undefined, or empty string
         if (!isDefined(value) || value === "") {
@@ -42,9 +37,7 @@ export function useNumber() {
 
         // Use significant digits if specified
         if (significantDigits !== null) {
-            formatted = parseFloat(
-                num.toPrecision(significantDigits),
-            ).toString();
+            formatted = parseFloat(num.toPrecision(significantDigits)).toString();
         } else {
             // Use fixed decimal places
             formatted = num.toFixed(maxDecimals);
@@ -58,7 +51,32 @@ export function useNumber() {
         return formatted;
     }
 
+    /**
+     * True when the value is a real finite number (accepts 0 and negatives).
+     * Rejects null / undefined / NaN / Infinity. Useful for guarding
+     * arithmetic and filtering out missing sensor readings.
+     *
+     * @param {*} value
+     * @returns {boolean}
+     */
+    function isFiniteNumber(value) {
+        return value != null && Number.isFinite(value);
+    }
+
+    /**
+     * True when the value is a finite number strictly greater than zero.
+     * Useful for log-scale filtering — `log(0)` and `log(-n)` are invalid.
+     *
+     * @param {*} value
+     * @returns {boolean}
+     */
+    function isPositiveFinite(value) {
+        return isFiniteNumber(value) && value > 0;
+    }
+
     return {
         formatNumber,
+        isFiniteNumber,
+        isPositiveFinite,
     };
 }

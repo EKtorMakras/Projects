@@ -1,11 +1,11 @@
 export default {
+    siteName: "Nuxt Template",
     welcome: "Καλώς ήρθατε",
     home: "Αρχική",
     about: "Σχετικά",
     aboutPage: {
         title: "Σχετικά με αυτό το Template",
-        description:
-            "Αυτό είναι ένα καθαρό Nuxt.js starter template με υποστήριξη i18n.",
+        description: "Αυτό είναι ένα καθαρό Nuxt starter template με υποστήριξη i18n.",
         features: "Χαρακτηριστικά",
         selectLanguage: "Επιλέξτε Γλώσσα",
     },
@@ -15,21 +15,41 @@ export default {
         protectedContent: "Προστατευμένο Περιεχόμενο",
         message: "Μόνο πιστοποιημένοι χρήστες μπορούν να δουν αυτή τη σελίδα.",
     },
+    close: "Κλείσιμο",
 
+    // Validation messages
     validationMessages: {
         required: "Το πεδίο είναι υποχρεωτικό",
-        email: "Παρακαλώ εισάγετε μια έγκυρη διεύθυνση email",
-        numeric: "Παρακαλώ εισάγετε μια αριθμητική τιμή",
+        email: "Παρακαλώ εισάγετε έγκυρη διεύθυνση email",
+        numeric: "Παρακαλώ εισάγετε αριθμητική τιμή",
         alpha: "Παρακαλώ εισάγετε μόνο αλφαβητικούς χαρακτήρες",
         alphaNumeric: "Παρακαλώ εισάγετε μόνο αλφαριθμητικούς χαρακτήρες",
-        date: "Παρακαλώ εισάγετε μια έγκυρη ημερομηνία",
-        minLength: "Το ελάχιστο μήκος είναι {min} χαρακτήρες",
-        maxLength: "Το μέγιστο μήκος είναι {max} χαρακτήρες",
-        minValue: "Η ελάχιστη τιμή είναι {min}",
-        maxValue: "Η μέγιστη τιμή είναι {max}",
+        date: "Παρακαλώ εισάγετε έγκυρη ημερομηνία",
+        minLength: "Ελάχιστο μήκος {min} χαρακτήρες",
+        maxLength: "Μέγιστο μήκος {max} χαρακτήρες",
+        minValue: "Ελάχιστη τιμή {min}",
+        maxValue: "Μέγιστη τιμή {max}",
         confirmPassword: "Οι κωδικοί δεν ταιριάζουν",
         invalidFormat: "Μη έγκυρη μορφή",
-        valueRequired:
-            "Το πεδίο είναι υποχρεωτικό όταν το σχετικό πεδίο έχει τιμή",
+        valueRequired: "Το πεδίο είναι υποχρεωτικό όταν το σχετικό πεδίο έχει τιμή",
+    },
+
+    // Clipboard
+    clipboard: {
+        copied: "Αντιγράφηκε στο πρόχειρο",
+        copyTooltip: "Αντιγραφή",
+    },
+
+    // Error page
+    errorPage: {
+        title: "Η σελίδα δεν βρέθηκε.",
+        description: "Η σελίδα που αναζητάτε δεν υπάρχει. Επιστρέψτε στην αρχική.",
+        button: "Επιστροφή στην αρχική",
+    },
+
+    // Language names (for locale selector)
+    languages: {
+        en: "Αγγλικά",
+        el: "Ελληνικά",
     },
 };

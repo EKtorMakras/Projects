@@ -68,27 +68,17 @@ function testInfo() {
     </div>
 
     <div class="test-buttons">
-        <button @click="testSuccess">
-            Success
-        </button>
-        <button @click="testError">
-            Error
-        </button>
-        <button @click="testWarning">
-            Warning
-        </button>
-        <button @click="testInfo">
-            Info
-        </button>
+        <button @click="testSuccess">Success</button>
+        <button @click="testError">Error</button>
+        <button @click="testWarning">Warning</button>
+        <button @click="testInfo">Info</button>
     </div>
 
     <select
         v-model="lang"
         @change="changeLocale"
     >
-        <option value="el">
-            ελληνικά
-        </option>
+        <option value="el">ελληνικά</option>
         <option
             value="en"
             selected

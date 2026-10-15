@@ -1,0 +1,14 @@
+// Single Vuetify SASS configuration file.
+// Passed to `vuetify-nuxt-module` via `vuetify.moduleOptions.styles.configFile`;
+// the module loads it before every Vuetify stylesheet and emits the global
+// Vuetify styles itself, so no separate `@use "vuetify"` entry is needed.
+// Variable API: https://vuetifyjs.com/en/features/sass-variables/
+@use "variables" as vars;
+@use "breakpoints" as bp;
+
+@forward "vuetify/settings" with (
+    $body-font-family: vars.$font-family,
+    // Same map that drives `display.thresholds` (see app/config/breakpoints.ts)
+    $grid-breakpoints: bp.$breakpoints,
+    $button-text-transform: capitalize
+);

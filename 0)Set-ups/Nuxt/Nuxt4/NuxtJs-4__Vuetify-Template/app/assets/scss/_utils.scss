@@ -1,4 +1,15 @@
-// ========= General ========= //
+// `additionalData` in the Vite config only injects `global.scss` into entry
+// files (Vue `<style>` blocks + files listed in nuxt.config `css`). Partials
+// loaded via `@forward` (like this one) have to declare their deps directly.
+@use "mixins" as *;
+
+// ========= Text emphasis ========= //
+// Vuetify ships `text-medium-emphasis` (0.6) and its own `text-high-emphasis`
+// (0.87). We want a slightly softer high-emphasis (0.8) that reads as body
+// copy on light surfaces without going all the way to full on-surface color.
+.text-high-emphasis {
+    color: rgba(var(--v-theme-on-surface), 0.8) !important;
+}
 
 // ========= Sizing ========= //
 .min-h-screen {
@@ -13,17 +24,6 @@
     box-shadow: var(--shadow-dark) !important;
 }
 
-// ======== Transitions ========= //
-.transition-base {
-    transition: var(--transition-base) !important;
-}
-.transition-fast {
-    transition: var(--transition-fast) !important;
-}
-.transition-slow {
-    transition: var(--transition-slow) !important;
-}
-
 // ========= Text Utilities ========= //
 // Text clamp utilities for multiline text truncation
 // Generates .text-clamp-1 through .text-clamp-10
@@ -35,6 +35,17 @@
         line-clamp: $i;
         overflow: hidden;
     }
+}
+
+// ========= Transitions ========= //
+.transition-base {
+    transition: var(--transition-base) !important;
+}
+.transition-fast {
+    transition: var(--transition-fast) !important;
+}
+.transition-slow {
+    transition: var(--transition-slow) !important;
 }
 
 // ========= Spacing ========= //

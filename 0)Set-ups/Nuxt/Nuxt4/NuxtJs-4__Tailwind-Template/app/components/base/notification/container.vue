@@ -1,7 +1,7 @@
 <script setup>
 import { useNotifications } from "@/composables/useNotifications";
 
-defineOptions({ inheritAttrs: false })
+defineOptions({ inheritAttrs: false });
 
 const { notifications } = useNotifications();
 </script>

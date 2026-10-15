@@ -1,48 +1,41 @@
 # Vue 3 + Vuetify Template
 
-This is a production-ready template for building modern web applications with Vue 3 and Vuetify. It includes routing, state management, internationalization, and a complete UI component library.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Vue 3 + Vite starter with Vuetify 4 (theme, locale and SASS settings pre-configured).
 
 ## Features
 
-- ⚡️ **Vue 3** - Composition API, `<script setup>` syntax
-- 🎨 **Vuetify 3** - Material Design component framework
-- 🚦 **Vue Router** - Official routing solution
-- 🍍 **Pinia** - Intuitive state management
-- 🌍 **Vue I18n** - Internationalization support
-- 📦 **Vite** - Next generation frontend tooling
-- 🎯 **ESLint + Prettier** - Code quality and formatting
-- 🔧 **Axios** - HTTP client with API helpers
-- 📅 **Day.js** - Date manipulation library
-- 🎭 **Theme Support** - Dark/Light mode switching
+- Vue 3 (`<script setup>`), Vue Router, Pinia, vue-i18n (en/el), axios API layer with `withAsync`
+- Day.js, notifications composable, light/dark theme store
+- ESLint + Prettier, `.editorconfig`, VSCode settings
 
-## Customize configuration
+## Requirements
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Node >= 22 (see `.nvmrc`), pnpm >= 10.
 
-## Project Setup
+## Project setup
 
 ```sh
 pnpm install
+cp .env.example .env
 ```
 
-### Compile and Hot-Reload for Development
+| Command                             | What it does                   |
+| ----------------------------------- | ------------------------------ |
+| `pnpm dev`                          | Dev server on port 3000        |
+| `pnpm build`                        | Production build               |
+| `pnpm preview`                      | Preview the production build   |
+| `pnpm lint` / `pnpm lint:fix`       | ESLint (code quality only)     |
+| `pnpm format` / `pnpm format:check` | Prettier (owns all formatting) |
 
-```sh
-pnpm run dev
-```
+## Bootstrapping a new project
 
-### Compile and Minify for Production
+- Set `package.json#name`, `CONFIG.app_title` in `src/common/config.js` and the `<title>` in `index.html`.
+- Replace `public/favicon.ico`.
+- Set `VITE_API_URL` in `.env`.
 
-```sh
-pnpm run build
-```
+## Tooling
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm run lint
-```
+- **ESLint 10** flat config (`eslint.config.mjs`) with `eslint-plugin-vue`, `eslint-plugin-jsonc` and `eslint-config-prettier` applied last.
+- **Prettier** (`prettier.config.mjs`): 4 spaces, double quotes, `printWidth` 120, one attribute per line.
+- **Aliases**: `@` → `src`, `~` → project root.
+- **Recommended IDE**: VSCode + Volar; extensions are listed in `.vscode/extensions.json`.

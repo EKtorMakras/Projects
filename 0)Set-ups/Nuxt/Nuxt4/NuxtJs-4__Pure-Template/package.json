@@ -1,33 +1,41 @@
 {
-    "name": "nuxt-app",
+    "name": "nuxt-pure-template",
     "private": true,
     "type": "module",
+    "packageManager": "pnpm@10.33.0",
+    "engines": {
+        "node": ">=22",
+        "pnpm": ">=10"
+    },
     "scripts": {
         "build": "nuxt build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
-        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
         "start": "node .output/server/index.mjs"
     },
     "dependencies": {
-        "@nuxt/eslint": "^1.7.1",
-        "@pinia/nuxt": "^0.11.3",
-        "dayjs": "^1.11.19",
-        "eslint": "^9.32.0",
-        "nuxt": "^4.0.1",
-        "pinia": "^3.0.4",
-        "vue": "^3.5.18",
-        "vue-i18n": "^11.2.8",
-        "vue-router": "^4.5.1"
+        "@nuxt/eslint": "^1.17.0",
+        "@pinia/nuxt": "^1.0.3",
+        "dayjs": "^1.11.23",
+        "eslint": "^10.12.0",
+        "nuxt": "^4.6.1",
+        "pinia": "^4.1.0",
+        "vue": "^3.5.44",
+        "vue-i18n": "^11.4.14",
+        "vue-router": "^5.4.0"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.21",
-        "eslint-plugin-vue": "^10.4.0",
-        "sass": "^1.89.2"
-    },
-    "engines": {
-        "node": ">=20.x"
+        "@types/node": "^26.6.5",
+        "autoprefixer": "^10.6.1",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-vue": "^10.11.1",
+        "prettier": "^3.9.10",
+        "sass": "^1.105.1"
     }
 }

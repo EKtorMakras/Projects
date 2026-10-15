@@ -1,55 +1,69 @@
 <script setup>
 import { useLocaleStore } from "@/stores/useLocaleStore.js";
-import { useColor } from "@/composables/useColor.js";
+
+defineProps({
+    color: { type: String, default: null },
+});
 
 const localeStore = useLocaleStore();
-const { getColor } = useColor();
 
 const langs = [
-    {
-        name: "English",
-        value: "en",
-    },
-    {
-        name: "Ελληνικά",
-        value: "el",
-    },
+    { value: "en", label: "EN", flag: "/flags/gb.svg" },
+    { value: "el", label: "EL", flag: "/flags/gr.svg" },
 ];
+
+function handleUpdate(value) {
+    if (value) localeStore.setLocale(value);
+}
 </script>
 
 <template>
-    <div>
-        <v-menu location="bottom">
-            <template #activator="{ props }">
-                <v-btn
-                    icon="mdi-translate"
-                    variant="text"
-                    :color="getColor('on-surface', 0.6)"
-                    v-bind="props"
-                />
-            </template>
-
-            <v-list
-                nav
-                density="compact"
-            >
-                <v-list-subheader class="text-subtitle-2 font-weight-bold mb-1">
-                    Language
-                </v-list-subheader>
-
-                <v-list-item
-                    v-for="lang in langs"
-                    :key="lang.value"
-                    link
-                    rounded="xl"
-                    class="text-center"
-                    :active="lang.value === localeStore.locale"
-                    color="primary"
-                    @click="localeStore.setLocale(lang.value)"
-                >
-                    {{ lang.name }}
-                </v-list-item>
-            </v-list>
-        </v-menu>
-    </div>
+    <v-btn-toggle
+        :model-value="localeStore.locale"
+        :color="color"
+        density="compact"
+        variant="outlined"
+        mandatory
+        divided
+        rounded="xs"
+        @update:model-value="handleUpdate"
+    >
+        <v-btn
+            v-for="lang in langs"
+            :key="lang.value"
+            :value="lang.value"
+            :base-color="color"
+            size="x-small"
+            class="px-2 text-caption font-weight-medium"
+        >
+            <img
+                :src="lang.flag"
+                :alt="lang.label"
+                class="flag d-block me-1"
+            />
+            <span>{{ lang.label }}</span>
+        </v-btn>
+    </v-btn-toggle>
 </template>
+
+<style lang="scss" scoped>
+.flag {
+    width: 1.25em;
+    height: auto;
+    border-radius: 1px;
+}
+
+:deep(.v-btn) {
+    &.v-btn--variant-outlined {
+        --v-border-opacity: 0.1;
+    }
+
+    &.v-btn--active {
+        --v-activated-opacity: 0.06;
+    }
+
+    &:not(.v-btn--active) {
+        opacity: 0.85;
+    }
+}
+</style>

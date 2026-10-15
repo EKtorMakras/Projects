@@ -1,6 +1,6 @@
 root = true
 
-[*.{html,css,scss,js,cjs,vue,json}]
+[*.{html,css,scss,js,cjs,mjs,vue,json}]
 charset = utf-8
 end_of_line = lf
 indent_style = space

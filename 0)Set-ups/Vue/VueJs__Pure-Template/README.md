@@ -1,35 +1,41 @@
-# vue-project
+# Vue 3 Pure Template
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 + Vite starter with SCSS and no UI framework.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Vue 3 (`<script setup>`), Vue Router, Pinia, vue-i18n (en/el), axios API layer with `withAsync`
+- Day.js, notifications composable, light/dark theme store
+- ESLint + Prettier, `.editorconfig`, VSCode settings
 
-## Customize configuration
+## Requirements
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Node >= 22 (see `.nvmrc`), pnpm >= 10.
 
-## Project Setup
+## Project setup
 
 ```sh
 pnpm install
+cp .env.example .env
 ```
 
-### Compile and Hot-Reload for Development
+| Command                             | What it does                   |
+| ----------------------------------- | ------------------------------ |
+| `pnpm dev`                          | Dev server on port 3000        |
+| `pnpm build`                        | Production build               |
+| `pnpm preview`                      | Preview the production build   |
+| `pnpm lint` / `pnpm lint:fix`       | ESLint (code quality only)     |
+| `pnpm format` / `pnpm format:check` | Prettier (owns all formatting) |
 
-```sh
-pnpm run dev
-```
+## Bootstrapping a new project
 
-### Compile and Minify for Production
+- Set `package.json#name`, `CONFIG.app_title` in `src/common/config.js` and the `<title>` in `index.html`.
+- Replace `public/favicon.ico`.
+- Set `VITE_API_URL` in `.env`.
 
-```sh
-pnpm run build
-```
+## Tooling
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm run lint
-```
+- **ESLint 10** flat config (`eslint.config.mjs`) with `eslint-plugin-vue`, `eslint-plugin-jsonc` and `eslint-config-prettier` applied last.
+- **Prettier** (`prettier.config.mjs`): 4 spaces, double quotes, `printWidth` 120, one attribute per line.
+- **Aliases**: `@` → `src`, `~` → project root.
+- **Recommended IDE**: VSCode + Volar; extensions are listed in `.vscode/extensions.json`.

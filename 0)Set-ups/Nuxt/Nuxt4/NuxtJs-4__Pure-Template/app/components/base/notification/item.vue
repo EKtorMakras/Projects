@@ -61,7 +61,7 @@ onMounted(() => {
                 :class="`notification__progress-bar--${notification.type}`"
                 :style="{
                     width: `${progressWidth}%`,
-                    transition: `width ${notification.duration}ms linear`
+                    transition: `width ${notification.duration}ms linear`,
                 }"
             ></div>
         </div>

@@ -28,9 +28,7 @@ const navItems = [
 </script>
 
 <template>
-    <v-navigation-drawer
-        v-model="drawer"
-    >
+    <v-navigation-drawer v-model="drawer">
         <v-list class="pt-5">
             <v-list-item
                 v-for="item in navItems"

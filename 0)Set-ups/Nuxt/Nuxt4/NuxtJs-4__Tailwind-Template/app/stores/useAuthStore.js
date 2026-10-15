@@ -10,10 +10,7 @@ export const useAuthStore = defineStore("auth", () => {
     function login(username, password) {
         // Simulate an API call to authenticate the user
         // Case-insensitive comparison
-        if (
-            username.toLowerCase() === "admin" &&
-            password.toLowerCase() === "password"
-        ) {
+        if (username.toLowerCase() === "admin" && password.toLowerCase() === "password") {
             user.value = { username: "admin", role: "administrator" };
             authCookie.value = user.value;
 

@@ -25,34 +25,24 @@ const opacityInput = ref(0.6);
 const themeVar = ref("primary");
 
 // ── useColor: Computed Results ──────────────────────────────────────────────
-const hexSix = computed(() =>
-    convertColorToHex(colorInput.value, { sixDigit: true }),
-);
+const hexSix = computed(() => convertColorToHex(colorInput.value, { sixDigit: true }));
 const hexAuto = computed(() => convertColorToHex(colorInput.value));
 const rgbAuto = computed(() => convertColorToRgb(colorInput.value));
-const alphaApplied = computed(() =>
-    adjustAlpha(colorInput.value, Number(alphaInput.value)),
-);
-const lightApplied = computed(() =>
-    lightenColor(colorInput.value, Number(percentInput.value)),
-);
-const darkApplied = computed(() =>
-    darkenColor(colorInput.value, Number(percentInput.value)),
-);
+const alphaApplied = computed(() => adjustAlpha(colorInput.value, Number(alphaInput.value)));
+const lightApplied = computed(() => lightenColor(colorInput.value, Number(percentInput.value)));
+const darkApplied = computed(() => darkenColor(colorInput.value, Number(percentInput.value)));
 const cssVarRaw = computed(() => getCssColorVar(themeVar.value));
 const hexFromVar = computed(() =>
     getHexColor(themeVar.value, {
         sixDigit: true,
-    }),
+    })
 );
 const rgbaFromVar = computed(() => {
     const value = cssVarRaw.value;
     if (!value) return null;
     return convertColorToRgb(`rgba(${value}, 1)`);
 });
-const themedRgbaExpr = computed(() =>
-    getColor(themeVar.value, Number(opacityInput.value)),
-);
+const themedRgbaExpr = computed(() => getColor(themeVar.value, Number(opacityInput.value)));
 
 // ── useColor: Helper Functions ──────────────────────────────────────────────
 function bgStyleFor(value) {
@@ -74,24 +64,12 @@ const utcFormatPattern = ref("YYYY-MM-DDTHH:mm:ss[Z]");
 const localFormatPattern = ref("L");
 
 // ── useDate: Computed Results ───────────────────────────────────────────────
-const formattedDate = computed(() =>
-    formatDate(dateInput.value, formatPattern.value),
-);
-const formattedUtc = computed(() =>
-    formatUtc(dateInput.value, utcFormatPattern.value),
-);
-const formattedUtcToLocal = computed(() =>
-    formatUtcToLocal(dateInput.value, localFormatPattern.value),
-);
-const formattedWithCustom = computed(() =>
-    formatDate(dateInput.value, "DD/MM/YYYY, HH:mm"),
-);
-const formattedFull = computed(() =>
-    formatDate(dateInput.value, "MMMM D, YYYY"),
-);
-const formattedTime = computed(() =>
-    formatDate(dateInput.value, "HH:mm:ss"),
-);
+const formattedDate = computed(() => formatDate(dateInput.value, formatPattern.value));
+const formattedUtc = computed(() => formatUtc(dateInput.value, utcFormatPattern.value));
+const formattedUtcToLocal = computed(() => formatUtcToLocal(dateInput.value, localFormatPattern.value));
+const formattedWithCustom = computed(() => formatDate(dateInput.value, "DD/MM/YYYY, HH:mm"));
+const formattedFull = computed(() => formatDate(dateInput.value, "MMMM D, YYYY"));
+const formattedTime = computed(() => formatDate(dateInput.value, "HH:mm:ss"));
 
 // ============================================================================
 // COMPOSABLE: useString (Future)
@@ -112,12 +90,10 @@ const formattedTime = computed(() =>
             <!-- ================================================================ -->
             <v-row>
                 <v-col cols="12">
-                    <h1 class="text-h3 mb-2">
-                        Composable Playground
-                    </h1>
+                    <h1 class="text-h3 mb-2">Composable Playground</h1>
                     <p class="text-body-1 mb-6">
-                        Interactive testing area for all composables. Test different
-                        utilities and see results in real-time.
+                        Interactive testing area for all composables. Test different utilities and see results in
+                        real-time.
                     </p>
                     <v-divider class="mb-8" />
                 </v-col>
@@ -128,12 +104,8 @@ const formattedTime = computed(() =>
             <!-- ================================================================ -->
             <v-row>
                 <v-col cols="12">
-                    <div class="text-h4 mb-2">
-                        UseColor
-                    </div>
-                    <p class="text-body-2 text-medium-emphasis mb-4">
-                        Color manipulation and conversion utilities
-                    </p>
+                    <div class="text-h4 mb-2">UseColor</div>
+                    <p class="text-body-2 text-medium-emphasis mb-4">Color manipulation and conversion utilities</p>
                 </v-col>
             </v-row>
 
@@ -150,14 +122,10 @@ const formattedTime = computed(() =>
                         variant="tonal"
                         class="pa-4 sticky-controls"
                     >
-                        <div class="text-subtitle-1 font-weight-bold mb-4">
-                            Inputs & Controls
-                        </div>
+                        <div class="text-subtitle-1 font-weight-bold mb-4">Inputs & Controls</div>
 
                         <div class="mb-4">
-                            <label class="text-caption mb-2 d-block">
-                                Color Picker
-                            </label>
+                            <label class="text-caption mb-2 d-block"> Color Picker </label>
                             <v-color-picker
                                 v-model="colorInput"
                                 mode="hex"
@@ -240,9 +208,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(hexSix)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        convertColorToHex(color, { sixDigit: true })
-                                    </code>
+                                    <code class="function-call"> convertColorToHex(color, { sixDigit: true }) </code>
                                     <div class="result-value">
                                         {{ hexSix }}
                                     </div>
@@ -260,9 +226,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(hexAuto)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        convertColorToHex(color)
-                                    </code>
+                                    <code class="function-call"> convertColorToHex(color) </code>
                                     <div class="result-value">
                                         {{ hexAuto }}
                                     </div>
@@ -280,9 +244,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(rgbAuto)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        convertColorToRgb(color)
-                                    </code>
+                                    <code class="function-call"> convertColorToRgb(color) </code>
                                     <div class="result-value">
                                         {{ rgbAuto }}
                                     </div>
@@ -293,9 +255,7 @@ const formattedTime = computed(() =>
                         <!-- SEPARATOR: Color Adjusters -->
                         <v-col cols="12">
                             <v-divider class="my-2" />
-                            <div class="text-caption text-medium-emphasis text-center my-2">
-                                Color Adjusters
-                            </div>
+                            <div class="text-caption text-medium-emphasis text-center my-2">Color Adjusters</div>
                             <v-divider class="my-2" />
                         </v-col>
 
@@ -309,9 +269,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(alphaApplied)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        adjustAlpha(color, {{ alphaInput }})
-                                    </code>
+                                    <code class="function-call"> adjustAlpha(color, {{ alphaInput }}) </code>
                                     <div class="result-value">
                                         {{ alphaApplied }}
                                     </div>
@@ -329,9 +287,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(lightApplied)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        lightenColor(color, {{ percentInput }})
-                                    </code>
+                                    <code class="function-call"> lightenColor(color, {{ percentInput }}) </code>
                                     <div class="result-value">
                                         {{ lightApplied }}
                                     </div>
@@ -349,9 +305,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(darkApplied)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        darkenColor(color, {{ percentInput }})
-                                    </code>
+                                    <code class="function-call"> darkenColor(color, {{ percentInput }}) </code>
                                     <div class="result-value">
                                         {{ darkApplied }}
                                     </div>
@@ -362,9 +316,7 @@ const formattedTime = computed(() =>
                         <!-- SEPARATOR: Theme Color Functions -->
                         <v-col cols="12">
                             <v-divider class="my-2" />
-                            <div class="text-caption text-medium-emphasis text-center my-2">
-                                Theme Color Functions
-                            </div>
+                            <div class="text-caption text-medium-emphasis text-center my-2">Theme Color Functions</div>
                             <v-divider class="my-2" />
                         </v-col>
 
@@ -375,9 +327,7 @@ const formattedTime = computed(() =>
                         >
                             <div class="color-result-card pa-4 bg-surface-variant">
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        getCssColorVar('{{ themeVar }}')
-                                    </code>
+                                    <code class="function-call"> getCssColorVar('{{ themeVar }}') </code>
                                     <div class="result-value">
                                         {{ cssVarRaw }}
                                     </div>
@@ -415,9 +365,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(rgbaFromVar)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        convertColorToRgb(rgba({{ cssVarRaw }}, 1))
-                                    </code>
+                                    <code class="function-call"> convertColorToRgb(rgba({{ cssVarRaw }}, 1)) </code>
                                     <div class="result-value">
                                         {{ rgbaFromVar }}
                                     </div>
@@ -435,9 +383,7 @@ const formattedTime = computed(() =>
                                 :style="bgStyleFor(themedRgbaExpr)"
                             >
                                 <div class="color-overlay pa-2">
-                                    <code class="function-call">
-                                        getColor('{{ themeVar }}', {{ opacityInput }})
-                                    </code>
+                                    <code class="function-call"> getColor('{{ themeVar }}', {{ opacityInput }}) </code>
                                     <div class="result-value">
                                         {{ themedRgbaExpr }}
                                     </div>
@@ -454,12 +400,8 @@ const formattedTime = computed(() =>
             <v-row class="mt-8">
                 <v-col cols="12">
                     <v-divider class="mb-8" />
-                    <div class="text-h4 mb-2">
-                        UseDate
-                    </div>
-                    <p class="text-body-2 text-medium-emphasis mb-4">
-                        Date formatting and manipulation utilities
-                    </p>
+                    <div class="text-h4 mb-2">UseDate</div>
+                    <p class="text-body-2 text-medium-emphasis mb-4">Date formatting and manipulation utilities</p>
                 </v-col>
             </v-row>
 
@@ -476,9 +418,7 @@ const formattedTime = computed(() =>
                         variant="tonal"
                         class="pa-4 sticky-controls"
                     >
-                        <div class="text-subtitle-1 font-weight-bold mb-4">
-                            Inputs & Controls
-                        </div>
+                        <div class="text-subtitle-1 font-weight-bold mb-4">Inputs & Controls</div>
 
                         <v-text-field
                             v-model="dateInput"
@@ -515,9 +455,7 @@ const formattedTime = computed(() =>
 
                         <v-divider class="my-3" />
 
-                        <div class="text-caption text-medium-emphasis mb-2">
-                            Common Formats:
-                        </div>
+                        <div class="text-caption text-medium-emphasis mb-2">Common Formats:</div>
                         <div class="d-flex flex-column ga-1">
                             <code class="text-caption pa-1">L - Localized date</code>
                             <code class="text-caption pa-1">DD/MM/YYYY - Day/Month/Year</code>
@@ -556,9 +494,7 @@ const formattedTime = computed(() =>
                         >
                             <div class="date-result-card pa-4 bg-primary-lighten">
                                 <div class="result-content pa-2">
-                                    <code class="function-call">
-                                        formatDate(date, '{{ formatPattern }}')
-                                    </code>
+                                    <code class="function-call"> formatDate(date, '{{ formatPattern }}') </code>
                                     <div class="result-value">
                                         {{ formattedDate }}
                                     </div>
@@ -573,9 +509,7 @@ const formattedTime = computed(() =>
                         >
                             <div class="date-result-card pa-4 bg-primary-lighten">
                                 <div class="result-content pa-2">
-                                    <code class="function-call">
-                                        formatDate(date, 'DD/MM/YYYY, HH:mm')
-                                    </code>
+                                    <code class="function-call"> formatDate(date, 'DD/MM/YYYY, HH:mm') </code>
                                     <div class="result-value">
                                         {{ formattedWithCustom }}
                                     </div>
@@ -590,9 +524,7 @@ const formattedTime = computed(() =>
                         >
                             <div class="date-result-card pa-4 bg-primary-lighten">
                                 <div class="result-content pa-2">
-                                    <code class="function-call">
-                                        formatDate(date, 'MMMM D, YYYY')
-                                    </code>
+                                    <code class="function-call"> formatDate(date, 'MMMM D, YYYY') </code>
                                     <div class="result-value">
                                         {{ formattedFull }}
                                     </div>
@@ -607,9 +539,7 @@ const formattedTime = computed(() =>
                         >
                             <div class="date-result-card pa-4 bg-primary-lighten">
                                 <div class="result-content pa-2">
-                                    <code class="function-call">
-                                        formatDate(date, 'HH:mm:ss')
-                                    </code>
+                                    <code class="function-call"> formatDate(date, 'HH:mm:ss') </code>
                                     <div class="result-value">
                                         {{ formattedTime }}
                                     </div>
@@ -633,9 +563,7 @@ const formattedTime = computed(() =>
                         >
                             <div class="date-result-card pa-4 bg-info-lighten">
                                 <div class="result-content pa-2">
-                                    <code class="function-call">
-                                        formatUtc(date, '{{ utcFormatPattern }}')
-                                    </code>
+                                    <code class="function-call"> formatUtc(date, '{{ utcFormatPattern }}') </code>
                                     <div class="result-value">
                                         {{ formattedUtc }}
                                     </div>
@@ -666,12 +594,8 @@ const formattedTime = computed(() =>
                 <v-container>
                     <v-row>
                         <v-col cols="12">
-                            <h1 class="text-h3 mb-2">
-                                Composable Playground
-                            </h1>
-                            <p class="text-body-1 mb-6">
-                                Loading playground...
-                            </p>
+                            <h1 class="text-h3 mb-2">Composable Playground</h1>
+                            <p class="text-body-1 mb-6">Loading playground...</p>
                         </v-col>
                     </v-row>
                 </v-container>

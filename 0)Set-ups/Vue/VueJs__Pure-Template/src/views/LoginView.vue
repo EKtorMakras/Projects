@@ -58,9 +58,7 @@ function handleLogin() {
                 </button>
             </form>
 
-            <p class="hint">
-                Hint: Use <strong>admin</strong> / <strong>password</strong>
-            </p>
+            <p class="hint">Hint: Use <strong>admin</strong> / <strong>password</strong></p>
         </div>
     </div>
 </template>

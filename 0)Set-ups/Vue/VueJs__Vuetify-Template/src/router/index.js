@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "./routes";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useTitle } from "@/composables/useTitle.js";
+
+const { setTitle } = useTitle();
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +25,10 @@ router.beforeEach((to, from, next) => {
         // Allow navigation
         next();
     }
+});
+
+router.afterEach((to) => {
+    setTitle(to.meta.title);
 });
 
 export default router;

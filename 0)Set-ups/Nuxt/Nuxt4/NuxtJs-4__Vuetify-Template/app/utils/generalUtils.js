@@ -8,6 +8,15 @@ export function isDefined(value) {
 }
 
 /**
+ * Check if a value is empty (null, undefined, or empty string)
+ * @param {*} value - The value to check
+ * @returns {boolean} - True if the value is empty, false otherwise
+ */
+export function isEmptyValue(value) {
+    return value === null || value === undefined || value === "";
+}
+
+/**
  * Checks if the code is running in a browser environment (client-side).
  * @returns {boolean} - True if running in browser, false if SSR or Node.js.
  */
@@ -16,32 +25,10 @@ export function isBrowser() {
 }
 
 /**
- * Checks if a value is a valid number (not null, undefined, or NaN)
- * Useful for filtering data before calculations
- *
- * @param {*} value - The value to check
- * @returns {boolean} True if value is a valid number
- *
- * @example
- * isValidNumber(42) // true
- * isValidNumber(0) // true
- * isValidNumber(null) // false
- * isValidNumber(undefined) // false
- * isValidNumber(NaN) // false
- * isValidNumber("text") // false
+ * Returns true if value is a finite number (not null, undefined, or NaN).
+ * @param {*} value
+ * @returns {boolean}
  */
 export function isValidNumber(value) {
     return isDefined(value) && !isNaN(value);
-}
-
-export function isFalsyButNotZero(value) {
-    return !value && value !== 0;
-}
-
-export function copyToClipboard(text) {
-    try {
-        navigator.clipboard.writeText(text);
-    } catch (error) {
-        console.error("Failed to copy to clipboard:", error);
-    }
 }

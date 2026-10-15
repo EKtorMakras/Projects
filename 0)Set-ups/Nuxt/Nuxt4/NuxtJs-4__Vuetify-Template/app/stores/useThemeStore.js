@@ -14,6 +14,10 @@ export const useThemeStore = defineStore("theme", () => {
     }
 
     function initTheme() {
+        if (!import.meta.dev) {
+            setTheme("light");
+            return;
+        }
         const startingTheme = themeCookie.value || "light";
         setTheme(startingTheme);
     }

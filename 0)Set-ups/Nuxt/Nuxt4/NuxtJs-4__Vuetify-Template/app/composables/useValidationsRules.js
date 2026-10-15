@@ -9,26 +9,17 @@ export function useValidationRules() {
         alphaNumeric: /^[A-Za-z0-9]+$/,
     };
     const rules = {
-        required: (value) =>
-            !!value || value === 0 || t("validationMessages.required"),
+        required: (value) => !!value || value === 0 || t("validationMessages.required"),
 
-        email: (value) =>
-            PATTERNS.email.test(value) || t("validationMessages.email"),
+        email: (value) => PATTERNS.email.test(value) || t("validationMessages.email"),
         numeric: (value) =>
-            (value !== null && value !== "" && !isNaN(Number(value))) ||
-            t("validationMessages.numeric"),
-        alpha: (value) =>
-            PATTERNS.alpha.test(value) || t("validationMessages.alpha"),
-        alphaNumeric: (value) =>
-            PATTERNS.alphaNumeric.test(value) ||
-            t("validationMessages.alphaNumeric"),
-        date: (value) =>
-            !isNaN(Date.parse(value)) || t("validationMessages.date"),
+            (value !== null && value !== "" && !isNaN(Number(value))) || t("validationMessages.numeric"),
+        alpha: (value) => PATTERNS.alpha.test(value) || t("validationMessages.alpha"),
+        alphaNumeric: (value) => PATTERNS.alphaNumeric.test(value) || t("validationMessages.alphaNumeric"),
+        date: (value) => !isNaN(Date.parse(value)) || t("validationMessages.date"),
 
-        minLength: (min) => (value) =>
-            value?.length >= min || t("validationMessages.minLength", { min }),
-        maxLength: (max) => (value) =>
-            value?.length <= max || t("validationMessages.maxLength", { max }),
+        minLength: (min) => (value) => value?.length >= min || t("validationMessages.minLength", { min }),
+        maxLength: (max) => (value) => value?.length <= max || t("validationMessages.maxLength", { max }),
         minValue: (min, messageKey = "validationMessages.minValue") => {
             return (value) => value >= min || t(messageKey, { min });
         },
@@ -37,15 +28,10 @@ export function useValidationRules() {
         },
 
         confirmPassword: (getCompareValue) => {
-            return (value) =>
-                value === getCompareValue() ||
-                t("validationMessages.confirmPassword");
+            return (value) => value === getCompareValue() || t("validationMessages.confirmPassword");
         },
 
-        customRegex: (
-            regex,
-            messageKey = "validationMessages.invalidFormat",
-        ) => {
+        customRegex: (regex, messageKey = "validationMessages.invalidFormat") => {
             return (value) => regex.test(value) || t(messageKey);
         },
 

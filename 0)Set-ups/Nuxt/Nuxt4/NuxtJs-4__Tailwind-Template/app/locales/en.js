@@ -4,8 +4,7 @@ export default {
     about: "About",
     aboutPage: {
         title: "About This Template",
-        description:
-            "This is a clean Nuxt.js starter template with i18n support.",
+        description: "This is a clean Nuxt.js starter template with i18n support.",
         features: "Features",
         selectLanguage: "Select Language",
     },

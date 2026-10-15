@@ -55,12 +55,12 @@ function testNotification(type) {
         >
             <v-row align="center">
                 <v-col cols="auto">
-                    <span class="font-weight-medium">{{ t('welcome') }}</span>
+                    <span class="font-weight-medium">{{ t("welcome") }}</span>
                 </v-col>
             </v-row>
         </v-card>
 
-        <h1 class="text-h3 mb-4">{{ t('welcome') }} to Nuxt</h1>
+        <h1 class="text-h3 mb-4">{{ t("welcome") }} to Nuxt</h1>
         <p class="text-body-1 mb-6">This is your starting template.</p>
 
         <v-btn
@@ -78,12 +78,12 @@ function testNotification(type) {
             >
                 <h3 class="text-h6 mb-4">Circular Loader Examples:</h3>
                 <div class="d-flex ga-8 align-center">
-                    <BaseCircularLoader />
-                    <BaseCircularLoader
+                    <BaseLoaderCircular />
+                    <BaseLoaderCircular
                         :size="60"
                         color="#ff0000"
                     />
-                    <BaseCircularLoader
+                    <BaseLoaderCircular
                         :size="80"
                         color="#2196f3"
                     />
@@ -120,11 +120,10 @@ function testNotification(type) {
 
         <!-- Vuetify Locale Test Section -->
         <v-card class="mb-6 pa-4">
-            <v-card-title class="text-h6 mb-2">
-                Demo Table to Test Vuetify Locale Changes
-            </v-card-title>
+            <v-card-title class="text-h6 mb-2"> Demo Table to Test Vuetify Locale Changes </v-card-title>
             <v-card-subtitle class="mb-4">
-                Change the locale above to see Vuetify's built-in text (pagination, "No data", etc.) update automatically
+                Change the locale above to see Vuetify's built-in text (pagination, "No data", etc.) update
+                automatically
             </v-card-subtitle>
             <v-data-table
                 :headers="headers"
@@ -139,7 +138,7 @@ function testNotification(type) {
             variant="text"
             color="primary"
         >
-            {{ t('about') }}
+            {{ t("about") }}
         </v-btn>
     </v-container>
 </template>

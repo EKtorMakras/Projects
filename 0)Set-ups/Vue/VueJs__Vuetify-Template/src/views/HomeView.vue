@@ -54,17 +54,13 @@ function testNotification(type) {
         >
             <v-row align="center">
                 <v-col cols="auto">
-                    <span class="font-weight-medium">{{ t('welcome') }}</span>
+                    <span class="font-weight-medium">{{ t("welcome") }}</span>
                 </v-col>
             </v-row>
         </v-card>
 
-        <h1 class="text-h3 mb-4">
-            {{ t('welcome') }} to Vue3-Vuetify
-        </h1>
-        <p class="text-body-1 mb-6">
-            This is your starting template.
-        </p>
+        <h1 class="text-h3 mb-4">{{ t("welcome") }} to Vue3-Vuetify</h1>
+        <p class="text-body-1 mb-6">This is your starting template.</p>
 
         <v-btn
             color="success"
@@ -79,9 +75,7 @@ function testNotification(type) {
                 v-if="showLoaders"
                 class="mb-6 pa-4"
             >
-                <h3 class="text-h6 mb-4">
-                    Circular Loader Examples:
-                </h3>
+                <h3 class="text-h6 mb-4">Circular Loader Examples:</h3>
                 <div class="d-flex ga-8 align-center">
                     <BaseCircularLoader />
                     <BaseCircularLoader
@@ -125,11 +119,10 @@ function testNotification(type) {
 
         <!-- Vuetify Locale Test Section -->
         <v-card class="mb-6 pa-4">
-            <v-card-title class="text-h6 mb-2">
-                Demo Table to Test Vuetify Locale Changes
-            </v-card-title>
+            <v-card-title class="text-h6 mb-2"> Demo Table to Test Vuetify Locale Changes </v-card-title>
             <v-card-subtitle class="mb-4">
-                Change the locale above to see Vuetify's built-in text (pagination, "No data", etc.) update automatically
+                Change the locale above to see Vuetify's built-in text (pagination, "No data", etc.) update
+                automatically
             </v-card-subtitle>
             <v-data-table
                 :headers="headers"
@@ -144,7 +137,7 @@ function testNotification(type) {
             variant="text"
             color="primary"
         >
-            {{ t('about') }}
+            {{ t("about") }}
         </v-btn>
     </LayoutDefault>
 </template>

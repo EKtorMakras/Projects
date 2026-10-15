@@ -6,11 +6,7 @@
  * =========================================================
  */
 
-import {
-    hexToOklch,
-    getForegroundColor,
-    generateShades,
-} from "./color-utils.js";
+import { hexToOklch, getForegroundColor, generateShades } from "./color-utils.js";
 
 /**
  * Generates base theme CSS for @theme block
@@ -27,11 +23,7 @@ export function generateBaseThemeCss(colorTokens) {
                 const comment = step === "500" ? ` /* ${baseColor} */` : "";
                 css += `    --color-${name}-${step}: ${hexToOklch(color)};${comment}\n`;
 
-                const fgColor = getForegroundColor(
-                    color,
-                    foreground.light,
-                    foreground.dark,
-                );
+                const fgColor = getForegroundColor(color, foreground.light, foreground.dark);
                 css += `    --color-${name}-${step}-fg: ${hexToOklch(fgColor)};\n`;
             }
         }
@@ -43,11 +35,7 @@ export function generateBaseThemeCss(colorTokens) {
         for (const [name, color] of Object.entries(flat)) {
             css += `    --color-${name}: ${hexToOklch(color)}; /* ${color} */\n`;
 
-            const fgColor = getForegroundColor(
-                color,
-                foreground.light,
-                foreground.dark,
-            );
+            const fgColor = getForegroundColor(color, foreground.light, foreground.dark);
             css += `    --color-${name}-fg: ${hexToOklch(fgColor)};\n`;
         }
         css += "\n";
@@ -72,11 +60,7 @@ export function generateThemeOverrides(colorTokens, themeTokens) {
                 const comment = step === "500" ? ` /* ${baseColor} */` : "";
                 css += `    --color-${name}-${step}: ${hexToOklch(color)};${comment}\n`;
 
-                const fgColor = getForegroundColor(
-                    color,
-                    foreground.light,
-                    foreground.dark,
-                );
+                const fgColor = getForegroundColor(color, foreground.light, foreground.dark);
                 css += `    --color-${name}-${step}-fg: ${hexToOklch(fgColor)};\n`;
             }
         }
@@ -88,11 +72,7 @@ export function generateThemeOverrides(colorTokens, themeTokens) {
         for (const [name, color] of Object.entries(flat)) {
             css += `    --color-${name}: ${hexToOklch(color)}; /* ${color} */\n`;
 
-            const fgColor = getForegroundColor(
-                color,
-                foreground.light,
-                foreground.dark,
-            );
+            const fgColor = getForegroundColor(color, foreground.light, foreground.dark);
             css += `    --color-${name}-fg: ${hexToOklch(fgColor)};\n`;
         }
         css += "\n";

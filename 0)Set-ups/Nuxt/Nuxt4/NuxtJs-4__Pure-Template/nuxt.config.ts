@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
     modules: ["@nuxt/eslint", "@pinia/nuxt"],
 
+    devServer: { port: 3000 },
+
     devtools: { enabled: true },
 
     app: {
@@ -10,6 +12,12 @@ export default defineNuxtConfig({
                 lang: "en",
             },
             link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+        },
+    },
+
+    runtimeConfig: {
+        public: {
+            apiUrl: process.env.NUXT_API_URL,
         },
     },
 

@@ -14,9 +14,7 @@ export const useThemeStore = defineStore("theme", () => {
     function setTheme(newTheme) {
         // Validate theme exists
         if (!availableThemes.value.includes(newTheme)) {
-            console.warn(
-                `Theme "${newTheme}" not found. Defaulting to "light".`,
-            );
+            console.warn(`Theme "${newTheme}" not found. Defaulting to "light".`);
             newTheme = "light";
         }
 
@@ -38,8 +36,7 @@ export const useThemeStore = defineStore("theme", () => {
 
     function initTheme() {
         const saved = themeCookie.value;
-        const initial =
-            saved && availableThemes.value.includes(saved) ? saved : "light";
+        const initial = saved && availableThemes.value.includes(saved) ? saved : "light";
         setTheme(initial);
     }
 

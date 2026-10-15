@@ -36,7 +36,7 @@ function testNotification(type, message, title) {
         <!-- Language & Theme Selectors -->
         <div class="flex flex-col sm:flex-row gap-4">
             <div class="flex items-center gap-4 p-4 bg-surface-variant rounded-lg flex-1">
-                <label class="font-medium">{{ t('welcome') }}! Language:</label>
+                <label class="font-medium">{{ t("welcome") }}! Language:</label>
                 <LocaleSelector />
             </div>
 
@@ -48,13 +48,14 @@ function testNotification(type, message, title) {
 
         <!-- Hero Section -->
         <div>
-            <h1 class="text-6xl font-extrabold text-pink-500 underline mb-4">
-                TAILWIND WORKS
-            </h1>
-            <h1 class="text-3xl mb-4">{{ t('welcome') }} to Nuxt</h1>
+            <h1 class="text-6xl font-extrabold text-pink-500 underline mb-4">TAILWIND WORKS</h1>
+            <h1 class="text-3xl mb-4">{{ t("welcome") }} to Nuxt</h1>
             <p class="mb-4 text-surface-fg-low-emphasis">This is your starting template with design system showcase.</p>
-            <NuxtLink to="/about" class="text-primary-600 underline font-medium hover:text-primary-700">
-                {{ t('about') }}
+            <NuxtLink
+                to="/about"
+                class="text-primary-600 underline font-medium hover:text-primary-700"
+            >
+                {{ t("about") }}
             </NuxtLink>
         </div>
 
@@ -69,7 +70,10 @@ function testNotification(type, message, title) {
                     {{ showLoaders ? "Hide" : "Show" }}
                 </button>
             </div>
-            <div v-if="showLoaders" class="flex gap-8 items-center">
+            <div
+                v-if="showLoaders"
+                class="flex gap-8 items-center"
+            >
                 <BaseCircularLoader
                     v-for="color in loaderColors"
                     :key="color"

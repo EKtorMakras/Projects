@@ -13,7 +13,7 @@ async function handleLogin() {
 
     if (success) {
         showSuccess("Login successful!");
-        await navigateTo('/admin');
+        await navigateTo("/admin");
     } else {
         showError("Invalid credentials. Try admin/password");
     }
@@ -26,7 +26,11 @@ async function handleLogin() {
             <h1 class="mb-8 text-center">Login</h1>
             <form @submit.prevent="handleLogin">
                 <div class="mb-5">
-                    <label for="username" class="block mb-2 font-medium">Username</label>
+                    <label
+                        for="username"
+                        class="block mb-2 font-medium"
+                        >Username</label
+                    >
                     <input
                         id="username"
                         v-model="username"
@@ -38,7 +42,11 @@ async function handleLogin() {
                 </div>
 
                 <div class="mb-5">
-                    <label for="password" class="block mb-2 font-medium">Password</label>
+                    <label
+                        for="password"
+                        class="block mb-2 font-medium"
+                        >Password</label
+                    >
                     <input
                         id="password"
                         v-model="password"

@@ -33,9 +33,7 @@ const langs = [
                 nav
                 density="compact"
             >
-                <v-list-subheader class="text-subtitle-2 font-weight-bold mb-1">
-                    Language
-                </v-list-subheader>
+                <v-list-subheader class="text-subtitle-2 font-weight-bold mb-1"> Language </v-list-subheader>
 
                 <v-list-item
                     v-for="lang in langs"

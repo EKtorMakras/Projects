@@ -1,4 +1,4 @@
-export function useGiString() {
+export function useString() {
     /**
      * Capitalizes the first character of a string and converts the rest to lowercase.
      *

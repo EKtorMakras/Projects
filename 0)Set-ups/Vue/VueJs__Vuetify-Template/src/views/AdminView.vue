@@ -15,16 +15,16 @@ function handleLogout() {
 <template>
     <LayoutDefault>
         <v-card class="mb-6 pa-6">
-            <v-card-title class="text-h3 mb-4">
-                Admin Dashboard
-            </v-card-title>
+            <v-card-title class="text-h3 mb-4"> Admin Dashboard </v-card-title>
 
             <v-card-text>
                 <p class="text-body-1 mb-2">
-                    Welcome, <strong>{{ authStore.user?.username }}</strong>!
+                    Welcome, <strong>{{ authStore.user?.username }}</strong
+                    >!
                 </p>
                 <p class="text-body-1">
-                    Role: <v-chip
+                    Role:
+                    <v-chip
                         color="primary"
                         size="small"
                     >
@@ -39,16 +39,10 @@ function handleLogout() {
             variant="tonal"
             color="surface-variant"
         >
-            <v-card-title class="text-h5 mb-3">
-                Protected Content
-            </v-card-title>
+            <v-card-title class="text-h5 mb-3"> Protected Content </v-card-title>
             <v-card-text>
-                <p class="text-body-1 mb-2">
-                    This page is only accessible to authenticated users.
-                </p>
-                <p class="text-body-1">
-                    It demonstrates the navigation guard in action.
-                </p>
+                <p class="text-body-1 mb-2">This page is only accessible to authenticated users.</p>
+                <p class="text-body-1">It demonstrates the navigation guard in action.</p>
             </v-card-text>
         </v-card>
 

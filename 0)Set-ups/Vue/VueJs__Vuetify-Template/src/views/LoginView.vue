@@ -33,9 +33,7 @@ function handleLogin() {
             width="400"
             class="pa-6"
         >
-            <v-card-title class="text-h4 text-center mb-6">
-                Login
-            </v-card-title>
+            <v-card-title class="text-h4 text-center mb-6"> Login </v-card-title>
 
             <v-card-text>
                 <v-form @submit.prevent="handleLogin">

@@ -34,7 +34,7 @@ onMounted(() => {
             'border-l-success-500': notification.type === 'success',
             'border-l-error-500': notification.type === 'error',
             'border-l-[#ff9800]': notification.type === 'warning',
-            'border-l-primary-500': notification.type === 'info'
+            'border-l-primary-500': notification.type === 'info',
         }"
     >
         <div class="flex-1">
@@ -67,11 +67,11 @@ onMounted(() => {
                     'bg-success-500/30': notification.type === 'success',
                     'bg-error-500/30': notification.type === 'error',
                     'bg-[#ff9800]/30': notification.type === 'warning',
-                    'bg-primary-500/30': notification.type === 'info'
+                    'bg-primary-500/30': notification.type === 'info',
                 }"
                 :style="{
                     width: `${progressWidth}%`,
-                    transition: `width ${notification.duration}ms linear`
+                    transition: `width ${notification.duration}ms linear`,
                 }"
             ></div>
         </div>

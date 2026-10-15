@@ -1,4 +1,4 @@
-export function useGiString() {
+export function useString() {
     /**
      * Capitalizes the first character of a string and converts the rest to lowercase.
      *
@@ -50,10 +50,35 @@ export function useGiString() {
         return removeDiacritics(text).toLowerCase();
     }
 
+    /**
+     * Converts a string to Title Case, handling snake_case and dot notation.
+     * Useful for generating human-readable labels from field names.
+     *
+     * @param {string} str - The input string (e.g., "user_name", "address.city").
+     * @param {string} [separator="_"] - The separator to split words by.
+     * @returns {string} The string in Title Case (e.g., "User Name", "City").
+     *
+     * @example
+     * toTitleCase("sample_date") // "Sample Date"
+     * toTitleCase("max_depth") // "Max Depth"
+     * toTitleCase("station.name") // "Name" (takes last part after dot)
+     */
+    function toTitleCase(str, separator = "_") {
+        if (!str) return "";
+
+        return str
+            .split(".")
+            .at(-1) // Take last part after dots (for nested fields like "station.name")
+            .split(separator)
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+    }
+
     return {
         capitalize,
         truncate,
         removeDiacritics,
         cleanText,
+        toTitleCase,
     };
 }

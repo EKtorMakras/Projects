@@ -11,6 +11,10 @@ dayjs.extend(utc);
 dayjs.extend(duration);
 
 export default defineNuxtPlugin(() => {
+    const localeCookie = useCookie("locale");
+    const initialLocale = localeCookie.value || "el";
+    dayjs.locale(initialLocale);
+
     return {
         provide: {
             dayjs,

@@ -47,7 +47,9 @@ const handleLocaleChange = (event) => {
         color: var(--clr-surface-fg, #f5f5f5);
 
         cursor: pointer;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
 
         appearance: none;
 

@@ -17,7 +17,7 @@ async function handleLogin() {
 
         if (success) {
             showSuccess("Login successful!");
-            await navigateTo('/admin');
+            await navigateTo("/admin");
         } else {
             showError("Invalid credentials. Try admin/password");
         }
@@ -37,9 +37,7 @@ async function handleLogin() {
             class="w-100"
             elevation="4"
         >
-            <v-card-title class="text-h4 text-center mb-6 pa-6">
-                Login
-            </v-card-title>
+            <v-card-title class="text-h4 text-center mb-6 pa-6"> Login </v-card-title>
 
             <v-card-text>
                 <form @submit.prevent="handleLogin">

@@ -5,7 +5,7 @@ import en from "@/locales/en.js";
 export default defineNuxtPlugin(({ vueApp }) => {
     // Get locale from cookie (works on both server and client)
     const localeCookie = useCookie("locale");
-    const initialLocale = localeCookie.value || "en";
+    const initialLocale = localeCookie.value || "el";
 
     const i18n = createI18n({
         legacy: false,

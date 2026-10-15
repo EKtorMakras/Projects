@@ -19,17 +19,10 @@ export function generateSourceDirectives() {
     const shadeSteps = colors.shadeSteps;
 
     // Get semantic color names from light theme (excluding palette and flat)
-    const {
-        palette: _,
-        flat: __,
-        ...lightSemanticColors
-    } = colors.themes.light;
-    const semanticColorNames = Object.keys(lightSemanticColors).filter(
-        (key) => !key.endsWith("-fg"),
-    );
+    const { palette: _, flat: __, ...lightSemanticColors } = colors.themes.light;
+    const semanticColorNames = Object.keys(lightSemanticColors).filter((key) => !key.endsWith("-fg"));
 
-    const utilities =
-        "bg,text,border,ring,divide,outline,shadow,decoration,accent,caret,fill,stroke";
+    const utilities = "bg,text,border,ring,divide,outline,shadow,decoration,accent,caret,fill,stroke";
     let directives = "";
 
     // Palette colors with shades
