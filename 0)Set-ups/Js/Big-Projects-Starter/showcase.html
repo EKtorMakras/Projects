@@ -714,6 +714,62 @@ input[role="switch"] { @include kit.switch($color: primary); }</code></pre>
             <pre><code>.instagram { @include kit.social-icon(instagram, lg, $official: true); }</code></pre>
           </section>
 
+          <!-- # ********  Dialog  ******** -->
+          <section
+            class="showcase-section"
+            aria-labelledby="dialog-title"
+          >
+            <h2 id="dialog-title">Dialog</h2>
+            <p class="showcase-note">
+              A native <code>&lt;dialog&gt;</code> styled with <code>kit.dialog()</code>;
+              <code>openDialog()</code> returns the closing button's value.
+            </p>
+            <div class="demo-row">
+              <button
+                id="dialog-demo-open"
+                class="demo-btn demo-btn--primary"
+                type="button"
+              >
+                Delete project…
+              </button>
+              <output
+                id="dialog-demo-answer"
+                class="showcase-note"
+                aria-live="polite"
+                >No answer yet</output
+              >
+            </div>
+            <dialog
+              id="dialog-demo"
+              class="demo-dialog"
+              aria-labelledby="dialog-demo-title"
+            >
+              <h3 id="dialog-demo-title">Delete this project?</h3>
+              <p class="showcase-note">Escape, a click on the backdrop or Cancel closes it with no answer.</p>
+              <form
+                class="demo-row"
+                method="dialog"
+              >
+                <button
+                  class="demo-btn demo-btn--outlined"
+                  type="button"
+                  data-dialog-close
+                >
+                  Cancel
+                </button>
+                <button
+                  class="demo-btn demo-btn--error"
+                  value="delete"
+                >
+                  Delete
+                </button>
+              </form>
+            </dialog>
+            <pre><code>.demo-dialog { @include kit.dialog($background: card, $color: surface-fg, $backdrop: overlay); }
+
+const answer = await openDialog("#dialog-demo"); // "delete" or ""</code></pre>
+          </section>
+
           <!-- # ********  Media queries  ******** -->
           <section
             class="showcase-section"

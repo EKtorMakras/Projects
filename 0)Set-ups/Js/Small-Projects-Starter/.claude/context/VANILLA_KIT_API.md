@@ -1,11 +1,11 @@
-# @emakras/vanilla-kit API — v0.6.1
+# @emakras/vanilla-kit API — v0.7.0
 
 Everything the package exports to consumers. Copy this file into a consumer project so tools and people know
 the API of the installed version. Anything not listed here is internal and cannot be imported.
 
 - SCSS ships as source: `@use "@emakras/vanilla-kit/scss" as kit;`. No `@use` emits CSS; only `@include` does. Every member has SassDoc `///` docs, shown on hover by editors such as Some Sass.
 - JS is one barrel: `import { … } from "@emakras/vanilla-kit";`. Imports are DOM-free; browser helpers need a DOM when called.
-- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.6.1"`.
+- Install: `pnpm add "git+ssh://git@github.com/EKtorMakras/vanilla-kit.git#v0.7.0"`.
 
 ## SCSS
 
@@ -167,17 +167,22 @@ Unknown keys are a compile error listing the available keys. `properties` also e
 
 ### Components
 
-| Mixin      | Signature                                                                                                                    | Output                                       |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
-| `btn`      | `btn($color: null, $variant: filled \| outlined, $size: md, $text, $hover-text, $hover-shift, $radius: radius(md), $shadow)` | Button with hover, focus and disabled states |
-| `btn-size` | `btn-size($size)`                                                                                                            | Padding and font size from `$button-sizes`   |
-| `surface`  | `surface($background, $color, $padding: space(6), $radius: radius(md), $border, $shadow)`                                    | Box; `null` arguments emit nothing           |
-| `card`     | `card($background, $padding: space(6), $radius: radius(lg), $shadow: shadow(md))`                                            | Surface with larger radius and shadow        |
+| Mixin      | Signature                                                                                                                                                                                                                         | Output                                                                                 |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `btn`      | `btn($color: null, $variant: filled \| outlined, $size: md, $text, $hover-text, $hover-shift, $radius: radius(md), $shadow)`                                                                                                      | Button with hover, focus and disabled states                                           |
+| `btn-size` | `btn-size($size)`                                                                                                                                                                                                                 | Padding and font size from `$button-sizes`                                             |
+| `surface`  | `surface($background, $color, $padding: space(6), $radius: radius(md), $border, $shadow)`                                                                                                                                         | Box; `null` arguments emit nothing                                                     |
+| `card`     | `card($background, $padding: space(6), $radius: radius(lg), $shadow: shadow(md))`                                                                                                                                                 | Surface with larger radius and shadow                                                  |
+| `dialog`   | `dialog($background: Canvas, $color: CanvasText, $width: rem(512px), $padding, $radius: radius(lg), $border, $shadow: shadow(xl), $backdrop: rgb(0 0 0 / 50%), $margin: space(4), $duration: duration(base), $lock-scroll: true)` | Native `<dialog>`: box, backdrop, open/close transition, no page scroll behind a modal |
 
 `btn` colors: a color name (`primary`, `success-600`, `accent`) → `var(--clr-…)`, `var(--clr-…-fg)` and a `color-mix()`
 hover, following the theme; an unknown name or a name without `-fg` (and no `$text`) is a compile error. Any other CSS
 value (`var(--brand)`, `#7357e8`) → used as given with a `color-mix()` hover; pass `$text`.
 Without `$color` only layout, size, focus and disabled styles are emitted.
+
+`dialog` styles a native `<dialog>`; open it with `showModal()` or the JS `openDialog()` / `initDialogs()`. The
+transition (fade and scale, `@starting-style`) runs only without reduced motion; browsers without `@starting-style`
+open and close at once. `$lock-scroll` adds `:root:has(<selector>:modal) { overflow: hidden; }`.
 
 ### Forms
 
@@ -242,60 +247,75 @@ Defaults: `duration()` and `ease()`, played once; `spin` is 1s linear infinite, 
 
 ## JavaScript
 
-| Function                   | Arguments                                                                         | Returns                                                                                            |
-| -------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `arrFirst`                 | `(array, count = 1)`                                                              | First element, or first `count` as an array                                                        |
-| `arrLast`                  | `(array, count = 1)`                                                              | Last element, or last `count` as an array                                                          |
-| `arrRandom`                | `(array)`                                                                         | A random element                                                                                   |
-| `arrGetUniqueObjectValues` | `(array, key)`                                                                    | Unique values of `key`, first-seen order                                                           |
-| `arrGroupBy`               | `(array, key)`                                                                    | `{ [value]: objects[] }`                                                                           |
-| `arrIsNotEmpty`            | `(value)`                                                                         | `true` for a non-empty array                                                                       |
-| `arrShuffle`               | `(array)`                                                                         | Shuffled copy                                                                                      |
-| `arrFindMinMaxByKey`       | `(array, key)`                                                                    | `{ min, max }`                                                                                     |
-| `arrChunk`                 | `(array, size)`                                                                   | Array of chunks                                                                                    |
-| `arrCompact`               | `(array)`                                                                         | Without falsy values                                                                               |
-| `arrFlatten`               | `(array)`                                                                         | Flattened one level                                                                                |
-| `getCssColorVariable`      | `(colorName)` without `--clr-`                                                    | Raw value of `--clr-<name>`, or `null`                                                             |
-| `clearCssVariableCache`    | `()`                                                                              | Empties the lookup cache; call after a theme change                                                |
-| `resolveCssVariableColor`  | `(color)`                                                                         | Value of a `var(--clr-*)`, other colors unchanged                                                  |
-| `getColor`                 | `(colorName)`                                                                     | `"var(--clr-<name>)"` if defined, else `null`                                                      |
-| `getHexColor`              | `(colorName)`                                                                     | Hex string (charts, canvas), or `null`                                                             |
-| `getRgbColor`              | `(colorName)`                                                                     | `rgb()`/`rgba()` string, or `null`                                                                 |
-| `getNextDay`               | `(offset, length = 7)`                                                            | Day abbreviation (`"MON"`) `offset` days after tomorrow                                            |
-| `formatDate`               | `(date = new Date())`                                                             | `"YYYY-MM-DD"`; throws on invalid dates                                                            |
-| `formatRelativeDate`       | `(toDate, fromDate = new Date(), locale = "en")`                                  | `"2 days ago"`; locales `en`, `el` loaded                                                          |
-| `isSameDay`                | `(firstDate, secondDate)`                                                         | `boolean`                                                                                          |
-| `getStartOfWeek`           | `(date = new Date(), weekStart = 0)`                                              | `Date` at midnight of the week's first day                                                         |
-| `addDays`                  | `(date, days)`                                                                    | New `Date`; negative subtracts                                                                     |
-| `addGlobalEventListener`   | `(type = "click", selector, callback(event, target), parent = document, options)` | Delegated listener; returns a remover function                                                     |
-| `getDomElement`            | `(selector, multiple = false, parent = document)`                                 | Element, or array of all matches                                                                   |
-| `createHtmlElement`        | `(html)` trusted markup, one root                                                 | `Element`                                                                                          |
-| `createElement`            | `(options = {}, type = "div")`; options `class`, `dataset`, `text`, any attribute | `Element`                                                                                          |
-| `deleteChildElements`      | `(parent)`                                                                        | Removes child elements, keeps text nodes                                                           |
-| `elementExists`            | `(selector, parent = document)`                                                   | `boolean`                                                                                          |
-| `timeout`                  | `(seconds)`                                                                       | Promise that rejects after the delay                                                               |
-| `getJSON`                  | `(url, { timeoutMs = 10000, ...fetchOptions })`                                   | `Promise<{ data, error }>`; never throws                                                           |
-| `sanitizeInput`            | `(text)`                                                                          | HTML-escaped text for text nodes (not an HTML sanitizer)                                           |
-| `copyToClipboard`          | `(text)`                                                                          | `Promise<void>`                                                                                    |
-| `getParameterValue`        | `(name, url = location.href)`                                                     | Decoded value, `""` without value, `null` when missing                                             |
-| `createLogger`             | `(app = "", { level, catchErrors = false })`                                      | `{ trace, debug, info, warn, error, fatal, stopCatchingErrors }`; colored labels, real caller line |
-| `isNumber`                 | `(value)`                                                                         | `true` for finite numbers                                                                          |
-| `padTo2Digits`             | `(number)`                                                                        | `"05"`                                                                                             |
-| `formatDecimals`           | `(number, digits = 2)`                                                            | Fixed decimals; integers unchanged                                                                 |
-| `randomNumberBetween`      | `(min, max)`                                                                      | Integer, both inclusive                                                                            |
-| `numberIsEven`             | `(number)`                                                                        | `boolean`                                                                                          |
-| `getAverage`               | `(...numbers)`                                                                    | Mean; throws without numbers                                                                       |
-| `formatNumber`             | `(number, "compact" \| "scientific", locale)`                                     | `"1K"`                                                                                             |
-| `clampNumber`              | `(value, min, max)`                                                               | Number within the range                                                                            |
-| `formatCurrency`           | `(number, currency = "USD", locale = "en-US")`                                    | `"$1,234.56"`                                                                                      |
-| `getItemLs`                | `(key)`                                                                           | Parsed localStorage value, or `null`                                                               |
-| `setItemLs`                | `(key, value)`                                                                    | Stores JSON                                                                                        |
-| `updateItemLs`             | `(key, property, value)`                                                          | Sets one property of a stored object                                                               |
-| `toProperCase`             | `(text)`                                                                          | `"Hello"`                                                                                          |
-| `cleanUppercaseText`       | `(text)`                                                                          | Text without accents                                                                               |
-| `truncateString`           | `(text, maxLength, suffix = "...")`                                               | Text cut to `maxLength`, suffix included                                                           |
+| Function                   | Arguments                                                                         | Returns                                                                                                               |
+| -------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `arrFirst`                 | `(array, count = 1)`                                                              | First element, or first `count` as an array                                                                           |
+| `arrLast`                  | `(array, count = 1)`                                                              | Last element, or last `count` as an array                                                                             |
+| `arrRandom`                | `(array)`                                                                         | A random element                                                                                                      |
+| `arrGetUniqueObjectValues` | `(array, key)`                                                                    | Unique values of `key`, first-seen order                                                                              |
+| `arrGroupBy`               | `(array, key)`                                                                    | `{ [value]: objects[] }`                                                                                              |
+| `arrIsNotEmpty`            | `(value)`                                                                         | `true` for a non-empty array                                                                                          |
+| `arrShuffle`               | `(array)`                                                                         | Shuffled copy                                                                                                         |
+| `arrFindMinMaxByKey`       | `(array, key)`                                                                    | `{ min, max }`                                                                                                        |
+| `arrChunk`                 | `(array, size)`                                                                   | Array of chunks                                                                                                       |
+| `arrCompact`               | `(array)`                                                                         | Without falsy values                                                                                                  |
+| `arrFlatten`               | `(array)`                                                                         | Flattened one level                                                                                                   |
+| `getCssColorVariable`      | `(colorName)` without `--clr-`                                                    | Raw value of `--clr-<name>`, or `null`                                                                                |
+| `clearCssVariableCache`    | `()`                                                                              | Empties the lookup cache; call after a theme change                                                                   |
+| `resolveCssVariableColor`  | `(color)`                                                                         | Value of a `var(--clr-*)`, other colors unchanged                                                                     |
+| `getColor`                 | `(colorName)`                                                                     | `"var(--clr-<name>)"` if defined, else `null`                                                                         |
+| `getHexColor`              | `(colorName)`                                                                     | Hex string (charts, canvas), or `null`                                                                                |
+| `getRgbColor`              | `(colorName)`                                                                     | `rgb()`/`rgba()` string, or `null`                                                                                    |
+| `getNextDay`               | `(offset, length = 7)`                                                            | Day abbreviation (`"MON"`) `offset` days after tomorrow                                                               |
+| `formatDate`               | `(date = new Date())`                                                             | `"YYYY-MM-DD"`; throws on invalid dates                                                                               |
+| `formatRelativeDate`       | `(toDate, fromDate = new Date(), locale = "en")`                                  | `"2 days ago"`; locales `en`, `el` loaded                                                                             |
+| `isSameDay`                | `(firstDate, secondDate)`                                                         | `boolean`                                                                                                             |
+| `getStartOfWeek`           | `(date = new Date(), weekStart = 0)`                                              | `Date` at midnight of the week's first day                                                                            |
+| `addDays`                  | `(date, days)`                                                                    | New `Date`; negative subtracts                                                                                        |
+| `openDialog`               | `(dialog \| selector)`                                                            | `Promise<string>`: the `returnValue` when it closes (`""` for Escape or backdrop)                                     |
+| `closeDialog`              | `(dialog \| selector, returnValue)`                                               | Closes it; `openDialog()` resolves with the value                                                                     |
+| `initDialogs`              | `(root = document)`                                                               | Wires `data-dialog-open="#id"`, `data-dialog-close="value"` and backdrop clicks; returns a remover                    |
+| `addGlobalEventListener`   | `(type = "click", selector, callback(event, target), parent = document, options)` | Delegated listener; returns a remover function                                                                        |
+| `getDomElement`            | `(selector, multiple = false, parent = document)`                                 | Element, or array of all matches                                                                                      |
+| `createHtmlElement`        | `(html)` trusted markup, one root                                                 | `Element`                                                                                                             |
+| `createElement`            | `(options = {}, type = "div")`; options `class`, `dataset`, `text`, any attribute | `Element`                                                                                                             |
+| `deleteChildElements`      | `(parent)`                                                                        | Removes child elements, keeps text nodes                                                                              |
+| `elementExists`            | `(selector, parent = document)`                                                   | `boolean`                                                                                                             |
+| `timeout`                  | `(seconds)`                                                                       | Promise that rejects after the delay                                                                                  |
+| `requestJSON`              | `(url, { method, body, headers, timeoutMs = 10000, signal, ...fetchOptions })`    | `Promise<{ data, error }>`; never throws; object bodies sent as JSON                                                  |
+| `getJSON`                  | `(url, { timeoutMs = 10000, ...fetchOptions })`                                   | `Promise<{ data, error }>`; never throws                                                                              |
+| `postJSON`                 | `(url, body, options)`                                                            | `Promise<{ data, error }>`; never throws                                                                              |
+| `sanitizeInput`            | `(text)`                                                                          | HTML-escaped text for text nodes (not an HTML sanitizer)                                                              |
+| `copyToClipboard`          | `(text)`                                                                          | `Promise<void>`                                                                                                       |
+| `getParameterValue`        | `(name, url = location.href)`                                                     | Decoded value, `""` without value, `null` when missing                                                                |
+| `debounce`                 | `(callback, waitMs)`                                                              | Function that runs only the last call, after `waitMs` of quiet; `.cancel()`                                           |
+| `throttle`                 | `(callback, intervalMs)`                                                          | Function that runs at most once per interval (first and latest call); `.cancel()`                                     |
+| `createLogger`             | `(app = "", { level, catchErrors = false })`                                      | `{ trace, debug, info, warn, error, fatal, stopCatchingErrors }`; colored labels, real caller line                    |
+| `isNumber`                 | `(value)`                                                                         | `true` for finite numbers                                                                                             |
+| `padTo2Digits`             | `(number)`                                                                        | `"05"`                                                                                                                |
+| `formatDecimals`           | `(number, digits = 2)`                                                            | Fixed decimals; integers unchanged                                                                                    |
+| `randomNumberBetween`      | `(min, max)`                                                                      | Integer, both inclusive                                                                                               |
+| `numberIsEven`             | `(number)`                                                                        | `boolean`                                                                                                             |
+| `getAverage`               | `(...numbers)`                                                                    | Mean; throws without numbers                                                                                          |
+| `formatNumber`             | `(number, "compact" \| "scientific", locale)`                                     | `"1K"`                                                                                                                |
+| `clampNumber`              | `(value, min, max)`                                                               | Number within the range                                                                                               |
+| `formatCurrency`           | `(number, currency = "USD", locale = "en-US")`                                    | `"$1,234.56"`                                                                                                         |
+| `getItemLs`                | `(key)`                                                                           | Parsed localStorage value, or `null`                                                                                  |
+| `setItemLs`                | `(key, value)`                                                                    | Stores JSON                                                                                                           |
+| `updateItemLs`             | `(key, property, value)`                                                          | Sets one property of a stored object                                                                                  |
+| `toProperCase`             | `(text)`                                                                          | `"Hello"`                                                                                                             |
+| `cleanUppercaseText`       | `(text)`                                                                          | Text without accents                                                                                                  |
+| `truncateString`           | `(text, maxLength, suffix = "...")`                                               | Text cut to `maxLength`, suffix included                                                                              |
+| `createThemeSwitcher`      | `(themes, { storageKey = "theme", attribute = "data-theme" })`                    | `{ themes, getTheme, setTheme, cycleTheme, initTheme }`; each change sets `<html data-theme>` and fires `themechange` |
 
 Validation errors throw with the function name; storage and browser errors reach the caller.
+
+Fetch errors: an HTTP error has `error.status` and `error.data` (the server's answer, JSON or text); a timeout is
+`Error("Request timed out")`. Empty answers (`204`) are `data: null`.
+
+`createThemeSwitcher`: pass the names of `$themes`. Without a stored choice it picks `dark` or `light` from the system
+preference when they exist, else the first theme. Use a `storageKey` per app (apps on one localhost share storage).
+`initTheme()` applies without storing; `setTheme()` throws for unknown names; `themechange` has `detail: { theme }`.
 
 `createLogger`: each method takes `console.log` arguments. Default level is `trace` in development (Vite
 `import.meta.env.DEV`) and `info` otherwise. `catchErrors: true` also logs uncaught errors and unhandled rejections.

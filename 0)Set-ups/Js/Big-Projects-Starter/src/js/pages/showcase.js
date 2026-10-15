@@ -5,6 +5,7 @@ import {
   formatDate,
   formatRelativeDate,
   getHexColor,
+  openDialog,
   truncateString,
 } from "@emakras/vanilla-kit";
 import { log } from "../core/logger.js";
@@ -17,6 +18,9 @@ const SELECTORS = {
   replayButton: "#replay-animations",
   animatedBoxes: ".anim-box",
   indeterminate: "#indeterminate-demo",
+  dialogButton: "#dialog-demo-open",
+  dialog: "#dialog-demo",
+  dialogAnswer: "#dialog-demo-answer",
 };
 
 const PALETTE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
@@ -109,11 +113,24 @@ function initPalettes() {
   });
 }
 
+/** openDialog() resolves with the value of the button that closed the dialog: "" for Escape, Cancel or the backdrop. */
+function initDialogDemo() {
+  const button = document.querySelector(SELECTORS.dialogButton);
+  const answer = document.querySelector(SELECTORS.dialogAnswer);
+
+  button.addEventListener("click", async () => {
+    const value = await openDialog(SELECTORS.dialog);
+
+    answer.textContent = value ? `Answer: "${value}"` : "Dismissed";
+  });
+}
+
 // ======== Public ======== //
 export function init() {
   initPalettes();
   initThemePicker();
   initAnimationReplay();
+  initDialogDemo();
   renderJsDemo();
 
   // The indeterminate state exists only in JavaScript, not as an HTML attribute.

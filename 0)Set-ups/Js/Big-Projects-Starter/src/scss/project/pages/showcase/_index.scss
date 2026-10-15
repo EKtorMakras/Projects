@@ -378,6 +378,20 @@ $-loops: (spin, pulse);
   }
 }
 
+// ======== Dialog ======== //
+.demo-dialog {
+  @include kit.dialog($background: card, $color: surface-fg, $backdrop: overlay);
+
+  // No kit.stack() here: a display value would show the dialog while it is closed.
+  > * + * {
+    margin-block-start: kit.space(4);
+  }
+
+  h3 {
+    color: kit.color(title);
+  }
+}
+
 // ======== Media queries ======== //
 .demo-breakpoint {
   padding: kit.space(4);
