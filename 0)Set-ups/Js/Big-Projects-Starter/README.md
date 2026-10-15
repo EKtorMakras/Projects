@@ -30,7 +30,8 @@ Vanilla JavaScript + SCSS, built with Vite. Shared SCSS tools and JS utilities c
 
 Install with `pnpm install --frozen-lockfile`, then use `pnpm dev`, `pnpm build` and `pnpm preview`.
 Vite builds both `index.html` and `showcase.html`; visit `/showcase.html` for the kit examples.
-`pnpm check` runs the SCSS tests, lint, SCSS formatting and a production build.
+`pnpm check` runs lint, SCSS formatting and a production build; the build compiles every stylesheet and script.
+The kit has its own tests; this starter has none, because its settings are meant to change per project.
 
 ## Using the kit
 

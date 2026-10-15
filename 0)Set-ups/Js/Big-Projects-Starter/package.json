@@ -13,9 +13,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier . --write",
-    "test": "node --test",
     "lint:fix": "eslint . --fix",
-    "check": "pnpm test && pnpm lint && pnpm format:scss:check && pnpm build",
+    "check": "pnpm lint && pnpm format:scss:check && pnpm build",
     "format:scss": "prettier src/scss --write",
     "format:scss:check": "prettier src/scss --check"
   },

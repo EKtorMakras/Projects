@@ -10,6 +10,6 @@ Fix or extend reusable behavior in the kit repository, not here.
 The daily editing surface is src/scss/settings/ and src/scss/project/.
 Load the kit only through `src/scss/settings` so its configuration applies everywhere.
 
-Use pnpm check (tests, lint, SCSS formatting, build). Do not run lint:fix as a read-only check.
+Use pnpm check (lint, SCSS formatting, build). The starter has no tests: the kit tests itself. Do not run lint:fix as a read-only check.
 One stylesheet (src/scss/style.scss) serves every page; build both HTML pages. Do not overwrite .env.local.
 Write all docs, comments and UI text in English.
