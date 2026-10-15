@@ -4,7 +4,7 @@ Nuxt 4 starter with Vuetify 4, ECharts, SCSS theming and a shared breakpoints so
 
 ## Requirements
 
-Node >= 22 (see `.nvmrc`), pnpm >= 10.
+Node >= 24 (see `.nvmrc`), pnpm >= 10.
 
 ## Setup
 

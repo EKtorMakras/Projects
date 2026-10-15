@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   trailingComma: "es5",
   tabWidth: 2,
   semi: true,
@@ -6,7 +6,9 @@ module.exports = {
   bracketSpacing: true,
   bracketSameLine: false,
   useTabs: false,
-  endOfLine: "auto",
+  endOfLine: "lf",
   singleAttributePerLine: true,
   printWidth: 120,
 };
+
+export default config;

@@ -4,7 +4,7 @@ Nuxt 4 starter with Tailwind CSS 4 and a token-driven design system.
 
 ## Requirements
 
-Node >= 22 (see `.nvmrc`), pnpm >= 10.
+Node >= 24 (see `.nvmrc`), pnpm >= 10.
 
 ## Setup
 

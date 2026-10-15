@@ -10,7 +10,7 @@ Vue 3 + Vite starter with Vuetify 4 (theme, locale and SASS settings pre-configu
 
 ## Requirements
 
-Node >= 22 (see `.nvmrc`), pnpm >= 10.
+Node >= 24 (see `.nvmrc`), pnpm >= 10.
 
 ## Project setup
 

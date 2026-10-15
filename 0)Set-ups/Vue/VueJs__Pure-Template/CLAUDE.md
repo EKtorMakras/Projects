@@ -12,7 +12,7 @@ pnpm lint         # eslint . (quality only)
 pnpm format       # prettier . --write
 ```
 
-Node >= 22, pnpm >= 10.
+Node >= 24, pnpm >= 10.
 
 ## Stack
 

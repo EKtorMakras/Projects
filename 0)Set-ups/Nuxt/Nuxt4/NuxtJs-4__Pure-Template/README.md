@@ -4,7 +4,7 @@ Nuxt 4 starter with SCSS and no UI framework.
 
 ## Requirements
 
-Node >= 22 (see `.nvmrc`), pnpm >= 10.
+Node >= 24 (see `.nvmrc`), pnpm >= 10.
 
 ## Setup
 
